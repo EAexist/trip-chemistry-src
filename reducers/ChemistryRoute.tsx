@@ -1,4 +1,4 @@
-import { Outlet, useParams } from "@remix-run/react";
+import { Outlet, useParams } from "~/router-module";
 import chemistryReducer, { asyncGetChemistry, useChemistryLoadStatus } from "./chemistryReducer";
 import withReducer from "../hocs/withReducer";
 import LoadRequiredContent from "../content/LoadRequiredContent";

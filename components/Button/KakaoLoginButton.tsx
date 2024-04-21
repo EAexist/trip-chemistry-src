@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 /* Externals */
 import { ButtonBase } from "@mui/material";
-import { useLocation } from "@remix-run/react";
+import { useLocation } from "~/router-module";
 
 /* App */
 import { KAKAO_AUTH_URL_BASE } from "../../common/auth";

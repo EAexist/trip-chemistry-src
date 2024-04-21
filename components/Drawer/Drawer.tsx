@@ -2,7 +2,7 @@
 import { Avatar, Divider, ListItemAvatar, ListItemButton, ListItemText, Toolbar, useTheme } from "@mui/material";
 import { AnimatePresence, m } from "framer-motion";
 import LazyDomAnimation from "../../motion/LazyDomAnimation";
-import { useLocation, useNavigate } from "@remix-run/react";
+import { useLocation, useNavigate } from "~/router-module";
 
 import { CONTENTS } from "../../common/app-const";
 import { MotionList } from "../../motion/components/MotionList";

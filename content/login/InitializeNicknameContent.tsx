@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import LazyDomAnimation from "../../motion/LazyDomAnimation";
 
 /* App */
-import { Navigate, useLocation, useNavigate } from "@remix-run/react";
+import { Navigate, useLocation, useNavigate } from "~/router-module";
 import { SLIDEINUPINVIEW } from "../../motion/props";
 import { authorize, setIsInitialized, useUserProfile } from "../../reducers/authReducer";
 import { AppDispatch } from "../../store";

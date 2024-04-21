@@ -6,7 +6,7 @@ import { AirplaneTicket, Close, Error, GroupAdd, NavigateBefore } from "@mui/ico
 import { Alert, Avatar, Button, ButtonBase, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemText, Modal, Paper, Stack, Toolbar } from "@mui/material";
 import { m } from "framer-motion";
 import { useDispatch } from "react-redux";
-import { useParams } from "@remix-run/react";
+import { useParams } from "~/router-module";
 import LazyDomAnimation from "../../motion/LazyDomAnimation";
 
 /* App */

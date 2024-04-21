@@ -1,4 +1,4 @@
-// import { Outlet, useNavigate } from "@remix-run/react";
+// import { Outlet, useNavigate } from "~/router-module";
 // import { useAuthorize, useGuestLogin } from "../reducers/authReducer";
 // import { AuthLoadRequiredContent } from "../content/LoadRequiredContent";
 
