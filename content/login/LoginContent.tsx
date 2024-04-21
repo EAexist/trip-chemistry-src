@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 /* Externals */
 import { Button, Grid, Stack, Toolbar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "@remix-run/react";
+import { useLocation, useNavigate } from "~/router-module";
 
 /* App */
 import { Help } from "@mui/icons-material";

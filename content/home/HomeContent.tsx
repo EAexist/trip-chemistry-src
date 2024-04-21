@@ -3,7 +3,7 @@ import { useState } from "react";
 
 /* Externals */
 import { Button, Stack, Toolbar } from "@mui/material";
-import { useNavigate } from "@remix-run/react";
+import { useNavigate } from "~/router-module";
 
 /* Swiper */
 import SwiperType from 'swiper';

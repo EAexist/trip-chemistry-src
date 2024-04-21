@@ -3,7 +3,7 @@
 /* Externals */
 import { ArrowRight, NavigateBefore } from "@mui/icons-material";
 import { AppBar, Button, CardContent, Divider, IconButton, Stack, Toolbar } from "@mui/material";
-import { useLocation } from "@remix-run/react";
+import { useLocation } from "~/router-module";
 import { useSelector } from "react-redux";
 // import loadable from "@loadable/component";
 

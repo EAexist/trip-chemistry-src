@@ -16,7 +16,7 @@
 // import { LoadStatus, IProfileId } from "../../reducers";
 // import { clearChemistry, useChemistryLoadStatus, useGetChemistry, useIsChemistryUpdated } from "../../reducers/chemistryReducer";
 // import AvatarProfile from "../../components/Avatar/AvatarProfile";
-// import { useNavigate } from "@remix-run/react";
+// import { useNavigate } from "~/router-module";
 // import Tooltip from "../../components/Tooltip";
 // import LoadRequiredContent from "../LoadRequiredContent";
 // import { useUserId } from "../../reducers/authReducer";

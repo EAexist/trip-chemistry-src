@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Close, Menu } from "@mui/icons-material";
 import { Button, IconButton, AppBar as MuiAppBar, Toolbar } from "@mui/material";
-import { useNavigate } from "@remix-run/react";
+import { useNavigate } from "~/router-module";
 
 import { useStrings } from "../../texts";
 import Logo from "../Logo";

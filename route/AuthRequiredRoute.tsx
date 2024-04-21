@@ -1,5 +1,5 @@
 /* React */
-import { Navigate, Outlet, useLocation } from "@remix-run/react";
+import { Navigate, Outlet, useLocation } from "~/router-module";
 
 /* Externals */
 import { useEffect } from "react";

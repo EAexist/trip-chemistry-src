@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Outlet, ScrollRestoration, useSearchParams } from "@remix-run/react";
+import { Outlet, ScrollRestoration, useSearchParams } from "~/router-module";
 import AppBar from "../components/AppBar/AppBar";
 import { AppBarContextProvider } from "../components/AppBar/AppBarContext";
 import { AuthLoadRequiredContent } from "../content/LoadRequiredContent";
