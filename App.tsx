@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from '@mui/material'
 import routes from './routes'
 import './styles/index.css'
-import { theme } from './theme'
+import theme from './mui/theme'
 
 import { HelmetProvider } from 'react-helmet-async'
 
