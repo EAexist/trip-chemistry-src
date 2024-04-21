@@ -1,0 +1,12 @@
+.PngIcon{    
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.PngIcon--medium {     
+    width: 24px;
+}
+
+.PngIcon--large {     
+    width: 30px;
+}

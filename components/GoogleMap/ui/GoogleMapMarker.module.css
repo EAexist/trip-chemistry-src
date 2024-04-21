@@ -1,0 +1,16 @@
+.marker__container{
+    position: relative;
+    & > *{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+.marker__background{
+    top: 6px;
+}
+
+.marker__icon{
+    top: 10px;
+}

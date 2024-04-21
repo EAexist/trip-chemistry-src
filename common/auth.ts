@@ -1,0 +1,2 @@
+export const KAKAO_AUTH_URL_BASE = `https://kauth.kakao.com/oauth/authorize`;
+// export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${env.REACT_APP_KAKAO_REDIRECT_URL}&response_type=code`;
