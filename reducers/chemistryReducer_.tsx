@@ -34,7 +34,7 @@
 //     async ( idList: IProfileId[], thunkAPI ) => {
 //         console.log(`[asyncGetChemistry] GET /chemistry?idList=${idList}`);
 //         try {
-//             const response = await axios.get(`/chemistry`,
+//             const response = await axios.get(`${env.REACT_APP_API_URL}/chemistry`,
 //                 {
 //                     method: "GET",
 //                     headers: HEADERS_AXIOS,

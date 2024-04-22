@@ -62,7 +62,7 @@ export const asyncSubmitAnswer = createAsyncThunk("testAnswer/submitAnswer",
     async ({ id, answer }: { id: string, answer: ITestAnswerDTO}, thunkAPI) => {
         console.log(`[asyncSubmitAnswer] PUT /profile/answer?\n\tid=${id}\n\tanswer=${JSON.stringify(answer)}`);
         try {
-            const response = await axios.put(`/profile/answer`,
+            const response = await axios.put(`${env.REACT_APP_API_URL}/profile/answer`,
                 answer,
                 {
                     method: "PUT",

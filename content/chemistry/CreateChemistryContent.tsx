@@ -22,7 +22,7 @@ import chemistryReducer, { useChemistryId, useChemistryLoadStatus } from "../../
 import { SWIPERPROPS_PAGE } from "../../swiper/props";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
 
-function CreateChemistryContent({ }) {
+function CreateChemistryContent() {
 
     /* Constants */
     const maxTitleLength = 20;

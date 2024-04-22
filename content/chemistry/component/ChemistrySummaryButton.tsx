@@ -5,6 +5,7 @@ import { HEADERS_AXIOS } from "../../../common/app-const";
 import LabeledAvatar from "../../../components/Avatar/LabeledAvatar";
 import useNavigateWithGuestContext from "../../../hooks/useNavigateWithGuestContext";
 import { IChemistry, defaultChemistry } from "../../../interfaces/IChemistry";
+import env from "~/env";
 
 interface ChemistrySummaryButtonProps {
     id: String
@@ -27,7 +28,7 @@ function ChemistrySummaryButton({ id }: ChemistrySummaryButtonProps) {
     useEffect(() => {
 
         /* API 요청 */
-        axios.get(`/chemistry`,
+        axios.get(`${env.REACT_APP_API_URL}/chemistry`,
             {
                 method: "GET",
                 headers: HEADERS_AXIOS,

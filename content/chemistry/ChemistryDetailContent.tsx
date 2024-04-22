@@ -25,7 +25,7 @@ import { RootState } from "../../store";
 import CityChemistryContent from "./CityChemistryContent";
 import ChemistrySlider from "./component/ChemistrySlider";
 
-function ChemistryDetailContent({ }) {
+function ChemistryDetailContent() {
 
     /* Constants */
     const testStrings = useStrings().public.contents.test;

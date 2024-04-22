@@ -31,7 +31,7 @@ const asyncSearchProfile = createAsyncThunk("profileSearchSlice/asyncSearchProfi
     async (keyword: string, thunkAPI) => {
         console.log(`[asyncSearchProfile] GET /profile/search?keyword=${keyword}`);
         try {
-            const response = await axios.get(`/profile/search`,
+            const response = await axios.get(`${env.REACT_APP_API_URL}/profile/search`,
                 {
                     method: "GET",
                     headers: HEADERS_AXIOS,

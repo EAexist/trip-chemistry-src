@@ -13,17 +13,19 @@ import LazyDomAnimation from "../../motion/LazyDomAnimation";
 import FriendAvatar from "../../components/Avatar/FriendAvatar";
 import NoticeBlock from "../../components/Block/NoticeBlock";
 import SectionPaper from "../../components/Paper/SectionPaper";
-import HelmetWrapper from "../../helmet/HelmetWrapper";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { useHasAnsweredTest, useIsAuthorized, useUserId } from "../../reducers/authReducer";
 import { asyncJoinChemistry, useChemistry, useIsChemistryEnabled } from "../../reducers/chemistryReducer";
-import { AppDispatch } from "../../store";
+import type { AppDispatch } from "../../store";
 import getImgSrc, { FORMATWEBP } from "../../utils/getImgSrc";
 import LoginContent from "../login/LoginContent";
 import ChemistryDetailContent from "./ChemistryDetailContent";
+import * as ReactHelmetAsync from 'react-helmet-async';
 
-function ChemistryContent({ }) {
+const { Helmet } = ReactHelmetAsync
+
+function ChemistryContent() {
 
     /* Hooks */
     const navigate = useNavigateWithGuestContext();
@@ -115,18 +117,13 @@ function ChemistryContent({ }) {
             <LoginContent />
             :
             <>
-                {/* MetaData
-            Not Crawled.
-            Open Graph Protocol Metadata for SNS(Kakaotalk, Instagram) Share.
-        */}
-                {/* <HelmetWrapper
-                    title={`여행 타입 테스트 | 친구들과 떠나는 여행을 준비해보세요.`}
-                    // description={ `DESCRIPTION` }
-                    description={Object.values(profileList).length > 0 ? `${Object.values(profileList)[0].nickname}님의 ${title}. 참여하고 여행의 리더, 일정, 예산 그리고 여행지를 함께 결정해보세요.` : `${title}. 참여하고 여행의 리더, 일정, 예산 그리고 여행지를 함께 결정해보세요.`}
-                    keywords={"여행, 여행 일정, 여행지, 여행 계획, 여행 예산, 국내여행, 해외여행, MBTI"}
-                    url={"https://eaexist.github.io/tripchemistry"}
-                    image={"/static/images/meta/social-meta-iamge.jpg"}
-                /> */}
+                {/** MetaData
+         *  Not Crawled.
+         *  Open Graph Protocol Metadata for SNS(Kakaotalk, Instagram) Share.
+         */}
+                <Helmet>
+                    <meta property="og:description" content={Object.values(profileList).length > 0 ? `${Object.values(profileList)[0].nickname}님의 ${title}. 참여하고 여행 계획, 일정, 예산, 여행지까지 함께 결정해보세요.` : `${title}. 참여하고 여행의 리더, 일정, 예산 그리고 여행지를 함께 결정해보세요.`} />
+                </Helmet>
                 <Toolbar />
                 <RoutedMotionPage className="page min-fill-window flex block--gray block__body--large">
                     <SectionPaper className="block__body body__head">
@@ -246,7 +243,7 @@ function ChemistryContent({ }) {
                             <Paper elevation={0}>
                                 <NoticeBlock
                                     alt={"invite"}
-                                    src={getImgSrc('/info', "invite", FORMATWEBP)}
+                                    src={getImgSrc('/info', "invite", FORMATWEBP, "xlarge")}
                                     {
                                     ...Object.keys(profileList).length < 2
                                         ?

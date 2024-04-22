@@ -1,13 +1,13 @@
 import { Outlet, useParams } from "~/router-module";
-import chemistryReducer, { asyncGetChemistry, useChemistryLoadStatus } from "./chemistryReducer";
+import chemistryReducer, { asyncGetChemistry, useChemistryLoadStatus } from "../reducers/chemistryReducer";
 import withReducer from "../hocs/withReducer";
 import LoadRequiredContent from "../content/LoadRequiredContent";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../store";
-import { LoadStatus } from ".";
+import type { AppDispatch } from "../store";
+import { LoadStatus } from "../reducers";
 import useNavigateWithGuestContext from "../hooks/useNavigateWithGuestContext";
-import { useGetProfile } from "./authReducer";
+import { useGetProfile } from "../reducers/authReducer";
 
 const ChemistryRoute = () => {
 
@@ -22,18 +22,16 @@ const ChemistryRoute = () => {
     const getProfile = useGetProfile();
 
     /* Event Handlers */
-
-    const handleChemistryFail = () => {
-        setChemistryLoadStatus(LoadStatus.REST);
-    };
-
     const handleChemistrySuccess = () => {
         getProfile();
+    }
+    const handleFail = () => {
+        navigate('/home');
     }
 
     /* 케미스트리 데이터 불러오기 */
     useEffect(() => {
-        console.log(`[ChemistryContent] chemistryId=${chemistryId}`);
+        console.log(`[ChemistryRoute] chemistryId=${chemistryId}`);
         if (chemistryId) {
             dispatch(asyncGetChemistry(chemistryId));
         }
@@ -45,7 +43,7 @@ const ChemistryRoute = () => {
             /* @TODO Animate */
             setChemistryLoadStatus(LoadStatus.REST);
         }
-        console.log(`[ChemistryContent] chemistryLoadStatus=${chemistryLoadStatus}`);
+        console.log(`[ChemistryRoute] chemistryLoadStatus=${chemistryLoadStatus}`);
     }, [chemistryLoadStatus, dispatch, setChemistryLoadStatus]);
 
     return (
@@ -53,7 +51,7 @@ const ChemistryRoute = () => {
             status={chemistryLoadStatus}
             setStatus={setChemistryLoadStatus}
             handleSuccess={handleChemistrySuccess}
-            handleFail={handleChemistryFail}
+            handleFail={handleFail}
         >
             <Outlet />
         </LoadRequiredContent>

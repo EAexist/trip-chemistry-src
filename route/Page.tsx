@@ -4,7 +4,6 @@ import { Outlet, ScrollRestoration, useSearchParams } from "~/router-module";
 import AppBar from "../components/AppBar/AppBar";
 import { AppBarContextProvider } from "../components/AppBar/AppBarContext";
 import { AuthLoadRequiredContent } from "../content/LoadRequiredContent";
-import HelmetWrapper from "../helmet/HelmetWrapper";
 import { asyncGuestLogin, asyncKakaoLoginByAccessToken, disableAutoLogin, useAuthorize, useIsAutoLoginEnabled } from "../reducers/authReducer";
 import { AppDispatch } from "../store";
 
@@ -63,15 +62,6 @@ function Page({ }: PageProps) {
 
     return (
         <AppBarContextProvider>
-            {/* <HelmetWrapper
-                title={"여행 타입 테스트"}
-                description={"여행 타입 테스트로 친구들과 함께 떠나는 여행 준비하기. 나의 여행 MBTI는 뭘까? 여행 계획, 여행 일정, 여행 예산, 그리고 여행지까지 서로 다른 취향을 맞춰봐!"}
-                keywords={"여행, 여행 일정, 여행지, 여행 계획, 여행 예산, 국내여행, 해외여행, MBTI"}
-                url={"https://eaexist.github.io/tripchemistry"}
-                image={"/static/images/meta/social-meta-iamge.jpg"}
-            /> */}
-            {/* https://reactrouter.com/en/main/components/scroll-restoration */}
-            {/* <ScrollRestoration /> */}
             <ScrollRestoration
                 getKey={(location, matches) => {
                     console.log(`[ScrollRestoration] ${location.pathname}`);
