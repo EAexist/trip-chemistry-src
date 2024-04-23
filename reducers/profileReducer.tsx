@@ -75,7 +75,7 @@
 //     async ({ id, keyList = [] }: { id: IProfileId, keyList?: TestDataKey[] }, thunkAPI) => {
 //         console.log(`[asyncGetProfile] GET /profile?id=${id}`);
 //         try {
-//             const response = await axios.get(`${env.REACT_APP_API_URL}/profile`,
+//             const response = await axios.get(`/profile`,
 //                 {
 //                     method: "GET",
 //                     headers: HEADERS_AXIOS,
@@ -96,7 +96,7 @@
 //     async ({ id, keyList = [] }: { id: IProfileId, keyList?: TestDataKey[] }, thunkAPI) => {
 //         console.log(`[asyncGetInfo] GET /profile/info?id=${id}`);
 //         try {
-//             const response = await axios.get(`${env.REACT_APP_API_URL}/profile/info`,
+//             const response = await axios.get(`/profile/info`,
 //                 {
 //                     method: "GET",
 //                     headers: HEADERS_AXIOS,
@@ -117,7 +117,7 @@
 //     async (id: IProfileId, thunkAPI) => {
 //         console.log(`[asyncGetTestResult] GET /profile/result?id=${id}`);
 //         try {
-//             const response = await axios.get(`${env.REACT_APP_API_URL}/profile/result`,
+//             const response = await axios.get(`/profile/result`,
 //                 {
 //                     method: "GET",
 //                     headers: HEADERS_AXIOS,
@@ -136,7 +136,7 @@
 //     async (id: IProfileId, thunkAPI) => {
 //         console.log(`[asyncGetTestAnswer] GET /profile/answer?id=${id}`);
 //         try {
-//             const response = await axios.get(`${env.REACT_APP_API_URL}/profile/answer`,
+//             const response = await axios.get(`/profile/answer`,
 //                 {
 //                     method: "GET",
 //                     headers: HEADERS_AXIOS,
@@ -155,7 +155,7 @@
 //     async (_, thunkAPI) => {
 //         console.log(`[asyncGetSampleProfiles] GET /profile/sample`);
 //         try {
-//             const response = await axios.get(`${env.REACT_APP_API_URL}/profile/sample`,
+//             const response = await axios.get(`/profile/sample`,
 //                 {
 //                     method: "GET",
 //                     headers: HEADERS_AXIOS,
@@ -173,7 +173,7 @@
 //     async ({ id, value }: { id: IProfileId, value: String }, thunkAPI) => {
 //         console.log(`[asyncPutNickname] PUT /profile/setNickname?id=${id}&value=${value}`);
 //         try {
-//             const response = await axios.put(`${env.REACT_APP_API_URL}/profile/setNickname`,
+//             const response = await axios.put(`/profile/setNickname`,
 //                 {
 //                     value: value
 //                 },

@@ -1,17 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Outlet, ScrollRestoration, useSearchParams } from "~/router-module";
+import { Outlet, useSearchParams } from "~/router-module";
 import AppBar from "../components/AppBar/AppBar";
 import { AppBarContextProvider } from "../components/AppBar/AppBarContext";
 import { AuthLoadRequiredContent } from "../content/LoadRequiredContent";
 import { asyncGuestLogin, asyncKakaoLoginByAccessToken, disableAutoLogin, useAuthorize, useIsAutoLoginEnabled } from "../reducers/authReducer";
 import { AppDispatch } from "../store";
 
-interface PageProps {
-
-};
-
-function Page({ }: PageProps) {
+function Page({}){
 
     /* Hooks */
     const dispatch = useDispatch<AppDispatch>();
@@ -62,12 +58,6 @@ function Page({ }: PageProps) {
 
     return (
         <AppBarContextProvider>
-            <ScrollRestoration
-                getKey={(location, matches) => {
-                    console.log(`[ScrollRestoration] ${location.pathname}`);
-                    return location.pathname;
-                }}
-            />
             <AuthLoadRequiredContent
                 isEnabled={isAutoLoginEnabaled}
                 handleFail={handleFail}

@@ -11,19 +11,9 @@ import { useAppBar } from "./AppBarContext";
 import Drawer from "../Drawer/Drawer";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 
-// const Drawer = loadable(() => import(
-//     /* webpackChunkName: "Drawer" */ 
-//     /* webpackPrefetch: true */
-//     '../Drawer/Drawer'
-//     ));
-
-interface AppBarProps {
-};
-
-function AppBar({ }: AppBarProps) {
+function AppBar(){
 
     /* Hooks */
-
     const navigate = useNavigateWithGuestContext();
     const strings = useStrings();
     const openAppBar = useAppBar();
@@ -56,7 +46,8 @@ function AppBar({ }: AppBarProps) {
         <>
             <MuiAppBar>
                 <Toolbar className="block--with-margin-x">
-                    <Button onClick={handleTitleButtonClick} startIcon={<Logo id={"app"} />} style={{ fontWeight: 400 }}>
+                    {/* <Button onClick={handleTitleButtonClick} startIcon={<Logo id={"app"} />} style={{ fontWeight: 400 }}> */}
+                    <Button onClick={handleTitleButtonClick} startIcon={<Menu />} style={{ fontWeight: 400 }}>
                         {strings.public.common.title}
                     </Button>
                     {
