@@ -16,9 +16,7 @@ import { asyncKakaoLogout, useUserProfile } from "../../reducers/authReducer";
 import { AppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
 
-interface UserContentProps { };
-
-function UserContent({ }: UserContentProps) {
+function UserContent(){
 
     /* Hooks */
     const dispatch = useDispatch<AppDispatch>();

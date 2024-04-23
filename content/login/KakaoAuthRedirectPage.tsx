@@ -10,11 +10,7 @@ import { LoadStatus } from "../../interfaces/enums/LoadStatus";
 import { disableAutoLogin, useAuthLoadStatus, useAuthorize, useUserProfile } from "../../reducers/authReducer";
 import { AppDispatch } from "../../store";
 
-interface KakaoAuthRedirectPageProps {
-
-};
-
-function KakaoAuthRedirectPage({ }: KakaoAuthRedirectPageProps) {
+function KakaoAuthRedirectPage(){
 
     /* Hooks */
     const [ searchParams ] = useSearchParams();

@@ -12,7 +12,7 @@ import { IProfileId } from "../interfaces/IProfile";
 import { IUserProfile, defaultUserProfile } from "../interfaces/IUserProfile";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
 import { AppDispatch, RootState } from "../store";
-import env from "~/env";
+
 
 /* Interface */
 
@@ -36,7 +36,7 @@ const asyncGuestSignIn = createAsyncThunk("authSlice/asyncGuestSignIn",
     async (_, thunkAPI) => {
         console.log(`[asyncGuestSignIn] POST /auth/guest/signIn`);
         try {
-            const response = await axios.post(`${env.REACT_APP_API_URL}/auth/guest/signIn`,
+            const response = await axios.post(`/auth/guest/signIn`,
                 {
                     method: "POST",
                     headers: HEADERS_AXIOS,
@@ -53,7 +53,7 @@ const asyncGuestLogin = createAsyncThunk("authSlice/asyncGuestLogin",
     async (id: string, thunkAPI) => {
         console.log(`[asyncGuestLogin] POST /auth/guest/login`);
         try {
-            const response = await axios.get(`${env.REACT_APP_API_URL}/auth/guest/login`,
+            const response = await axios.get(`/auth/guest/login`,
                 {
                     method: "GET",
                     headers: HEADERS_AXIOS,
@@ -74,7 +74,7 @@ const asyncKakaoLogin = createAsyncThunk("authSlice/asyncKakaoLogin",
     async ({ code, id } : { code: string, id?: string }, thunkAPI) => {
         console.log(`[asyncKakaoLogin] POST /auth/kakao/login code=${code} id=${id}`);
         try {
-            const response = await axios.post(`${env.REACT_APP_API_URL}/auth/kakao/login`,
+            const response = await axios.post(`/auth/kakao/login`,
                 {
                     code: code,
                     id: id
@@ -96,7 +96,7 @@ const asyncKakaoLoginByAccessToken = createAsyncThunk("authSlice/asyncKakaoLogin
     async ({ accessToken } : { accessToken: string, id?: string }, thunkAPI) => {
         console.log(`[asyncKakaoLoginByAccessToken] POST /auth/kakao/login accessToken=${accessToken}`);
         try {
-            const response = await axios.post(`${env.REACT_APP_API_URL}/auth/kakao/login/ByAccessToken`,
+            const response = await axios.post(`/auth/kakao/login/ByAccessToken`,
                 {
                     accessToken: accessToken,
                 },
@@ -117,7 +117,7 @@ const asyncKakaoLogout = createAsyncThunk("authSlice/asyncKakaoLogout",
     async (id: string, thunkAPI) => {
         console.log(`[asyncLogout] GET /auth/kakao/logout id=${id}`);
         try {
-            const response = await axios.get(`${env.REACT_APP_API_URL}/auth/kakao/logout`,
+            const response = await axios.get(`/auth/kakao/logout`,
                 {
                     method: "GET",
                     headers: HEADERS_AXIOS,
@@ -138,7 +138,7 @@ export const asyncSetNickname = createAsyncThunk("authSlice/asyncSetNickname",
     async ({ id, value }: { id: IProfileId, value: String }, thunkAPI) => {
         console.log(`[asyncSetNickname] PUT /profile/setNickname?id=${id}&value=${value}`);
         try {
-            const response = await axios.put(`${env.REACT_APP_API_URL}/profile/setNickname`,
+            const response = await axios.put(`/profile/setNickname`,
                 {
                     value: value
                 },
@@ -162,7 +162,7 @@ export const asyncGetProfile = createAsyncThunk("authSlice/asyncGetProfile",
     async (id: IProfileId, thunkAPI) => {
         console.log(`[asyncGetProfile] GET /profile?id=${id}`);
         try {
-            const response = await axios.get(`${env.REACT_APP_API_URL}/profile`,
+            const response = await axios.get(`/profile`,
                 {
                     method: "GET",
                     headers: HEADERS_AXIOS,

@@ -16,14 +16,14 @@ export const store: EnhancedStore<{
         auth: IAuthState;
         testAnswer?: ITestAnswerState;
         chemistry?: IChemistryState;
-        profileSearch?: IProfileSearchState;
+        // profileSearch?: IProfileSearchState;
     }, undefined, UnknownAction>;
 }>, StoreEnhancer]>> = configureStore({
     reducer: {
         auth: authReducer,
-        profileSearch: profileSearchReducer,
         // testAnswer: testAnswerReducer,
         // chemistry: chemistryReducer,
+        // profileSearch: profileSearchReducer,
     },
     // middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     //     serializableCheck: false,
