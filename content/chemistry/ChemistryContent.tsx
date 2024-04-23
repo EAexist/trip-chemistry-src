@@ -118,9 +118,9 @@ function ChemistryContent() {
             :
             <>
                 {/** MetaData
-         *  Not Crawled.
-         *  Open Graph Protocol Metadata for SNS(Kakaotalk, Instagram) Share.
-         */}
+                 *  Not Crawled.
+                 *  Open Graph Protocol Metadata for SNS(Kakaotalk, Instagram) Share.
+                 */}
                 <Helmet>
                     <meta property="og:description" content={Object.values(profileList).length > 0 ? `${Object.values(profileList)[0].nickname}님의 ${title}. 참여하고 여행 계획, 일정, 예산, 여행지까지 함께 결정해보세요.` : `${title}. 참여하고 여행의 리더, 일정, 예산 그리고 여행지를 함께 결정해보세요.`} />
                 </Helmet>
@@ -258,7 +258,7 @@ function ChemistryContent() {
                     {
                         isMember && !hasAnsweredTest &&
                         <div className="block--white" style={{ marginTop: 0 }}>
-                            <div className="placeholder--button--full block--with-margin" style={{ marginTop: 0 }} />
+                            <div className="placeholder--button--full block--with-margin--large" style={{ marginTop: 0 }} />
                         </div>
                     }
                     {/* 링크 공유 모달 */}
@@ -343,7 +343,7 @@ function ChemistryContent() {
                             <Button
                                 onClick={handleStartTest}
                                 variant="contained"
-                                className="button--full block--with-margin"
+                                className="button--full block--with-margin block--with-margin--large"
                             >
                                 테스트 하러가기
                             </Button>

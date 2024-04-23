@@ -71,8 +71,7 @@ function NoticeBlock({
                 </m.div>
                 {
                     handleClick &&
-                    <m.div {...FADEIN_INVIEW} className="block__body--large">
-                        <div className="block--with-margin-x flex">
+                    <m.div {...FADEIN_INVIEW} className="flex">
                             <Button
                                 onClick={handleClick}
                                 variant="contained"
@@ -81,12 +80,10 @@ function NoticeBlock({
                                         ? "visible"
                                         : "hidden"
                                 }}
-                                className="button--full"
+                                className="button--full block--with-margin block--with-margin--large"
                             >
                                 { buttonText }
                             </Button>
-                        </div>
-                        <div />
                     </m.div>
                 }
                 </LazyDomAnimation>

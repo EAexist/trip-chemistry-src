@@ -109,7 +109,7 @@ function HomeContent({ }: HomeContentProps) {
                     <Button
                         onClick={handleTestStart}
                         variant="contained"
-                        className="button--full block--with-margin"
+                        className="button--full block--with-margin block--with-margin--large"
                     >
                         {strings.startButton}
                     </Button>

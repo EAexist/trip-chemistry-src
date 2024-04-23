@@ -1,17 +1,17 @@
-import { Provider } from "react-redux";
-import { store } from "../store";
-import Page from "./Page";
+// import { Provider } from "react-redux";
+// import { store } from "../store";
+// import Page from "./Page";
 
-interface PageWrapperProps {
+// interface PageWrapperProps {
 
-};
+// };
 
-function PageWrapper({ }: PageWrapperProps) {
+// function PageWrapper({ }: PageWrapperProps) {
 
-    return (
-        <Provider store={store}>
-            <Page />
-        </Provider>
-    );
-}
-export default PageWrapper;
+//     return (
+//         <Provider store={store}>
+//             <Page />
+//         </Provider>
+//     );
+// }
+// export default PageWrapper;

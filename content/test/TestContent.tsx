@@ -50,11 +50,8 @@ import TagSetTestAnswerChip from "./component/TagSetTestAnswerChip";
 import TestAnswerBadge from "./component/TestAnswerBadge";
 import TestInstruction from "./component/TestInstruction";
 import UnAnsweredTestAlertButton from "./component/UnAnsweredTestAlertButton";
-interface TestContentProps {
 
-};
-
-function TestContent({ }: TestContentProps) {
+function TestContent() {
 
     const navigate = useNavigateWithGuestContext();
 

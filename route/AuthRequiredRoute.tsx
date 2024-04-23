@@ -6,11 +6,7 @@ import { useEffect } from "react";
 import { useIsAuthorized } from "../reducers/authReducer";
 import LoginContent from "../content/login/LoginContent";
 
-interface AuthRequiredRouteProps {
-
-};
-
-function AuthRequiredRoute({ }: AuthRequiredRouteProps) {
+function AuthRequiredRoute(){
 
     /* Hooks */
     const { pathname }  = useLocation();

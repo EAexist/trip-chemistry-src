@@ -17,10 +17,7 @@ import { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import SetNicknamePage from "./SetNicknamePage";
 import { IUserProfile } from "../../interfaces/IUserProfile";
 
-interface InitializeNicknameContentProps {
-};
-
-function InitializeNicknameContent({ }: InitializeNicknameContentProps) {
+function InitializeNicknameContent() {
 
     /* Hooks */
     const { state } = useLocation();

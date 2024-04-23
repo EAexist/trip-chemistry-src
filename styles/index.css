@@ -15,7 +15,7 @@
     --margin-top--small: 0.4em;
     --margin-top--large: 2em;
 
-    --appbar-height: 52px;
+    --appbar-height: 48px;
     --topnav-height: 100px;
 
     --width__profile: 40px;
@@ -36,7 +36,7 @@
     font-optical-sizing: auto;
 
     /* Debug */
-    /* outline: 1px solid red; */
+    outline: 1px solid red;
 }
 
 ul {
@@ -191,7 +191,8 @@ button {
     margin: var(--margin-x--small);
 }
 
-.block--with-margin--large {
+.block--with-margin--large,
+.block--with-margin--large.MuiButton-root {
     margin-top: var(--margin-top--large);
     margin-bottom: var(--margin-top--large);
 }
@@ -636,7 +637,7 @@ button {
 }
 
 .Logo--small {
-    height: 1.2rem;
+    height: 1.6rem;
 }
 
 .Logo--medium {

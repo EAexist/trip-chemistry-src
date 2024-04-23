@@ -46,8 +46,7 @@ function AppBar(){
         <>
             <MuiAppBar>
                 <Toolbar className="block--with-margin-x">
-                    {/* <Button onClick={handleTitleButtonClick} startIcon={<Logo id={"app"} />} style={{ fontWeight: 400 }}> */}
-                    <Button onClick={handleTitleButtonClick} startIcon={<Menu />} style={{ fontWeight: 400 }}>
+                    <Button onClick={handleTitleButtonClick} startIcon={<Logo id={"app"} size="small" />} >
                         {strings.public.common.title}
                     </Button>
                     {
