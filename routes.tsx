@@ -14,7 +14,7 @@ import { store } from './store';
 /* Intermediate Routes */
 const AuthRequiredRoute = loadable(() => import(/* webpackChunkName: "AuthRequiredRoute" */ './route/AuthRequiredRoute'));
 const TestRequiredRoute = loadable(() => import( /* webpackChunkName: "TestRequiredRoute" */'./route/TestRequiredRoute'));
-const ChemistryRoute = loadable(() => import(/* webpackChunkName: "ChemistryRoute" */ './reducers/ChemistryRoute'));
+const ChemistryRoute = loadable(() => import(/* webpackChunkName: "ChemistryRoute" */ './route/ChemistryRoute'));
 
 /* Deprecated */
 // const GuestRoute = loadable(() => import( /* webpackChunkName: "GuestRoute" */'./route/GuestRoute'));
