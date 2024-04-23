@@ -11,11 +11,7 @@ import { RootState } from "../../store";
 import { useStrings } from "../../texts";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 
-interface ResultContentProps {
-
-};
-
-function ResultContent({ }: ResultContentProps) {
+function ResultContent() {
 
     const strings = useStrings().public.contents.result;
 

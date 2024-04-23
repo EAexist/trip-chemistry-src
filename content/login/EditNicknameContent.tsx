@@ -7,10 +7,7 @@ import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import SetNicknamePage from "./SetNicknamePage";
 
-interface EditNicknameContentProps {
-};
-
-function EditNicknameContent({ }: EditNicknameContentProps) {
+function EditNicknameContent() {
 
     /* Hooks */
     const navigate = useNavigateWithGuestContext();

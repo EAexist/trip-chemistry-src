@@ -20,11 +20,7 @@ import SwiperAutoplayProgress from "../../swiper/components/SwiperAutoplayProgre
 import { useStrings } from "../../texts";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 
-interface HomeContentProps {
-
-};
-
-function HomeContent({ }: HomeContentProps) {
+function HomeContent(){
 
     /* Constants */
     const strings = useStrings().public.contents.home;

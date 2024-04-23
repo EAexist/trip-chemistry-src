@@ -6,11 +6,7 @@ import { useEffect } from "react";
 import LoginContent from "../content/login/LoginContent";
 import { useIsAuthorized } from "../reducers/authReducer";
 
-interface AuthRecommendedPageProps {
-
-};
-
-function AuthRecommendedPage({ }: AuthRecommendedPageProps) {
+function AuthRecommendedPage() {
 
     /* Hooks */
     const { pathname } = useLocation();

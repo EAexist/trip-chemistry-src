@@ -16,11 +16,7 @@ import { AppDispatch, RootState } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
 // import env from "~/env";
 
-interface LoginContentProps {
-
-};
-
-function LoginContent({ }: LoginContentProps) {
+function LoginContent(){
 
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
