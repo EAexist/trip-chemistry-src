@@ -3,6 +3,7 @@ import authReducer, { IAuthState } from "../reducers/authReducer";
 import { IChemistryState } from "../reducers/chemistryReducer";
 import profileSearchReducer, { IProfileSearchState } from "../reducers/profileSearchReducer";
 import { ITestAnswerState } from "../reducers/testAnswerReducer";
+// import env from "~/env";
 import env from "~/env";
 
 export const store: EnhancedStore<{

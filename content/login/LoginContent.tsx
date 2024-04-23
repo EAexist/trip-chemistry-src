@@ -68,6 +68,7 @@ function LoginContent({ }: LoginContentProps) {
     return (
         <AuthLoadRequiredContent {...{
             handleSuccess: handleAuthSuccess,
+            handleFail: () =>{}
         }}>
             <RoutedMotionPage className="flex fill-window">
                 <div className="flex-grow block--centered-row block__body--large">

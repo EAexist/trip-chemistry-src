@@ -1,30 +1,28 @@
 /* React */
 import { createRoutesFromElements, Navigate, Outlet, Route } from 'react-router-dom';
 
+import loadable from '@loadable/component';
+
 /* App */
 import Page from './route/Page';
-
-/* Loadable Components */
-import loadable from '@loadable/component';
 import { TEST } from './common/app-const';
 import { Provider } from 'react-redux';
 import { store } from './store';
 
+/* Loadable Components */
+
 /* Intermediate Routes */
 const AuthRequiredRoute = loadable(() => import(/* webpackChunkName: "AuthRequiredRoute" */ './route/AuthRequiredRoute'));
 const TestRequiredRoute = loadable(() => import( /* webpackChunkName: "TestRequiredRoute" */'./route/TestRequiredRoute'));
-// const GuestRoute = loadable(() => import( /* webpackChunkName: "GuestRoute" */'./route/GuestRoute'));
-const AuthRecommendedPage = loadable(() => import(/* webpackChunkName: "AuthRecommendedPage" */ './route/AuthRecommendedPage'));
 const ChemistryRoute = loadable(() => import(/* webpackChunkName: "ChemistryRoute" */ './reducers/ChemistryRoute'));
-// import ChemistryRoute from './reducers/ChemistryRoute';
+
+/* Deprecated */
+// const GuestRoute = loadable(() => import( /* webpackChunkName: "GuestRoute" */'./route/GuestRoute'));
+// const AuthRecommendedPage = loadable(() => import(/* webpackChunkName: "AuthRecommendedPage" */ './route/AuthRecommendedPage'));
 
 /* Public Contents */
 const HomeContent = loadable(() => import(/* webpackChunkName: "HomeContent" */ './content/home/HomeContent'));
 const ChemistryContent = loadable(() => import( /* webpackChunkName: "ChemistryContent" */'./content/chemistry/ChemistryContent'));
-
-
-// const SearchAndInviteFriendContent = loadable(() => import( /* webpackChunkName: "SearchAndInviteFriendContent" */'./content/chemistry/SearchAndInviteFriendContent'));
-
 
 /* Auth-requiring Contents */
 const CityDetailContent = loadable(() => import( /* webpackChunkName: "CityDetailContent" */'./content/city/CityDetailContent'));
@@ -52,36 +50,16 @@ const routes = createRoutesFromElements(
         <Provider store={store}>
             <Page />
         </Provider>} >
-        {/* Debug */}
-        {/* <Route key={'home'} path={'home'} element={<HomeContent />} />
-        <Route key={'testPreview'} path={'testPreview'} element={<TestContent />} />
-        <Route key={'authRequired'} element={<AuthRequiredRoute />}>
-                <Route key={'test'} path={'test'} element={<TestContent />} />
-            </Route>
-            <Route key={'city'} path={'city'} element={<Outlet />} >
-                {
-                    Object.keys(TEST.city.subTests).map((cityClass) => (
-                        <Route key={cityClass} path={cityClass} element={<CityDetailContent cityClass={cityClass as keyof typeof TEST.city.subTests} />} />
-                    ))
-                }
-            </Route> */}
         <Route key={'index'} element={<Outlet />} >
             <Route key={'testPreview'} path={'testPreview'} element={<TestContent />} />
             <Route path="/" element={<Navigate to="home" />} />
             <Route key={'home'} index path={'home'} element={<HomeContent />} />
             <Route key={'chemistry'} path={'chemistry/:chemistryId'} element={<ChemistryRoute />} >
                 <Route key={'index'} index element={<ChemistryContent />} />
-                {/* @TODO 닉네임을 통한 사용자 검색 및 친구 초대 */}
+                {/** @TODO 닉네임을 통한 사용자 검색 및 친구 초대 */}
                 {/* <Route key={'searchAndInviteFriend'} path={'searchAndInviteFriend'} element={<SearchAndInviteFriendContent />} /> */}
                 {cityDetailRoute}
             </Route>
-            {/* [SEO, Authorization] Hide Contents by style={ display: 'none' } when unAuthorized. Content must be rendered yet is visible. */}
-            {/* <Route key={'authRecommended'} element={<AuthRecommendedPage />}>
-            <Route key={'test'} path={'test'} element={<Outlet />} >
-                <Route key={'index'} index element={<TestContent />} />
-                {cityDetailRoute}
-            </Route>
-        </Route> */}
             {/* [SEO, Authorization] Routes are excluded in robots.txt. URL Accesses are redirected to login page. */}
             <Route key={'authRequired'} element={<AuthRequiredRoute />}>
                 <Route key={'test'} path={'test'} element={<Outlet />} >
@@ -107,13 +85,14 @@ const routes = createRoutesFromElements(
                 <Route key={'redirectURI'} path={'kakaoAuthRedirect'} element={<KakaoAuthRedirectPage />} />
             </Route>
         </Route>
-        {/* [ Deprecated ] 
-    게스트 로그인 사용자를 위한 route 를  구분된 path로 관리 e.g. domain/guest/{guestId}/{pathname}
-    -> 통합된 path 에서 query parameter 를통해 관리 e.g. domain/{pathname}?guestId={guestId}                
-*/}
+
+        {/** [ Deprecated ] 
+         *  게스트 로그인 사용자를 위한 route 를  구분된 path로 관리 e.g. domain/guest/{guestId}/{pathname}
+         * -> 통합된 path 에서 query parameter 를통해 관리 e.g. domain/{pathname}?guestId={guestId}  
+         * */}
         {/* <Route key={'guest'} path={'guest/:id'} element={<GuestRoute />}>
-    {sessionRoute}
-</Route> */}
+            {sessionRoute}
+        </Route> */}
     </Route>
 )
 
