@@ -1,0 +1,8 @@
+App.tsx merge=ours
+env.tsx merge=ours
+index.tsx merge=ours
+react-app-env,d.ts merge=ours
+reportWebVitals.ts merge=ours
+router-module.ts merge=ours
+routes.tsx merge=ours
+setupTests.ts merge=ours

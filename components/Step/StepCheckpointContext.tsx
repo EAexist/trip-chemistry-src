@@ -42,7 +42,7 @@ export const useScrollToCheckpoint = () => {
             console.log(`[withSetStepOnChange]\n\tindex=${index}
                 \tlength=${stepCheckpointList.current.length} 
             `);
-            stepCheckpointList.current[index as number].scrollIntoView({ });
+            stepCheckpointList.current[index as number].scrollIntoView();
         }, [ stepCheckpointList ])
     )    
 };

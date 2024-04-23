@@ -34,7 +34,7 @@ import ChemistryResultAccordion from "./component/ChemistryResultAccordion";
 
 interface CityDetailContentProps {
     cityClass: keyof typeof TEST.city.subTests;
-};
+}
 
 function CityDetailContent({ cityClass }: CityDetailContentProps) {
 
@@ -50,7 +50,7 @@ function CityDetailContent({ cityClass }: CityDetailContentProps) {
     /* Event Handlers */
     const handleClose = () => {
         console.log(`[CityDetailContent] handleClose`)
-        navigate('../..');
+        navigate('..');
     };
 
     const isChemistryDefined = useSelector((state: RootState) => (state.chemistry !== undefined));

@@ -11,7 +11,7 @@ import { FADEIN_VIEWPORT, STAGGER_CHILDREN, VARIANTS_SLIDE_UP } from "../../moti
 import { useChemistryIdList } from "../../reducers/authReducer";
 import ChemistrySummaryButton from "./component/ChemistrySummaryButton";
 
-function ChemistryListContent({ }) {
+function ChemistryListContent() {
 
     /* Hooks */
     const navigate = useNavigateWithGuestContext();

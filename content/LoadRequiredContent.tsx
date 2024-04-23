@@ -124,7 +124,7 @@ function LoadRequiredContent({
                     ? <NoticeBlock
                         title={"여행 타입 테스트"}
                         alt={delayedStatus}
-                        src={getImgSrc('/info', delayedStatus, FORMATWEBP)}
+                        src={getImgSrc('/info', delayedStatus, FORMATWEBP, "xlarge")}
                         {...noticeBlockProps[delayedStatus]}
                     />
                     : children

@@ -13,6 +13,7 @@ import { IChemistry, defaultChemistry } from "../interfaces/IChemistry";
 import { IProfile, IProfileId, defaultProfile } from "../interfaces/IProfile";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
 import { ITestName } from "../interfaces/ITestAnswer";
+import env from "~/env";
 
 interface IChemistryCreateDTO extends Pick<IChemistry, "title" | "titleCity"> {
     userId: IProfileId;
@@ -29,7 +30,7 @@ export const asyncCreateChemistry = createAsyncThunk("chemistry/asyncCreateChemi
     async (createDTO: IChemistryCreateDTO, thunkAPI) => {
         console.log(`[asyncCreateChemistry] POST /chemistry/create\n\tcreateDTO=${JSON.stringify(createDTO)}`);
         try {
-            const response = await axios.post(`/chemistry/create`,
+            const response = await axios.post(`${env.REACT_APP_API_URL}/chemistry/create`,
                 createDTO,
                 {
                     method: "POST",
@@ -48,7 +49,7 @@ export const asyncJoinChemistry = createAsyncThunk("chemistry/asyncJoinChemistry
     async ({ userId, chemistryId }: { userId: string, chemistryId: string }, thunkAPI) => {
         console.log(`[asyncJoinChemistry] PUT /chemistry/join\n\tuserId=${userId}\n\tchemistryId=${chemistryId}`);
         try {
-            const response = await axios.put(`/chemistry/join`,
+            const response = await axios.put(`${env.REACT_APP_API_URL}/chemistry/join`,
                 {
                     userId: userId,
                     chemistryId: chemistryId
@@ -70,7 +71,7 @@ const asyncGetChemistry = createAsyncThunk("chemistry/asyncGetChemistry",
     async (id: string, thunkAPI) => {
         console.log(`[asyncGetChemistry] GET /chemistry\n\tid=${id}`);
         try {
-            const response = await axios.get(`/chemistry`,
+            const response = await axios.get(`${env.REACT_APP_API_URL}/chemistry`,
                 {
                     method: "GET",
                     headers: HEADERS_AXIOS,
