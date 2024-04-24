@@ -1,32 +1,32 @@
-/* React */
-import { Outlet, useLocation } from "~/router-module";
+// /* React */
+// import { Outlet, useLocation } from "~/router-module";
 
-/* Externals */
-import { useEffect } from "react";
-import LoginContent from "../content/login/LoginContent";
-import { useIsAuthorized } from "../reducers/authReducer";
+// /* Externals */
+// import { useEffect } from "react";
+// import LoginContent from "../content/login/LoginContent";
+// import { useIsAuthorized } from "../reducers/authReducer";
 
-function AuthRecommendedPage() {
+// function AuthRecommendedPage() {
 
-    /* Hooks */
-    const { pathname } = useLocation();
+//     /* Hooks */
+//     const { pathname } = useLocation();
 
-    const isAuthorized = useIsAuthorized();
+//     const isAuthorized = useIsAuthorized();
 
-    useEffect(() => {
-        console.log(`[AuthRecommendedPage] pathname=${pathname}`)
-    }, [pathname])
+//     useEffect(() => {
+//         console.log(`[AuthRecommendedPage] pathname=${pathname}`)
+//     }, [pathname])
 
-    return (
-        <>
-            {
-                !isAuthorized &&
-                <LoginContent />
-            }
-            <div style={{ display: isAuthorized ? 'block' : 'none' }}>
-                <Outlet />
-            </div>
-        </>
-    );
-}
-export default AuthRecommendedPage;
+//     return (
+//         <>
+//             {
+//                 !isAuthorized &&
+//                 <LoginContent />
+//             }
+//             <div style={{ display: isAuthorized ? 'block' : 'none' }}>
+//                 <Outlet />
+//             </div>
+//         </>
+//     );
+// }
+// export default AuthRecommendedPage;

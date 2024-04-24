@@ -969,7 +969,7 @@ const stringTable_kr = {
             },
             "result": {
                 "label": "내 여행 타입",
-                "navigateToChemistryButton": "여행 케미 확인하기",
+                "navigateToChemistryButton": "친구들과 여행 타입 비교하기",
                 "sections": {
                     "tripCharacter":
                     {
@@ -998,7 +998,7 @@ const stringTable_kr = {
                 },
             },
             "chemistry": {
-                "label": "내 여행 케미스트리",
+                "label": "내 여행 목록",
                 "addFriend": {
                     label: "친구 추가",
                     icon: "group_add",
@@ -1028,9 +1028,9 @@ const stringTable_kr = {
                         },
                     },
                     "tripCharacter": {
-                        label: "여행 MBTI",
+                        label: "여행 타입",
                         icon: "pets",
-                        title: "여행 MBTI 알아보기",
+                        title: "여행 타입 확인하기",
                         subtitle: "일행의 여행 MBTI를 통해 서로가 원하는 여행 스타일을 이해해봐요",
                         "howTo": "카드를 클릭해봐!",
                     },

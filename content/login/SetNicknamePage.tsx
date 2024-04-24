@@ -27,7 +27,6 @@ function SetNicknamePage({
 
     /* Hooks */
     const setNickname = useSetNickname();
-    const isAppBarHidden = useHideAppbar();
 
     /* Reducers */
     const { nickname: currentNickname } = useUserInfo();
@@ -55,8 +54,7 @@ function SetNicknamePage({
     ), [USER.maxNicknameLength]);
 
     return (
-        isAppBarHidden &&
-        <RoutedMotionPage>
+        <RoutedMotionPage doHideAppbar={true}>
             <Toolbar className="block--with-margin-x">
                 <IconButton
                     aria-label="cancel"

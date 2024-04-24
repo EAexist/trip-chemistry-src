@@ -42,11 +42,11 @@ function ResultContent() {
                         )
                     }
                 </m.div>       
-                <m.div  {...FADEIN_VIEWPORT} className="block--with-padding flex">
+                <m.div  {...FADEIN_VIEWPORT} className="flex">
                     <Button
                         onClick={handleChemistryButtonClick}
                         variant="contained"
-                        className="button--full"
+                        className="button--full block--with-margin block--with-margin--large"
                     >
                         {strings.navigateToChemistryButton}
                     </Button>

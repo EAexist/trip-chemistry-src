@@ -9,7 +9,7 @@ import { MotionList } from "../../motion/components/MotionList";
 import { MotionListItem } from "../../motion/components/MotionListItem";
 import { MotionListSubheader } from "../../motion/components/MotionListSubheader";
 import { VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
-import { useIsAuthorized, useUserInfo } from "../../reducers/authReducer";
+import { useHasAnsweredTest, useIsAuthorized, useUserInfo } from "../../reducers/authReducer";
 import { useStrings } from "../../texts";
 import UserAvatar from "../Avatar/UserAvatar";
 import PngIcon from "../PngIcon";
@@ -31,7 +31,8 @@ function Drawer({ open, onDrawerItemClick }: DrawerProps) {
     /* Reducers */
     const isAuthorized = useIsAuthorized();
     const user = useUserInfo();
-/*  */
+    const hasAnsweredTest = useHasAnsweredTest();
+    
     /* Event handlers  */
     const handleDrawerItemClick = (path: string) => {
         onDrawerItemClick();

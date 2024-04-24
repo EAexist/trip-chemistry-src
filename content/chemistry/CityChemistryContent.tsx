@@ -29,7 +29,7 @@ function CityChemistryContent({ cityClass }: CityChemistryContentProps) {
     const score = useCityChemistry(cityClass);
 
     const handleClick = () => {
-        navigate(`city/${cityClass}`);
+        navigate(`city/${cityClass}`,  { state: { navigateDirection: 'next' } });
     }
 
     useEffect(() => {

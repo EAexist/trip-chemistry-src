@@ -464,7 +464,7 @@ button {
 .MuiButton-root {
     
     &.button--full {
-        border-radius: 12px;
+        border-radius: 16px;
         padding: 12px;
     }
 

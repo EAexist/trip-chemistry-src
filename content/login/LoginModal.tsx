@@ -15,11 +15,8 @@ import { asyncGuestSignIn, authorize } from "../../reducers/authReducer";
 import { AppDispatch, RootState } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
 // import env from "~/env";
-interface LoginContentProps {
-    title?: string;
-}
 
-function LoginContent({ title ="테스트를 시작해볼까요?" }:LoginContentProps){
+function LoginContent(){
 
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
@@ -37,7 +34,7 @@ function LoginContent({ title ="테스트를 시작해볼까요?" }:LoginContent
             dispatch(authorize());
         }
         else {
-            navigate('/login/initializeNickname', { state: { loginRedirectPath: pathname, navigateDirection : "next" } });
+            navigate('/login/initializeNickname', { state: { loginRedirectPath: pathname } });
         }
     }
 
@@ -69,10 +66,11 @@ function LoginContent({ title ="테스트를 시작해볼까요?" }:LoginContent
             handleSuccess: handleAuthSuccess,
             handleFail: () =>{}
         }}>
+            <RoutedMotionPage className="flex fill-window">
                 <div className="flex-grow block--centered-row block__body--large">
                     <div style={{ marginTop: "128px" }} />
                     <h2 className="typography-label">
-                        {title}
+                        로그인하고 테스트를 시작해보세요
                     </h2>
                     <div className="block--with-padding block--with-padding--large">
                         <Grid container direction={"column"} rowSpacing={2}>
@@ -99,6 +97,7 @@ function LoginContent({ title ="테스트를 시작해볼까요?" }:LoginContent
                         }
                     </p>
                 </div>
+            </RoutedMotionPage>
         </AuthLoadRequiredContent>
     );
 }

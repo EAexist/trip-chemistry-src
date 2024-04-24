@@ -129,6 +129,7 @@ const SLIDEINUPINVIEW = {
 const SLIDEINLEFT = {
     initial: "closed",
     animate: "open",
+    exit: "closed",
     variants: {
         open: (direction = 'left') => ({
             x: 0,
@@ -145,6 +146,23 @@ const SLIDEINLEFT = {
             }
         })
     }
+}
+
+export const VARIANTS_SLIDEINLEFT = {
+    open: (direction = 'left') => ({
+        x: 0,
+        opacity: 1,
+        transition: {
+            x: { stiffness: 1000, velocity: (direction === 'right' ? 1 : -1 )*200 }
+        }
+    }),
+    closed: (direction = 'left') => ({
+        x: `${direction === 'right' ? '-' : '' }100%`,
+        opacity: 0,
+        transition: {
+            x: { stiffness: 1000 }
+        }
+    })
 }
 
 // const FADEIN = {
@@ -287,28 +305,26 @@ const FILLIN_1S = {
     variants: VARIANT_FILL_1S
 }
 
-
-
-const VARIANTS_SLIDEINLEFT = {
-    open: {
-        opacity: 1,
-        x: 0,
-        transition: {
-            stiffness: 1000,
-            ease: "easeInOut",
-            duration: 0.75,
-        },
-    },
-    closed: {
-        opacity: 0,
-        x: 50,
-        transition: {
-            stiffness: 1000,
-            ease: "easeInOut",
-            duration: 0.75
-        }
-    },
-};
+// const VARIANTS_SLIDEINLEFT = {
+//     open: {
+//         opacity: 1,
+//         x: 0,
+//         transition: {
+//             stiffness: 1000,
+//             ease: "easeInOut",
+//             duration: 0.75,
+//         },
+//     },
+//     closed: {
+//         opacity: 0,
+//         x: 50,
+//         transition: {
+//             stiffness: 1000,
+//             ease: "easeInOut",
+//             duration: 0.75
+//         }
+//     },
+// };
 const VARIANTS_SLIDEINLEFT_DELAY_1250 = {
     open: {
         opacity: 1,

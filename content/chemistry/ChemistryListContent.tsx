@@ -21,7 +21,7 @@ function ChemistryListContent() {
 
     /* Event Handler */
     const handleAddChemistry = () => {
-        navigate(`new`);
+        navigate(`new`, { state: { navigateDirection: 'next' } });
     }
 
     return (

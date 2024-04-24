@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, ScrollRestoration } from 'react-router-dom'
 
 import { ThemeProvider } from '@mui/material'
 import routes from './routes'

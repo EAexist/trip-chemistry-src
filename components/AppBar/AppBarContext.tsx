@@ -21,17 +21,19 @@ const AppBarContextProvider = ({ children }: PropsWithChildren ) => {
 const useAppBar = () => useContext(AppBarContext).show;
 const useShowAppBar = () => useContext(AppBarContext).setShow;
 
-const useHideAppbar = () => {
+const useHideAppbar = ( doHide = true ) => {
     const { show, setShow } = useContext(AppBarContext);
     
     useEffect(() => {
-        setShow(false);
+        if( doHide ){
+            setShow(false);
+        }
         return (() => {
             setShow(true);
         })
     }, [ setShow ]);
 
-    return !show;
+    return !doHide || !show;
 }
 
 export default AppBarContext;

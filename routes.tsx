@@ -1,12 +1,12 @@
 /* React */
-import { createRoutesFromElements, Navigate, Outlet, Route } from 'react-router-dom';
+import { createRoutesFromElements, Navigate, Outlet, Route, ScrollRestoration } from 'react-router-dom';
 
 import loadable from '@loadable/component';
 
 /* App */
-import Page from './route/Page';
-import { TEST } from './common/app-const';
 import { Provider } from 'react-redux';
+import { TEST } from './common/app-const';
+import Page from './route/Page';
 import { store } from './store';
 
 /* Loadable Components */
@@ -48,6 +48,14 @@ const cityDetailRoute =
 const routes = createRoutesFromElements(
     <Route path={'/'} element={
         <Provider store={store}>
+            <ScrollRestoration
+                getKey={(location, matches) => {
+                    console.log(`[ScrollRestoration pathname=${location.pathname}`)
+                    const path = location.pathname.split('/')[1];
+                    const restorePath = ['test', 'chemistry']
+                    return restorePath.includes(path) ? location.pathname : location.key;
+                }}
+            />
             <Page />
         </Provider>} >
         <Route key={'index'} element={<Outlet />} >

@@ -50,13 +50,13 @@ function CityDetailContent({ cityClass }: CityDetailContentProps) {
     /* Event Handlers */
     const handleClose = () => {
         console.log(`[CityDetailContent] handleClose`)
-        navigate('..');
+        navigate('../..');
     };
 
     const isChemistryDefined = useSelector((state: RootState) => (state.chemistry !== undefined));
 
     return (
-        isAppBarHidden &&
+        // isAppBarHidden &&
         <RoutedMotionPage>
             <AppBar>
                 <Toolbar className="block--with-margin-x">

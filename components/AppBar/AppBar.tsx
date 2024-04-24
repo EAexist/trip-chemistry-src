@@ -27,7 +27,7 @@ function AppBar(){
     const handleTitleButtonClick = () => {
         setAnimateDrawerClose(false);
         setOpenDrawer(false);
-        navigate('home');
+        navigate('/home');
     }
     const handleMenuButtonClick = () => {
         setAnimateDrawerClose(true);

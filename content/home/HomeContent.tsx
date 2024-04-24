@@ -81,21 +81,17 @@ function HomeContent(){
                     </SwiperSlide>
                 ))}
                 <div slot="container-end">
-                    <div className="block--with-margin-x block__body--large">
+                    <div className="block--with-margin-x block__body block__body--large">
+                        <div>
                         <Stack spacing={2}>
                             {
                                 swiper &&
                                 <SwiperAutoplayProgress swiper={swiper} />
                             }
                             <PaginationDiv className='pageSwiper-pagination pagination__bullets' />
-                        </Stack>
-                        <div className="floating-placeholder--bottom" style={{ visibility: 'hidden' }}>
-                            <div className="block--with-margin-x flex">
-                                <Button>
-                                    {strings.startButton}
-                                </Button>
-                            </div>
-                        </div>
+                        </Stack>           
+                        </div>             
+                        <div className="placeholder--button--full block--with-margin--large" />
                     </div>
                 </div>
             </Swiper>
