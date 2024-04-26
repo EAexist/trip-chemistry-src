@@ -46,6 +46,8 @@ declare module '@mui/material/styles' {
     }
 }
 
+const { palette : defaultPalette } = createTheme()
+
 const defaultTheme = createTheme({
     palette: {
         primary: {
@@ -59,12 +61,18 @@ const defaultTheme = createTheme({
             dark: '#F2F4F6',
             // dark: '#E7E9ED',
         },
-        gray: {
-            main: '#E7E9ED',
-            light: '#F2F4F6',
-            dark: '#D2D4D8',
-            contrastText: '#505967',
-        },
+        /* Create gray palette by theme.palette.augmentColor() */
+        gray: defaultPalette.augmentColor({
+            color: {
+              main: '#E7E9ED',
+            },
+            name: 'salmon',
+          }),
+        // {
+        //     main: '#E7E9ED',
+        //     light: '#F2F4F6',
+        //     contrastText: '#505967',
+        // },
     }
 
 },

@@ -85,28 +85,33 @@ function TestContent() {
     /* 구글맵 */
 
     /** 실제 오픈되어 있어야 하는 Info Window. Context 에 적용. */
-    const [ activeInfoWindow, setActiveInfoWindow ] = useState<google.maps.InfoWindow>(); 
+    const [ selectedInfoWindow, setSelectedInfoWindow ] = useState<google.maps.InfoWindow>(); 
     /**
      * DOM 에서 오픈되어 있는 Info Window. 
      * Active Info Window 가 변경 될 경우 기존 Active Info Window 의 close() 함수를 호출해 닫기 위해 참조. 
+     * [Deprecated] InfoWindow 및 Marker View 변화 로직은 모두 GoogleMapMarker 로 이동.
+     * 부모 컴포넌트(TestContent)에서는 activeGoogleMarker 를 참조하는 state 하나와 activeGoogleMarker 가 없을 경우 지도 초기화 로직만 관리.   
      * */
     const [ prevActiveInfoWindow, setPrevActiveInfoWindow ] = useState<google.maps.InfoWindow>();   
 
     useEffect(()=>{
-        console.log(`activeInfoWindow.content=${activeInfoWindow?.getContent().toString()}`)
+        console.log(`selectedInfoWindow.content=${selectedInfoWindow?.getContent().toString()}`)
 
-        // 새로운 Info Window 가 열릴 경우 기존의 Active Info Window를 닫음. Close 버튼을 눌러 Info Window를 닫을 경우 상태를 undefined 로 설정. Context의 Active Info Window 와 DOM 에서 오픈되어있는 Info Window 를 동기화.
-        if ( activeInfoWindow !== prevActiveInfoWindow ){
-            prevActiveInfoWindow?.close()
-            setPrevActiveInfoWindow( activeInfoWindow )
-        }
+        /**
+         * 새로운 Info Window 가 열릴 경우 기존의 Active Info Window를 닫음. Close 버튼을 눌러 Info Window를 닫을 경우 상태를 undefined 로 설정. Context의 Active Info Window 와 DOM 에서 오픈되어있는 Info Window 를 동기화. 
+         * [ Deprecated ] prevActiveInfoWindow 참고.       
+         *  */
+        // if ( selectedInfoWindow !== prevActiveInfoWindow ){
+        //     prevActiveInfoWindow?.close()
+        //     setPrevActiveInfoWindow( selectedInfoWindow )
+        // }
 
         // Close 버튼을 눌러 Info Window를 닫을 경우 Info Window로 인해 이동한 지도의 center를 기본값으로 초기화.
-        if ( activeInfoWindow === undefined ){
+        if ( selectedInfoWindow === undefined ){
             scheduleExampleMap?.panTo(googleMapCenter);
         }
 
-    }, [ activeInfoWindow, scheduleExampleMap ])    
+    }, [ selectedInfoWindow, scheduleExampleMap ])    
     
     /** Schedule 테스트 결과에 따라 
      * 1. 구글맵 zoom 변경
@@ -115,7 +120,7 @@ function TestContent() {
     useEffect(() => {
         if (scheduleAnswer !== undefined) {
             scheduleExampleMap?.setZoom(googleMapZoom);
-            setActiveInfoWindow(undefined);
+            setSelectedInfoWindow(undefined);
             scheduleExampleMap?.panTo(googleMapCenter);
         }
     }, [ scheduleAnswer, scheduleExampleMap ]);
@@ -287,7 +292,7 @@ function TestContent() {
                                             <div className="flex-grow block--centered">
                                                 <Card className="test__google-map-container modal__container" sx={{ borderRadius: "16px" }}>
                                                     <GoogleMapContext.Provider value={{ map: scheduleExampleMap as google.maps.Map, setMap: setScheduleExampleMap }}>
-                                                        <InfoWindowContext.Provider value={{ activeInfoWindow, setActiveInfoWindow }}>
+                                                        <InfoWindowContext.Provider value={{ selectedInfoWindow, setSelectedInfoWindow }}>
                                                         <GoogleMap opts={OPTIONS_TEST_SCHEDULE}>
                                                             <GoogleMapMarker {...TEST.schedule.subTests.schedule.airportPlace} />
                                                             {

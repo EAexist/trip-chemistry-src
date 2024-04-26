@@ -5,7 +5,7 @@ import { CENTER_FUKUOKA_TENJIN } from "../common/options";
 import { useGoogleMapContext } from "../common/GoogleMapContext";
 import Marker, { MarkerProps } from "./Marker";
 import { useInfoWindowContext } from "../common/InfoWindowContext";
-import { Card, CardActionArea, CardContent, CardMedia, Stack } from "@mui/material";
+import { Card, CardActionArea, CardContent, CardMedia, Stack, useTheme } from "@mui/material";
 import { NavigateNext } from "@mui/icons-material";
 import getImgSrc from "~/utils/getImgSrc";
 
@@ -30,10 +30,18 @@ const renderContent = (children: ReactNode) => {
 const GoogleMapMarker = ({ isActive = true, position, label, body, href, name, icon, infoWindowStyle }: GoogleMapMarkerProps) => {
 
     const { map } = useGoogleMapContext();
-    const { activeInfoWindow, setActiveInfoWindow } = useInfoWindowContext();
+    const { selectedInfoWindow, setSelectedInfoWindow } = useInfoWindowContext();
     const [marker, setMarker] = useState<google.maps.marker.AdvancedMarkerElement>();
     const [infoWindow, setInfoWindow] = useState<google.maps.InfoWindow>();
-    const [showInfoCard, setShowInfoCard] = useState(false);
+    // const [isSelected, setIsSelected] = useState(false);
+    const isSelected = selectedInfoWindow === infoWindow;
+
+    /** 
+     * GoogleMapMarker의 Content 노드 (Marker, InfoWindow) 에 theme을 적용할 경우
+     * useTheme() 은 GoogleMapMarker 에서 호출해야함. 
+     * renderContent 함수를 통해 렌더하므로 (e.g. renderContent(<Marker/>)) renderContent의 argument 컴포넌트 내부에서는 theme이 적용되지 않음. 
+     * */
+    const { palette } = useTheme();
 
     useEffect(() => {
 
@@ -47,7 +55,7 @@ const GoogleMapMarker = ({ isActive = true, position, label, body, href, name, i
                 const markerElement = new AdvancedMarkerElement({
                     position: position,
                     title: label,
-                    content: renderContent(<Marker icon={icon} />),
+                    content: renderContent(<Marker icon={icon} color={palette.gray.dark} />),
                     zIndex: 0,
                 });
 
@@ -91,11 +99,11 @@ const GoogleMapMarker = ({ isActive = true, position, label, body, href, name, i
                 });
 
                 infoWindow.addListener("closeclick", () => {
-                    setActiveInfoWindow(undefined);
+                    setSelectedInfoWindow(undefined);
                 });
 
                 markerElement.addListener("click", () => {
-                    setActiveInfoWindow(infoWindow);
+                    setSelectedInfoWindow(infoWindow);
                     infoWindow.open({
                         anchor: markerElement,
                         map,
@@ -118,9 +126,24 @@ const GoogleMapMarker = ({ isActive = true, position, label, body, href, name, i
 
     }, [marker, map])
 
+    // 마커를 클릭한 경우 (isSelected === true )
     useEffect(() => {
-
-    }, [])
+        if( isSelected ){
+            if( marker ){
+                // Marker 강조
+                marker.content = renderContent(<Marker icon={icon} color={palette.primary.main}/>)
+                // InfoWindow 표시 
+                infoWindow?.open({
+                    anchor: marker,
+                    map,
+                });
+            }
+        }
+        else{
+            marker.content = renderContent(<Marker icon={icon} color={palette.gray.dark}/>)
+            infoWindow?.close();
+        }
+    }, [ isSelected, infoWindow, marker ])
 
 
     // isActive 값에 따라 Map 에 Marker를 표시. 

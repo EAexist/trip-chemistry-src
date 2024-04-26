@@ -896,3 +896,6 @@ button {
 .gm-style-iw {
     padding: 0 !important;
 }
+.gm-style-iw-tc {
+    display: none !important;
+}

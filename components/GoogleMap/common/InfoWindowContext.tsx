@@ -2,8 +2,8 @@ import { PropsWithChildren, createContext, useContext, useEffect, useState } fro
 import { useGoogleMapContext } from "./GoogleMapContext";
 
 interface InfoWindowContextProps {
-    activeInfoWindow?: google.maps.InfoWindow;
-    setActiveInfoWindow?: React.Dispatch<React.SetStateAction<google.maps.InfoWindow | undefined>>
+    selectedInfoWindow?: google.maps.InfoWindow;
+    setSelectedInfoWindow?: React.Dispatch<React.SetStateAction<google.maps.InfoWindow | undefined>>
 }
 
 const InfoWindowContext = createContext<InfoWindowContextProps>({} as InfoWindowContextProps);
@@ -23,23 +23,23 @@ const useInfoWindowContext = () => useContext(InfoWindowContext);
 
 
 //     useEffect(()=>{
-//         console.log(`activeInfoWindow.content=${activeInfoWindow?.getContent().toString()}`)
+//         console.log(`selectedInfoWindow.content=${selectedInfoWindow?.getContent().toString()}`)
 
 //         // 새로운 Info Window 가 열릴 경우 기존의 Active Info Window를 닫음. Close 버튼을 눌러 Info Window를 닫을 경우 상태를 undefined 로 설정. Context의 Active Info Window 와 DOM 에서 오픈되어있는 Info Window 를 동기화.
-//         if ( activeInfoWindow !== prevActiveInfoWindow ){
+//         if ( selectedInfoWindow !== prevActiveInfoWindow ){
 //             prevActiveInfoWindow?.close()
-//             setPrevActiveInfoWindow( activeInfoWindow )
+//             setPrevActiveInfoWindow( selectedInfoWindow )
 //         }
 
 //         // Close 버튼을 눌러 Info Window를 닫을 경우 Info Window로 인해 이동한 지도의 center를 기본값으로 초기화.
-//         if ( activeInfoWindow === undefined ){
+//         if ( selectedInfoWindow === undefined ){
 //             map.panTo(center)
 //         }
 
-//     }, [ activeInfoWindow ])
+//     }, [ selectedInfoWindow ])
 
 //     return (
-//         <InfoWindowContext.Provider value={{ activeInfoWindow, setActiveInfoWindow, activeInfoWindowId, setActiveInfoWindowId }}>
+//         <InfoWindowContext.Provider value={{ selectedInfoWindow, setSelectedInfoWindow, selectedInfoWindowId, setSelectedInfoWindowId }}>
 //             {children}
 //         </InfoWindowContext.Provider>
 //     )
