@@ -5,7 +5,7 @@ import { CENTER_FUKUOKA_TENJIN } from "./options";
 import { useGoogleMapContext } from "./GoogleMapContext";
 
 interface withGoogleMapMarkerProps {
-    marker: google.maps.marker.AdvancedMarkerElement;
+    marker?: google.maps.marker.AdvancedMarkerElement;
     position?: google.maps.LatLngLiteral, 
     isActive?: boolean 
 };

@@ -481,10 +481,6 @@ button {
 
 .MuiCardContent-root {
     text-align: initial;
-
-    & * {
-        margin: 0px;
-    }
 }
 
 .MuiChip-filledPrimary {
@@ -509,9 +505,9 @@ button {
 .MuiPaper-root {
     border-radius: 0;
 
-    &.MuiCard-root {
-        border-radius: 16px;
-    }
+    /* &.MuiCard-root {
+        border-radius: 12px;
+    } */
 }
 
 .MuiPopper-root {
@@ -892,4 +888,11 @@ button {
     background-color: #fff;
     opacity: 0.75;
     z-index: 2;
+}
+
+/* Override GoogleMap Element Styles */
+
+/* InfoWindow */
+.gm-style-iw {
+    padding: 0 !important;
 }

@@ -1,6 +1,6 @@
 // import '../styles/PngIcon.css';
 
-import getImgSrc, { FORMATWEBP } from "../utils/getImgSrc";
+import getImgSrc from "../utils/getImgSrc";
 
 interface PngIconProps{
     name: string;
@@ -9,7 +9,7 @@ interface PngIconProps{
 
 function PngIcon({ name, size = "medium" } : PngIconProps ){
     const basePath = '/icon'
-    const src = getImgSrc( basePath, `${name}-${size}`, FORMATWEBP );
+    const src = getImgSrc( basePath, `${name}`, { size } );
     // const src = getImgSrc( basePath, `${name}-${size}`, FORMATWEBP );
     return(
         <img 

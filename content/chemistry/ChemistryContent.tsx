@@ -18,7 +18,7 @@ import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { useHasAnsweredTest, useIsAuthorized, useUserId } from "../../reducers/authReducer";
 import { asyncJoinChemistry, useChemistry, useIsChemistryEnabled } from "../../reducers/chemistryReducer";
 import type { AppDispatch } from "../../store";
-import getImgSrc, { FORMATWEBP } from "../../utils/getImgSrc";
+import getImgSrc from "../../utils/getImgSrc";
 import LoginContent from "../login/LoginContent";
 import ChemistryDetailContent from "./ChemistryDetailContent";
 import * as ReactHelmetAsync from 'react-helmet-async';
@@ -262,7 +262,7 @@ function ChemistryContent() {
                                         <Paper elevation={0}>
                                             <NoticeBlock
                                                 alt={"invite"}
-                                                src={getImgSrc('/info', "invite", FORMATWEBP, "xlarge")}
+                                                src={getImgSrc('/info', "invite", { size : "xlarge" })}
                                                 {
                                                 ...Object.keys(profileList).length < 2
                                                     ?

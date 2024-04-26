@@ -7,7 +7,7 @@ import { CircularProgress } from "@mui/material";
 /* App */
 import withAuthLoadStatus, { WithLoadStatusProps } from "../hocs/withAuthLoadStatus";
 import { LoadStatus } from "../interfaces/enums/LoadStatus";
-import getImgSrc, { FORMATWEBP } from "../utils/getImgSrc";
+import getImgSrc from "../utils/getImgSrc";
 // import loadable from "@loadable/component";
 
 import NoticeBlock from "../components/Block/NoticeBlock";
@@ -124,7 +124,7 @@ function LoadRequiredContent({
                     ? <NoticeBlock
                         title={"여행 타입 테스트"}
                         alt={delayedStatus}
-                        src={getImgSrc('/info', delayedStatus, FORMATWEBP, "xlarge")}
+                        src={getImgSrc('/info', delayedStatus, { size : "xlarge" })}
                         {...noticeBlockProps[delayedStatus]}
                     />
                     : children
@@ -141,3 +141,4 @@ function LoadRequiredContent({
 export default LoadRequiredContent;
 const AuthLoadRequiredContent = withAuthLoadStatus(LoadRequiredContent);
 export { AuthLoadRequiredContent };
+

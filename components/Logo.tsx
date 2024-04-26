@@ -1,4 +1,4 @@
-import getImgSrc, { FORMATWEBP } from "../utils/getImgSrc";
+import getImgSrc from "../utils/getImgSrc";
 /*  */
 interface LogoProps extends React.ImgHTMLAttributes<HTMLImageElement> {
     // id: keyof typeof LOGOS;
@@ -11,7 +11,7 @@ interface LogoProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 function Logo({ id, format = 'webp', size = "medium", iconName, ...props }: LogoProps) {
 
     // const src = getImgSrc( '/logos', `logo-${id}-${size}`, format )
-    const src = getImgSrc( '/logos', `logo-${id}-${size}`, format )
+    const src = getImgSrc( '/logos', `logo-${id}`, { format } )
 
     return (
         <img

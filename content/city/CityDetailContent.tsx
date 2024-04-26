@@ -25,7 +25,7 @@ import { RootState } from "../../store";
 import PaginationDiv from "../../swiper/components/PaginationDiv";
 import { SWIPERPROPS_CITYDETAILCONTENT } from "../../swiper/props";
 import { useStrings } from "../../texts";
-import getImgSrc, { FORMATWEBP } from "../../utils/getImgSrc";
+import getImgSrc from "../../utils/getImgSrc";
 
 import ChemistryResultAccordion from "./component/ChemistryResultAccordion";
 
@@ -91,7 +91,7 @@ function CityDetailContent({ cityClass }: CityDetailContentProps) {
                         <SwiperSlide key={cityId} className="">
                             <div className="block--with-margin-x block__body">
                                 <ImageCard
-                                    src={getImgSrc("/city", cityId, FORMATWEBP, 'large')}
+                                    src={getImgSrc("/city", cityId, { size : 'large' })}
                                     title={cityId}
                                     className="body__head flex-end"
                                     gradient="bottom"

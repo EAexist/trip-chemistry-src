@@ -7,7 +7,7 @@ import { useLocation } from "~/router-module";
 
 /* App */
 import { KAKAO_AUTH_URL_BASE } from "../../common/auth";
-import getImgSrc, { FORMATWEBP } from "../../utils/getImgSrc";
+import getImgSrc from "../../utils/getImgSrc";
 // import env from "~/env";
 
 function KakaoLoginButton(){
@@ -46,7 +46,7 @@ function KakaoLoginButton(){
     return (
         <a href={url}>
             <ButtonBase>
-                <img height={'45px'} width={'183px'} src={getImgSrc("/kakao", "kakao_login_large_narrow", FORMATWEBP)} alt={"kakao_login"} className="width-full"/>
+                <img height={'45px'} width={'183px'} src={getImgSrc("/kakao", "kakao_login_large_narrow" )} alt={"kakao_login"} className="width-full"/>
             </ButtonBase>
         </a>
     );

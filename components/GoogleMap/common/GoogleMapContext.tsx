@@ -16,4 +16,4 @@ const GoogleMapContextProvider = ({ children, ...value } : PropsWithChildren<Goo
 )
 
 export default GoogleMapContext;
-export { useGoogleMapContext, GoogleMapContextProvider };
+export { useGoogleMapContext };

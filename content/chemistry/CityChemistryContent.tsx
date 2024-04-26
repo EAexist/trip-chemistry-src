@@ -3,17 +3,16 @@ import { useEffect } from "react";
 
 /* Externals */
 import { StarBorder, ThumbUp } from "@mui/icons-material";
-import { CardActionArea, CardContent, Divider, Rating, Stack } from "@mui/material";
+import { CardActionArea, CardContent, Rating, Stack } from "@mui/material";
 
 /* App */
 import { TEST } from "../../common/app-const";
-import FriendAvatar from "../../components/Avatar/FriendAvatar";
 import ImageCard from "../../components/Card/ImageCard";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import useValueToProfileIdList from "../../hooks/useValueToProfileIdList";
 import { useCityChemistry } from "../../reducers/chemistryReducer";
 import { useStrings } from "../../texts";
-import getImgSrc, { FORMATWEBP } from "../../utils/getImgSrc";
+import getImgSrc from "../../utils/getImgSrc";
 
 interface CityChemistryContentProps {
     cityClass: keyof typeof TEST.city.subTests;
@@ -39,7 +38,7 @@ function CityChemistryContent({ cityClass }: CityChemistryContentProps) {
     return (
         // <div className="block__body">
             <ImageCard
-                src={getImgSrc("/city", TEST.city.subTests[cityClass].examples[0], FORMATWEBP, "large")}
+                src={getImgSrc("/city", TEST.city.subTests[cityClass].examples[0], { size : "large" })}
                 title={cityClass}
                 gradient="bottom"
                 className="block--xlarge"

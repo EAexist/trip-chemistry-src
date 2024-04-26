@@ -1,7 +1,7 @@
-import { Avatar, AvatarProps, Stack, useTheme } from "@mui/material";
-import getImgSrc, { FORMATWEBP } from "../../utils/getImgSrc";
-import { IProfile } from "../../interfaces/IProfile";
+import { Avatar, AvatarProps, useTheme } from "@mui/material";
 import { useEffect } from "react";
+import { IProfile } from "../../interfaces/IProfile";
+import getImgSrc from "../../utils/getImgSrc";
 import Label from "../Label";
 
 interface LabeledAvatarProps extends AvatarProps, Pick<Partial<IProfile>, 'testResult' | 'nickname'> {
@@ -31,7 +31,7 @@ function LabeledAvatar({ characterId, showLabel = true, labelSize, nickname, tes
         // >
         //     <Avatar
         //         alt={nickname}
-        //         src={getImgSrc('/character', imageId, FORMATWEBP)}
+        //         src={getImgSrc('/character', imageId })}
         //         className={`profile__avatar ${className}`}
         //         style={{ backgroundColor: theme.palette.primary.light }}
         //         {...props as AvatarProps}
@@ -50,7 +50,7 @@ function LabeledAvatar({ characterId, showLabel = true, labelSize, nickname, tes
         >
             <Avatar
                 alt={ imageId }
-                src={ getImgSrc('/character', imageId, FORMATWEBP, "small" ) }
+                src={ getImgSrc('/character', imageId, { size : "small" }) }
                 className={ `${ className }` }
                 style={{ backgroundColor: theme.palette.primary.light }}
                 { ...props as AvatarProps }
@@ -61,3 +61,4 @@ function LabeledAvatar({ characterId, showLabel = true, labelSize, nickname, tes
 }
 export default LabeledAvatar;
 export type { LabeledAvatarProps };
+

@@ -14,6 +14,7 @@ import { useStrings } from "../../texts";
 import UserAvatar from "../Avatar/UserAvatar";
 import PngIcon from "../PngIcon";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
+import { MotionListItemButton } from "~/motion/components/MotionListItemButton";
 
 interface DrawerProps {
     open: boolean
@@ -32,7 +33,7 @@ function Drawer({ open, onDrawerItemClick }: DrawerProps) {
     const isAuthorized = useIsAuthorized();
     const user = useUserInfo();
     const hasAnsweredTest = useHasAnsweredTest();
-    
+
     /* Event handlers  */
     const handleDrawerItemClick = (path: string) => {
         onDrawerItemClick();
@@ -73,63 +74,59 @@ function Drawer({ open, onDrawerItemClick }: DrawerProps) {
                         >
                             <Toolbar />
                             <MotionList
-                                // initial={false}
-                                // animate={openDrawer ? "open" : "closed"}
-                                // initial={"open"}
-                                // exit={"closed"}
                                 variants={VARIANTS_STAGGER_CHILDREN}
+                                className="block__body"
                             >
                                 <MotionListSubheader disableGutters className="block--with-margin-x">{`내 정보`}</MotionListSubheader>
-                                <MotionListItem key={"profile"}>
-                                    <ListItemButton
-                                        onClick={() => handleDrawerItemClick('user')}
-                                        selected={pathname.includes('user')}
-                                        disableGutters
-                                        className="block--with-padding-x"
-                                    >
-                                        <ListItemAvatar>{
+                                <MotionListItemButton
+                                    key={"profile"}
+                                    onClick={() => handleDrawerItemClick('user')}
+                                    selected={pathname.includes('user')}
+                                    disableGutters
+                                    className="block--with-padding-x"
+                                >
+                                    <ListItemAvatar>{
+                                        isAuthorized
+                                            ?
+                                            <UserAvatar showLabel={false} />
+                                            : <Avatar />
+                                    }
+                                    </ListItemAvatar>
+                                    <ListItemText
+                                        primary={
                                             isAuthorized
                                                 ?
-                                                <UserAvatar showLabel={false} />
-                                                : <Avatar />
+                                                user.nickname
+                                                : "로그인하기"
                                         }
-                                        </ListItemAvatar>
-                                        <ListItemText
-                                            primary={
-                                                isAuthorized
-                                                    ?
-                                                    user.nickname
-                                                    : "로그인하기"
-                                            }
-                                        // secondary={
-                                        //     isAuthorized ? getNameTag(user) : undefined
-                                        // }
-                                        />
-                                    </ListItemButton>
-                                </MotionListItem>
+                                    // secondary={
+                                    //     isAuthorized ? getNameTag(user) : undefined
+                                    // }
+                                    />
+                                </MotionListItemButton>
                                 <Divider />
                                 <MotionListSubheader disableGutters className="block--with-margin-x">{`내 여행`}</MotionListSubheader>
                                 {
                                     Object.entries(CONTENTS).map(([content, { path, icon }]) =>
-                                        <MotionListItem key={content} >
-                                            <ListItemButton
-                                                onClick={() => handleDrawerItemClick(path)}
-                                                selected={pathname.includes(path)}
-                                                disableGutters
-                                                className="block--with-padding-x"
-                                            >
-                                                <ListItemAvatar>
-                                                    <Avatar variant="rounded">
-                                                        <PngIcon name={icon} />
-                                                    </Avatar>
-                                                </ListItemAvatar>
-                                                <ListItemText
-                                                    primary={
-                                                        strings.public.contents[content as keyof typeof strings.public.contents].label
-                                                    }
-                                                />
-                                            </ListItemButton>
-                                        </MotionListItem>
+                                        // <MotionListItem key={content} >
+                                        <MotionListItemButton
+                                            key={content}
+                                            onClick={() => handleDrawerItemClick(path)}
+                                            selected={pathname.includes(path)}
+                                            className="block--with-padding-x"
+                                        >
+                                            <ListItemAvatar>
+                                                <Avatar variant="rounded">
+                                                    <PngIcon name={icon} />
+                                                </Avatar>
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                primary={
+                                                    strings.public.contents[content as keyof typeof strings.public.contents].label
+                                                }
+                                            />
+                                        </MotionListItemButton>
+                                        // </MotionListItem>
                                     )
                                 }
                             </MotionList>

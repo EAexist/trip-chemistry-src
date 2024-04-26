@@ -2,8 +2,8 @@
 import { useEffect, useRef, useState } from "react";
 
 /* Externals */
-import { ExpandMore, NavigateNext, RamenDining } from "@mui/icons-material";
-import { Alert, Box, Button, ButtonBase, Card, CardContent, CardMedia, Divider, List, ListItemAvatar, ListItemButton, ListItemText, ListSubheader, Stack, Tooltip } from "@mui/material";
+import { ExpandMore, RamenDining } from "@mui/icons-material";
+import { Box, Button, ButtonBase, Card, CardContent, CardMedia, Divider, List, ListItemAvatar, ListItemButton, ListItemText, ListSubheader, Stack } from "@mui/material";
 import { m, useMotionValueEvent, useScroll } from "framer-motion";
 import { useSelector } from "react-redux";
 import LazyDomAnimation from "../../motion/LazyDomAnimation";
@@ -14,7 +14,7 @@ import 'swiper/css/effect-coverflow'; /* Food Carousel */
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 /* App */
-import { CITY, LINK, NATION, SLIDERPROPS_TEST_BUDGET_FOOD, TEST, TEST_SECTIONS, TEST_TYPE } from "../../common/app-const";
+import { CITY, LINK, NATION, SLIDERPROPS_TEST_BUDGET_FOOD, TEST, TEST_SECTIONS } from "../../common/app-const";
 import TestSection from "../../components/Block/TestSection";
 import FoodImageCard from "../../components/Card/FoodImageCard";
 import ImageCard from "../../components/Card/ImageCard";
@@ -23,7 +23,9 @@ import Flag from "../../components/Flag";
 import GoogleMapContext from "../../components/GoogleMap/common/GoogleMapContext";
 import { OPTIONS_TEST_SCHEDULE } from "../../components/GoogleMap/common/options";
 import GoogleMap from "../../components/GoogleMap/ui/GoogleMap";
-import GoogleMapMarker from "../../components/GoogleMap/ui/GoogleMapMarker";
+// import GoogleMapMarker from "../../components/GoogleMap/ui/Marker";
+import InfoWindowContext from "~/components/GoogleMap/common/InfoWindowContext";
+import GoogleMapMarker from "~/components/GoogleMap/ui/GoogleMapMarker";
 import Logo from "../../components/Logo";
 import PngIcon from "../../components/PngIcon";
 import ScrollPageContainer from "../../components/ScrollPage/ScrollPageContainer";
@@ -41,7 +43,7 @@ import testAnswerReducer, { NumericTestName, SetTestName, useIsAllTestAnswered, 
 import { RootState } from "../../store";
 import { SWIPERPROPS_CAROUSEL, SWIPERPROPS_FOODCARDCAROUSEL } from "../../swiper/props";
 import { useStrings } from "../../texts";
-import getImgSrc, { FORMATWEBP } from "../../utils/getImgSrc";
+import getImgSrc from "../../utils/getImgSrc";
 import { priceText } from "../../utils/priceText";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import AnswerButtonGroup from "./component/AnswerButtonGroup";
@@ -78,6 +80,47 @@ function TestContent() {
     const [showScrollDownIcon, setShowScrollDownIcon] = useState(true);
     const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
 
+    const { zoom: googleMapZoom, center: googleMapCenter } = TEST.schedule.subTests.schedule.examples[scheduleAnswer as keyof typeof TEST.schedule.subTests.schedule.examples];
+    
+    /* 구글맵 */
+
+    /** 실제 오픈되어 있어야 하는 Info Window. Context 에 적용. */
+    const [ activeInfoWindow, setActiveInfoWindow ] = useState<google.maps.InfoWindow>(); 
+    /**
+     * DOM 에서 오픈되어 있는 Info Window. 
+     * Active Info Window 가 변경 될 경우 기존 Active Info Window 의 close() 함수를 호출해 닫기 위해 참조. 
+     * */
+    const [ prevActiveInfoWindow, setPrevActiveInfoWindow ] = useState<google.maps.InfoWindow>();   
+
+    useEffect(()=>{
+        console.log(`activeInfoWindow.content=${activeInfoWindow?.getContent().toString()}`)
+
+        // 새로운 Info Window 가 열릴 경우 기존의 Active Info Window를 닫음. Close 버튼을 눌러 Info Window를 닫을 경우 상태를 undefined 로 설정. Context의 Active Info Window 와 DOM 에서 오픈되어있는 Info Window 를 동기화.
+        if ( activeInfoWindow !== prevActiveInfoWindow ){
+            prevActiveInfoWindow?.close()
+            setPrevActiveInfoWindow( activeInfoWindow )
+        }
+
+        // Close 버튼을 눌러 Info Window를 닫을 경우 Info Window로 인해 이동한 지도의 center를 기본값으로 초기화.
+        if ( activeInfoWindow === undefined ){
+            scheduleExampleMap?.panTo(googleMapCenter);
+        }
+
+    }, [ activeInfoWindow, scheduleExampleMap ])    
+    
+    /** Schedule 테스트 결과에 따라 
+     * 1. 구글맵 zoom 변경
+     * 2. 구글맵 center 이동
+     * */
+    useEffect(() => {
+        if (scheduleAnswer !== undefined) {
+            scheduleExampleMap?.setZoom(googleMapZoom);
+            setActiveInfoWindow(undefined);
+            scheduleExampleMap?.panTo(googleMapCenter);
+        }
+    }, [ scheduleAnswer, scheduleExampleMap ]);
+
+
     /* 첫 렌더 후 Scroll Resotration 중에 Top Nav 가 슬라이드 되는 모션을 방지함. */
     const [preventInitialSwipe, setPreventInitialSwipe] = useState(true);
 
@@ -112,16 +155,6 @@ function TestContent() {
             foodCarouselSwiperRef.current?.swiper.slideTo(Object.keys(TEST.food.examples).indexOf(String(foodAnswer)));
         }
     }, [foodAnswer])
-
-    useEffect(() => {
-        if (scheduleAnswer !== undefined) {
-            if ((scheduleExampleMap !== undefined) && (scheduleExampleMap !== null)) {
-                let { zoom, center } = TEST.schedule.subTests.schedule.examples[scheduleAnswer as keyof typeof TEST.schedule.subTests.schedule.examples];
-                scheduleExampleMap.setZoom(zoom);
-                scheduleExampleMap.panTo(center);
-            }
-        }
-    }, [scheduleAnswer, scheduleExampleMap]);
 
 
     /* Motion */
@@ -231,8 +264,8 @@ function TestContent() {
                                                                     component="img"
                                                                     alt={value}
                                                                     height={"100%"}
-                                                                    image={getImgSrc("/test", `leadership_${value}-medium`, FORMATWEBP)}
-                                                                    srcSet={`${getImgSrc("/test", `leadership_${value}-medium`, FORMATWEBP)} 128w`}
+                                                                     image={getImgSrc("/test", `leadership_${value}`)}
+                                                                    srcSet={`${getImgSrc("/test", `leadership_${value}` )} 128w`}
                                                                     sizes={'30vw'}
                                                                 />
                                                             </OptionCard>
@@ -252,19 +285,22 @@ function TestContent() {
                                     <ScrollPageItem key={"schedule"} page={3} className="flex">
                                         <TestSection>
                                             <div className="flex-grow block--centered">
-                                                <Card className="test__google-map-container modal__container">
+                                                <Card className="test__google-map-container modal__container" sx={{ borderRadius: "16px" }}>
                                                     <GoogleMapContext.Provider value={{ map: scheduleExampleMap as google.maps.Map, setMap: setScheduleExampleMap }}>
+                                                        <InfoWindowContext.Provider value={{ activeInfoWindow, setActiveInfoWindow }}>
                                                         <GoogleMap opts={OPTIONS_TEST_SCHEDULE}>
                                                             <GoogleMapMarker {...TEST.schedule.subTests.schedule.airportPlace} />
                                                             {
                                                                 (scheduleAnswer !== undefined) &&
                                                                 Object.entries(TEST.schedule.subTests.schedule.examples).map(([value, { places }]) => (
                                                                     places.map((place) => (
+                                                                        // <GoogleMapMarker key={place.label} {...place} isActive={Number(value) <= scheduleAnswer} />
                                                                         <GoogleMapMarker key={place.label} {...place} isActive={Number(value) <= scheduleAnswer} />
                                                                     ))
                                                                 ))
                                                             }
                                                         </GoogleMap>
+                                                        </InfoWindowContext.Provider>
                                                     </GoogleMapContext.Provider>
                                                 </Card>
                                             </div>
@@ -293,13 +329,13 @@ function TestContent() {
                                                                             ? (
                                                                                 isActive ?
                                                                                     <m.div style={{ width: isActive ? "100vw" : "auto" }} layout layoutId="box" >
-                                                                                        <Box sx={{ borderRadius: "12px", bgcolor: 'gray.light', ...isActive ? {} : { width: "196px", height: "196px" } }} className={`block--centered block--with-padding-x ${isActive ? "block--with-margin-x" : ""}`}>
+                                                                                        <Box sx={{ borderRadius: "12px", bgcolor: 'gray.light', ...isActive ? {} : { width: "196px", height: "196px" } }} className={`block--centered ${isActive ? "block--with-margin-x" : ""}`}>
                                                                                             {/* <AnimatePresence mode={"wait"} initial={false}> */}
                                                                                             <List>
-                                                                                                <ListSubheader sx={{ textAlign: "start", bgcolor: 'transparent' }}>더 많은 식당 찾아보기</ListSubheader>
+                                                                                                <ListSubheader sx={{ textAlign: "start", bgcolor: 'transparent' }} className="block--with-margin-x">더 많은 식당 찾아보기</ListSubheader>
                                                                                                 {
                                                                                                     TEST.food.more.map((source) => (
-                                                                                                        <ListItemButton disableGutters href={LINK[source as keyof typeof LINK].link} key={source} style={{ padding: 0 }}>
+                                                                                                        <ListItemButton href={LINK[source as keyof typeof LINK].link} key={source} className="block--with-padding-x">
                                                                                                             <ListItemAvatar>
                                                                                                                 <Logo id={source} size="large" />
                                                                                                             </ListItemAvatar>
@@ -367,9 +403,9 @@ function TestContent() {
                                                                         <ButtonBase onClick={() => handleCityCardClick(key, index)} className="block--full">
                                                                             <div className="block__body">
                                                                                 <ImageCard
-                                                                                    src={getImgSrc("/city", cityId, FORMATWEBP, "medium")}
+                                                                                    src={getImgSrc("/city", cityId )}
                                                                                     title={cityId}
-                                                                                    sx={{ width: "196px", height: "196px", borderRadius: "12px" }}
+                                                                                    sx={{ width: "196px", height: "196px" }}
                                                                                     className="body__head"
                                                                                 />
                                                                                 <Stack>

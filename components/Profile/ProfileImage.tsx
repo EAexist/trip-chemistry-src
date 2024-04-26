@@ -3,7 +3,7 @@ import withFriendProfile from "../../hocs/withFriendProfile";
 import withUserProfile from "../../hocs/withUserProfile";
 import { IProfile } from "../../interfaces/IProfile";
 import { IProfileId } from "../../interfaces/IProfile";
-import getImgSrc, { FORMATWEBP } from "../../utils/getImgSrc";
+import getImgSrc from "../../utils/getImgSrc";
 
 interface ProfileImageProps extends Pick<IProfile, 'id' | 'testResult' | 'nickname'> {
     showCharacterLabel?: boolean;
@@ -17,7 +17,7 @@ function ProfileImage({ renderLabel, showCharacterLabel = true, id, nickname, te
     return (
         <div className="block--centered">
             <img
-                src={ getImgSrc('/character', tripCharacter.id, FORMATWEBP, "large") }
+                src={ getImgSrc('/character', tripCharacter.id, { size : "large" }) }
                 alt={ nickname }
                 className="ProfileImage__image"
                 width={ "192px" }

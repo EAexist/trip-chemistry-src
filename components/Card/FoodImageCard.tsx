@@ -4,9 +4,9 @@ import { ButtonBase, CardProps, Divider, Stack } from "@mui/material";
 
 import { CITY, FOOD, NATION } from "../../common/app-const";
 import { useStrings } from "../../texts";
-import getImgSrc, { FORMATWEBP } from "../../utils/getImgSrc";
-import ImageCard from "./ImageCard";
+import getImgSrc from "../../utils/getImgSrc";
 import Flag from "../Flag";
+import ImageCard from "./ImageCard";
 
 
 interface FoodImageCardProps extends CardProps {
@@ -29,7 +29,7 @@ const FoodImageCard = ({ id, isActive, ...props }: FoodImageCardProps) => {
         <a href={isActive ? data.link : undefined} target="_blank" rel="noopener noreferrer">
             <ButtonBase className="block--full" disabled={!isActive}>
                 <div className="block__body" style={{ opacity: isActive ? 1 : 0.5 }}>
-                    <ImageCard src={getImgSrc("/food", data.restaurant, FORMATWEBP)} title={strings.name} sx={{ width: "196px", height: "196px", borderRadius: "12px" }} className="body__head" />
+                    <ImageCard src={getImgSrc("/food", data.restaurant, { size: "large"} )} title={strings.name} sx={{ width: "196px", height: "196px" }} className="body__head" />
                     {
                         isActive &&
                         <div style={{ width: "100%", textAlign: "start" }} className="block__body">
