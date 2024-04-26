@@ -46,7 +46,7 @@ declare module '@mui/material/styles' {
     }
 }
 
-const { palette : defaultPalette } = createTheme()
+const { palette: defaultPalette } = createTheme()
 
 const defaultTheme = createTheme({
     palette: {
@@ -59,22 +59,15 @@ const defaultTheme = createTheme({
             main: '#fff',
             light: '#fff',
             dark: '#F2F4F6',
-            // dark: '#E7E9ED',
         },
         /* Create gray palette by theme.palette.augmentColor() */
         gray: defaultPalette.augmentColor({
             color: {
-              main: '#E7E9ED',
+                main: '#E7E9ED',
             },
             name: 'salmon',
-          }),
-        // {
-        //     main: '#E7E9ED',
-        //     light: '#F2F4F6',
-        //     contrastText: '#505967',
-        // },
+        }),
     }
-
 },
 );
 
@@ -86,12 +79,6 @@ const theme = createTheme({
             'Pretendard'
         ].join(','),
     },
-    // transitions: {
-    //     duration: {
-    //         enteringScreen: 500,
-    //         leavingScreen: 500,
-    //     }
-    // },
     components: {
         MuiAppBar: {
             defaultProps: {
