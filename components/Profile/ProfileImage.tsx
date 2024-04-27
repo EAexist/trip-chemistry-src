@@ -27,10 +27,10 @@ function ProfileImage({ renderLabel, showCharacterLabel = true, id, nickname, te
                 ( renderLabel === undefined )
                     ?
                     <div>
-                        <h3 className="typography-label">{ nickname }</h3>
+                        <h3 className="typography-heading">{ nickname }</h3>
                         {
                             showCharacterLabel 
-                            && <p className="typography-note">
+                            && <p className="typography-body">
                                 {tripCharacter.name}
                             </p>
                         }

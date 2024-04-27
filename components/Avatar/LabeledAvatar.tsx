@@ -52,7 +52,8 @@ function LabeledAvatar({ characterId, showLabel = true, labelSize, nickname, tes
                 alt={ imageId }
                 src={ getImgSrc('/character', imageId, { size : "small" }) }
                 className={ `${ className }` }
-                style={{ backgroundColor: theme.palette.primary.light }}
+                // style={{ backgroundColor: theme.palette.primary.light }}
+                // style={{ backgroundColor: theme.palette.secondary.main, outlineWidth: 1, outlineStyle: 'solid', outlineColor: theme.palette.primary.light }}
                 { ...props as AvatarProps }
                 // sx={{ width: 36, height: 36 }}
             />

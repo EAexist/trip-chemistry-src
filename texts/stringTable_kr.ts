@@ -439,7 +439,7 @@ const stringTable_kr = {
                         "body": "3분만 투자하면 나의 여행 스타일, 추천 여행지, 일행과의 케미스트리가 한 눈에!"
                     },
                     {
-                        "id": "asthetic",
+                        "id": "character",
                         title: "내 여행 타입은?",
                         "body": "귀여운 캐릭터와 함께 내 여행 스타일을 알아보자"
                     },

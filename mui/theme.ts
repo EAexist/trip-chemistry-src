@@ -58,15 +58,23 @@ const defaultTheme = createTheme({
         secondary: {
             main: '#fff',
             light: '#fff',
-            dark: '#F2F4F6',
+            dark: '#f9fafb',
         },
         /* Create gray palette by theme.palette.augmentColor() */
         gray: defaultPalette.augmentColor({
             color: {
-                main: '#E7E9ED',
+                main: '#F2F4F6',
+                // light: '#f9fafb',
             },
             name: 'salmon',
         }),
+        /* Create gray palette by theme.palette.augmentColor() */
+        // primary: defaultPalette.augmentColor({
+        //     color: {
+        //         main: '#FF7949',
+        //     },
+        //     name: 'salmon',
+        // }),
     }
 },
 );
@@ -83,7 +91,7 @@ const theme = createTheme({
         MuiAppBar: {
             defaultProps: {
                 elevation: 0,
-                color: 'secondary'
+                color: 'transparent'
                 // style: {
                 //     backgroundColor: defaultTheme.palette.secondary.main,
                 // }
@@ -99,8 +107,8 @@ const theme = createTheme({
         MuiAvatar: {
             defaultProps: {
                 style: {
-                    backgroundColor: defaultTheme.palette.gray.light,
-                    color: defaultTheme.palette.gray.contrastText
+                    backgroundColor: defaultTheme.palette.gray.main,
+                    // color: defaultTheme.palette.gray.contrastText
                 }
             }
         },
