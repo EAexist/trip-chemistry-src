@@ -314,8 +314,8 @@ export const TEST = {
                 airportPlace:
                 {
                     position: {
-                        lat: 33.596306,
-                        lng: 130.4293798,
+                        lat: 33.605,
+                        lng: 130.404,
                     },
                     name: 'fukuoka-airport',
                     label: '후쿠오카 공항',
@@ -350,7 +350,7 @@ export const TEST = {
                             },
                         ],
                         zoom: 13.5,
-                        center: { lat: 33.5900, lng: 130.415 },
+                        center: { lat: 33.60, lng: 130.405 },
                     },
                     2: {
                         places: [
@@ -378,7 +378,7 @@ export const TEST = {
                             },
                         ],
                         zoom: 13,
-                        center: { lat: 33.5950, lng: 130.425 },
+                        center: { lat: 33.605, lng: 130.42 },
                     },
                     3: {
                         places: [
@@ -395,8 +395,8 @@ export const TEST = {
                             },
                             {
                                 position: {
-                                    lat: 33.5838392,
-                                    lng: 130.4539866,
+                                    lat: 33.586,
+                                    lng: 130.454,
                                 },
                                 name: 'tempura-hirao',
                                 label: '덴푸라 히라오 본점',
@@ -406,7 +406,7 @@ export const TEST = {
                             },
                         ],
                         zoom: 13,
-                        center: { lat: 33.5950, lng: 130.425 },
+                        center: { lat: 33.605, lng: 130.427 },
                     },
                     4: {
                         places: [
@@ -435,7 +435,7 @@ export const TEST = {
                             },
                         ],
                         zoom: 12,
-                        center: { lat: 33.5800, lng: 130.40 },
+                        center: { lat: 33.6000, lng: 130.415 },
                     },
                     5: {
                         places: [
@@ -463,7 +463,7 @@ export const TEST = {
                             },
                         ],
                         zoom: 12,
-                        center: { lat: 33.5800, lng: 130.40 },
+                        center: { lat: 33.6000, lng: 130.40 },
                     },
                 }
             }
@@ -592,11 +592,11 @@ export const TEST_SECTIONS = {
         airportPlace:
         {
             position: {
-                lat: 33.596306,
-                lng: 130.4293798,
+                lat: 33.61,
+                lng: 130.8,
             },
             label: '공항',
-            icon: 'flight',
+            // icon: 'flight',
         },
         examples: {
             1: {

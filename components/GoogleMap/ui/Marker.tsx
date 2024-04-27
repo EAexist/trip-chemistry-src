@@ -15,15 +15,14 @@ const Marker = ({ icon, color } : MarkerProps) => {
 
   return (    
     // <div className='flex flex-col items-center -translate-x-1/2 -translate-y-14 card animate-fadeIn'
-    // onMouseEnter={ handleMouseEnter } onMouseLeave={ handleMouseLeave }>        
+    // onMouseEnter={ handleMouseEnter } onMouseLeave={ handleMouseLeave }>    
+    <div className={ styles.marker }>    
       <div className={ styles.marker__container }>
-        {/* <div className='w-8 absolute left-1/2 -translate-x-1/2 h-full'/> */}
-        <LocationOn sx={{ fontSize: 52, color: color }}/>
-        <Circle className={ styles.marker__background } sx={{ fontSize: 28, color: "white", }}/>
-        <Icon className={ styles.marker__icon } sx={{ fontSize: 20}}>{icon}</Icon>
-        {/* <Paper><h6>{label}</h6></Paper> */}
+        <LocationOn sx={{ fontSize: 52, color: color }} className={ styles.marker__background }/>
+        <Circle className={ styles.marker__glyph } sx={{ fontSize: 28, color: "white", }}/>
+        <Icon className={ styles.marker__icon } sx={{ fontSize: 20 }}>{icon}</Icon>
       </div>
-    // </div>
+    </div>
   )
 };
 

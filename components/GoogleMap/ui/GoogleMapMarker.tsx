@@ -22,7 +22,7 @@ interface GoogleMapMarkerProps extends MarkerProps {
 
 const renderContent = (children: ReactNode) => {
     const content = document.createElement("div");
-    content.className = 'h-0 w-0';
+    content.className = 'GoogleMap-AdvancedMarkerElement';
     createRoot(content as Element).render(children);
     return (content);
 }
@@ -83,7 +83,7 @@ const GoogleMapMarker = ({ isActive = true, position, label, body, href, name, i
                                 <CardActionArea style={{ display: "flex", alignItems: "stretch" }} href={href}>
                                     <CardMedia
                                         component="img"
-                                        sx={{ minWidth: 72, outlineColor: "blue", outlineWidth: 3 }}
+                                        sx={{ width: 80, outlineColor: "blue", outlineWidth: 3 }}
                                         image={getImgSrc("/test/schedule", name )} 
                                         alt={label}
                                     />
@@ -104,6 +104,7 @@ const GoogleMapMarker = ({ isActive = true, position, label, body, href, name, i
 
                 markerElement.addListener("click", () => {
                     setSelectedInfoWindow(infoWindow);
+                    
                     infoWindow.open({
                         anchor: markerElement,
                         map,
@@ -132,6 +133,7 @@ const GoogleMapMarker = ({ isActive = true, position, label, body, href, name, i
             if( marker ){
                 // Marker 강조
                 marker.content = renderContent(<Marker icon={icon} color={palette.primary.main}/>)
+                marker.zIndex = 1
                 // InfoWindow 표시 
                 infoWindow?.open({
                     anchor: marker,
@@ -141,6 +143,7 @@ const GoogleMapMarker = ({ isActive = true, position, label, body, href, name, i
         }
         else{
             marker.content = renderContent(<Marker icon={icon} color={palette.gray.dark}/>)
+            marker.zIndex = 0
             infoWindow?.close();
         }
     }, [ isSelected, infoWindow, marker ])

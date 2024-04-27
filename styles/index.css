@@ -862,10 +862,11 @@ button {
 
 .test__google-map-container {
     width: 100%;
-    height: 288px;
+    height: 300px;
 }
 
 /* Google Map */
+
 .modal__container {
     position: relative;
 }
@@ -881,8 +882,8 @@ button {
 
 .backdrop {
     position: absolute;
-    /* width: 100%; */
-    /* height: 100%; */
+    width: 100%;
+    height: 100%;
     top: 0;
     left: 0;
     background-color: #fff;
@@ -895,6 +896,10 @@ button {
 /* InfoWindow */
 .gm-style-iw {
     padding: 0 !important;
+    max-height:fit-content !important;
+}
+.gm-style-iw-d {
+    max-height:fit-content !important;
 }
 .gm-style-iw-tc {
     display: none !important;

@@ -147,7 +147,10 @@ const theme = createTheme({
         },
         MuiCard: {
             defaultProps: {
-                elevation: 0
+                elevation: 0,
+                style: {
+                    borderRadius: "16px"
+                }
             }
         },
         MuiIcon: {
@@ -168,7 +171,7 @@ const theme = createTheme({
                     '& .MuiTooltip-tooltip': {
                         width: '124px',
                         padding: '0px',
-                        color: "chocolate"
+                        // color: "chocolate"
                     },
                 }
             }
