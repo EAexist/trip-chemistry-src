@@ -4,6 +4,9 @@ import useValueToProfileIdList from "../../../hooks/useValueToProfileIdList";
 import useProfileIdListByAnswer from "../../../hooks/useProfileIdListByAnswer";
 import FriendAvatar from "../../../components/Avatar/FriendAvatar";
 import { ITestName } from "../../../interfaces/ITestAnswer";
+import { m } from "framer-motion";
+import { VARIANTS_SLIDE_UP, VARIANTS_STAGGER_CHILDREN } from "~/motion/props";
+import LazyDomAnimation from "~/motion/LazyDomAnimation";
 
 interface ChemistrySliderProps extends SliderOwnProps {
     testName: ITestName
@@ -12,7 +15,7 @@ interface ChemistrySliderProps extends SliderOwnProps {
     step: number
 };
 
-const SliderValueLabel = ({ testName, value }: { testName: ITestName, value: number }) => {
+const SliderValueLabel = m(({ testName, value }: { testName: ITestName, value: number }) => {
 
     const { userList } = useProfileIdListByAnswer(testName, value);
 
@@ -30,7 +33,7 @@ const SliderValueLabel = ({ testName, value }: { testName: ITestName, value: num
             </Stack>
             : <div className="Slider__value" />
     );
-}
+}, { forwardMotionProps: true });
 
 function ChemistrySlider({ testName, ...sliderOwnProps }: ChemistrySliderProps) {
 
@@ -42,6 +45,7 @@ function ChemistrySlider({ testName, ...sliderOwnProps }: ChemistrySliderProps) 
     )
 
     return (
+        <LazyDomAnimation>
         <Stack alignItems={'stretch'}>
             <Stack alignItems={'stretch'} className="Slider">
                 {/* <div className="flex" >
@@ -77,14 +81,15 @@ function ChemistrySlider({ testName, ...sliderOwnProps }: ChemistrySliderProps) 
                     {...sliderOwnProps}
                 />
             </Stack>
-            <div className="flex">
+            <m.div className="flex" initial={"closed"} whileInView={"open"} variants={VARIANTS_STAGGER_CHILDREN}>
                 {
                     marks.map((value) => (
-                        <SliderValueLabel key={value} testName={testName} value={value} />
+                        <SliderValueLabel key={value} testName={testName} value={value} variants={ VARIANTS_SLIDE_UP } />
                     ))
                 }
-            </div>
+            </m.div>
         </Stack>
+            </LazyDomAnimation>
     );
 }
 

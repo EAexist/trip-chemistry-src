@@ -36,7 +36,7 @@
     font-optical-sizing: auto;
 
     /* Debug */
-    outline: 1px solid red;
+    /* outline: 1px solid red; */
 }
 
 ul {
@@ -560,14 +560,9 @@ button {
 
 /*** Swiper ***/
 .pagination__bullets {
-    margin-top: 16px;
-    margin-bottom: 16px;
-    width: fit-content;
     display: flex;
     gap: 4px;
-    z-index: 1;
 }
-
 
 /*** Trip Chemistry ***/
 

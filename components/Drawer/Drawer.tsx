@@ -104,7 +104,9 @@ function Drawer({ open, onDrawerItemClick }: DrawerProps) {
                                     // }
                                     />
                                 </MotionListItemButton>
+                                <div>
                                 <Divider />
+                                </div>
                                 <MotionListSubheader disableGutters className="block--with-margin-x">{`내 여행`}</MotionListSubheader>
                                 {
                                     Object.entries(CONTENTS).map(([content, { path, icon }]) =>

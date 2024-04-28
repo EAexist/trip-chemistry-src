@@ -86,7 +86,8 @@ export const FADEIN_VIEWPORT : MotionProps = {
     whileInView: "visible",
     variants: VARIANTS_FADEIN,
     viewport: {
-        once: true
+        // once: true
+        once: false
     }
 };
 
@@ -123,6 +124,7 @@ const SLIDEINUPINVIEW = {
     transition: {
         ease: "easeInOut",
         duration: 0.5,
+        delay: 5
     },
 }
 

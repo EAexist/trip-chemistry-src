@@ -9,6 +9,9 @@ import { TEST } from './common/app-const';
 import Page from './route/Page';
 import { store } from './store';
 
+/* Mockup */
+import ChemistryDetailMockupContent from './mockup/ChemistryDetailMockupContent';
+
 /* Loadable Components */
 
 /* Intermediate Routes */
@@ -92,12 +95,18 @@ const routes = createRoutesFromElements(
                 <Route key={'initializeNickname'} path={'initializeNickname'} element={<InitializeNicknameContent />} />
                 <Route key={'redirectURI'} path={'kakaoAuthRedirect'} element={<KakaoAuthRedirectPage />} />
             </Route>
+            {/* Mockup */}
+            <Route key={'chemistryMockup'} path={'chemistryMockup/:chemistryId'} element={<ChemistryRoute />} >
+                <Route key={'index'} index element={<ChemistryDetailMockupContent />} />
+            </Route>
         </Route>
 
-        {/** [ Deprecated ] 
+
+        {/** 
+         * [ Deprecated ] 
          *  게스트 로그인 사용자를 위한 route 를  구분된 path로 관리 e.g. domain/guest/{guestId}/{pathname}
          * -> 통합된 path 에서 query parameter 를통해 관리 e.g. domain/{pathname}?guestId={guestId}  
-         * */}
+         */}
         {/* <Route key={'guest'} path={'guest/:id'} element={<GuestRoute />}>
             {sessionRoute}
         </Route> */}

@@ -43,9 +43,9 @@ function HomeContent() {
 
     /* Swiper */
     const SWIPERPROPS_HOMECONTENT: SwiperOptions | { className: string } = {
-        modules: [Pagination, Autoplay],
+        modules: [Pagination],
         loop: true,
-        // rewind: true,
+        rewind: true,
         speed: SWIPER_SPEED,
         slidesPerView: 1,
         pagination: {
@@ -53,70 +53,55 @@ function HomeContent() {
             el: '.pageSwiper-pagination',
         },
         // autoHeight: true,
-        autoplay: {
-            delay: AUTOPLAY_DELAY,
-            disableOnInteraction: false,
-        }
+        // autoplay: {
+        //     delay: AUTOPLAY_DELAY,
+        //     disableOnInteraction: false,
+        // }
     }
 
 
     return (
-        // <div className="page" style={{ backgroundColor: theme.palette.secondary.dark }}>
-        <div className="page" style={{ backgroundColor: "gray" }}>
-            <Swiper
-                {...SWIPERPROPS_HOMECONTENT}
-                onSwiper={(swiper) => {
-                    setSwiper(swiper);
-                }}
-                className="flex fill-window"
-                style={{ display: 'flex' }}
-            >
-                {(strings.sections as { id: string, title: string, body: string }[]).map(({ id, title, body }, index) => (
-                    <SwiperSlide key={title} style={{ overflowY: 'visible', display: 'flex', flexDirection: 'column' }} className="block__body">
-                        <Toolbar className="body__head" />
-                        <div className="flex-grow block--with-margin-x block__body block--round block--centered" style={{ backgroundColor: "white" }}>
-                            {/* <img style={{ position: "absolute" }} width="80%" src={getImgSrc("/home", "iphone-mockup" )} alt={"iphone-mockup"} /> */}
-                            <video autoPlay loop playsInline muted width="80%" poster={`/videos/${id}.mp4`}>
-                                <source src={`/videos/${id}.mp4`} type="video/mp4" />
-                            </video>
-                        </div>
-                        <div className="block--with-margin-x block__body" style={{ justifyContent: "end" }}>
-                            <h3 className="typography-heading">{title}</h3>
-                            <p className="">{body}</p>
-                        </div>
-                        <div style={{ position: "absolute", width: "100%" }} className="fill-window">
-                            {/* Background Image */}
-                        </div>
-                    </SwiperSlide>
-                ))}
-                {/* <div slot="container-start" style={{ position: 'absolute', width: '100%', top: 0 }}>
-                    <Toolbar />
-                    <div className="block--centered">
-                        <img height="360px" src={getImgSrc("/home", "iphone-mockup" )} alt={"iphone-mockup"} />
-                    </div>
-                </div> */}
-                <div slot="container-end">
-                    <div className="block--with-margin-x block__body">
-                        <div>
-                            <Stack spacing={2}>
-                                {
-                                    swiper &&
-                                    <SwiperAutoplayProgress swiper={swiper} />
-                                }
-                                <PaginationDiv className='pageSwiper-pagination pagination__bullets' />
-                            </Stack>
-                        </div>
-                        <div className="placeholder--button--full block--with-margin--large" />
-                    </div>
-                </div>
-            </Swiper>
+        <div className="page fill-window flex" style={{ backgroundColor: theme.palette.secondary.dark }}>
+            <Toolbar />
+            <div className="flex-grow">
+                <Swiper
+                    {...SWIPERPROPS_HOMECONTENT}
+                    onSwiper={(swiper) => {
+                        setSwiper(swiper);
+                    }}
+                    style={{ display: "flex", flexDirection: "column", height: "100%" }}
+                    // className="flex"
+                >
+                    {(strings.sections as { id: string, title: string, body: string }[]).map(({ id, title, body }, index) => (
+                        <SwiperSlide key={title} style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }} >
+                            <div className="flex-grow block--with-margin-x block__body block--round block--round--large block--centered" style={{ backgroundColor: "white" }}>
+                                {/* <img style={{ position: "absolute" }} width="80%" src={getImgSrc("/home", "iphone-mockup" )} alt={"iphone-mockup"} /> */}
+                                <video autoPlay loop playsInline muted width="80%" poster={`/videos/${id}.mp4_`}>
+                                    <source src={`/videos/${id}.mp4`} type="video/mp4" />
+                                </video>
+                            </div>
+                            <div className="block--with-margin-x block__body" style={{ justifyContent: "end" }}>
+                                <h3 className="typography-heading">{title}</h3>
+                                <p className="">{body}</p>
+                            </div>
+                            <div style={{ position: "absolute", width: "100%" }} className="fill-window">
+                                {/* Background Image */}
+                            </div>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
+            <div className="block--centered" style={{ marginTop: "1rem" }}>
+                <PaginationDiv className='pageSwiper-pagination pagination__bullets' style={{ justifyContent: 'center' }} />
+            </div>
             {
                 (showFloatingButton) &&
-                <div className="floating--bottom flex">
+                <div className="flex">
                     <Button
                         onClick={handleTestStart}
                         variant="contained"
                         className="button--full block--with-margin block--with-margin--large"
+                        style={{ marginTop : '1rem' }}
                     >
                         {strings.startButton}
                     </Button>
