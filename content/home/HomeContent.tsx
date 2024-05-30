@@ -1,25 +1,22 @@
 /* React */
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 /* Externals */
-import { Button, Stack, Toolbar, useTheme } from "@mui/material";
-import { useNavigate } from "~/router-module";
+import { Button, Toolbar, useTheme } from "@mui/material";
 
 /* Swiper */
 import SwiperType from 'swiper';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/pagination';
-import { Autoplay, Pagination } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { SwiperOptions } from "swiper/types";
-import { AUTOPLAY_DELAY, SWIPER_SPEED } from "../../swiper";
+import { SWIPER_SPEED } from "../../swiper";
 
-import PaginationDiv from "../../swiper/components/PaginationDiv";
-import SwiperAutoplayProgress from "../../swiper/components/SwiperAutoplayProgress";
-import { useStrings } from "../../texts";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
-import getImgSrc from "~/utils/getImgSrc";
+import PaginationDiv from "../../swiper/components/PaginationDiv";
+import { useStrings } from "../../texts";
 import CharacterSample from "./component/CharacterSample";
 import ConflictSample from "./component/ConflictSample";
 
