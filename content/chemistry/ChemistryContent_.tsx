@@ -117,7 +117,7 @@
 //             setStatus={setChemistryLoadStatus}
 //             handleFail={handleChemistryFail}
 //         >
-//             <div className="page block--gray min-fill-window" >
+//             <div className="page block--gray fill-window" >
 //                 <Toolbar />
 //                 <SectionPaper>
 //                     <h2 className="typography-heading">함께 여행할 친구들</h2>
@@ -157,7 +157,7 @@
 //                 {
 //                     !isChemistryUpdated &&
 //                     <div className="floating-placeholder--bottom" >
-//                         <Button className="button--full">
+//                         <Button className="block--with-padding">
 //                             placeholder
 //                         </Button>
 //                     </div>
@@ -183,7 +183,7 @@
 //                                     disabled={!isChemistryEnabled}
 //                                     onClick={isChemistryUpdated ? handleScrollDown : handleStartButtonClick}
 //                                     variant="contained"
-//                                     className="button--full flex-row"
+//                                     className="block--with-padding flex-row"
 //                                 >
 //                                         {
 //                                             isChemistryUpdated

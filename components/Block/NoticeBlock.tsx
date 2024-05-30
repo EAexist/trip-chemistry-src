@@ -7,7 +7,7 @@ import { m } from 'framer-motion';
 import LazyDomAnimation from "../../motion/LazyDomAnimation";
 
 /* App */
-import { FADEIN_INVIEW, SLIDEINUPINVIEW } from "../../motion/props";
+import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import LazyImage from "../LazyImage";
 
 
@@ -40,7 +40,7 @@ function NoticeBlock({
                     isFullscreen &&
                     <Toolbar />
                 }
-                <m.div {...SLIDEINUPINVIEW} className='flex-grow block--centered block__body--large block--with-padding block--with-padding--large'>
+                <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className='flex-grow block--centered block__body--large block--with-padding block--with-padding--large'>
                     {
                         title &&
                         <h2 className="typography-heading">
@@ -71,7 +71,7 @@ function NoticeBlock({
                 </m.div>
                 {
                     handleClick &&
-                    <m.div {...FADEIN_INVIEW} className="flex">
+                    <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="flex">
                             <Button
                                 onClick={handleClick}
                                 variant="contained"
@@ -80,7 +80,7 @@ function NoticeBlock({
                                         ? "visible"
                                         : "hidden"
                                 }}
-                                className="button--full block--with-margin block--with-margin--large"
+                                className="block--with-padding block--with-margin block--with-margin--large"
                             >
                                 { buttonText }
                             </Button>

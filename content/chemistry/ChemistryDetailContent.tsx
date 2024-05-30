@@ -6,7 +6,7 @@ import { AnimatePresence, m } from "framer-motion";
 import { useSelector } from "react-redux";
 import LazyDomAnimation from "../../motion/LazyDomAnimation";
 
-import { List, ListItem, ListItemAvatar, ListItemText, Stack } from "@mui/material";
+import { List, ListItem, ListItemAvatar, ListItemText, Stack, useTheme } from "@mui/material";
 
 /* App */
 import { SLIDERPROPS_CHEMISTRY_BUDGET_FOOD, TEST } from "../../common/app-const";
@@ -19,11 +19,13 @@ import ToggleButton from "../../components/Button/ToggleButton";
 import ProfileImage from "../../components/Profile/ProfileImage";
 import TestResultBlock from "../../components/Profile/TestResultBlock";
 import useValueToProfileIdList from "../../hooks/useValueToProfileIdList";
-import { FADEIN, FADEIN_VIEWPORT } from "../../motion/props";
+import { FADEIN, FADEIN_FROMBOTTOM_VIEWPORT, VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
 import { filterProfile, useChemistry, useProfileAll, useProfileIdList, useSortedCityList } from "../../reducers/chemistryReducer";
 import { RootState } from "../../store";
 import CityChemistryContent from "./CityChemistryContent";
 import ChemistrySlider from "./component/ChemistrySlider";
+import { MotionList } from "~/motion/components/MotionList";
+import { MotionListItem } from "~/motion/components/MotionListItem";
 
 function ChemistryDetailContent() {
 
@@ -33,6 +35,8 @@ function ChemistryDetailContent() {
 
     /* States */
     const [characterSectionActiveUserIndex, setCharacterSectionActiveUserIndex] = useState<number>(0);
+
+    const { palette } = useTheme();
 
     /* Reducers */
     const idList = useProfileIdList(false);
@@ -62,55 +66,63 @@ function ChemistryDetailContent() {
         <>
             <LazyDomAnimation>
                 <SectionPaper>
-                    <m.h2 {...FADEIN_VIEWPORT} className="typography-heading">{strings.sections.tripCharacter.title}</m.h2>
-                    <m.div {...FADEIN_VIEWPORT} className="block__body">
-                        <Stack spacing={-0.25} justifyContent={'center'} alignItems={'start'}>
-                            {
-                                answeredProfileIdList.map((id, index) => (
-                                    <ToggleButton
-                                        key={id}
-                                        value={index}
-                                        onChange={(_, value) => setCharacterSectionActiveUserIndex(value)}
-                                        selected={characterSectionActiveUserIndex === index}
-                                        className="toggle-button--button-base"
-                                    >
-                                        <FriendAvatar key={id} id={id} labelSize="large" />
-                                    </ToggleButton>
-                                ))
-                            }
-                        </Stack>
-                        <AnimatePresence mode={"wait"} initial={false}>
-                            <m.div key={characterSectionActiveUserIndex} {...{ ...FADEIN, exit: "hidden" }} className="navigation-button__container">
-                                <TestResultBlock key={characterSectionActiveUserIndex} id={answeredProfileIdList[characterSectionActiveUserIndex]} />
+                    <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">{strings.sections.tripCharacter.title}</m.h2>
+                    <div className="block__body">
+                        <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} >
+                            <Stack spacing={-0.25} justifyContent={'center'} alignItems={'start'}>
                                 {
-                                    (characterSectionActiveUserIndex > 0) &&
-                                    <NavigationButton navigateTo="prev" onClick={() => setCharacterSectionActiveUserIndex((prev) => prev > 0 ? prev - 1 : prev)} />
+                                    answeredProfileIdList.map((id, index) => (
+                                        <ToggleButton
+                                            key={id}
+                                            value={index}
+                                            onChange={(_, value) => setCharacterSectionActiveUserIndex(value)}
+                                            selected={characterSectionActiveUserIndex === index}
+                                            className="toggle-button--button-base"
+                                        >
+                                            <FriendAvatar key={id} id={id} labelSize="large" />
+                                        </ToggleButton>
+                                    ))
                                 }
-                                {
-                                    (characterSectionActiveUserIndex < answeredProfileIdList.length - 1) &&
-                                    <NavigationButton navigateTo="next" onClick={() => setCharacterSectionActiveUserIndex((prev) => prev < answeredProfileIdList.length - 1 ? prev + 1 : prev)} />
-                                }
-                            </m.div>
-                        </AnimatePresence>
-                        <AnimatePresence mode={"wait"} initial={false}>
-                            <m.p key={characterSectionActiveUserIndex} {...{ ...FADEIN, exit: "hidden" }} custom={0.5}>
-                                {characterSectionCharacter?.body}
-                            </m.p>
-                        </AnimatePresence>
-                    </m.div>
+                            </Stack>
+                        </m.div>
+                        <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} >
+                            <AnimatePresence mode={"wait"} initial={false}>
+                                <m.div key={characterSectionActiveUserIndex} {...{ ...FADEIN, exit: "hidden" }} className="navigation-button__container">
+                                    <TestResultBlock key={characterSectionActiveUserIndex} id={answeredProfileIdList[characterSectionActiveUserIndex]} />
+                                    {
+                                        (characterSectionActiveUserIndex > 0) &&
+                                        <NavigationButton navigateTo="prev" onClick={() => setCharacterSectionActiveUserIndex((prev) => prev > 0 ? prev - 1 : prev)} />
+                                    }
+                                    {
+                                        (characterSectionActiveUserIndex < answeredProfileIdList.length - 1) &&
+                                        <NavigationButton navigateTo="next" onClick={() => setCharacterSectionActiveUserIndex((prev) => prev < answeredProfileIdList.length - 1 ? prev + 1 : prev)} />
+                                    }
+                                </m.div>
+                            </AnimatePresence>
+                        </m.div>
+                        <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} >
+                            <AnimatePresence mode={"wait"} initial={false}>
+                                <m.p key={characterSectionActiveUserIndex} {...{ ...FADEIN, exit: "hidden" }} custom={0.5}>
+                                    {characterSectionCharacter?.body}
+                                </m.p>
+                            </AnimatePresence>
+                        </m.div>
+                    </div>
                 </SectionPaper>
                 <SectionPaper>
-                    <m.h2 {...FADEIN_VIEWPORT} className="typography-heading">{strings.sections.leadership.title}</m.h2>
-                    <m.div {...FADEIN_VIEWPORT} className="block__body">
-                        <Stack display={'flex'} justifyContent={'center'}>
-                            {
-                                Object.keys(Object.values(leadershipAnswerToProfileList)).length > 0 &&
-                                Object.values(leadershipAnswerToProfileList).reverse()[0].map((id) =>
-                                    <ProfileImage key={id} id={id} showCharacterLabel={false} />
-                                )
-                            }
-                        </Stack>
-                        <Stack flexWrap={"wrap"} spacing={4} justifyContent={"center"}>
+                    <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">{strings.sections.leadership.title}</m.h2>
+                    <div className="block__body">
+                        <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} >
+                            <Stack display={'flex'} justifyContent={'center'}>
+                                {
+                                    Object.keys(Object.values(leadershipAnswerToProfileList)).length > 0 &&
+                                    Object.values(leadershipAnswerToProfileList).reverse()[0].map((id) =>
+                                        <ProfileImage key={id} id={id} showCharacterLabel={false} />
+                                    )
+                                }
+                            </Stack>
+                        </m.div>
+                        {/* <Stack flexWrap={"wrap"} spacing={4} justifyContent={"center"}>
                             {
                                 Object.keys(Object.values(leadershipAnswerToProfileList)).length > 1 &&
                                 Object.entries(leadershipAnswerToProfileList).reverse().slice(1).map(([value, idList], index) => (
@@ -126,8 +138,8 @@ function ChemistryDetailContent() {
                                     </Stack>
                                 ))
                             }
-                        </Stack>
-                        <div className="block__body">
+                        </Stack> */}
+                        <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="block__body">
                             <p>
                                 {strings.sections.leadership.body.map((string: string | undefined, index) => (
                                     string === "/idList"
@@ -157,37 +169,39 @@ function ChemistryDetailContent() {
                                     ))}
                                 </p>
                             }
-                        </div>
-                    </m.div>
+                        </m.div>
+                    </div>
                 </SectionPaper>
                 <SectionPaper>
-                    <m.h2 {...FADEIN_VIEWPORT} className="typography-heading">{strings.sections.schedule.title}</m.h2>
-                    <m.div {...FADEIN_VIEWPORT} className="block__body">
+                    <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">{strings.sections.schedule.title}</m.h2>
+                    <div className="block__body">
                         <div>
-                            <List disablePadding>
-                                {
-                                    ( Object.values(testStrings.test.schedule.answers) as { label: string, value: number }[] ).map(({ label, value }) => (
-                                        <ListItem key={label} disablePadding={Object.keys(scheduleAnswerToProfiles).includes(String(value))} disableGutters>
-                                            <ListItemAvatar style={{ width: "100px" }} className="block--centered">
-                                                <p className={Object.keys(scheduleAnswerToProfiles).includes(String(value)) ? "typography-label" : "disabled"}>{label}</p>
-                                            </ListItemAvatar>
-                                            <ListItemText primary={
-                                                <Stack>
-                                                    <Stack spacing={0.5}>
-                                                        {
-                                                            (Object.keys(scheduleAnswerToProfiles).includes(String(value)) ? scheduleAnswerToProfiles[value] : []).map((id) => (
-                                                                <FriendAvatar key={id} id={id} />
-                                                            ))
-                                                        }
-                                                    </Stack>
+                        <List>
+                            {
+                                (Object.values(testStrings.test.schedule.answers) as { label: string, value: number }[]).map(({ label, value }) => (
+                                    Object.keys(scheduleAnswerToProfiles).includes(String(value)) &&
+                                    <MotionListItem key={label} {...FADEIN_FROMBOTTOM_VIEWPORT} disableGutters dense >
+                                        {(value === 4) && <div style={{ position: 'absolute', backgroundColor: palette.primary.light, opacity: 0.5, width: '100%', height: '100%' }} className="block--round" />}
+                                        <ListItemAvatar style={{ width: "100px", zIndex: 1 }} className="block--centered">
+                                            <p className={Object.keys(scheduleAnswerToProfiles).includes(String(value)) ? "typography-label" : "disabled"}>{ label }</p>
+                                        </ListItemAvatar>
+                                        <ListItemText primary={
+                                            <Stack>
+                                                <Stack spacing={0.5}>
+                                                    {
+                                                        (Object.keys(scheduleAnswerToProfiles).includes(String(value)) ? scheduleAnswerToProfiles[value] : []).map((id) => (
+                                                            <FriendAvatar key={id} id={id} />
+                                                        ))
+                                                    }
                                                 </Stack>
-                                            } sx={{ marginLeft: "16px" }} />
-                                        </ListItem>
-                                    )).reverse()
-                                }
-                            </List>
+                                            </Stack>
+                                        } sx={{ marginLeft: "16px", zIndex: 1 }} />
+                                    </MotionListItem>
+                                )).reverse()
+                            }
+                        </List>
                         </div>
-                        <div className="block__body">
+                        <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="block__body">
                             {
                                 chemistry?.scheduleChemistryText?.map((body, index) => {
                                     const list = body.split(/(%\S*%)/)
@@ -204,16 +218,16 @@ function ChemistryDetailContent() {
                                     )
                                 })
                             }
-                        </div>
-                    </m.div>
+                        </m.div>
+                    </div>
                 </SectionPaper>
                 <SectionPaper>
-                    <m.h2 {...FADEIN_VIEWPORT} className="typography-heading">{strings.sections.budget.title}</m.h2>
-                    <m.div  {...FADEIN_VIEWPORT} className="block__body">
+                    <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">{strings.sections.budget.title}</m.h2>
+                    <div className="block__body">
                         <div className="block--centered">
-                            <ChemistrySlider {...SLIDERPROPS_CHEMISTRY_BUDGET_FOOD} />
+                        <ChemistrySlider {...SLIDERPROPS_CHEMISTRY_BUDGET_FOOD} testName="food" getAriaLabel={() => (`friends' restaurant budget preference`)} value={Object.keys(budgetAnswerToProfiles).map((answer) => Number(answer))} />
                         </div>
-                        <div className="block__body">
+                        <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="block__body">
                             {
                                 chemistry?.budgetChemistryText?.map((body, index) => {
                                     const list = body.split(/(%\S*%)/)
@@ -230,15 +244,15 @@ function ChemistryDetailContent() {
                                     )
                                 })
                             }
-                        </div>
-                    </m.div>
+                        </m.div>
+                    </div>
                 </SectionPaper>
                 <SectionPaper>
-                    <m.h2 {...FADEIN_VIEWPORT} className="typography-heading">{strings.sections.city.title}</m.h2>
+                    <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">{strings.sections.city.title}</m.h2>
                     <ul className="block__body">
                         {
                             sortedCityList && sortedCityList.map((cityClass) => (
-                                <m.li key={cityClass} {...FADEIN_VIEWPORT}>
+                                <m.li key={cityClass} {...FADEIN_FROMBOTTOM_VIEWPORT}>
                                     <CityChemistryContent cityClass={cityClass as keyof typeof TEST.city.subTests} />
                                 </m.li>
                             ))

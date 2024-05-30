@@ -10,12 +10,12 @@ import { ITestName } from "../../../interfaces/ITestAnswer";
 
 interface ChemistrySliderProps extends SliderOwnProps {
     testName: ITestName
-    // min?: number
-    // max?: number
-    // step?: number
+    min: number
+    max: number
+    step: number
 };
 
-const SliderValueLabel = m(forwardRef(({ testName, value }: { testName: ITestName, value: number }, ref: Ref<HTMLDivElement>) => {
+export const SliderValueLabel = m(forwardRef(({ testName, value }: { testName: ITestName, value: number }, ref: Ref<HTMLDivElement>) => {
 
     const { userList } = useProfileIdListByAnswer(testName, value);
 

@@ -48,13 +48,13 @@ function ChemistryResultAccordion({ cityClass }: ChemistryResultAccordionProps) 
 
     /* Framer Motion */
     const variants_drawer = {
-        open: {
+        visible: {
             height: 'fit-content',
             transition: {
                 duration: 0.5,
             }
         },
-        closed: {
+        hidden: {
             height: 0,
             transition: {
                 duration: 0.5
@@ -89,9 +89,9 @@ function ChemistryResultAccordion({ cityClass }: ChemistryResultAccordionProps) 
                         {
                             expanded &&
                             <m.div
-                                initial={"closed"}
-                                animate={"open"}
-                                exit={"closed"}
+                                initial={"hidden"}
+                                animate={"visible"}
+                                exit={"hidden"}
                                 variants={variants_drawer}
                             >
                                 <MotionList variants={VARIANTS_STAGGER_CHILDREN} disablePadding>

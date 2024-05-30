@@ -19,7 +19,7 @@ import ToggleButton from "../components/Button/ToggleButton";
 import ProfileImage from "../components/Profile/ProfileImage";
 import TestResultBlock from "../components/Profile/TestResultBlock";
 import useValueToProfileIdList from "../hooks/useValueToProfileIdList";
-import { FADEIN, FADEIN_VIEWPORT, SLIDEINUPINVIEW, VARIANTS_SLIDE_UP, VARIANTS_STAGGER_CHILDREN } from "../motion/props";
+import { FADEIN, FADEIN_VIEWPORT, FADEIN_FROMBOTTOM_VIEWPORT, VARIANTS_SLIDEUP, VARIANTS_STAGGER_CHILDREN, VARIANTS_FADEIN_FROMBOTTOM } from "../motion/props";
 import { filterProfile, useChemistry, useProfileAll, useProfileIdList, useSortedCityList } from "../reducers/chemistryReducer";
 import { RootState } from "../store";
 import CityChemistryContent from "../content/chemistry/CityChemistryContent";
@@ -33,7 +33,7 @@ function ChemistryDetailMockupContent() {
     /* Constants */
     const testStrings = useStrings().public.contents.test;
     const strings = useStrings().public.contents.chemistry;
-    const { palette }= useTheme();
+    const { palette } = useTheme();
 
     /* States */
     const [characterSectionActiveUserIndex, setCharacterSectionActiveUserIndex] = useState<number>(0);
@@ -63,10 +63,10 @@ function ChemistryDetailMockupContent() {
     }, [budgetAnswerToProfiles])
 
     return (
-        <>
-            <LazyDomAnimation>
-                <SectionPaper>
-                    <m.h2 {...FADEIN_VIEWPORT} className="typography-heading">{strings.sections.tripCharacter.title}</m.h2>
+        <LazyDomAnimation>
+            <div className="page">
+                <SectionPaper className="fill-window flex-end" style={{ outline: "1px solid red" }}>
+                    {/* <m.h2 {...FADEIN_VIEWPORT} className="typography-heading">{strings.sections.tripCharacter.title}</m.h2> */}
                     <m.div {...FADEIN_VIEWPORT} className="block__body">
                         <Stack spacing={-0.25} justifyContent={'center'} alignItems={'start'}>
                             {
@@ -86,21 +86,21 @@ function ChemistryDetailMockupContent() {
                         <AnimatePresence mode={"wait"} initial={false}>
                             <m.div key={characterSectionActiveUserIndex} {...{ ...FADEIN, exit: "hidden" }} className="navigation-button__container">
                                 <TestResultBlock key={characterSectionActiveUserIndex} id={answeredProfileIdList[characterSectionActiveUserIndex]} />
-                                {
+                                {/* {
                                     (characterSectionActiveUserIndex > 0) &&
                                     <NavigationButton navigateTo="prev" onClick={() => setCharacterSectionActiveUserIndex((prev) => prev > 0 ? prev - 1 : prev)} />
                                 }
                                 {
                                     (characterSectionActiveUserIndex < answeredProfileIdList.length - 1) &&
                                     <NavigationButton navigateTo="next" onClick={() => setCharacterSectionActiveUserIndex((prev) => prev < answeredProfileIdList.length - 1 ? prev + 1 : prev)} />
-                                }
+                                } */}
                             </m.div>
                         </AnimatePresence>
-                        <AnimatePresence mode={"wait"} initial={false}>
+                        {/* <AnimatePresence mode={"wait"} initial={false}>
                             <m.p key={characterSectionActiveUserIndex} {...{ ...FADEIN, exit: "hidden" }} custom={0.5}>
                                 {characterSectionCharacter?.body}
                             </m.p>
-                        </AnimatePresence>
+                        </AnimatePresence> */}
                     </m.div>
                 </SectionPaper>
                 <SectionPaper>
@@ -166,36 +166,36 @@ function ChemistryDetailMockupContent() {
                 </SectionPaper>
                 <SectionPaper>
                     {/* <m.h2 {...FADEIN_VIEWPORT} className="typography-heading">{strings.sections.schedule.title}</m.h2> */}
-                    <m.div {...FADEIN_VIEWPORT} className="block__body">
-                            <MotionList initial={"closed"} whileInView={"open"} variants={VARIANTS_STAGGER_CHILDREN} disablePadding custom={2}>
-                                {
-                                    ( Object.values(testStrings.test.schedule.answers) as { label: string, value: number }[] ).map(({ label, value }) => (
-                                        Object.keys(scheduleAnswerToProfiles).includes(String(value)) &&
-                                        <MotionListItem key={label} disableGutters dense>
-                                            {(value===4) && <div style={{ position: 'absolute', backgroundColor: palette.primary.light, opacity: 0.5, width: '100%', height: '100%' }} className="block--round"/>}
-                                            <ListItemAvatar style={{ width: "100px", zIndex: 1 }} className="block--centered">
-                                                <p className={Object.keys(scheduleAnswerToProfiles).includes(String(value)) ? "typography-label" : "disabled"}>{label}</p>
-                                            </ListItemAvatar>
-                                            <ListItemText primary={
-                                                <Stack>
-                                                    <Stack spacing={0.5}>
-                                                        {
-                                                            (Object.keys(scheduleAnswerToProfiles).includes(String(value)) ? scheduleAnswerToProfiles[value] : []).map((id) => (
-                                                                <FriendAvatar key={id} id={id} />
-                                                            ))
-                                                        }
-                                                    </Stack>
+                    <div className="block__body">
+                        <MotionList initial={"hidden"} whileInView={"visible"} variants={VARIANTS_STAGGER_CHILDREN} disablePadding custom={{ delayChildren: 1, staggerChildren: 0.1 }}>
+                            {
+                                (Object.values(testStrings.test.schedule.answers) as { label: string, value: number }[]).map(({ label, value }) => (
+                                    Object.keys(scheduleAnswerToProfiles).includes(String(value)) &&
+                                    <MotionListItem variants={VARIANTS_FADEIN_FROMBOTTOM} key={label} disableGutters dense>
+                                        {(value === 4) && <div style={{ position: 'absolute', backgroundColor: palette.primary.light, opacity: 0.5, width: '100%', height: '100%' }} className="block--round" />}
+                                        <ListItemAvatar style={{ width: "100px", zIndex: 1 }} className="block--centered">
+                                            <p className={Object.keys(scheduleAnswerToProfiles).includes(String(value)) ? "typography-label" : "disabled"}>{label}</p>
+                                        </ListItemAvatar>
+                                        <ListItemText primary={
+                                            <Stack>
+                                                <Stack spacing={0.5}>
+                                                    {
+                                                        (Object.keys(scheduleAnswerToProfiles).includes(String(value)) ? scheduleAnswerToProfiles[value] : []).map((id) => (
+                                                            <FriendAvatar key={id} id={id} />
+                                                        ))
+                                                    }
                                                 </Stack>
-                                            } sx={{ marginLeft: "16px", zIndex: 1 }} />
-                                        </MotionListItem>
-                                    )).reverse()
-                                }
-                                <m.div className="block__body" variants={VARIANTS_SLIDE_UP}>
-                                    {
-                                        chemistry?.scheduleChemistryText?.map(( body, index ) => {
-                                            const list = body.split(/(%\S*%)/)
-                                            return (
-                                                index == 1 ?
+                                            </Stack>
+                                        } sx={{ marginLeft: "16px", zIndex: 1 }} />
+                                    </MotionListItem>
+                                )).reverse()
+                            }
+                            <m.div className="block__body" variants={VARIANTS_FADEIN_FROMBOTTOM}>
+                                {
+                                    chemistry?.scheduleChemistryText?.map((body, index) => {
+                                        const list = body.split(/(%\S*%)/)
+                                        return (
+                                            index == 1 ?
                                                 <p key={index} style={{ fontSize: "16px", lineHeight: '1.7rem' }}>
                                                     {
                                                         list.map((t, index) =>
@@ -206,40 +206,40 @@ function ChemistryDetailMockupContent() {
                                                     }
                                                 </p>
                                                 : <></>
-                                            )
-                                        })
-                                    }
-                                </m.div>
-                            </MotionList>
-                    </m.div>
+                                        )
+                                    })
+                                }
+                            </m.div>
+                        </MotionList>
+                    </div>
                 </SectionPaper>
                 <SectionPaper>
                     {/* <m.h2 {...FADEIN_VIEWPORT} className="typography-heading">{strings.sections.budget.title}</m.h2> */}
-                    <div className="block__body">
-                        <m.div className="block--centered" {...FADEIN_VIEWPORT} custom={ 1 }>
-                            <ChemistrySlider {...SLIDERPROPS_CHEMISTRY_BUDGET_FOOD} />
+                    <m.div className="block__body" initial={"hidden"} whileInView={"visible"} variants={VARIANTS_STAGGER_CHILDREN} custom={{ delayChildren: 1 }} >
+                        <m.div className="block--centered" variants={VARIANTS_FADEIN_FROMBOTTOM} >
+                            {/* <ChemistrySlider {...SLIDERPROPS_CHEMISTRY_BUDGET_FOOD} /> */}
                         </m.div>
-                        <m.div className="block__body"  {...FADEIN_VIEWPORT} custom={ 1 }>
+                        <m.div className="block__body" variants={VARIANTS_FADEIN_FROMBOTTOM}>
                             {
                                 chemistry?.budgetChemistryText?.map((body, index) => {
                                     const list = body.split(/(%\S*%)/)
                                     return (
                                         index == 1 ?
-                                        <p key={index} style={{ fontSize: "16px", lineHeight: '1.7rem' }}>
-                                            {
-                                                list.map((t, index) =>
-                                                    t[0] === "%"
-                                                        ? <b key={index}>{t.replaceAll('%', '')}</b>
-                                                        : <Fragment key={index}>{t.split(" 돈을")[0]}</Fragment>
-                                                )
-                                            }
-                                        </p>
-                                        :<></>
+                                            <p key={index} style={{ fontSize: "16px", lineHeight: '1.7rem' }}>
+                                                {
+                                                    list.map((t, index) =>
+                                                        t[0] === "%"
+                                                            ? <b key={index}>{t.replaceAll('%', '')}</b>
+                                                            : <Fragment key={index}>{t.split(" 돈을")[0]}</Fragment>
+                                                    )
+                                                }
+                                            </p>
+                                            : <></>
                                     )
                                 })
                             }
                         </m.div>
-                    </div>
+                    </m.div>
                 </SectionPaper>
                 <SectionPaper>
                     <m.h2 {...FADEIN_VIEWPORT} className="typography-heading">{strings.sections.city.title}</m.h2>
@@ -253,8 +253,8 @@ function ChemistryDetailMockupContent() {
                         }
                     </ul>
                 </SectionPaper>
-            </LazyDomAnimation>
-        </>
+            </div>
+        </LazyDomAnimation>
     );
 }
 export default ChemistryDetailMockupContent;

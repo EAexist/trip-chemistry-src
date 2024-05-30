@@ -81,6 +81,11 @@ button {
     /* padding: 0 4px; */
 }
 
+/* https://stackoverflow.com/questions/20771971/video-player-shows-black-border */
+video {
+    clip-path: inset(1px 1px);
+}
+
 /**** General ****/
 .sticky {
     position: sticky;
@@ -163,15 +168,24 @@ button {
 }
 
 .block--with-padding {
-    padding-top: var(--margin-top);
-    padding-bottom: var(--margin-top);
-    padding-left: var(--margin-x);
-    padding-right: var(--margin-x);
+
+    &,
+    &.MuiButton-root {
+        padding-top: var(--margin-top);
+        padding-bottom: var(--margin-top);
+        padding-left: var(--margin-x);
+        padding-right: var(--margin-x);
+
+    }
 }
 
-.block--with-padding--small, .block--with-padding--small.MuiButton-root {
-    padding-left: var(--margin-x--small);
-    padding-right: var(--margin-x--small);
+.block--with-padding--small {
+
+    &,
+    &.MuiButton-root {
+        padding-left: var(--margin-x--small);
+        padding-right: var(--margin-x--small);
+    }
 }
 
 .block--with-padding--large {
@@ -198,7 +212,9 @@ button {
 }
 
 .block--with-margin-x,
-.block--with-margin-x.MuiButton-root, .block--with-margin-x.MuiList-root, .block--with-margin-x.swiper {
+.block--with-margin-x.MuiButton-root,
+.block--with-margin-x.MuiList-root,
+.block--with-margin-x.swiper {
     margin-left: var(--margin-x);
     margin-right: var(--margin-x);
 }
@@ -210,7 +226,7 @@ button {
     padding-right: var(--margin-x);
 }
 
-.block--with-padding-y{
+.block--with-padding-y {
     padding-top: var(--margin-top);
     padding-bottom: var(--margin-top);
 }
@@ -311,6 +327,13 @@ button {
     bottom: var(--margin-top--large);
 }
 
+.floating {
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    overflow: hidden;
+}
+
 .floating--bottom {
     position: fixed;
     z-index: 100;
@@ -330,7 +353,8 @@ button {
     text-align: center;
 }
 
-.typography-body, .typography-body.MuiButton-text.MuiButtonBase-root {
+.typography-body,
+.typography-body.MuiButton-text.MuiButtonBase-root {
     font-weight: 400;
     font-size: 14px;
 }
@@ -462,16 +486,20 @@ button {
 }
 
 .MuiButton-root {
-    
-    &.button--full {
-        border-radius: 16px;
-        padding: 12px;
-    }
 
     & .MuiButtonBase-root {
         &:hover {
             background-color: inherit;
         }
+    }
+}
+
+.button--full {
+
+    &.MuiButton-root,
+    &.MuiButton-root {
+        border-radius: 16px;
+        padding: 12px;
     }
 }
 
@@ -546,6 +574,7 @@ button {
 
 .MuiTooltip-tooltip {
     padding: 24px;
+
     &>* {
         color: inherit;
     }
@@ -725,7 +754,7 @@ button {
 
 /* flag */
 .Flag {
-    &.Flag--outlined{
+    &.Flag--outlined {
         outline: 1px gray solid;
     }
 }
@@ -749,7 +778,7 @@ button {
     visibility: hidden;
 }
 
-.placeholder--button--full {
+.placeholder--block--with-padding {
     height: 48px;
 }
 
@@ -891,11 +920,13 @@ button {
 /* InfoWindow */
 .gm-style-iw {
     padding: 0 !important;
-    max-height:fit-content !important;
+    max-height: fit-content !important;
 }
+
 .gm-style-iw-d {
-    max-height:fit-content !important;
+    max-height: fit-content !important;
 }
+
 .gm-style-iw-tc {
     display: none !important;
 }

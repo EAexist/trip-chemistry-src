@@ -2,59 +2,81 @@ import { MotionProps, Variants } from "framer-motion";
 
 /* Stagger Children */
 export const VARIANTS_STAGGER_CHILDREN: Variants = {
-    open: ( delayChildren = 0.2 ) =>({
-        transition: { staggerChildren: 0.07, delayChildren: delayChildren }
+    visible: ({ delayChildren, staggerChildren } = { } ) => ({
+        transition: { staggerChildren: staggerChildren || 0.07, delayChildren: delayChildren || 0.2 }
     }),
-    closed: {
+    hidden: {
         transition: { staggerChildren: 0.05, staggerDirection: -1 }
     }
 };
 
-export const STAGGER_CHILDREN : MotionProps = {
-    initial: "closed",
-    animate: "open",
+export const VARIANTS_STAGGER_CHILDREN_SLOW: Variants = {
+    visible: ({ delayChildren }) => ({
+        transition: { staggerChildren: 0.07, delayChildren: delayChildren }
+    }),
+    hidden: {
+        transition: { staggerChildren: 0.05, staggerDirection: -1 }
+    }
+};
+
+export const STAGGER_CHILDREN: MotionProps = {
+    initial: "hidden",
+    animate: "visible",
     variants: VARIANTS_STAGGER_CHILDREN,
 };
 
 /* FADE */
+export const VARIANTS_FADEIN_FROMBOTTOM: Variants = {
+    visible: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            duration: 0.6
+        }
+    },
+    hidden: {
+        y: 20,
+        opacity: 0,
+        transition: {
+            duration: 0.6
+        }
+    }
+};
+
 export const VARIANTS_FADEIN: Variants = {
     hidden: {
         opacity: 0,
         transition: {
-            stiffness: 1000,
-            ease: "easeInOut",
-            duration: 0.25,
+            duration: 0.6
         }
     },
-    hidden_delay: ( delay = 0 ) => ({
+    hidden_delay: (delay = 0) => ({
         opacity: 0,
         transition: {
             stiffness: 1000,
             ease: "easeInOut",
             duration: 0.5,
-            delay : delay
+            delay: delay
         },
     }),
-    visible: ( delay = 0 ) => ({
+    visible: (delay = 0) => ({
         opacity: 1,
         transition: {
-            stiffness: 1000,
-            ease: "easeInOut",
-            duration: 0.5,
-            delay : delay
+            duration: 0.6,
+            delay: delay
         },
     })
 };
 
 
 export const VARIANTS_FADEOUT: Variants = {
-    hidden: ( delay = 0 ) => ({
+    hidden: (delay = 0) => ({
         opacity: 0,
         transition: {
             stiffness: 1000,
             ease: "easeInOut",
             duration: 0.5,
-            delay : delay
+            delay: delay
         },
     }),
     visible: {
@@ -67,40 +89,48 @@ export const VARIANTS_FADEOUT: Variants = {
     }
 };
 
-
-export const FADEOUT : MotionProps = {
+export const FADEOUT: MotionProps = {
     initial: "visible",
     exit: "hidden",
     variants: VARIANTS_FADEOUT,
 };
 
-
-export const FADEIN : MotionProps = {
+export const FADEIN: MotionProps = {
     initial: "hidden",
     animate: "visible",
     variants: VARIANTS_FADEIN,
 };
 
-export const FADEIN_VIEWPORT : MotionProps = {
+export const FADEIN_FROMBOTTOM_VIEWPORT = {
+    initial: "hidden",
+    whileInView: "visible",
+    variants: VARIANTS_FADEIN_FROMBOTTOM,
+    viewport: {
+        // once: true
+        once: false,
+    }
+};
+
+export const FADEIN_VIEWPORT: MotionProps = {
     initial: "hidden",
     whileInView: "visible",
     variants: VARIANTS_FADEIN,
     viewport: {
         // once: true
-        once: false
+        once: false,
     }
 };
 
 /* SLIDE */
-export const VARIANTS_SLIDE_UP: Variants = {
-    open: {
+export const VARIANTS_SLIDEUP: Variants = {
+    visible: {
         y: 0,
         opacity: 1,
         transition: {
             y: { stiffness: 1000, velocity: -100 }
         }
     },
-    closed: {
+    hidden: {
         y: 50,
         opacity: 0,
         transition: {
@@ -109,62 +139,53 @@ export const VARIANTS_SLIDE_UP: Variants = {
     }
 };
 
-const SLIDEINUPINVIEW = {
-    initial: {
-        opacity: 0,
-        translateY: '16px'
-    },
-    animate: {
-        opacity: 1,
-        translateY: '0'
-    },
+export const SLIDEUP_VIEWPORT: MotionProps = {
+    initial: "hidden",
+    whileInView: "visible",
+    variants: VARIANTS_SLIDEUP,
     viewport: {
-        once: false,
-    },
-    transition: {
-        ease: "easeInOut",
-        duration: 0.5,
-        delay: 5
-    },
-}
-
-const SLIDEINLEFT = {
-    initial: "closed",
-    animate: "open",
-    exit: "closed",
-    variants: {
-        open: (direction = 'left') => ({
-            x: 0,
-            opacity: 1,
-            transition: {
-                x: { stiffness: 1000, velocity: (direction === 'right' ? 1 : -1 )*200 }
-            }
-        }),
-        closed: (direction = 'left') => ({
-            x: `${direction === 'right' ? '-' : '' }100%`,
-            opacity: 0,
-            transition: {
-                x: { stiffness: 1000 }
-            }
-        })
+        once: true,
+        amount: 'all'
     }
-}
+};
 
 export const VARIANTS_SLIDEINLEFT = {
-    open: (direction = 'left') => ({
+    visible: (direction = 'left') => ({
         x: 0,
         opacity: 1,
         transition: {
-            x: { stiffness: 1000, velocity: (direction === 'right' ? 1 : -1 )*200 }
+            // x: { stiffness: 1000, velocity: (direction === 'right' ? 1 : -1) * 200 }
+            duration: 0.225 /* Mui Default transitions.delay.enteringScreen  */
         }
     }),
-    closed: (direction = 'left') => ({
-        x: `${direction === 'right' ? '-' : '' }100%`,
+    hidden: (direction = 'left') => ({
+        x: `${direction === 'right' ? '-' : ''}100%`,
+        opacity: 0
+    })
+}
+
+export const VARIANTS_SLIDEIN = {
+    visible: {
+        x: 0,
+        opacity: 1,
+        transition: {
+            x: { stiffness: 1000, velocity: 200 }
+        }
+    },
+    left: {
+        x: `-100%`,
         opacity: 0,
         transition: {
-            x: { stiffness: 1000 }
+            x: { stiffness: 1000, velocity: 200 }
         }
-    })
+    },
+    right: {
+        x: `-100%`,
+        opacity: 0,
+        transition: {
+            x: { stiffness: 1000, velocity: 200 }
+        }
+    },
 }
 
 // const FADEIN = {
@@ -406,6 +427,3 @@ const SWIPER: MotionProps = {
     //   }
     // },
 }
-
-
-export { FADEIN_INVIEW, FILLIN, FILLIN_1S, SLIDEINLEFT, SLIDEINLEFT_DEALY_1250, SLIDEINUPINVIEW, SWIPER };

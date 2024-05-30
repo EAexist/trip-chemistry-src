@@ -11,31 +11,38 @@ interface RoutedMotionPageProps extends MotionPageProps {
 const RoutedMotionPage = ({ children, direction, ...motionPageProps }: PropsWithChildren<RoutedMotionPageProps>) => {
 
     /* State */
-    const [ pageDirection, setPageDirection ] = useState<"right" | "left">();
+    const [ pageDirection, setPageDirection ] = useState<"right" | "left" | null >();
     const [ on, setOn ] = useState(false);
 
     /* Hooks */
     const { state } = useLocation();
 
     useEffect(() => {
+        console.log(`[RoutedMotionPage] state=${state}`)
         if (state && state.navigateDirection) {
             setPageDirection((state.navigateDirection === "prev") ? "right" : "left")
             state.navigateDirection = undefined;
         }
         else{
-            setPageDirection(direction)
+            console.log(direction || null)
+            setPageDirection( direction || null )
         }
         setOn(true);
-    }, [])
+    }, [ state ])
+
+    useEffect(()=>{        
+        console.log(`[RoutedMotionPage] direction=${direction} pageDirection=${pageDirection} `)
+    }, [ direction, pageDirection ])
 
     return (
-        // motionProps &&
-        // <MotionPage animate={direction ? "open" : undefined} custom={direction} {...motionProp_page_slideIn} {...motionPageProps}>
-        //     {children}
-        // </MotionPage>
-        <MotionPage direction={pageDirection} on={on} {...motionPageProps}>
+        (pageDirection !== undefined ) &&
+        <MotionPage animate={"visible"} custom={pageDirection} initial={(pageDirection === null ) ? false : "hidden"} {...motionProp_page_slideIn} {...motionPageProps}>
+        {/* <MotionPage animate={"open"} custom={"left"} {...motionProp_page_slideIn} {...motionPageProps}> */}
             {children}
         </MotionPage>
+        // <MotionPage direction={pageDirection} on={on} {...motionPageProps}>
+        //     {children}
+        // </MotionPage>
     )
 }
 

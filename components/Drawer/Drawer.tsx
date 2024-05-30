@@ -41,13 +41,13 @@ function Drawer({ open, onDrawerItemClick }: DrawerProps) {
     };
 
     const variants_drawer = {
-        open: {
+        visible: {
             y: 0,
             transition: {/*  */
                 duration: 0.5,
             }
         },
-        closed: {
+        hidden: {
             y: '-100%',
             transition: {
                 duration: 0.5,
@@ -62,9 +62,9 @@ function Drawer({ open, onDrawerItemClick }: DrawerProps) {
                 {
                     open &&
                     <m.div
-                        initial={"closed"}
-                        animate={"open"}
-                        exit={"closed"}
+                        initial={"hidden"}
+                        animate={"visible"}
+                        exit={"hidden"}
                         variants={variants_drawer}
                         style={{ zIndex: `${zIndex.appBar - 1}` }}
                         className="drawer"
@@ -74,6 +74,7 @@ function Drawer({ open, onDrawerItemClick }: DrawerProps) {
                         >
                             <Toolbar />
                             <MotionList
+                                custom={0.5} /* delayChildren */
                                 variants={VARIANTS_STAGGER_CHILDREN}
                                 className="block__body"
                             >

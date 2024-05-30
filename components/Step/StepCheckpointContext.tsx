@@ -1,4 +1,5 @@
 import { ComponentType, PropsWithChildren, createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useStepContext } from "./StepContext";
 
 type IdToIndex = { [key: string] : number };
 
@@ -16,7 +17,7 @@ function StepCheckpointContextProvider({ children }: PropsWithChildren) {
     const stepCheckpointList = useRef<HTMLDivElement[]>([]); 
 
     useEffect(()=>{        
-        console.log(`[StepCheckpointContextProvider]  stepCheckpointList.current=${stepCheckpointList.current}`);
+        console.log(`[StepCheckpointContextProvider] stepCheckpointList.current=${stepCheckpointList.current}`);
 
         stepCheckpointList.current.forEach((checkpoint, index)=>{
             console.log(`[StepCheckpointContextProvider] checkpoints[${index}]=${checkpoint.offsetTop}`);

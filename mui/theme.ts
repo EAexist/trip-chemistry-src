@@ -92,9 +92,6 @@ const theme = createTheme({
             defaultProps: {
                 elevation: 0,
                 color: 'transparent'
-                // style: {
-                //     backgroundColor: defaultTheme.palette.secondary.main,
-                // }
             }
         },
         MuiStack: {
@@ -108,7 +105,7 @@ const theme = createTheme({
             defaultProps: {
                 style: {
                     backgroundColor: defaultTheme.palette.gray.main,
-                    // color: defaultTheme.palette.gray.contrastText
+                    color: defaultTheme.palette.gray.contrastText
                 }
             }
         },
@@ -126,6 +123,16 @@ const theme = createTheme({
                 }),
             }
         },
+        MuiAlert: {
+            defaultProps: {
+                style: {
+                    paddingTop: '0.5rem',
+                    paddingBottom: '0.5rem',
+                    paddingLeft: '24px',
+                    paddingRight: '24px',
+                }
+            }
+        },
         MuiButton: {
             variants: [
                 {
@@ -139,13 +146,25 @@ const theme = createTheme({
                 {
                     props: { color: 'gray' },
                     style: {
-                        backgroundColor: defaultTheme.palette.gray.light
+                        // backgroundColor: defaultTheme.palette.gray.main
                     },
                 },
                 {
                     props: { variant: 'text' },
                     style: {
                         color: defaultTheme.palette.secondary.contrastText,
+                    },
+                },
+                {
+                    props: { variant: 'contained' },
+                    style: {
+                        borderRadius: "16px",
+                    },
+                },
+                {
+                    props: { variant: 'outlined' },
+                    style: {
+                        borderRadius: "16px",
                     },
                 },
             ],

@@ -3,8 +3,8 @@
 /* Externals */
 import { ArrowRight, NavigateBefore } from "@mui/icons-material";
 import { AppBar, Button, CardContent, Divider, IconButton, Stack, Toolbar } from "@mui/material";
-import { useLocation } from "~/router-module";
 import { useSelector } from "react-redux";
+import { useLocation } from "~/router-module";
 // import loadable from "@loadable/component";
 
 /* Swiper */
@@ -23,10 +23,11 @@ import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { RootState } from "../../store";
 import PaginationDiv from "../../swiper/components/PaginationDiv";
-import { SWIPERPROPS_CITYDETAILCONTENT } from "../../swiper/props";
 import { useStrings } from "../../texts";
 import getImgSrc from "../../utils/getImgSrc";
 
+import { Navigation, Pagination } from "swiper/modules";
+import { SwiperOptions } from "swiper/types";
 import ChemistryResultAccordion from "./component/ChemistryResultAccordion";
 
 /* Loadable Components */
@@ -47,6 +48,22 @@ function CityDetailContent({ cityClass }: CityDetailContentProps) {
     const strings = useStrings().public.contents.test;
     const commonStrings = useStrings().public.common;
 
+    const SWIPERPROPS_CITYDETAILCONTENT: SwiperOptions = {
+        modules: [Pagination, Navigation],
+        loop: true,
+        speed: 800,
+        slidesPerView: 1,
+        pagination: {
+            clickable: true,
+            el: '.pageSwiper-pagination',
+        },
+        navigation: {
+            prevEl: `.pageSwiper-prevEl`,
+            nextEl: `.pageSwiper-nextEl`,
+        },
+        // autoHeight: true,
+    }
+
     /* Event Handlers */
     const handleClose = () => {
         console.log(`[CityDetailContent] handleClose`)
@@ -57,7 +74,7 @@ function CityDetailContent({ cityClass }: CityDetailContentProps) {
 
     return (
         // isAppBarHidden &&
-        <RoutedMotionPage>
+        <RoutedMotionPage className="fill-window flex">
             <AppBar>
                 <Toolbar className="block--with-margin-x">
                     <IconButton
@@ -71,8 +88,8 @@ function CityDetailContent({ cityClass }: CityDetailContentProps) {
                     <h5 className="typography-note " style={{ position: "absolute", width: "100%", textAlign: "center", zIndex: -1 }}>{strings.test.city.title}</h5>
                 </Toolbar>
             </AppBar>
-            <Toolbar />
             <div className="block--with-margin-x block__body">
+                <Toolbar className="body__head" />
                 <h2 className="typography-heading">{strings.subTest[cityClass as keyof typeof strings.subTest].title}</h2>
                 {
                     isChemistryDefined &&
@@ -82,58 +99,60 @@ function CityDetailContent({ cityClass }: CityDetailContentProps) {
                     <Divider />
                 </div>
             </div>
-            <Swiper {...SWIPERPROPS_CITYDETAILCONTENT} initialSlide={state && state.initialIndex ? state.initialIndex : 0} className="">
-                <div slot="container-start" >
-                    <PaginationDiv className='pageSwiper-pagination' sx={{ justifyContent: 'center' }} />
-                </div>
-                {
-                    TEST.city.subTests[cityClass].examples.map((cityId) => (
-                        <SwiperSlide key={cityId} className="">
-                            <div className="block--with-margin-x block__body">
-                                <ImageCard
-                                    src={getImgSrc("/city", cityId, { size : 'large' })}
-                                    title={cityId}
-                                    className="body__head flex-end"
-                                    gradient="bottom"
-                                    sx={{ height: "320px" }}
-                                >
-                                    <CardContent>
-                                        <Stack spacing={0}>
-                                            <h2 className="typography-heading typography-heading--large typography-white">{commonStrings.city[cityId as keyof typeof commonStrings.city].name}</h2>
-                                            <h3 className="typography-heading typography-white">{cityId}</h3>
-                                            {
-                                                NATION[CITY[cityId as keyof typeof CITY].nation as keyof typeof NATION].flag
-                                                && <Flag id={CITY[cityId as keyof typeof CITY].nation} style={{ marginLeft: 8 }} outlined={false} />
-                                            }
-                                        </Stack>
-                                    </CardContent>
-                                </ImageCard>
-                                <h4 className="typography-label" style={{ marginTop: "1rem", width: "90%" }}>{commonStrings.city[cityId as keyof typeof commonStrings.city].intro}</h4>
-                                <p>{commonStrings.city[cityId as keyof typeof commonStrings.city].body}</p>
-                                <div>
-                                    <a href={CITY[cityId as keyof typeof CITY].link} target="_blank" rel="noopener noreferrer" className="flex">
-                                        <Button variant={"contained"} color="gray" className="button--full" endIcon={<ArrowRight />}>
-                                            {
-                                                commonStrings.linkTextList.map((text) => (
-                                                    text === "/link" ? commonStrings.linkType[CITY[cityId as keyof typeof CITY].linkType as keyof typeof commonStrings.linkType].name
-                                                        : (text === "/city" ? commonStrings.city[cityId as keyof typeof commonStrings.city].name
-                                                            : text
-                                                        )
-                                                ))
-                                            }
-                                        </Button>
-                                    </a>
+                    {/* <div slot="container-start"> */}
+                        <PaginationDiv className='pageSwiper-pagination' sx={{ justifyContent: 'center', marginBottom: '1rem' }} />
+                    {/* </div> */}                    
+            <div style={{ flexShrink: 1, overflow: "hidden" }}>
+                <Swiper {...SWIPERPROPS_CITYDETAILCONTENT} initialSlide={state && state.initialIndex ? state.initialIndex : 0} style={{ display: "flex", flexDirection: "column", height: "100%" }}>{
+                        TEST.city.subTests[cityClass].examples.map((cityId) => (
+                            <SwiperSlide key={cityId} style={{ overflow: "scroll" }} >
+                                <div className="block--with-margin-x block__body">
+                                    <div className="block--round" style={{ position: "absolute", top: 0 }}/>
+                                    <ImageCard
+                                        src={getImgSrc("/city", cityId, { size: 'large' })}
+                                        title={cityId}
+                                        className="body__head flex-end"
+                                        gradient="bottom"
+                                        sx={{ height: "320px" }}
+                                    >
+                                        <CardContent>
+                                            <Stack spacing={0}>
+                                                <h2 className="typography-heading typography-heading--large typography-white">{commonStrings.city[cityId as keyof typeof commonStrings.city].name}</h2>
+                                                <h3 className="typography-heading typography-white">{cityId}</h3>
+                                                {
+                                                    NATION[CITY[cityId as keyof typeof CITY].nation as keyof typeof NATION].flag
+                                                    && <Flag id={CITY[cityId as keyof typeof CITY].nation} style={{ marginLeft: 8 }} outlined={false} />
+                                                }
+                                            </Stack>
+                                        </CardContent>
+                                    </ImageCard>
+                                    <h4 className="typography-label" style={{ marginTop: "1rem", width: "90%" }}>{commonStrings.city[cityId as keyof typeof commonStrings.city].intro}</h4>
+                                    <p>{commonStrings.city[cityId as keyof typeof commonStrings.city].body}</p>
+                                    <div>
+                                        <a href={CITY[cityId as keyof typeof CITY].link} target="_blank" rel="noopener noreferrer" className="flex">
+                                            <Button variant={"contained"} color="gray" className="block--with-padding" endIcon={<ArrowRight />}>
+                                                {
+                                                    commonStrings.linkTextList.map((text) => (
+                                                        text === "/link" ? commonStrings.linkType[CITY[cityId as keyof typeof CITY].linkType as keyof typeof commonStrings.linkType].name
+                                                            : (text === "/city" ? commonStrings.city[cityId as keyof typeof commonStrings.city].name
+                                                                : text
+                                                            )
+                                                    ))
+                                                }
+                                            </Button>
+                                        </a>
+                                    </div>
+                                    <Stack>
+                                        <p className="typography-note">{commonStrings.reference}{commonStrings.linkType[CITY[cityId as keyof typeof CITY].linkType as keyof typeof commonStrings.linkType].name}</p>
+                                        <Logo id={CITY[cityId as keyof typeof CITY].linkType} />
+                                    </Stack>
+                                    <div />
                                 </div>
-                                <Stack>
-                                    <p className="typography-note">{commonStrings.reference}{commonStrings.linkType[CITY[cityId as keyof typeof CITY].linkType as keyof typeof commonStrings.linkType].name}</p>
-                                    <Logo id={CITY[cityId as keyof typeof CITY].linkType} />
-                                </Stack>
-                                <div />
-                            </div>
-                        </SwiperSlide>
-                    ))
-                }
-            </Swiper>
+                            </SwiperSlide>
+                        ))
+                    }
+                </Swiper>
+            </div>
         </RoutedMotionPage>
     );
 }

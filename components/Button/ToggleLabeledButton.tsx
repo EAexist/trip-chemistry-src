@@ -27,7 +27,6 @@ const ToggleLabeledButton = ({ label, children, onChange, size ="medium", labelS
 
     return (
     <ButtonBase
-        // variant="base"
         onClick={(e) => {
             if (onChange)
                 onChange(e, value);
@@ -50,15 +49,15 @@ const ToggleLabeledButton = ({ label, children, onChange, size ="medium", labelS
                     ?
                     contained 
                     ? {
-                        backgroundColor: theme.palette.primary.main,
-                        color: theme.palette.primary.contrastText
+                        backgroundColor: 'primary.main',
+                        color: 'primary.contrastText'
                     }
                     :{
-                        backgroundColor: theme.palette.secondary.dark,
+                        backgroundColor: 'gray.main',
                     }
                     :
                     {
-                        backgroundColor: theme.palette.secondary.dark,
+                        backgroundColor: 'gray.main',
                         ...paperSx
                     })
                 }}

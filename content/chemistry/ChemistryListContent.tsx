@@ -1,13 +1,13 @@
 /* Externals */
 import { Add } from "@mui/icons-material";
-import { Button, Toolbar } from "@mui/material";
+import { Button, Toolbar, useTheme } from "@mui/material";
 import { m } from 'framer-motion';
 import LazyDomAnimation from "../../motion/LazyDomAnimation";
 
 /* App */
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
-import { FADEIN_VIEWPORT, STAGGER_CHILDREN, VARIANTS_SLIDE_UP } from "../../motion/props";
+import { FADEIN_VIEWPORT, STAGGER_CHILDREN, VARIANTS_SLIDEUP } from "../../motion/props";
 import { useChemistryIdList } from "../../reducers/authReducer";
 import ChemistrySummaryButton from "./component/ChemistrySummaryButton";
 
@@ -15,6 +15,7 @@ function ChemistryListContent() {
 
     /* Hooks */
     const navigate = useNavigateWithGuestContext();
+    const { palette } = useTheme();
 
     /* Reducers */
     const chemistryIdList = useChemistryIdList();
@@ -25,8 +26,8 @@ function ChemistryListContent() {
     }
 
     return (
-        <RoutedMotionPage className="page fill-window flex">
-        {/* <div className="page  min-fill-window"> */}
+        <RoutedMotionPage className="page fill-window flex"  style={{ backgroundColor : palette.gray.main }}>
+        {/* <div className="page  fill-window"> */}
             <Toolbar/>
             <div className="block--with-margin-x block__body--large">
                 <LazyDomAnimation>
@@ -36,16 +37,16 @@ function ChemistryListContent() {
                 <m.ul {...STAGGER_CHILDREN} custom={0.5} className="block__body">
                     {
                         Object.values(chemistryIdList).map((id, index) => (
-                            <m.li variants={VARIANTS_SLIDE_UP}>
+                            <m.li variants={VARIANTS_SLIDEUP}>
                                 <ChemistrySummaryButton id={id} />
                             </m.li>
                         ))
                     }
-                    <m.li variants={VARIANTS_SLIDE_UP}>
+                    <m.li variants={VARIANTS_SLIDEUP}>
                         <Button
                             variant="outlined"
                             className="block--large flex-row"
-                            sx={{ borderRadius: "16px" }}
+                            sx={{ borderRadius: "16px", backgroundColor: "secondary.main" }}
                             onClick={handleAddChemistry}
                         >
                             <Add />

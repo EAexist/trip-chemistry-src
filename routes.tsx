@@ -11,6 +11,7 @@ import { store } from './store';
 
 /* Mockup */
 import ChemistryDetailMockupContent from './mockup/ChemistryDetailMockupContent';
+import TestMockupContent from './mockup/TestMockupContent';
 
 /* Loadable Components */
 
@@ -99,6 +100,7 @@ const routes = createRoutesFromElements(
             <Route key={'chemistryMockup'} path={'chemistryMockup/:chemistryId'} element={<ChemistryRoute />} >
                 <Route key={'index'} index element={<ChemistryDetailMockupContent />} />
             </Route>
+            <Route key={'testMockup'} path={'testMockup'} element={<TestMockupContent />} />
         </Route>
 
 

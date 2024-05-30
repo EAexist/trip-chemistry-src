@@ -6,10 +6,11 @@ import { useSelector } from "react-redux";
 import LazyDomAnimation from "../../motion/LazyDomAnimation";
 
 import { UserTestResultBlock } from "../../components/Profile/TestResultBlock";
-import { FADEIN_VIEWPORT } from "../../motion/props";
+import { FADEIN_VIEWPORT, FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import { RootState } from "../../store";
 import { useStrings } from "../../texts";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
+import AppBarBackground from "~/components/AppBar/AppBarBackground";
 
 function ResultContent() {
 
@@ -28,9 +29,10 @@ function ResultContent() {
     }
     return (
         <div className="page fill-window flex">
+            <AppBarBackground/>
             <Toolbar />
             <LazyDomAnimation>
-                <m.div  {...FADEIN_VIEWPORT} className="block__body--large block--with-padding-x flex-grow">
+                <m.div  {...FADEIN_FROMBOTTOM_VIEWPORT} className="block__body--large block--with-padding-x flex-grow">
                     {/* <SectionPaper className="body__head"> */}
                     <m.h5 className="typography-heading">{strings.sections.tripCharacter.title}</m.h5>
                     <div style={{ marginTop: '-1rem' }}>
@@ -46,7 +48,7 @@ function ResultContent() {
                     <Button
                         onClick={handleChemistryButtonClick}
                         variant="contained"
-                        className="button--full block--with-margin block--with-margin--large"
+                        className="block--with-padding block--with-margin block--with-margin--large"
                     >
                         {strings.navigateToChemistryButton}
                     </Button>

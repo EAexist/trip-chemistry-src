@@ -1,5 +1,5 @@
 /* React */
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /* Externals */
 import { Button, Stack, Toolbar, useTheme } from "@mui/material";
@@ -20,6 +20,8 @@ import SwiperAutoplayProgress from "../../swiper/components/SwiperAutoplayProgre
 import { useStrings } from "../../texts";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import getImgSrc from "~/utils/getImgSrc";
+import CharacterSample from "./component/CharacterSample";
+import ConflictSample from "./component/ConflictSample";
 
 function HomeContent() {
 
@@ -33,6 +35,7 @@ function HomeContent() {
     /* States */
     const [showFloatingButton] = useState<boolean>(true);
     const [swiper, setSwiper] = useState<SwiperType>();
+    const videoRef = useRef(null);
 
     /* Reducers */
 
@@ -42,23 +45,45 @@ function HomeContent() {
     };
 
     /* Swiper */
-    const SWIPERPROPS_HOMECONTENT: SwiperOptions | { className: string } = {
+    const SWIPERPROPS_HOMECONTENT: SwiperOptions = {
         modules: [Pagination],
-        loop: true,
-        rewind: true,
         speed: SWIPER_SPEED,
         slidesPerView: 1,
+        loop: true,
         pagination: {
             clickable: true,
             el: '.pageSwiper-pagination',
         },
-        // autoHeight: true,
-        // autoplay: {
-        //     delay: AUTOPLAY_DELAY,
-        //     disableOnInteraction: false,
-        // }
     }
-
+    const slides = (strings.sections as { id: string, title: string, body: string }[]).map(({ id, title, body }, index) => (
+        <SwiperSlide key={title} style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }} >
+            {
+                ({ isActive }) => (
+                    <>
+                        <div className="flex-grow block--with-margin-x block--round block--round--large block--centered" style={{ backgroundColor: "white" }}>
+                            <div style={{ transform: "scale(0.8)"}}>
+                            {
+                                ( id === "conflict" )
+                                ?
+                                <ConflictSample />
+                                : 
+                                ( id === "character" )
+                                ?
+                                <CharacterSample />
+                                : <></>
+                            }
+                            </div>
+                        </div>
+                        <div className="block--with-margin-x block__body" style={{ justifyContent: "end" }}>
+                            <h3 className="typography-heading">{title}</h3>
+                            <p className="">{body}</p>
+                        </div>
+                    </>
+                    // <div style={{ position: "absolute", width: "100%" }} className="fill-window">
+                    // </div>
+                )}
+        </SwiperSlide>
+    ))
 
     return (
         <div className="page fill-window flex" style={{ backgroundColor: theme.palette.secondary.dark }}>
@@ -70,29 +95,12 @@ function HomeContent() {
                         setSwiper(swiper);
                     }}
                     style={{ display: "flex", flexDirection: "column", height: "100%" }}
-                    // className="flex"
                 >
-                    {(strings.sections as { id: string, title: string, body: string }[]).map(({ id, title, body }, index) => (
-                        <SwiperSlide key={title} style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }} >
-                            <div className="flex-grow block--with-margin-x block__body block--round block--round--large block--centered" style={{ backgroundColor: "white" }}>
-                                {/* <img style={{ position: "absolute" }} width="80%" src={getImgSrc("/home", "iphone-mockup" )} alt={"iphone-mockup"} /> */}
-                                <video autoPlay loop playsInline muted width="80%" poster={`/videos/${id}.mp4_`}>
-                                    <source src={`/videos/${id}.mp4`} type="video/mp4" />
-                                </video>
-                            </div>
-                            <div className="block--with-margin-x block__body" style={{ justifyContent: "end" }}>
-                                <h3 className="typography-heading">{title}</h3>
-                                <p className="">{body}</p>
-                            </div>
-                            <div style={{ position: "absolute", width: "100%" }} className="fill-window">
-                                {/* Background Image */}
-                            </div>
-                        </SwiperSlide>
-                    ))}
+                    {slides}
+                    <div slot="container-end" style={{ zIndex: 2000, marginTop: "1rem" }}>
+                        <PaginationDiv className='pageSwiper-pagination pagination__bullets' style={{ justifyContent: 'center' }} />
+                    </div>
                 </Swiper>
-            </div>
-            <div className="block--centered" style={{ marginTop: "1rem" }}>
-                <PaginationDiv className='pageSwiper-pagination pagination__bullets' style={{ justifyContent: 'center' }} />
             </div>
             {
                 (showFloatingButton) &&
@@ -100,8 +108,8 @@ function HomeContent() {
                     <Button
                         onClick={handleTestStart}
                         variant="contained"
-                        className="button--full block--with-margin block--with-margin--large"
-                        style={{ marginTop : '1rem' }}
+                        className="block--with-padding block--with-margin block--with-margin--large"
+                        style={{ marginTop: '1rem' }}
                     >
                         {strings.startButton}
                     </Button>

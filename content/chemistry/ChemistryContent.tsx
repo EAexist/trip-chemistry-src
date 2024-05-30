@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 /* Externals */
 import { AirplaneTicket, Close, Error, GroupAdd, NavigateBefore } from "@mui/icons-material";
-import { Alert, Avatar, Button, ButtonBase, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemText, Modal, Paper, Stack, Toolbar } from "@mui/material";
+import { Alert, AppBar, Avatar, Button, ButtonBase, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemText, Modal, Paper, Stack, Toolbar } from "@mui/material";
 import { AnimatePresence, m } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { useParams } from "~/router-module";
@@ -23,6 +23,7 @@ import LoginContent from "../login/LoginContent";
 import ChemistryDetailContent from "./ChemistryDetailContent";
 import * as ReactHelmetAsync from 'react-helmet-async';
 import MotionPage, { motionProp_page_slideIn } from "~/motion/components/MotionPage";
+import AppBarBackground from "~/components/AppBar/AppBarBackground";
 
 const { Helmet } = ReactHelmetAsync
 
@@ -129,7 +130,7 @@ function ChemistryContent() {
                 {
                     (!isAuthorized && showLoginContent)
                         ?
-                        <MotionPage key="login" {...motionProp_page_slideIn} doHideAppbar={true}>
+                        <MotionPage key="login" animate={"visible"} initial={"hidden"} custom={"left"} {...motionProp_page_slideIn} doHideAppbar={true}>
                             <Toolbar className="block--with-margin-x" style={{ position: "fixed" }}>
                                 <IconButton
                                     aria-label="cancel"
@@ -142,7 +143,8 @@ function ChemistryContent() {
                             <LoginContent title={`${Object.values(profileList)[0].nickname}님의 ${title}에 참여해보세요.`} />
                         </MotionPage>
                         :
-                        <div key="main" className="page min-fill-window flex block--gray">
+                        <div key="main" className="page flex block--gray">
+                            <AppBarBackground/>
                             <Toolbar />
                             <div className="block__body--large">
                                 <SectionPaper className="block__body body__head">
@@ -187,7 +189,7 @@ function ChemistryContent() {
                                                             onClick={handleStartShare}
                                                             startIcon={<GroupAdd />}
                                                             variant="outlined"
-                                                            className="button--full"
+                                                            className="block--with-padding"
                                                         >
                                                             친구 초대하기
                                                         </Button>
@@ -216,7 +218,7 @@ function ChemistryContent() {
                                                         //                                     onClick={onClick}
                                                         //                                     startIcon={<Icon>{icon}</Icon>}
                                                         //                                     variant="outlined"
-                                                        //                                     className="button--full"
+                                                        //                                     className="block--with-padding"
                                                         //                                 >
                                                         //                                     {label}
                                                         //                                 </Button>
@@ -232,7 +234,7 @@ function ChemistryContent() {
                                                         //                     onClick={() => setIsInviteOptionsOpen(true)}
                                                         //                     startIcon={<GroupAdd />}
                                                         //                     variant="outlined"
-                                                        //                     className="button--full"
+                                                        //                     className="block--with-padding"
                                                         //                 >
                                                         //                     친구 초대하기
                                                         //                 </Button>
@@ -245,7 +247,7 @@ function ChemistryContent() {
                                                         onClick={handleJoinChemistry}
                                                         startIcon={<AirplaneTicket />}
                                                         variant="outlined"
-                                                        className="button--full"
+                                                        className="block--with-padding"
                                                     >
                                                         참여하기
                                                     </Button>
@@ -277,7 +279,7 @@ function ChemistryContent() {
                                 {
                                     isMember && !hasAnsweredTest &&
                                     <div className="block--white" style={{ marginTop: 0 }}>
-                                        <div className="placeholder--button--full block--with-margin--large" style={{ marginTop: 0 }} />
+                                        <div className="placeholder--block--with-padding block--with-margin--large" style={{ marginTop: 0 }} />
                                     </div>
                                 }
                                 {/* 링크 공유 모달 */}
@@ -323,7 +325,7 @@ function ChemistryContent() {
                                                 onClick={handleCloseShareModal}
                                                 variant="contained"
                                                 color="gray"
-                                                className="button--full"
+                                                className="block--with-padding"
                                             >
                                                 닫기
                                             </Button>
@@ -334,8 +336,8 @@ function ChemistryContent() {
                                     open={isLinkCopiedAlertOpen}
                                     onClose={handleCloseLinkCopiedAlert}
                                     hideBackdrop={true}
+                                    disableScrollLock
                                 >
-                                    <div className="floating--bottom flex">
                                         <Alert
                                             action={
                                                 <IconButton
@@ -350,19 +352,19 @@ function ChemistryContent() {
                                                 </IconButton>
                                             }
                                             severity="success"
-                                            className="block--with-margin block--with-margin--large"
+                                            className="block--with-margin block--with-margin--large block--with-padding"
                                         >
                                             링크를 복사했어요.
                                         </Alert>
-                                    </div>
                                 </Modal>
                                 {
-                                    isMember && !hasAnsweredTest &&
+                                    isMember && !hasAnsweredTest
+                                    &&
                                     <div className="floating--bottom flex">
                                         <Button
                                             onClick={handleStartTest}
                                             variant="contained"
-                                            className="button--full block--with-margin block--with-margin--large"
+                                            className="block--with-padding block--with-margin block--with-margin--large"
                                         >
                                             테스트 하러가기
                                         </Button>

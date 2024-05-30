@@ -6,7 +6,7 @@ import { Close, ExpandMore, NavigateNext, RamenDining } from "@mui/icons-materia
 import { Alert, Box, Button, ButtonBase, Card, CardActions, CardContent, CardMedia, Divider, Grow, IconButton, List, ListItemAvatar, ListItemButton, ListItemText, ListSubheader, Modal, Stack } from "@mui/material";
 import { m } from "framer-motion";
 import { useSelector } from "react-redux";
-import LazyDomAnimation from "../../motion/LazyDomAnimation";
+import LazyDomAnimation from "../motion/LazyDomAnimation";
 
 /* Swiper */
 import 'swiper/css';
@@ -14,50 +14,50 @@ import 'swiper/css/effect-coverflow'; /* Food Carousel */
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 /* App */
-import { CITY, LINK, NATION, SLIDERPROPS_TEST_BUDGET_FOOD, TEST, TEST_SECTIONS } from "../../common/app-const";
-import TestSection from "../../components/Block/TestSection";
-import FoodImageCard from "../../components/Card/FoodImageCard";
-import ImageCard from "../../components/Card/ImageCard";
-import OptionCard from "../../components/Card/OptionCard";
-import Flag from "../../components/Flag";
+import { CITY, LINK, NATION, SLIDERPROPS_TEST_BUDGET_FOOD, TEST, TEST_SECTIONS } from "../common/app-const";
+import TestSection from "../components/Block/TestSection";
+import FoodImageCard from "../components/Card/FoodImageCard";
+import ImageCard from "../components/Card/ImageCard";
+import OptionCard from "../components/Card/OptionCard";
+import Flag from "../components/Flag";
 
 /* GoogleMap */
 import InfoWindowContext from "~/components/GoogleMap/common/InfoWindowContext";
 import GoogleMapMarker from "~/components/GoogleMap/ui/GoogleMapMarker";
-import GoogleMapContext from "../../components/GoogleMap/common/GoogleMapContext";
-import { OPTIONS_TEST_SCHEDULE } from "../../components/GoogleMap/common/options";
-import GoogleMap from "../../components/GoogleMap/ui/GoogleMap";
+import GoogleMapContext from "../components/GoogleMap/common/GoogleMapContext";
+import { OPTIONS_TEST_SCHEDULE } from "../components/GoogleMap/common/options";
+import GoogleMap from "../components/GoogleMap/ui/GoogleMap";
 
 import { EffectCoverflow } from "swiper/modules";
 import { SwiperOptions } from "swiper/types";
-import Logo from "../../components/Logo";
-import PngIcon from "../../components/PngIcon";
-import ScrollPageContainer from "../../components/ScrollPage/ScrollPageContainer";
-import ScrollPageItem from "../../components/ScrollPage/ScrollPageItem";
-import StepCheckpointContext, { IdToIndex } from "../../components/Step/StepCheckpointContext";
-import StepContext from "../../components/Step/StepContext";
-import SectionButton from "../../components/Step/components/SectionButton";
-import Stepper from "../../components/Step/components/Stepper";
-import withReducer from "../../hocs/withReducer";
-import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
-import { ITestName } from "../../interfaces/ITestAnswer";
-import { FADEIN } from "../../motion/props";
-import { useGetProfile } from "../../reducers/authReducer";
-import testAnswerReducer, { NumericTestName, SetTestName, useIsAllTestAnswered, useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
-import { RootState } from "../../store";
-import { SWIPERPROPS_CAROUSEL } from "../../swiper/props";
-import { useStrings } from "../../texts";
-import getImgSrc, { FORMATSVG } from "../../utils/getImgSrc";
-import { priceText } from "../../utils/priceText";
-import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
-import AnswerButtonGroup from "./component/AnswerButtonGroup";
-import AnswerSlider from "./component/AnswerSlider";
-import TagSetTestAnswerChip from "./component/TagSetTestAnswerChip";
-import TestAnswerBadge from "./component/TestAnswerBadge";
-import TestInstruction from "./component/TestInstruction";
-import UnAnsweredTestAlertButton from "./component/UnAnsweredTestAlertButton";
+import Logo from "../components/Logo";
+import PngIcon from "../components/PngIcon";
+import ScrollPageContainer from "../components/ScrollPage/ScrollPageContainer";
+import ScrollPageItem from "../components/ScrollPage/ScrollPageItem";
+import StepCheckpointContext, { IdToIndex } from "../components/Step/StepCheckpointContext";
+import StepContext from "../components/Step/StepContext";
+import SectionButton from "../components/Step/components/SectionButton";
+import Stepper from "../components/Step/components/Stepper";
+import withReducer from "../hocs/withReducer";
+import useNavigateWithGuestContext from "../hooks/useNavigateWithGuestContext";
+import { ITestName } from "../interfaces/ITestAnswer";
+import { FADEIN } from "../motion/props";
+import { useGetProfile } from "../reducers/authReducer";
+import testAnswerReducer, { NumericTestName, SetTestName, useIsAllTestAnswered, useSubmitAnswer, useTestAnswerStatus } from "../reducers/testAnswerReducer";
+import { RootState } from "../store";
+import { SWIPERPROPS_CAROUSEL } from "../swiper/props";
+import { useStrings } from "../texts";
+import getImgSrc, { FORMATSVG } from "../utils/getImgSrc";
+import { priceText } from "../utils/priceText";
+import LoadRequiredContent, { AuthLoadRequiredContent } from "../content/LoadRequiredContent";
+import AnswerButtonGroup from "../content/test/component/AnswerButtonGroup";
+import AnswerSlider from "../content/test/component/AnswerSlider";
+import TagSetTestAnswerChip from "../content/test/component/TagSetTestAnswerChip";
+import TestAnswerBadge from "../content/test/component/TestAnswerBadge";
+import TestInstruction from "../content/test/component/TestInstruction";
+import UnAnsweredTestAlertButton from "../content/test/component/UnAnsweredTestAlertButton";
 
-function TestContent() {
+function TestMockupContent() {
 
     const navigate = useNavigateWithGuestContext();
 
@@ -112,7 +112,7 @@ function TestContent() {
      * DOM 에서 오픈되어 있는 Info Window. 
      * Active Info Window 가 변경 될 경우 기존 Active Info Window 의 close() 함수를 호출해 닫기 위해 참조. 
      * [Deprecated] InfoWindow 및 Marker View 변화 로직은 모두 GoogleMapMarker 로 이동.
-     * 부모 컴포넌트(TestContent)에서는 activeGoogleMarker 를 참조하는 state 하나와 activeGoogleMarker 가 없을 경우 지도 초기화 로직만 관리.   
+     * 부모 컴포넌트(TestMockupContent)에서는 activeGoogleMarker 를 참조하는 state 하나와 activeGoogleMarker 가 없을 경우 지도 초기화 로직만 관리.   
      * */
     // const [prevActiveInfoWindow, setPrevActiveInfoWindow] = useState<google.maps.InfoWindow>();
 
@@ -220,7 +220,7 @@ function TestContent() {
                     <LazyDomAnimation>
                         <StepContext.Provider value={{ step, setStep }}>
                             <StepCheckpointContext.Provider value={{ idToIndex: idToIndex, setIdToIndex: setIdToIndex, stepCheckpointList: stepCheckpointList }}>
-                                <div className="top-nav">
+                                {/* <div className="top-nav">
                                     <m.div {...FADEIN} custom={0.2}>
                                         <Stepper className="block--with-padding-x top-nav__swiper" speed={preventInitialSwipe ? 0 : 500}>
                                             {
@@ -244,7 +244,7 @@ function TestContent() {
                                         </Stepper>
                                     </m.div>
                                     <Divider />
-                                </div>
+                                </div> */}
                                 <ScrollPageContainer onPageChange={(page) => setStep(page)} pages={Object.keys(TEST_SECTIONS).length}>
                                     {
                                         (["expectation", "activity"] as SetTestName[]).map((testName, index) => {
@@ -569,4 +569,4 @@ function TestContent() {
         </LoadRequiredContent >
     );
 }
-export default withReducer(TestContent)({ testAnswer: testAnswerReducer })
+export default withReducer(TestMockupContent)({ testAnswer: testAnswerReducer })

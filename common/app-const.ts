@@ -872,8 +872,7 @@ export const SLIDERPROPS_TEST_BUDGET_FOOD: SliderProps = {
     "aria-label": "budget"
 };
 
-export const SLIDERPROPS_CHEMISTRY_BUDGET_FOOD: ChemistrySliderProps = {
-    testName: "food",
+export const SLIDERPROPS_CHEMISTRY_BUDGET_FOOD: SliderProps = {
     step: 5000,
     min: 5000,
     max: 50000,

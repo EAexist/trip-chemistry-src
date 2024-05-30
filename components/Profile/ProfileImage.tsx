@@ -42,4 +42,4 @@ function ProfileImage({ renderLabel, showCharacterLabel = true, id, nickname, te
 }
 export default withFriendProfile(ProfileImage);
 const UserProfileImage = withUserProfile(ProfileImage);
-export { UserProfileImage };
+export { UserProfileImage, ProfileImage };

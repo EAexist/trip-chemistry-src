@@ -83,7 +83,7 @@ function LoginContent({ title ="테스트를 시작해볼까요?" }:LoginContent
                                 <Button
                                     onClick={handleGuestSignIn}
                                     variant="contained"
-                                    sx={{ width: '183px', height: '45px' }}
+                                    sx={{ width: '183px', height: '45px', borderRadius: "4px" }}
                                 >
                                     게스트 로그인
                                 </Button>

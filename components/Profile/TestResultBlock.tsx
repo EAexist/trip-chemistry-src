@@ -43,4 +43,4 @@ export default withFriendProfile(TestResultBlock);
 const MotionTestResultBlock = m(withFriendProfile(TestResultBlock), { forwardMotionProps: true });
 
 const UserTestResultBlock = withUserProfile(TestResultBlock);
-export { MotionTestResultBlock, UserTestResultBlock };
+export { MotionTestResultBlock, UserTestResultBlock, TestResultBlock };

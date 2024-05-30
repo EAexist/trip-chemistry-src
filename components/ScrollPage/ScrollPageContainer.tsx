@@ -56,6 +56,7 @@ const ScrollPageContainer = ({ onPageChange, pages, children }: PropsWithChildre
                     <Step key={index} index={index} className="fill-window" style={{ visibility: "hidden" }}/>
                 ))
             }
+            <div className="fill-window" />
             <div className="ScrollPageContainer__viewport-container">
                 <div ref={pageRef} className="ScrollPageContainer__viewport fill-window">
                     <PageContext.Provider value={{ activePage: page }}>
