@@ -37,8 +37,8 @@ const KakaoAuthRedirectPage = loadable(() => import( /* webpackChunkName: "Kakao
 const UserContent = loadable(() => import( /* webpackChunkName: "UserContent" */'./content/user/UserContent'));
 const EditNicknameContent = loadable(() => import( /* webpackChunkName: "EditNicknameContent" */'./content/login/EditNicknameContent'));
 const ResultContent = loadable(() => import( /* webpackChunkName: "ResultContent" */'./content/result/ResultContent'));
-const ChemistryListContent = loadable(() => import( /* webpackChunkName: "ChemistryListContent" */'./content/chemistry/ChemistryListContent'));
-const CreateChemistryContent = loadable(() => import( /* webpackChunkName: "CreateChemistryContent" */'./content/chemistry/CreateChemistryContent'));
+const ChemistryListContent = loadable(() => import( /* webpackChunkName: "ChemistryListContent" */'./content/chemistryList/ChemistryListContent'));
+const CreateChemistryContent = loadable(() => import( /* webpackChunkName: "CreateChemistryContent" */'./content/chemistryList/CreateChemistryContent'));
 
 const cityDetailRoute =
     <Route key={'city'} path={'city'} element={<Outlet />} >

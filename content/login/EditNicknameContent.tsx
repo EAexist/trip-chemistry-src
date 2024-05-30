@@ -12,10 +12,6 @@ function EditNicknameContent() {
     /* Hooks */
     const navigate = useNavigateWithGuestContext();
 
-    /* Reducers */
-
-    /* States */
-
     /* Event Handlers */
     const handleClose = () => {
         navigate('/user', { state: { navigateDirection: 'prev' }});

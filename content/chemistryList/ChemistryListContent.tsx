@@ -9,7 +9,7 @@ import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { FADEIN_VIEWPORT, STAGGER_CHILDREN, VARIANTS_SLIDEUP } from "../../motion/props";
 import { useChemistryIdList } from "../../reducers/authReducer";
-import ChemistrySummaryButton from "./component/ChemistrySummaryButton";
+import ChemistrySummaryButton from "../chemistry/component/ChemistrySummaryButton";
 
 function ChemistryListContent() {
 

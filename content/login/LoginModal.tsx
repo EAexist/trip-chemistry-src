@@ -16,7 +16,7 @@ import { AppDispatch, RootState } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
 // import env from "~/env";
 
-function LoginContent(){
+function LoginContent() {
 
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
@@ -64,7 +64,7 @@ function LoginContent(){
     return (
         <AuthLoadRequiredContent {...{
             handleSuccess: handleAuthSuccess,
-            handleFail: () =>{}
+            handleFail: () => { }
         }}>
             <RoutedMotionPage className="flex fill-window">
                 <div className="flex-grow block--centered-row block__body--large">

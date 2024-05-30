@@ -24,6 +24,8 @@ import ChemistryDetailContent from "./ChemistryDetailContent";
 import * as ReactHelmetAsync from 'react-helmet-async';
 import MotionPage, { motionProp_page_slideIn } from "~/motion/components/MotionPage";
 import AppBarBackground from "~/components/AppBar/AppBarBackground";
+import CharacterChemistryContent from "./CharacterChemistryContent";
+import LeadershipChemistryContent from "./LeadershipChemistryContent";
 
 const { Helmet } = ReactHelmetAsync
 
@@ -258,9 +260,9 @@ function ChemistryContent() {
                                 {
                                     isChemistryEnabled
                                         ?
-                                        <ChemistryDetailContent />
+                                        <ChemistryDetailContent/>
                                         :
-                                        /* 참여자를 한 명도 추가하지 않음. */
+                                        /* 참여자를 한 명도 추가하지 않은 경우. */
                                         <Paper elevation={0}>
                                             <NoticeBlock
                                                 alt={"invite"}
@@ -358,7 +360,7 @@ function ChemistryContent() {
                                         </Alert>
                                 </Modal>
                                 {
-                                    isMember && !hasAnsweredTest
+                                    ( isMember && !hasAnsweredTest )
                                     &&
                                     <div className="floating--bottom flex">
                                         <Button
