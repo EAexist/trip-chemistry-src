@@ -1,5 +1,5 @@
 import { Stack, ToggleButton } from "@mui/material";
-import { m, AnimatePresence } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { useEffect, useState } from "react";
 import LabeledAvatar from "~/components/Avatar/LabeledAvatar";
 import { ProfileImage } from "~/components/Profile/ProfileImage";

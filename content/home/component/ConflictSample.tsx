@@ -1,13 +1,11 @@
 import { ListItemAvatar, ListItemText, Stack, useTheme } from "@mui/material";
 import { m } from "framer-motion";
-import { Fragment, useEffect, useState } from "react";
-import FriendAvatar from "~/components/Avatar/FriendAvatar";
+import { Fragment } from "react";
 import LabeledAvatar from "~/components/Avatar/LabeledAvatar";
 import { MotionList } from "~/motion/components/MotionList";
 import { MotionListItem } from "~/motion/components/MotionListItem";
 import LazyDomAnimation from "~/motion/LazyDomAnimation";
 import { VARIANTS_FADEIN_FROMBOTTOM, VARIANTS_STAGGER_CHILDREN } from "~/motion/props";
-import { useStrings } from "~/texts";
 
 function ConflictSample() {
 
@@ -59,26 +57,29 @@ function ConflictSample() {
         <LazyDomAnimation>
             <div className="block__body">
                 <MotionList initial={"hidden"} whileInView={"visible"} variants={VARIANTS_STAGGER_CHILDREN} disablePadding custom={{ staggerChildren: 0.1 }}>
-                    {Object.entries(scheduleAnswerToProfiles).map(([value, { label, profileList }]) => (
-                        <MotionListItem variants={VARIANTS_FADEIN_FROMBOTTOM} key={value} disableGutters dense>
-                            {
-                                (value === "4") && <div style={{ position: 'absolute', backgroundColor: palette.primary.light, opacity: 0.5, width: '100%', height: '100%' }} className="block--round" />}
-                            <ListItemAvatar style={{ width: "100px", zIndex: 1 }} className="block--centered">
-                                <p className="typography-label">{label}</p>
-                            </ListItemAvatar>
-                            <ListItemText primary={
-                                <Stack>
-                                    <Stack spacing={0.5}>
-                                        {
-                                            profileList.map(({ characterId, nickname }) => (
-                                                <LabeledAvatar key={nickname} characterId={characterId} nickname={nickname} />
-                                            ))
-                                        }
+                    {
+                        Object.entries(scheduleAnswerToProfiles).map(([value, { label, profileList }]) => (
+                            <MotionListItem variants={VARIANTS_FADEIN_FROMBOTTOM} key={value} disableGutters dense>
+                                {
+                                    (value === "4") &&
+                                    <div style={{ position: 'absolute', backgroundColor: palette.primary.light, opacity: 0.5, width: '100%', height: '100%' }} className="block--round" />
+                                }
+                                <ListItemAvatar style={{ width: "100px", zIndex: 1 }} className="block--centered">
+                                    <p className="typography-label">{label}</p>
+                                </ListItemAvatar>
+                                <ListItemText primary={
+                                    <Stack>
+                                        <Stack spacing={0.5}>
+                                            {
+                                                profileList.map(({ characterId, nickname }) => (
+                                                    <LabeledAvatar key={nickname} characterId={characterId} nickname={nickname} />
+                                                ))
+                                            }
+                                        </Stack>
                                     </Stack>
-                                </Stack>
-                            } sx={{ marginLeft: "16px", zIndex: 1 }} />
-                        </MotionListItem>
-                    )).reverse()
+                                } sx={{ marginLeft: "16px", zIndex: 1 }} />
+                            </MotionListItem>
+                        )).reverse()
                     }
                     <m.div className="block__body" variants={VARIANTS_FADEIN_FROMBOTTOM}>
                         <p style={{ fontSize: "16px", lineHeight: '1.7rem' }}>
