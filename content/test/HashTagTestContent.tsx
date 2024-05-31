@@ -4,9 +4,6 @@
 import { Stack } from "@mui/material";
 
 /* App */
-
-/* GoogleMap */
-
 import { ITestName } from "../../interfaces/ITestAnswer";
 import { useStrings } from "../../texts";
 import TagSetTestAnswerChip from "./component/TagSetTestAnswerChip";

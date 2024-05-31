@@ -15,9 +15,6 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 /* App */
 import { LINK, SLIDERPROPS_TEST_BUDGET_FOOD, TEST } from "../../common/app-const";
 import FoodImageCard from "../../components/Card/FoodImageCard";
-
-/* GoogleMap */
-
 import { EffectCoverflow } from "swiper/modules";
 import { SwiperOptions } from "swiper/types";
 import Logo from "../../components/Logo";
@@ -65,64 +62,11 @@ function TestContent() {
 
     return (
         <>
-            {/* https://codesandbox.io/p/sandbox/6gw7p4?file=/src/App.jsx */}
-            <div className="flex-grow block--centered">
-                <Swiper {...SWIPERPROPS_FOODCARDCAROUSEL} className="carousel__swiper modal__container" ref={foodCarouselSwiperRef}>
-                    <TestInstruction testName="food" showBackdrop={true} className="block--centered" />
-                    {
-                        Object.values(TEST.food.examples).map((id, index) => (
-                            // <SwiperSlide key={id} className="carousel__swiper-slide--coverflow" style={{ width: "196px", height: "196px", borderRadius: "12px" }}>
-                            <SwiperSlide key={id} className="carousel__swiper-slide--coverflow" style={{ width: "fit-content" }}>
-                                {({ isActive }) => {
-                                    return (
-                                        id === "more"
-                                            ? (
-                                                isActive ?
-                                                    <m.div style={{ width: isActive ? "100vw" : "auto" }} layout layoutId="box" >
-                                                        <Box sx={{ borderRadius: "12px", bgcolor: 'gray.light', ...isActive ? {} : { width: "196px", height: "196px" } }} className={`block--centered ${isActive ? "block--with-margin-x" : ""}`}>
-                                                            {/* <AnimatePresence mode={"wait"} initial={false}> */}
-                                                            <List>
-                                                                <ListSubheader sx={{ textAlign: "start", bgcolor: 'transparent' }} className="block--with-margin-x">더 많은 식당 찾아보기</ListSubheader>
-                                                                {
-                                                                    TEST.food.more.map((source) => (
-                                                                        <ListItemButton href={LINK[source as keyof typeof LINK].link} key={source} className="block--with-padding-x">
-                                                                            <ListItemAvatar>
-                                                                                <Logo id={source} size="large" />
-                                                                            </ListItemAvatar>
-                                                                            <ListItemText
-                                                                                primary={
-                                                                                    <h3 className="typography-label">{commonStrings.linkType[source as keyof typeof commonStrings.linkType].name}</h3>
-                                                                                }
-                                                                                secondary={
-                                                                                    <p className="">{commonStrings.linkType[source as keyof typeof commonStrings.linkType].body}</p>
-                                                                                }
-                                                                            />
-                                                                        </ListItemButton>
-                                                                    ))
-                                                                }
-                                                            </List>
-                                                            {/* </AnimatePresence> */}
-                                                        </Box>
-                                                    </m.div>
-                                                    :
-                                                    <m.div layout layoutId="box">
-                                                        <Box sx={{ borderRadius: "12px", bgcolor: 'gray.light', width: "196px", height: "196px" }} className={`block--centered`} >
-                                                            <RamenDining />
-                                                        </Box>
-                                                    </m.div>
-                                            )
-                                            : <FoodImageCard id={id} isActive={isActive} />
-                                    )
-                                }}
-                            </SwiperSlide>
-                        ))
-                    }
-                </Swiper>
-            </div>
             <div className="block block__body">
                 <div className="test__title">
                     <h2 className="test__title__heading typography-heading">{contentstrings.subTest.food.title}</h2>
                 </div>
+                <h3 className="typography-body"> 여행지의 비싸지만 특별한 유명 레스토랑 </h3>
                 {
                     foodAnswer !== undefined
                         ? <h4 className='typography-test-answer'>
@@ -131,9 +75,7 @@ function TestContent() {
                         // : <h4 className='typography-test-answer'>? 원</h4>
                         : <></>
                 }
-                {/* <div className="container--center" style={{ marginTop: 0 }}> */}
                 <AnswerSlider testName="food" {...SLIDERPROPS_TEST_BUDGET_FOOD} />
-                {/* </div> */}
                 <div />
             </div>
         </>
