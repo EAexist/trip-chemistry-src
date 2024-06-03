@@ -64,28 +64,28 @@ function TestContent() {
         expectation:
         {
             type: "tagSet",
-            icon: "temple_buddhist",
+            icon: "expectation",
             label: "# 여행 테마",
             tests: ["expectation"]
         },
         activity:
         {
             type: "tagSet",
-            icon: "temple_buddhist",
+            icon: "activity",
             label: "# 액티비티",
             tests: ["activity"]
         },
         leadership:
         {
             type: 'leadership',
-            icon: "groups",
-            label: "계획",
+            icon: "leadership",
+            label: "여행 준비",
             tests: ["leadership"]
         },
         schedule:
         {
             type: 'schedule',
-            icon: "edit_calendar",
+            icon: "clock",
             label: "일정",
             tests: ["schedule"]
         },
@@ -99,21 +99,21 @@ function TestContent() {
         specialRestaurantBudget:
         {
             type: 'budget',
-            icon: "restaurant",
-            label: "특별한 맛집",
+            icon: "delicious",
+            label: "맛집 예산",
             tests: ["specialRestaurantBudget", "specialRestaurantCount"]
         },
         city:
         {
             type: "city",
-            icon: "domain",
+            icon: "location",
             label: "여행지",
             tests: CITY_TYPE_KEYS
         },
         confirm:
         {
             type: "confrim",
-            icon: "domain",
+            icon: "check",
             label: "결과 확인",
             tests: []
         },
@@ -199,7 +199,7 @@ function TestContent() {
                                                             elevation={0}
                                                         >{
                                                                 <TestAnswerBadge invisible={sectionName.length === 0} tests={tests} sx={{ height: 'fit-content', padding: "4px" }}>
-                                                                    <PngIcon name={sectionName} size={"large"} />
+                                                                    <PngIcon name={icon} size={"large"} />
                                                                 </TestAnswerBadge>
                                                             }
                                                         </SectionButton>

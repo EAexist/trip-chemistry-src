@@ -522,7 +522,7 @@ const stringTable_kr = {
                                 value: 2,
                                 display: "icon",
                                 icon: "2",
-                                label: "꽤 적극적인 팀원",
+                                label: "적극적인 팀원",
                             },
                             3:
                             {

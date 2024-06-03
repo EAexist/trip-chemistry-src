@@ -7,11 +7,11 @@ const OptionCard = ({ children, isActive = false }: OptionCardProps) =>
     <Card
         elevation={ isActive ? 3 : 0 }
         sx={{
-            zIndex: isActive ? "1" : "0",
+            zIndex: isActive ? "2" : "1",
             opacity: isActive ? "1" : "0.5",
             scale: isActive ? "1" : "0.8",  
-            borderRadius: "12px"
-            // transformOrigin: "bottom center",
+            borderRadius: "12px",
+            transformOrigin: "bottom center",
         }}
     >
         { children }
