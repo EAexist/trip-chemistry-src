@@ -23,10 +23,8 @@ const withTestAnswer = <T extends WithTestAnswerProps>(WrappedComponent: Compone
             testName,
             answer,
             setAnswer: ( value: number ) => {
-                setAnswer({
-                    testName,
-                    value,
-            })}
+                setAnswer(value)
+            }
         }}
             {...props as T}
         />

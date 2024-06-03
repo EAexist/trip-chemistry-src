@@ -74,7 +74,7 @@ function CharacterSample() {
                 {
                     profileList.map(({ id, tripCharacter, nickname }, index) => (
                         <ToggleButton
-                            key={id}
+                            key={index}
                             value={index}
                             onChange={(_, value) => setUserIndex(value)}
                             selected={userIndex === index}

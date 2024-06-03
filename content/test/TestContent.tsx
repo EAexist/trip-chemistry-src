@@ -13,10 +13,17 @@ import 'swiper/css/effect-coverflow'; /* Food Carousel */
 import { SwiperSlide } from 'swiper/react';
 
 /* App */
-import { TEST, TEST_SECTIONS } from "../../common/app-const";
-import TestSection from "../../components/Block/TestSection";
 
-/* GoogleMap */
+/* Contents */
+import DailyRestaurantTestContent from "./DailyRestaurantTestContent";
+import HashTagTestContent from "./HashTagTestContent";
+import LeadershipTestContent from "./LeadershipTestContent";
+import CityTestContent from "./PlacesTestContent";
+import ScheduleTestContent from "./ScheduleTestContent";
+import SpecialRestaurantTestContent from "./SpecialRestaurantTestContent";
+
+import { TEST } from "../../common/app-const";
+import TestSection from "../../components/Block/TestSection";
 
 import PngIcon from "../../components/PngIcon";
 import ScrollPageContainer from "../../components/ScrollPage/ScrollPageContainer";
@@ -33,13 +40,10 @@ import { useGetProfile } from "../../reducers/authReducer";
 import testAnswerReducer, { SetTestName, useIsAllTestAnswered, useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
 import { useStrings } from "../../texts";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
-import CityTestContent from "./CityTestContent";
 import TestAnswerBadge from "./component/TestAnswerBadge";
 import UnAnsweredTestAlertButton from "./component/UnAnsweredTestAlertButton";
-import FoodBudgetTestContent from "./FoodBudgetTestContent";
-import HashTagTestContent from "./HashTagTestContent";
-import LeadershipTestContent from "./LeadershipTestContent";
-import ScheduleTestContent from "./ScheduleTestContent";
+import CitiesTestContent from "./CitiesTestContent";
+
 
 function TestContent() {
 
@@ -53,6 +57,52 @@ function TestContent() {
     const getProfile = useGetProfile();
     const submitAnswer = useSubmitAnswer();
     const [submitStatus, setSubmitStatus] = useTestAnswerStatus();
+
+
+    const TEST_SECTIONS = {
+        expectation:
+        {
+            type: "tagSet",
+            icon: "temple_buddhist",
+            label: "# 여행 테마"
+        },
+        activity:
+        {
+            type: "tagSet",
+            icon: "temple_buddhist",
+            label: "# 액티비티"
+        },
+        leadership:
+        {
+            type: 'leadership',
+            icon: "groups",
+            label: "계획"
+        },
+        schedule:
+        {
+            type: 'schedule',
+            icon: "edit_calendar",
+            label: "일정"
+        },
+        dailyRestaurantBudget:
+        {
+            type: 'budget',
+            icon: "restaurant",
+            label: "식사 예산"
+        },
+        specialRestaurantBudget:
+        {
+            type: 'budget',
+            icon: "restaurant",
+            label: "특별한 맛집"
+        },
+        city:
+        {
+            type: "city",
+            icon: "domain",
+            label: "여행지"
+        },
+    };
 
     /* States */
     const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
@@ -119,13 +169,13 @@ function TestContent() {
                                     <m.div {...FADEIN} custom={0.2}>
                                         <Stepper className="block--with-padding-x top-nav__swiper" speed={preventInitialSwipe ? 0 : 500}>
                                             {
-                                                Object.entries(TEST_SECTIONS).map(([testName, { icon }], index) =>
+                                                Object.entries(TEST_SECTIONS).map(([ testName, { icon, label }], index) =>
                                                     <SwiperSlide key={testName} className="top-nav__swiper">
                                                         <SectionButton
                                                             labelSize={"large"}
                                                             value={index}
                                                             index={index}
-                                                            label={contentstrings.subTest[testName as keyof typeof contentstrings.subTest].label}
+                                                            label={label}
                                                             sx={{ height: "100%", display: 'flex', alignItems: 'start', paddingTop: '8px' }}
                                                             elevation={0}
                                                         >
@@ -160,20 +210,21 @@ function TestContent() {
                                             <ScheduleTestContent />
                                         </TestSection>
                                     </ScrollPageItem>
-                                    <ScrollPageItem key={"budget"} page={4} className="flex">
+                                    <ScrollPageItem key={"dailyRestaurantBudget"} page={4} className="flex">
                                         <TestSection>
-                                            <FoodBudgetTestContent />
+                                            <DailyRestaurantTestContent />
                                         </TestSection>
                                     </ScrollPageItem>
-                                    {
-                                        Object.keys(TEST.city.subTests).map((id, index) => (
-                                            <ScrollPageItem key={id} page={5 + index} className="flex">
-                                                <TestSection >
-                                                    <CityTestContent id={id} />
-                                                </TestSection>
-                                            </ScrollPageItem>
-                                        ))
-                                    }
+                                    <ScrollPageItem key={"specialRestaurantBudget"} page={5} className="flex">
+                                        <TestSection>
+                                            <SpecialRestaurantTestContent />
+                                        </TestSection>
+                                    </ScrollPageItem>
+                                    <ScrollPageItem key={"city"} page={6} className="flex">
+                                        <TestSection>
+                                            <CitiesTestContent/>
+                                        </TestSection>
+                                    </ScrollPageItem>
                                 </ScrollPageContainer>
                                 {
                                     !isAllTestAnswered &&

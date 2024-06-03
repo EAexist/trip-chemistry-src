@@ -1,7 +1,8 @@
+import { CITY_TYPES, ICityType } from "~/common/app-const";
 import { ActivityTag, IActivityTag } from "./enums/ActivityTag";
 import { ExpectationTag, IExpectationTag } from "./enums/ExpectationTag";
 
-export interface ITestAnswer {
+export interface ITestAnswer extends Record<ICityType, ( undefined | number )> {
     expectation: {
         selected: IExpectationTag[],
         unSelected: IExpectationTag[]
@@ -12,22 +13,20 @@ export interface ITestAnswer {
     },
     leadership: undefined | number,
     schedule: undefined | number,
-    food: undefined | number, /* 식사 평균 */
-    // foodSpecial: undefined | number, /* 특별한 식사 */
+    dailyRestaurantBudget: undefined | number, /* 식사 평균 */
+    specialRestaurantBudget: undefined | number, /* 특별한 식사 */
+    specialRestaurantCount: undefined | number, /* 특별한 식사 */
     // accomodate: undefined | number, /* 숙소 평균 */
     // accomodateSpecial: undefined | number, /* 특별한 숙소 */
-
-    metropolis: undefined | number,
-    history: undefined | number,
-    nature: undefined | number,
 };
 
-export interface ITestAnswerDTO {
+export interface ITestAnswerDTO extends Record<ICityType, number> {
     expectation: IExpectationTag[],
     activity: IActivityTag[],
     leadership: number,
     schedule: number,
-    food: number,
+    dailyRestaurantBudget: number,
+    specialRestaurantBudget: number,
     metropolis: number,
     history: number,
     nature: number,
@@ -43,11 +42,11 @@ export const defaultTestAnswer: ITestAnswer = {
     },
     leadership: undefined,
     schedule: undefined,
-    food: undefined, /* 식사 평균 */
-    // foodSpecial: undefined, /* 특별한 식사 */
+    dailyRestaurantBudget: undefined, /* 식사 평균 */
+    specialRestaurantBudget: undefined, /* 특별한 식사 */
+    specialRestaurantCount: undefined, /* 특별한 식사 */
     // accomodate: undefined, /* 숙소 평균 */
     // accomodateSpecial: undefined, /* 특별한 숙소 */
-
     metropolis: undefined,
     history: undefined,
     nature: undefined,

@@ -87,7 +87,7 @@ const stringTable_kr = {
                     body:""
                 },
             },
-            food: {
+            restaurant: {
                 "kyudong":
                 {
                     "name": "규동",
@@ -397,6 +397,7 @@ const stringTable_kr = {
                     [ActivityTag.CAFE]: "카페 탐방",
                     [ActivityTag.SHOPPING]: "쇼핑",
                     [ActivityTag.SHOW]: "공연",
+                    [ActivityTag.MUESEUM]: "미술관",
                 }
             },
             expectation: {
@@ -472,7 +473,7 @@ const stringTable_kr = {
                             title: "한끼에 얼마나 쓰면 좋을까?",
                             subtitle: "예산 - 한끼 식사",
                             label: "한끼 식사",
-                            icon: "restaurant",
+                            icon: "dailyRestaurantBudget",
                         },
                         cityMetropolis:
                         {
@@ -839,8 +840,8 @@ const stringTable_kr = {
                             ]
                         ]
                     },
-                    "food": {
-                        label: "한 끼 예산",
+                    "restaurant": {
+                        label: "맛집 탐방",
                         icon: "restaurant",
                         title: "한끼 식사에는 평균적으로 얼마나 쓸까?",
                         particle: "",

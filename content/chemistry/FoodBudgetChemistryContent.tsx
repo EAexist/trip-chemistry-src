@@ -23,14 +23,14 @@ function FoodBudgetChemistryContent() {
 
     const chemistry = useChemistry();
 
-    const budgetAnswerToProfiles = useValueToProfileIdList('food');
+    const budgetAnswerToProfiles = useValueToProfileIdList('dailyRestaurantBudget');
 
     return (
         <>
             <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">{strings.sections.budget.title}</m.h2>
             <div className="block__body">
                 <div className="block--centered">
-                    <ChemistrySlider {...SLIDERPROPS_CHEMISTRY_BUDGET_FOOD} testName="food" getAriaLabel={() => (`friends' restaurant budget preference`)} value={Object.keys(budgetAnswerToProfiles).map((answer) => Number(answer))} />
+                    <ChemistrySlider {...SLIDERPROPS_CHEMISTRY_BUDGET_FOOD} testName="dailyRestaurantBudget" getAriaLabel={() => (`friends' restaurant budget preference`)} value={Object.keys(budgetAnswerToProfiles).map((answer) => Number(answer))} />
                 </div>
                 <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="block__body">
                     {

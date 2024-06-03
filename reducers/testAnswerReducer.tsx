@@ -30,11 +30,11 @@ export const sampleTestAnswer : ITestAnswer = {
     },
     leadership: 1,
     schedule: 4,
-    food: 20000, /* 식사 평균 */
-    // foodSpecial: undefined, /* 특별한 식사 */
+    dailyRestaurantBudget: undefined, /* 식사 평균 */
+    specialRestaurantBudget: undefined, /* 특별한 식사 */
+    specialRestaurantCount: undefined, /* 특별한 식사 */
     // accomodate: undefined, /* 숙소 평균 */
     // accomodateSpecial: undefined, /* 특별한 숙소 */
-
     metropolis: 1,
     history: 5,
     nature: 4,
@@ -124,13 +124,13 @@ const testAnswerSlice = createSlice({
     },
 });
 
-export const useTestAnswer = ( testName: ITestName ) => {
+export const useTestAnswer = ( testName: NumericTestName ) => {
     const dispatch = useDispatch();
     return(
         [ 
             useSelector(( state:RootState )=>(state.testAnswer.data[testName]) as number),  
-            useCallback(( payload: ISetNumericAnswerPayload ) => 
-                dispatch( testAnswerSlice.actions.setNumericAnswer(payload) )
+            useCallback(( value: number ) => 
+                dispatch( testAnswerSlice.actions.setNumericAnswer({ testName, value }) )
             , [dispatch])
         ] as const
     )

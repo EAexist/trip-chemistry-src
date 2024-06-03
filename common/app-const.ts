@@ -27,17 +27,17 @@ export const HEADERS_AXIOS = {
 };
 
 export const TRIPTAG = {
-    [ TripTag.PHOTO ] : "photo_camera",
-    [ TripTag.EAT ] : "ramen_dining",
-    [ TripTag.FRIENDSHIP ] : "favorite",
-    [ TripTag.PHYSICAL ] : "surfing",
-    [ TripTag.REST ] : "forest",
-    [ TripTag.INFLUENCER ] : "share",
-    [ TripTag.COFFEE ] : "local_cafe",
-    [ TripTag.CULTURE ] : "palette",
-    [ TripTag.ADVENTURE ] : "travel_explore",
-    [ TripTag.PASSION ] : "local_fire_department",
-    [ TripTag.REFRESH ] : "battery_charging_full"
+    [TripTag.PHOTO]: "photo_camera",
+    [TripTag.EAT]: "ramen_dining",
+    [TripTag.FRIENDSHIP]: "favorite",
+    [TripTag.PHYSICAL]: "surfing",
+    [TripTag.REST]: "forest",
+    [TripTag.INFLUENCER]: "share",
+    [TripTag.COFFEE]: "local_cafe",
+    [TripTag.CULTURE]: "palette",
+    [TripTag.ADVENTURE]: "travel_explore",
+    [TripTag.PASSION]: "local_fire_department",
+    [TripTag.REFRESH]: "battery_charging_full"
 }
 
 export const LINK = {
@@ -194,6 +194,46 @@ export const FOOD = {
     },
 };
 
+export type ICityType = "metropolis" | "history" | "nature";
+export const CITY_TYPES: Record<ICityType, {
+    title: string,
+    icon: string,
+    examples: string[]
+}> = {
+    "metropolis":
+    {
+        title: "현대적 대도시",
+        icon: "domain",
+        examples: [
+            "tokyo",
+            "osaka",
+            "yokohama",
+            "hongkong",
+        ],
+    },
+    "history":
+    {
+        title: "유서 깊은 도시",
+        icon: "temple_buddhist",
+        examples: [
+            "kyoto",
+            "nara",
+            "kamakura",
+        ]
+    },
+    "nature":
+    {
+        title: "아름다운 자연 경관",
+        icon: "forest",
+        examples: [
+            "shiretoko",
+            "yakushima",
+            "biei",
+        ]
+    },
+};
+
+
 export const TEST_TYPE = {
     "leadership": {
         "answers": {
@@ -266,7 +306,7 @@ export const TEST_TYPE = {
             1:
             {
                 value: 1,
-                icon: "😡",                
+                icon: "😡",
             },
             2:
             {
@@ -469,10 +509,10 @@ export const TEST = {
             }
         }
     },
-    food:
+    restaurant:
     {
         type: 'budget',
-        icon: "restaurant",
+        icon: "dailyRestaurantBudget",
         "examples": {
             5000: "kyudong",
             10000: "wantang",
@@ -712,7 +752,7 @@ export const TEST_SECTIONS = {
             },
         }
     },
-    food:
+    restaurant:
     {
         type: 'budget',
         icon: "restaurant",
@@ -773,7 +813,7 @@ export const CHEMISTRY = {
     sections: ['tripCharacter', 'leadership', 'chemistry']
 };
 
-export const CITY = {
+export const CITIES = {
     jp:
     {
         nation: "jp",
@@ -864,13 +904,6 @@ export const NATION = {
         flag: false
     },
 }
-
-export const SLIDERPROPS_TEST_BUDGET_FOOD: SliderProps = {
-    step: 5000,
-    min: 5000,
-    max: 50000,
-    "aria-label": "budget"
-};
 
 export const SLIDERPROPS_CHEMISTRY_BUDGET_FOOD: SliderProps = {
     step: 5000,

@@ -45,7 +45,7 @@ function ChemistryDetailMockupContent() {
     const chemistry = useChemistry();
 
     const scheduleAnswerToProfiles = useValueToProfileIdList('schedule');
-    const budgetAnswerToProfiles = useValueToProfileIdList('food');
+    const budgetAnswerToProfiles = useValueToProfileIdList('dailyRestaurantBudget');
 
     const characterSectionCharacter = useSelector((state: RootState) =>
         state.chemistry.data.profileList[answeredProfileIdList[characterSectionActiveUserIndex]]?.testResult.tripCharacter

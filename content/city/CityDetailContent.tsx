@@ -14,7 +14,7 @@ import 'swiper/css/pagination'; /* Page */
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 /* App */
-import { CITY, NATION, TEST } from "../../common/app-const";
+import { CITIES, NATION, TEST } from "../../common/app-const";
 import { useHideAppbar } from "../../components/AppBar/AppBarContext";
 import ImageCard from "../../components/Card/ImageCard";
 import Flag from "../../components/Flag";
@@ -120,8 +120,8 @@ function CityDetailContent({ cityClass }: CityDetailContentProps) {
                                                 <h2 className="typography-heading typography-heading--large typography-white">{commonStrings.city[cityId as keyof typeof commonStrings.city].name}</h2>
                                                 <h3 className="typography-heading typography-white">{cityId}</h3>
                                                 {
-                                                    NATION[CITY[cityId as keyof typeof CITY].nation as keyof typeof NATION].flag
-                                                    && <Flag id={CITY[cityId as keyof typeof CITY].nation} style={{ marginLeft: 8 }} outlined={false} />
+                                                    NATION[CITIES[cityId as keyof typeof CITIES].nation as keyof typeof NATION].flag
+                                                    && <Flag id={CITIES[cityId as keyof typeof CITIES].nation} style={{ marginLeft: 8 }} outlined={false} />
                                                 }
                                             </Stack>
                                         </CardContent>
@@ -129,11 +129,11 @@ function CityDetailContent({ cityClass }: CityDetailContentProps) {
                                     <h4 className="typography-label" style={{ marginTop: "1rem", width: "90%" }}>{commonStrings.city[cityId as keyof typeof commonStrings.city].intro}</h4>
                                     <p>{commonStrings.city[cityId as keyof typeof commonStrings.city].body}</p>
                                     <div>
-                                        <a href={CITY[cityId as keyof typeof CITY].link} target="_blank" rel="noopener noreferrer" className="flex">
+                                        <a href={CITIES[cityId as keyof typeof CITIES].link} target="_blank" rel="noopener noreferrer" className="flex">
                                             <Button variant={"contained"} color="gray" className="block--with-padding" endIcon={<ArrowRight />}>
                                                 {
                                                     commonStrings.linkTextList.map((text) => (
-                                                        text === "/link" ? commonStrings.linkType[CITY[cityId as keyof typeof CITY].linkType as keyof typeof commonStrings.linkType].name
+                                                        text === "/link" ? commonStrings.linkType[CITIES[cityId as keyof typeof CITIES].linkType as keyof typeof commonStrings.linkType].name
                                                             : (text === "/city" ? commonStrings.city[cityId as keyof typeof commonStrings.city].name
                                                                 : text
                                                             )
@@ -143,8 +143,8 @@ function CityDetailContent({ cityClass }: CityDetailContentProps) {
                                         </a>
                                     </div>
                                     <Stack>
-                                        <p className="typography-note">{commonStrings.reference}{commonStrings.linkType[CITY[cityId as keyof typeof CITY].linkType as keyof typeof commonStrings.linkType].name}</p>
-                                        <Logo id={CITY[cityId as keyof typeof CITY].linkType} />
+                                        <p className="typography-note">{commonStrings.reference}{commonStrings.linkType[CITIES[cityId as keyof typeof CITIES].linkType as keyof typeof commonStrings.linkType].name}</p>
+                                        <Logo id={CITIES[cityId as keyof typeof CITIES].linkType} />
                                     </Stack>
                                     <div />
                                 </div>

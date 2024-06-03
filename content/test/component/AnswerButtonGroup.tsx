@@ -1,4 +1,4 @@
-import { Grid, Stack } from "@mui/material";
+import { Grid } from "@mui/material";
 
 import { TEST_SECTIONS } from "../../../common/app-const";
 import ToggleLabeledButton from "../../../components/Button/ToggleLabeledButton";
