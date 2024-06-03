@@ -58,7 +58,7 @@ function LoadRequiredContent({
         [LoadStatus.FAIL]: {
             body: failText,
             buttonText: handleFailButtonText,
-            handleClick:
+            onClick:
                 () => {
                     handleFail();
                     setStatus(LoadStatus.REST);
@@ -67,7 +67,7 @@ function LoadRequiredContent({
         [LoadStatus.MISS]: {
             body: missText,
             buttonText: handleMissButtonText,
-            handleClick:
+            onClick:
                 () => {
                     handleMiss();
                     setStatus(LoadStatus.REST);

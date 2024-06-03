@@ -11,7 +11,7 @@ interface WithIsTestAnsweredProps {
 const withIsTestAnswered = <T extends WithIsTestAnsweredProps>( WrappedComponent: ComponentType<T> ) =>
     ({ testName, ...props }: Omit<T, keyof WithIsTestAnsweredProps> & { testName: ITestName }) => {
 
-        const isAnswered = useIsTestAnswered( testName );
+        const isAnswered = useIsTestAnswered( [testName] );
 
         return (
             <WrappedComponent

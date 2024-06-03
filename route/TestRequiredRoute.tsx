@@ -34,7 +34,7 @@ function TestRequiredRoute() {
             src={ getImgSrc('/info', "MISS", { size : "xlarge" } ) }
             body={`${nickname} 님의 여행은 어떤 모습일까요?\n테스트를 완료하고 결과를 확인해보세요.`}
             buttonText={"테스트하러 가기"}
-            handleClick={handleHasNotAnsweredTest}
+            onClick={handleHasNotAnsweredTest}
         />
     );
 }

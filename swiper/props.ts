@@ -13,7 +13,7 @@ export const SWIPERPROPS_PAGE : SwiperOptions | { className: string } = {
 export const SWIPERPROPS_STEPPER : SwiperOptions | { className: string } = {
     // modules: [ Navigation ],
     slidesPerView: 'auto',
-    spaceBetween: 16,
+    spaceBetween: 8,
 }
 
 export const SWIPERPROPS_CAROUSEL : SwiperOptions | { className: string } = {

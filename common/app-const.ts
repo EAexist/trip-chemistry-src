@@ -194,7 +194,7 @@ export const FOOD = {
     },
 };
 
-export type ICityType = "metropolis" | "history" | "nature";
+export type ICityType = "metropolis" | "history" | "nature"
 export const CITY_TYPES: Record<ICityType, {
     title: string,
     icon: string,
@@ -232,7 +232,7 @@ export const CITY_TYPES: Record<ICityType, {
         ]
     },
 };
-
+export const CITY_TYPE_KEYS = Object.keys(CITY_TYPES);
 
 export const TEST_TYPE = {
     "leadership": {

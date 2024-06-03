@@ -2,7 +2,7 @@
 import { PropsWithChildren } from "react";
 
 /* Externals */
-import { Button, Toolbar } from "@mui/material";
+import { Button, ButtonProps, Toolbar } from "@mui/material";
 import { m } from 'framer-motion';
 import LazyDomAnimation from "../../motion/LazyDomAnimation";
 
@@ -11,8 +11,7 @@ import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import LazyImage from "../LazyImage";
 
 
-interface NoticeBlockProps {
-    handleClick?: () => void
+interface NoticeBlockProps extends ButtonProps {
     alt?: string
     src?: string
     title?: string
@@ -23,7 +22,6 @@ interface NoticeBlockProps {
 };
 
 function NoticeBlock({
-    handleClick,
     alt,
     src,
     title,
@@ -31,6 +29,7 @@ function NoticeBlock({
     buttonText,
     isFullscreen = true,
     lazyLoadImage = false,
+    ...buttonProps
 }: PropsWithChildren<NoticeBlockProps>) {
 
     return (
@@ -70,17 +69,17 @@ function NoticeBlock({
                     <p>{body}</p>
                 </m.div>
                 {
-                    handleClick &&
+                    buttonProps.onClick &&
                     <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="flex">
                             <Button
-                                onClick={handleClick}
                                 variant="contained"
                                 style={{
-                                    visibility: handleClick !== undefined
+                                    visibility: buttonProps.onClick !== undefined
                                         ? "visible"
                                         : "hidden"
                                 }}
                                 className="block--with-padding block--with-margin block--with-margin--large"
+                                {...buttonProps}
                             >
                                 { buttonText }
                             </Button>

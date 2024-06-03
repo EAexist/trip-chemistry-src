@@ -18,13 +18,12 @@ import { SwiperSlide } from 'swiper/react';
 import DailyRestaurantTestContent from "./DailyRestaurantTestContent";
 import HashTagTestContent from "./HashTagTestContent";
 import LeadershipTestContent from "./LeadershipTestContent";
-import CityTestContent from "./PlacesTestContent";
 import ScheduleTestContent from "./ScheduleTestContent";
-import SpecialRestaurantTestContent from "./SpecialRestaurantTestContent";
+import SpecialRestaurantTestContent from "./SpecialRestaurantTestContentAccordion";
 
-import { TEST } from "../../common/app-const";
 import TestSection from "../../components/Block/TestSection";
 
+import { CITY_TYPE_KEYS } from "~/common/app-const";
 import PngIcon from "../../components/PngIcon";
 import ScrollPageContainer from "../../components/ScrollPage/ScrollPageContainer";
 import ScrollPageItem from "../../components/ScrollPage/ScrollPageItem";
@@ -34,15 +33,17 @@ import StepCheckpointContext, { IdToIndex } from "../../components/Step/StepChec
 import StepContext from "../../components/Step/StepContext";
 import withReducer from "../../hocs/withReducer";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
-import { ITestName } from "../../interfaces/ITestAnswer";
 import { FADEIN } from "../../motion/props";
 import { useGetProfile } from "../../reducers/authReducer";
 import testAnswerReducer, { SetTestName, useIsAllTestAnswered, useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
 import { useStrings } from "../../texts";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
+import CitiesTestContent from "./CitiesTestContent";
 import TestAnswerBadge from "./component/TestAnswerBadge";
 import UnAnsweredTestAlertButton from "./component/UnAnsweredTestAlertButton";
-import CitiesTestContent from "./CitiesTestContent";
+import NoticeBlock from "~/components/Block/NoticeBlock";
+import getImgSrc from "~/utils/getImgSrc";
+import LazyImage from "~/components/LazyImage";
 
 
 function TestContent() {
@@ -64,43 +65,57 @@ function TestContent() {
         {
             type: "tagSet",
             icon: "temple_buddhist",
-            label: "# 여행 테마"
+            label: "# 여행 테마",
+            tests: ["expectation"]
         },
         activity:
         {
             type: "tagSet",
             icon: "temple_buddhist",
-            label: "# 액티비티"
+            label: "# 액티비티",
+            tests: ["activity"]
         },
         leadership:
         {
             type: 'leadership',
             icon: "groups",
-            label: "계획"
+            label: "계획",
+            tests: ["leadership"]
         },
         schedule:
         {
             type: 'schedule',
             icon: "edit_calendar",
-            label: "일정"
+            label: "일정",
+            tests: ["schedule"]
         },
         dailyRestaurantBudget:
         {
             type: 'budget',
             icon: "restaurant",
-            label: "식사 예산"
+            label: "식사 예산",
+            tests: ["dailyRestaurantBudget"]
         },
         specialRestaurantBudget:
         {
             type: 'budget',
             icon: "restaurant",
-            label: "특별한 맛집"
+            label: "특별한 맛집",
+            tests: ["specialRestaurantBudget", "specialRestaurantCount"]
         },
         city:
         {
             type: "city",
             icon: "domain",
-            label: "여행지"
+            label: "여행지",
+            tests: CITY_TYPE_KEYS
+        },
+        confirm:
+        {
+            type: "confrim",
+            icon: "domain",
+            label: "결과 확인",
+            tests: []
         },
     };
 
@@ -133,6 +148,10 @@ function TestContent() {
 
     const handleConfirmButtonClick = () => {
         submitAnswer();
+    }
+
+    const handleFabClick = () => {
+
     }
 
     const handleSubmitSuccess = () => {
@@ -169,8 +188,8 @@ function TestContent() {
                                     <m.div {...FADEIN} custom={0.2}>
                                         <Stepper className="block--with-padding-x top-nav__swiper" speed={preventInitialSwipe ? 0 : 500}>
                                             {
-                                                Object.entries(TEST_SECTIONS).map(([ testName, { icon, label }], index) =>
-                                                    <SwiperSlide key={testName} className="top-nav__swiper">
+                                                Object.entries(TEST_SECTIONS).map(([sectionName, { tests, icon, label }], index) =>
+                                                    <SwiperSlide key={sectionName} className="top-nav__swiper">
                                                         <SectionButton
                                                             labelSize={"large"}
                                                             value={index}
@@ -178,10 +197,11 @@ function TestContent() {
                                                             label={label}
                                                             sx={{ height: "100%", display: 'flex', alignItems: 'start', paddingTop: '8px' }}
                                                             elevation={0}
-                                                        >
-                                                            <TestAnswerBadge testName={testName as ITestName} sx={{ height: 'fit-content', padding: "4px" }}>
-                                                                <PngIcon name={testName} size={"large"} />
-                                                            </TestAnswerBadge>
+                                                        >{
+                                                                <TestAnswerBadge invisible={sectionName.length === 0} tests={tests} sx={{ height: 'fit-content', padding: "4px" }}>
+                                                                    <PngIcon name={sectionName} size={"large"} />
+                                                                </TestAnswerBadge>
+                                                            }
                                                         </SectionButton>
                                                     </SwiperSlide>
                                                 )
@@ -222,27 +242,38 @@ function TestContent() {
                                     </ScrollPageItem>
                                     <ScrollPageItem key={"city"} page={6} className="flex">
                                         <TestSection>
-                                            <CitiesTestContent/>
+                                            <CitiesTestContent />
+                                        </TestSection>
+                                    </ScrollPageItem>
+                                    <ScrollPageItem key={"confirm"} page={7} className="flex">
+                                        <TestSection className="block--centered block__body">
+                                                <LazyImage
+                                                    alt={"alt"}
+                                                    src={getImgSrc('/info', "info", { size: "xlarge" })}
+                                                    width={"256px"}
+                                                    height={"256px"}
+                                                    containerClassName="NoticeBlock__image"
+                                                />
+                                                {
+                                                    isAllTestAnswered
+                                                        ?
+                                                        <Button
+                                                            onClick={handleConfirmButtonClick}
+                                                            disabled={!isAllTestAnswered}
+                                                            variant="contained"
+                                                            className="block--with-padding"
+                                                            style={{ marginTop: 0 }}
+                                                        >
+                                                            결과 확인하기
+                                                        </Button>
+                                                        :
+                                                        <div>
+                                                        <UnAnsweredTestAlertButton />
+                                                        </div>
+                                                }
                                         </TestSection>
                                     </ScrollPageItem>
                                 </ScrollPageContainer>
-                                {
-                                    !isAllTestAnswered &&
-                                    <div className="flex block--with-margin" style={{ marginTop: 0 }}>
-                                        <UnAnsweredTestAlertButton />
-                                    </div>
-                                }
-                                <div className="flex">
-                                    <Button
-                                        onClick={handleConfirmButtonClick}
-                                        disabled={!isAllTestAnswered}
-                                        variant="contained"
-                                        className="block--with-padding block--with-margin block--with-margin--large"
-                                        style={{ marginTop: 0 }}
-                                    >
-                                        {contentstrings.main.confirmButton}
-                                    </Button>
-                                </div>
                             </StepCheckpointContext.Provider>
                         </StepContext.Provider>
                         {

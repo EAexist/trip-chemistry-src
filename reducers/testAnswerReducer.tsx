@@ -141,12 +141,18 @@ export const useTagSetAnswer = ( testName: SetTestName, selected = true ) => {
     return( Array.from(answer.values()) )
 };
 
-export const useIsTestAnswered = ( testName: ITestName ) => {
+export const useIsTestAnswered = ( tests: string[] ) => {
     return(
         useSelector(( state:RootState )=>(
-            ( typeof state.testAnswer.data[testName] !== "object" )
-            ? state.testAnswer.data[ testName as NumericTestName ] !== undefined  
-            : state.testAnswer.data[ testName as SetTestName ].selected.length >= TEST_TYPE.tagSet.selectedMinLength
+            tests.map(( test ) => {
+                const answer = state.testAnswer.data[test]
+                return(
+                    ( typeof answer !== "object" )
+                    ? answer !== undefined  
+                    : answer.selected.length >= TEST_TYPE.tagSet.selectedMinLength 
+                )
+            }
+            ).every(v => v)            
         ))
     );    
 }
