@@ -1,104 +1,66 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { useGoogleMapContext } from '../common/GoogleMapContext';
-import { POLYLINE_OPTIONS } from '../common/options';
-// import withActiveOnFocus, { withActiveOnFocusProps } from '../../Focus/withActiveOnFoucs';
+import { useGoogleMapContext } from "../common/GoogleMapContext";
+import { MarkerProps } from "./Marker";
+import { useTheme } from "@mui/material";
 
-// interface GoogleMapPolylineProps extends withActiveOnFocusProps {
-interface GoogleMapPolylineProps {
-  start: google.maps.LatLngLiteral;
-  end: google.maps.LatLngLiteral;
-  map?: google.maps.Map
-  index?: number; 
-  isActive?: boolean;
+interface GoogleMapPolylineProps extends MarkerProps {
+    isActive?: boolean
+    coordinates: google.maps.LatLngLiteral[]
 };
 
-const draw = {
-  hidden: { pathLength: 0, opacity: 0 },
-  visible: (i: number) => {
-    const delay = 1 + i * 0.5;
-    return {
-      pathLength: 1,
-      opacity: 1,
-      transition: {
-        pathLength: { delay, type: "spring", duration: 2, bounce: 0 },
-        opacity: { delay, duration: 0.01 }
-      }
-    };
-  }
-};  
+const GoogleMapPolyline = ({ isActive = true, coordinates }: GoogleMapPolylineProps) => {
 
-// const Path = ({ index, id, start, end, text } : GoogleMapPolylineProps) => {
+    const { map } = useGoogleMapContext();
+    const [polyline, setPolyline] = useState<google.maps.Polyline>();
+    const { palette }= useTheme();
 
-//   const path = `M ${start.x},${start.y} L ${end.x},${end.y}`
+    useEffect(() => {
 
-//   return(
-//     <>
-//       <defs>
-//         <mask id={id} maskUnits="userSpaceOnUse">
-//           <path
-//             strokeDasharray='12 6'
-//             d={path}
-//             className='w-full h-full stroke-4 stroke-white'
-//           />
-//         </mask>
-//       </defs>
-//       {/* Aniamted Path */}
-//       <motion.path
-//         variants={draw}
-//         className='w-full h-full stroke-4 stroke-red-500 fill-transparent'
-//         d={path}
-//         mask={`url(#${id})`}
-//       />
-//       {/* </motion.svg> */}
-//     </>
-//   );
-// };
+        // polyline 초기화
+        if (polyline === undefined) {
+            const asyncSetMarker = async () => {
+                const { Polyline } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
 
-const GoogleMapPolyline = ({ start, end, isActive = true } : GoogleMapPolylineProps) => {
+                // GoogleMap API Polyline 객체
+                const polylineElement = new Polyline({
+                    path: coordinates,
+                    zIndex: 0,
+                    strokeColor: palette.gray.dark,
+                    strokeWeight: 3,
+                });
 
-  const { map } = useGoogleMapContext();
-  const [ polyline, setPolyline ] = useState<google.maps.Polyline>();
+                setPolyline(polylineElement);
+            };
+            asyncSetMarker();
+        }
 
-  useEffect(() => {
-    console.log(`Mounting [GoogleMapPolyline] isActive=${isActive}`);
+        // 컴포넌트 Unmount 시 polyline 가 정의되어있을 경우 map에서 삭제. 
+        else {
+            return (() => {
+                console.log(`[GoogleMapPolyline] Unmounting polyline=${polyline}`);
+                polyline.setMap(null);
+            })
+        }
 
-    async function importLibrary() {
-      const { Polyline } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
-      const line = new Polyline({
-        path: [start, end],
-        ...POLYLINE_OPTIONS.DASHED
-      }); 
-      setPolyline( line );
-    }
-    importLibrary();
+    }, [polyline, map])
 
-    return(()=>{
-        console.log(`Unmounting [GoogleMapPolyline]`);
-    });
-}, [])
+    // isActive 값에 따라 Map 에 Marker를 표시. 
+    useEffect(() => {
+        if (map) {
+            if (polyline) {
+                if (isActive) {
+                    polyline.setMap(map);
+                }
+                else {
+                    polyline.setMap(null);
+                }
+            }
+        }
+    }, [isActive, map, polyline]);
 
-  useEffect(()=>{
-    if( isActive ){
-      if(map){
-        console.log(`GoogleMapPolyline: polyline.setMap(map)`);
-        polyline && polyline.setMap(map);
-      }
-    }
-
-    else{
-      console.log(`GoogleMapPolyline: polyline.setMap(null)`);
-      polyline && polyline.setMap(null);
-    }
-  },[ isActive, map, polyline ]);
-
-  return(null);
-}
-
-// export default withGoogleAPI(GoogleMapPolyline)(API_KEY);
-
-// const GoogleMapPolylineWithActiveOnFocus = withActiveOnFocus( GoogleMapPolyline )
+    return (null);
+};
 
 export default GoogleMapPolyline;
-
-// export { GoogleMapPolylineWithActiveOnFocus };
+export type { GoogleMapPolylineProps };

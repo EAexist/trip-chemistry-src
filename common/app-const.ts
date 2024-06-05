@@ -363,150 +363,151 @@ export const TEST = {
                     href: 'https://www.fukuoka-airport.jp/ko/',
                     infoWindowStyle: 'simple'
                 },
+                places: [
+                    {
+                        position: {
+                            lat: 33.5932449,
+                            lng: 130.4020225,
+                        },
+                        name: 'ichiran-fukuoka',
+                        label: '이치란 본점',
+                        icon: 'restaurant',
+                        body: '돼지 사골 국물로 만든 돈코쓰 라멘을 전문으로 하는 편안한 분위기의 레스토랑.',
+                        href: 'https://maps.app.goo.gl/16GR87KEjvMhibAR9',
+                        option: 1,
+                    },
+                    {
+                        position: {
+                            lat: 33.5897988,
+                            lng: 130.4085279,
+                        },
+                        name: 'canal-city-hakata',
+                        label: '캐널시티',
+                        icon: 'shopping_cart',
+                        body: '유명 브랜드와 전문 매장, 식당가가 입점한 대형 쇼핑몰로 분수 쇼가 펼쳐집니다.',
+                        href: 'https://maps.app.goo.gl/EzJP78zovYCqWsD76',
+                        option: 1,
+                    },
+                    {
+                        position: {
+                            lat: 33.6147611,
+                            lng: 130.4216325,
+                        },
+                        name: 'hakozaki-shrine',
+                        label: '하코자키 궁',
+                        icon: 'temple_buddhist',
+                        body: '활기찬 경내와 대표적 유물이 있고 전통 이벤트가 열리는 유서 깊은 신사.',
+                        href: 'https://maps.app.goo.gl/CHYBKRNS9bYWReNv6',
+                        option: 2,
+                    },
+                    {
+                        position: {
+                            lat: 33.6133009,
+                            lng: 130.4307441,
+                        },
+                        name: 'hakuhaku',
+                        label: '하쿠하쿠',
+                        icon: 'museum',
+                        body: '일본식 명란젓을 만드는 후쿠야의 하카타 음식 및 문화 박물관.',
+                        href: 'https://maps.app.goo.gl/rGYZGkXGYicQZieR6',
+                        option: 2,
+                    },
+                    {
+                        position: {
+                            lat: 33.586,
+                            lng: 130.454,
+                        },
+                        name: 'tempura-hirao',
+                        label: '덴푸라 히라오 본점',
+                        icon: 'restaurant',
+                        body: '후쿠오카의 맛있는 덴푸라 가게.',
+                        href: 'https://maps.app.goo.gl/rnASDN2w1SFdswMm8',
+                        option: 3,
+                    },
+                    {
+                        position: {
+                            lat: 33.5893684,
+                            lng: 130.4172629,
+                        },
+                        name: 'hankyu-hakata',
+                        label: '한큐백화점 하카타',
+                        icon: 'shopping_cart',
+                        body: '“세련되고 즐거운” 대형 백화점 하카타 한큐',
+                        href: 'https://maps.app.goo.gl/D3aS5d1NZMxDn2rD6',
+                        option: 3,
+                    },
+                    {
+                        position: {
+                            lat: 33.5650103,
+                            lng: 130.4388288,
+                        },
+                        name: 'gundam-fukuoka',
+                        label: '건담 파크 후쿠오카',
+                        icon: 'tour',
+                        body: '기동전사건담 시리즈의 세계관을 즐길수 있는 종합 엔터테인먼트 시설.',
+                        href: 'https://maps.app.goo.gl/CuTbExgR5b6KkhZH8',
+                        option: 4,
+                    },
+                    {
+                        position: {
+                            lat: 33.5626837,
+                            lng: 130.3738197,
+                        },
+                        name: 'yusentei',
+                        label: '유센테이',
+                        icon: 'tour',
+                        body: '1754년에 지어진 구로다 쓰구타카의 옛 저택으로 현재는 정원, 연못, 찻집이 있는 공원.',
+                        href: 'https://maps.app.goo.gl/72zJsM8cowxYP8oE9',
+                        option: 4,
+                    },
+                    {
+                        position: {
+                            lat: 33.5897904,
+                            lng: 130.3504891,
+                        },
+                        name: 'fukuoka-museum',
+                        label: '후쿠오카시 박물관',
+                        icon: 'museum',
+                        body: '나국의 금박 인장을 비롯하여 후쿠오카의 역사 전시를 관람할 수 있는 현대적인 박물관입니다.',
+                        href: 'https://maps.app.goo.gl/FtKt6uwJCjE4eJ1M6',
+                        option: 5,
+                    },
+                    {
+                        position: {
+                            lat: 33.5934691,
+                            lng: 130.3465043,
+                        },
+                        name: 'momochi',
+                        label: '모모치해변',
+                        icon: 'beach_access',
+                        body: '인공 섬을 따라 난 인기 있는 인공 해변으로, 길게 뻗은 모래사장에서 발리볼을 즐길 수 있습니다.',
+                        href: 'https://maps.app.goo.gl/fR7ENJtjFyaWWX9Q9',
+                        option: 5,
+                    },
+                ],
                 examples: {
                     1: {
-                        places: [
-                            {
-                                position: {
-                                    lat: 33.5897988,
-                                    lng: 130.4085279,
-                                },
-                                name: 'canal-city-hakata',
-                                label: '캐널시티',
-                                icon: 'shopping_cart',
-                                body: '유명 브랜드와 전문 매장, 식당가가 입점한 대형 쇼핑몰로 분수 쇼가 펼쳐집니다.',
-                                href: 'https://maps.app.goo.gl/EzJP78zovYCqWsD76'
-                            },
-                            {
-                                position: {
-                                    lat: 33.5932449,
-                                    lng: 130.4020225,
-                                },
-                                name: 'ichiran-fukuoka',
-                                label: '이치란 본점',
-                                icon: 'restaurant',
-                                body: '돼지 사골 국물로 만든 돈코쓰 라멘을 전문으로 하는 편안한 분위기의 레스토랑.',
-                                href: 'https://maps.app.goo.gl/16GR87KEjvMhibAR9'
-                            },
-                        ],
                         zoom: 13.5,
                         center: { lat: 33.60, lng: 130.405 },
                     },
                     2: {
-                        places: [
-                            {
-                                position: {
-                                    lat: 33.6133009,
-                                    lng: 130.4307441,
-                                },
-                                name: 'hakuhaku',
-                                label: '하쿠하쿠',
-                                icon: 'museum',
-                                body: '일본식 명란젓을 만드는 후쿠야의 하카타 음식 및 문화 박물관.',
-                                href: 'https://maps.app.goo.gl/rGYZGkXGYicQZieR6'
-                            },
-                            {
-                                position: {
-                                    lat: 33.6147611,
-                                    lng: 130.4216325,
-                                },
-                                name: 'hakozaki-shrine',
-                                label: '하코자키 궁',
-                                icon: 'temple_buddhist',
-                                body: '활기찬 경내와 대표적 유물이 있고 전통 이벤트가 열리는 유서 깊은 신사.',
-                                href: 'https://maps.app.goo.gl/CHYBKRNS9bYWReNv6'
-                            },
-                        ],
                         zoom: 13,
                         center: { lat: 33.605, lng: 130.42 },
                     },
                     3: {
-                        places: [
-                            {
-                                position: {
-                                    lat: 33.5893684,
-                                    lng: 130.4172629,
-                                },
-                                name: 'hankyu-hakata',
-                                label: '한큐백화점 하카타',
-                                icon: 'shopping_cart',
-                                body: '“세련되고 즐거운” 대형 백화점 하카타 한큐',
-                                href: 'https://maps.app.goo.gl/D3aS5d1NZMxDn2rD6'
-                            },
-                            {
-                                position: {
-                                    lat: 33.586,
-                                    lng: 130.454,
-                                },
-                                name: 'tempura-hirao',
-                                label: '덴푸라 히라오 본점',
-                                icon: 'restaurant',
-                                body: '후쿠오카의 맛있는 덴푸라 가게.',
-                                href: 'https://maps.app.goo.gl/rnASDN2w1SFdswMm8'
-                            },
-                        ],
                         zoom: 13,
                         center: { lat: 33.605, lng: 130.427 },
                     },
                     4: {
-                        places: [
-                            {
-                                position: {
-                                    lat: 33.5626837,
-                                    lng: 130.3738197,
-                                },
-                                name: 'yusentei',
-                                label: '유센테이',
-                                icon: 'tour',
-                                body: '1754년에 지어진 구로다 쓰구타카의 옛 저택으로 현재는 정원, 연못, 찻집이 있는 공원.',
-                                href: 'https://maps.app.goo.gl/72zJsM8cowxYP8oE9'
-                            },
-                            {
-                                position: {
-                                    lat: 33.5650103,
-                                    lng: 130.4388288,
-                                },
-                                name: 'gundam-fukuoka',
-                                label: '건담 파크 후쿠오카',
-                                icon: 'tour',
-                                body: '기동전사건담 시리즈의 세계관을 즐길수 있는 종합 엔터테인먼트 시설.',
-                                href: 'https://maps.app.goo.gl/CuTbExgR5b6KkhZH8'
-
-                            },
-                        ],
                         zoom: 12,
                         center: { lat: 33.6000, lng: 130.415 },
                     },
                     5: {
-                        places: [
-                            {
-                                position: {
-                                    lat: 33.5897904,
-                                    lng: 130.3504891,
-                                },
-                                name: 'fukuoka-museum',
-                                label: '후쿠오카시 박물관',
-                                icon: 'museum',
-                                body: '나국의 금박 인장을 비롯하여 후쿠오카의 역사 전시를 관람할 수 있는 현대적인 박물관입니다.',
-                                href: 'https://maps.app.goo.gl/FtKt6uwJCjE4eJ1M6'
-                            },
-                            {
-                                position: {
-                                    lat: 33.5934691,
-                                    lng: 130.3465043,
-                                },
-                                name: 'momochi',
-                                label: '모모치해변',
-                                icon: 'beach_access',
-                                body: '인공 섬을 따라 난 인기 있는 인공 해변으로, 길게 뻗은 모래사장에서 발리볼을 즐길 수 있습니다.',
-                                href: 'https://maps.app.goo.gl/fR7ENJtjFyaWWX9Q9'
-                            },
-                        ],
                         zoom: 12,
                         center: { lat: 33.6000, lng: 130.40 },
                     },
                 }
-            }
+            },
         }
     },
     restaurant:

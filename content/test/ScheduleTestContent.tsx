@@ -26,6 +26,7 @@ import { useStrings } from "../../texts";
 import { FORMATSVG } from "../../utils/getImgSrc";
 import AnswerButtonGroup from "./component/AnswerButtonGroup";
 import { useTestAnswer } from "~/reducers/testAnswerReducer";
+import GoogleMapPolyline from "~/components/GoogleMap/ui/GoogleMapPolyline";
 
 function ScheduleTestContent() {
 
@@ -37,29 +38,29 @@ function ScheduleTestContent() {
         min: 1,
         max: 5,
         "aria-label": "special restaurant budget",
-        marks: 
-        [
-            {
-                value: 1,
-                label: "아주\n널널하게"
-            },
-            {
-                value: 2,
-                label: "널널하게"
-            },
-            {
-                value: 3,
-                label: "아무래도\n상관없어"
-            },
-            {
-                value: 4,
-                label: "알차게"
-            },
-            {
-                value: 5,
-                label: "매우\n알차게"
-            },
-        ]
+        marks:
+            [
+                {
+                    value: 1,
+                    label: "아주\n널널하게"
+                },
+                {
+                    value: 2,
+                    label: "널널하게"
+                },
+                {
+                    value: 3,
+                    label: "아무래도\n상관없어"
+                },
+                {
+                    value: 4,
+                    label: "알차게"
+                },
+                {
+                    value: 5,
+                    label: "매우\n알차게"
+                },
+            ]
     };
 
     /* States */
@@ -129,20 +130,20 @@ function ScheduleTestContent() {
                     <Slider
                         size="small"
                         // valueLabelDisplay="on"
-                        valueLabelFormat={( value, index )=>answerStrings[value].label}
+                        valueLabelFormat={(value, index) => answerStrings[value].label}
                         value={(scheduleAnswer === undefined) ? 2 : scheduleAnswer}
                         onChange={handleAnswerChange}
                         track={false}
                         sx={{
                             '& .MuiSlider-valueLabel': {
-                              color: "black",
-                              background: 'unset',
+                                color: "black",
+                                background: 'unset',
                             },
                             '& .MuiSlider-markLabel': {
-                              fontSize: 12,
-                              width: "48px",
-                              whiteSpace: "pre-line",   
-                              textAlign: "center"                           
+                                fontSize: 12,
+                                width: "48px",
+                                whiteSpace: "pre-line",
+                                textAlign: "center"
                             },
                             marginBottom: "28px"
                         }}
@@ -150,50 +151,56 @@ function ScheduleTestContent() {
                     />
                 </div>
             </div>
-            <div className="flex-grow block--centered">
-                <div className="test__google-map-container modal__container block--round block--round--large" style={{ overflow: "hidden" }}>
-                    <div style={{ position: "absolute", top: 8, left: 8, zIndex: 1 }}>
-                        {
-                            showMapTitle ?
-                                <Grow in={showMapTitle}>
-                                    <Card sx={{ borderRadius: '16px' }}>
-                                        <IconButton onClick={() => setShowMapTitle(false)} sx={{ position: "absolute", top: 0, right: 0 }} size="small">
-                                            <Close fontSize="small" />
-                                        </IconButton>
-                                        <CardContent>
-                                            <h2 className="typography-note">Based On</h2>
-                                            <p className="typography-label">{"재하 님의\n후쿠오카 여행"}</p>
-                                        </CardContent>
-                                        <CardActions>
-                                            <Button href={"https://blog.naver.com/jcjw1234"} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext />} size="small" className="typography-note">
-                                                블로그에서 더 보기
-                                            </Button>
-                                        </CardActions>
-                                    </Card>
-                                </Grow>
-                                :
-                                <Button onClick={() => setShowMapTitle(true)} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext fontSize="inherit" sx={{ marginLeft: "-4px" }} />} size="small" className="typography-label" sx={{ textTransform: 'none' }}>
-                                    Based On 재하 님의 후쿠오카 여행
+            <div className="test__google-map-container modal__container block--round block--round--large" style={{ overflow: "hidden" }}>
+                <div style={{ position: "absolute", top: 8, left: 8, zIndex: 1 }}>
+                    {
+                        showMapTitle ?
+                            <Grow in={showMapTitle}>
+                                <Card sx={{ borderRadius: '16px' }}>
+                                    <IconButton onClick={() => setShowMapTitle(false)} sx={{ position: "absolute", top: 0, right: 0 }} size="small">
+                                        <Close fontSize="small" />
+                                    </IconButton>
+                                    <CardContent>
+                                        <h2 className="typography-note">Based On</h2>
+                                        <p className="typography-label">{"재하 님의\n후쿠오카 여행"}</p>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button href={"https://blog.naver.com/jcjw1234"} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext />} size="small" className="typography-note">
+                                            블로그에서 더 보기
+                                        </Button>
+                                    </CardActions>
+                                </Card>
+                            </Grow>
+                            :
+                            <Button onClick={() => setShowMapTitle(true)} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext fontSize="inherit" sx={{ marginLeft: "-4px" }} />} size="small" className="typography-label" sx={{ textTransform: 'none' }}>
+                                Based On 재하 님의 후쿠오카 여행
 
-                                </Button>
-                        }
-                    </div>
-                    <GoogleMapContext.Provider value={{ map: scheduleExampleMap as google.maps.Map, setMap: setScheduleExampleMap }}>
-                        <GoogleMap opts={OPTIONS_TEST_SCHEDULE}>
-                            <InfoWindowContext.Provider value={{ selectedInfoWindow, setSelectedInfoWindow }}>
-                                <GoogleMapMarker {...TEST.schedule.subTests.schedule.airportPlace} />
-                                {
-                                    (scheduleAnswer !== undefined) &&
-                                    Object.entries(TEST.schedule.subTests.schedule.examples).map(([value, { places }]) => (
-                                        places.map((place) => (
-                                            <GoogleMapMarker key={place.label} {...place} isActive={Number(value) <= scheduleAnswer} />
-                                        ))
-                                    ))
-                                }
-                            </InfoWindowContext.Provider>
-                        </GoogleMap>
-                    </GoogleMapContext.Provider>
+                            </Button>
+                    }
                 </div>
+                <GoogleMapContext.Provider value={{ map: scheduleExampleMap as google.maps.Map, setMap: setScheduleExampleMap }}>
+                    <GoogleMap opts={OPTIONS_TEST_SCHEDULE}>
+                        <InfoWindowContext.Provider value={{ selectedInfoWindow, setSelectedInfoWindow }}>
+                            <GoogleMapMarker {...TEST.schedule.subTests.schedule.airportPlace} />
+                            {
+                                (scheduleAnswer !== undefined) &&
+                                TEST.schedule.subTests.schedule.places.map((place, index) => (
+                                    <>
+                                        <GoogleMapMarker key={place.label} {...place} isActive={place.option <= scheduleAnswer} />
+                                        <GoogleMapPolyline
+                                            coordinates={[
+                                                (index > 0) ? TEST.schedule.subTests.schedule.places[index - 1].position : TEST.schedule.subTests.schedule.airportPlace.position,
+                                                place.position
+                                            ]}
+                                            {...place}
+                                            isActive={place.option <= scheduleAnswer}
+                                        />
+                                    </>
+                                ))
+                            }
+                        </InfoWindowContext.Provider>
+                    </GoogleMap>
+                </GoogleMapContext.Provider>
             </div>
         </div>
     );
