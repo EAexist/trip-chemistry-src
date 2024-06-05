@@ -148,9 +148,9 @@ function ChemistryContent() {
                         <div key="main" className="page flex block--gray">
                             <AppBarBackground/>
                             <Toolbar />
-                            <div className="block__body--large">
+                            <div className="block__body block__body--large">
                                 <SectionPaper className="block__body body__head">
-                                    <div className="body__head typography-note">
+                                    <div className="typography-note">
                                         {
                                             isMember &&
                                             <Button onClick={handleClickNavigateBefore} sx={{ padding: 0 }} startIcon={<NavigateBefore />} className="typography-note">
@@ -295,7 +295,7 @@ function ChemistryContent() {
                                             sx={{ borderRadius: "16px" }}
                                             className="block__body block--with-margin--small flex"
                                         >
-                                            <Grid container className="body__head">
+                                            <Grid container>
                                                 {
                                                     [
                                                         {

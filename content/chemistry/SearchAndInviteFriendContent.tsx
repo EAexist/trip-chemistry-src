@@ -112,7 +112,7 @@ function SearchAndInviteFriendContent({ handleSucess }: SearchAndInviteFriendCon
             {
                 isConfirmModalOpen
                     ?
-                    <div className='block--with-margin block__body--large block--centered flex-grow'>
+                    <div className='block--with-margin block__body block__body--large block--centered flex-grow'>
                         <h3 className='typography-label'>
                             {`${flaggedProfileListLength}명을 친구로 추가할까요?`}
                         </h3>
@@ -151,7 +151,7 @@ function SearchAndInviteFriendContent({ handleSucess }: SearchAndInviteFriendCon
                                 }
                             </Button>
                         </Toolbar>
-                        <div className='block--with-margin flex-grow block__body--large flex'>
+                        <div className='block--with-margin flex-grow block__body block__body--large flex'>
                             <TextField
                                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                     setInput(event.target.value);
@@ -170,7 +170,7 @@ function SearchAndInviteFriendContent({ handleSucess }: SearchAndInviteFriendCon
                             {
                                 profileSearchtatus === LoadStatus.FAIL
                                     ?
-                                    <div className='flex-grow block--centered block__body--large'>
+                                    <div className='flex-grow block--centered block__body block__body--large'>
                                         <Warning />
                                         <h4>{commonStrings.error.connect}</h4>
                                         <p>{commonStrings.error.contact}</p>

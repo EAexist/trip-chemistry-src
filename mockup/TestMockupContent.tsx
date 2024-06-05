@@ -253,7 +253,7 @@
 //                                                     <TestSection>
 //                                                         {/* https://codesandbox.io/p/sandbox/6gw7p4?file=/src/App.jsx */}
 //                                                         <div className="flex-grow block--centered">
-//                                                             <div className="block--with-margin-x block__body--large">
+//                                                             <div className="block--with-margin-x block__body block__body--large">
 //                                                                 <TestInstruction testName={testName as ITestName} />
 //                                                                 <Stack flexWrap={"wrap"} justifyContent={"center"} rowGap={1}>
 //                                                                     <TagSetTestAnswerChip testName={testName} />
@@ -302,7 +302,7 @@
 //                                                     }
 //                                                 </Stack>
 //                                             </div>
-//                                             <div className="block block__body--large">
+//                                             <div className="block block__body block__body--large">
 //                                                 <div className="test__title">
 //                                                     <h2 className="test__title__heading typography-heading">{contentstrings.test.leadership.title}</h2>
 //                                                 </div>
@@ -358,7 +358,7 @@
 //                                                     </GoogleMapContext.Provider>
 //                                                 </div>
 //                                             </div>
-//                                             <div className="block block__body--large">
+//                                             <div className="block block__body block__body--large">
 //                                                 <div className="test__title">
 //                                                     <h2 className="test__title__heading typography-heading">{contentstrings.test.schedule.title}</h2>
 //                                                 </div>
@@ -460,7 +460,7 @@
 //                                                                                     src={getImgSrc("/city", cityId)}
 //                                                                                     title={cityId}
 //                                                                                     sx={{ width: "196px", height: "196px" }}
-//                                                                                     className="body__head"
+//                                                                                    
 //                                                                                 />
 //                                                                                 <Stack>
 //                                                                                     <h3 className="typography-label">{commonStrings.city[cityId as keyof typeof commonStrings.city].name}</h3>
@@ -476,7 +476,7 @@
 //                                                             }
 //                                                         </Swiper>
 //                                                     </div>
-//                                                     <div className="block block__body--large">
+//                                                     <div className="block block__body block__body--large">
 //                                                         <div className="test__title body__head">
 //                                                             <h2 className="test__title__heading typography-heading">{contentstrings.test.city.titleTextList.map((text) => (
 //                                                                 text === "/testName"

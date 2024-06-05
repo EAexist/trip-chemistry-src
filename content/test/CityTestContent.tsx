@@ -56,7 +56,7 @@ function CityTestContent({ cityType, expanded, onChange }: CityTestContentProps)
                             el: '.swiper-pagination',
                         }}
                         loop={true}
-                        className="body__head"
+                       
                     >
                         {/* <PaginationDiv className='pageSwiper-pagination' sx={{ justifyContent: 'center', marginBottom: '1rem' }} /> */}
                         {
@@ -66,7 +66,7 @@ function CityTestContent({ cityType, expanded, onChange }: CityTestContentProps)
                                         src={getImgSrc("/city", cityId)}
                                         title={cityId}
                                         sx={{ height: "144px" }}
-                                        className="body__head flex-end"
+                                        className="flex-end"
                                         gradient="bottom"
                                     >
                                         <CardContent>
@@ -83,7 +83,7 @@ function CityTestContent({ cityType, expanded, onChange }: CityTestContentProps)
                             ))
                         }
                     </Swiper>
-                    <AnswerButtonGroup testName={cityType as NumericTestName} />
+                        <AnswerButtonGroup testName={cityType as NumericTestName} />
                 </div>
             </AccordionDetails>
         </Accordion>

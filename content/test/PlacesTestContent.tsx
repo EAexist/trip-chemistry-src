@@ -53,7 +53,7 @@ function CityTestContent({ id } : CityTestContentProps) {
                                             src={getImgSrc("/city", cityId)}
                                             title={cityId}
                                             sx={{ width: "196px", height: "196px" }}
-                                            className="body__head"
+                                           
                                         />
                                         <Stack>
                                             <h3 className="typography-label">{commonStrings.city[cityId as keyof typeof commonStrings.city].name}</h3>
@@ -69,7 +69,7 @@ function CityTestContent({ id } : CityTestContentProps) {
                     }
                 </Swiper>
             </div>
-            <div className="block block__body--large">
+            <div className="block block__body block__body--large">
                 <div className="test__title body__head">
                     <h2 className="test__title__heading typography-heading">{contentstrings.test.city.titleTextList.map((text) => (
                         text === "/testName"

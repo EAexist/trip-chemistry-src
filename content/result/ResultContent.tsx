@@ -32,8 +32,8 @@ function ResultContent() {
             <AppBarBackground/>
             <Toolbar />
             <LazyDomAnimation>
-                <m.div  {...FADEIN_FROMBOTTOM_VIEWPORT} className="block__body--large block--with-padding-x flex-grow">
-                    {/* <SectionPaper className="body__head"> */}
+                <m.div  {...FADEIN_FROMBOTTOM_VIEWPORT} className="block__body block__body--large block--with-padding-x flex-grow">
+                    {/* <SectionPaper> */}
                     <m.h5 className="typography-heading">{strings.sections.tripCharacter.title}</m.h5>
                     <div style={{ marginTop: '-1rem' }}>
                         <UserTestResultBlock />

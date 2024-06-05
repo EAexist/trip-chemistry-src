@@ -6,6 +6,8 @@ import './styles/index.css'
 import theme from './mui/theme'
 
 import { HelmetProvider } from 'react-helmet-async'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 export default function App() {
 
@@ -16,7 +18,9 @@ export default function App() {
     return (
         <HelmetProvider>
             <ThemeProvider theme={theme}>
-                <RouterProvider router={router} />
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <RouterProvider router={router} />
+                </LocalizationProvider>
             </ThemeProvider>
         </HelmetProvider>
     )

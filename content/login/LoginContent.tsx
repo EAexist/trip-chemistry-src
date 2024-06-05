@@ -69,7 +69,7 @@ function LoginContent({ title ="테스트를 시작해볼까요?" }:LoginContent
             handleSuccess: handleAuthSuccess,
             handleFail: () =>{}
         }}>
-                <div className="flex-grow block--centered-row block__body--large">
+                <div className="flex-grow block--centered-row block__body block__body--large">
                     <div style={{ marginTop: "128px" }} />
                     <h2 className="typography-label">
                         {title}

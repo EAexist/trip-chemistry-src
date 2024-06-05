@@ -2,25 +2,20 @@
 
 /* Externals */
 import { Card, CardActionArea, CardContent, CardMedia, Stack, useTheme } from "@mui/material";
-import { useSelector } from "react-redux";
 
 /* Swiper */
 import 'swiper/css';
 import 'swiper/css/effect-coverflow'; /* Food Carousel */
 
 /* App */
-import OptionCard from "../../components/Card/OptionCard";
 
 /* GoogleMap */
-
+import { Check } from "@mui/icons-material";
+import { TEST_SECTIONS } from "~/common/app-const";
+import { useTestAnswer } from "~/reducers/testAnswerReducer";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
-import { RootState } from "../../store";
 import { useStrings } from "../../texts";
 import getImgSrc from "../../utils/getImgSrc";
-import AnswerButtonGroup from "./component/AnswerButtonGroup";
-import { useTestAnswer } from "~/reducers/testAnswerReducer";
-import { TEST_SECTIONS } from "~/common/app-const";
-import { Check } from "@mui/icons-material";
 
 function LeadershipTestContent() {
 
@@ -37,7 +32,7 @@ function LeadershipTestContent() {
 
     return (
         <>
-            <div className="block block__body--large">
+            <div className="block block__body block__body--large">
                 <div className="test__title">
                     <h2 className="test__title__heading typography-heading">{contentstrings.test.leadership.title}</h2>
                 </div>
@@ -64,7 +59,7 @@ function LeadershipTestContent() {
                                         }}
                                     >
                                         <CardActionArea onClick={() => setAnswer(Number(value))} className="flex-end">
-                                            <CardContent className="block__body" sx={{ textAlign: 'center' }}>
+                                            <CardContent className="block__body block__body--full" sx={{ textAlign: 'center' }}>
                                                 {
                                                     isActive && <Check color="primary"/>
                                                 }

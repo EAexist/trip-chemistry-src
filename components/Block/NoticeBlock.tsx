@@ -39,7 +39,7 @@ function NoticeBlock({
                     isFullscreen &&
                     <Toolbar />
                 }
-                <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className='flex-grow block--centered block__body--large block--with-padding block--with-padding--large'>
+                <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className='flex-grow block--centered block__body block__body--large block--with-padding block--with-padding--large'>
                     {
                         title &&
                         <h2 className="typography-heading">

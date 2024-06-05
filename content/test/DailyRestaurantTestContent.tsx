@@ -10,7 +10,6 @@ import 'swiper/css/effect-coverflow'; /* Food Carousel */
 
 /* App */
 import { RootState } from "../../store";
-import { priceText } from "../../utils/priceText";
 import AnswerSlider from "./component/AnswerSlider";
 
 function DailyRestaurantTestContent() {
@@ -40,17 +39,15 @@ function DailyRestaurantTestContent() {
     const dailyRestaurantBudgetAnswer = useSelector((state: RootState) => state.testAnswer.data.dailyRestaurantBudget) as number;
 
     return (
-        <>
-            <div className="block block__body">
-                <h2 className="test__title__heading typography-heading">여행 중 평범한 식사 한끼</h2>
-                <h3 className="typography-body">평균적으로 얼마나 쓸까?</h3>
-                <AnswerSlider
-                    testName="dailyRestaurantBudget"
-                    {...dailyFoodBudgetSliderProps}
-                />
-                <div />
-            </div>
-        </>
+        <div className="block__body">
+            <h2 className="test__title__heading typography-heading">여행 중 평범한 식사 한끼</h2>
+            <h3 className="typography-body">평균적으로 얼마나 쓸까?</h3>
+            <AnswerSlider
+                testName="dailyRestaurantBudget"
+                {...dailyFoodBudgetSliderProps}
+            />
+            <div />
+        </div>
     );
 }
 export default DailyRestaurantTestContent

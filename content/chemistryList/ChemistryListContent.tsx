@@ -29,7 +29,7 @@ function ChemistryListContent() {
         <RoutedMotionPage className="page fill-window flex"  style={{ backgroundColor : palette.gray.main }}>
         {/* <div className="page  fill-window"> */}
             <Toolbar/>
-            <div className="block--with-margin-x block__body--large">
+            <div className="block--with-margin-x block__body block__body--large">
                 <LazyDomAnimation>
                 <m.h2 {...FADEIN_VIEWPORT} className="typography-heading">
                     내 여행

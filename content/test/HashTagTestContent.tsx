@@ -22,7 +22,7 @@ function HashTagTestContent({ testName }: HashTagTestContentProps ) {
         <>
             {/* https://codesandbox.io/p/sandbox/6gw7p4?file=/src/App.jsx */}
             <div className="flex-grow block--centered">
-                <div className="block--with-margin-x block__body--large">
+                <div className="block--with-margin-x block__body block__body--large">
                     <TestInstruction testName={testName as ITestName} />
                     <Stack flexWrap={"wrap"} justifyContent={"center"} rowGap={1}>
                         <TagSetTestAnswerChip testName={testName} />

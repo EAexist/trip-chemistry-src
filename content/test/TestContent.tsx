@@ -18,8 +18,9 @@ import { SwiperSlide } from 'swiper/react';
 import DailyRestaurantTestContent from "./DailyRestaurantTestContent";
 import HashTagTestContent from "./HashTagTestContent";
 import LeadershipTestContent from "./LeadershipTestContent";
-import ScheduleTestContent from "./ScheduleTestContent";
+import TimeTestContent from "./TimeTestContent";
 import SpecialRestaurantTestContent from "./SpecialRestaurantTestContentAccordion";
+import CitiesTestContent from "./CitiesTestContent";
 
 import TestSection from "../../components/Block/TestSection";
 
@@ -38,12 +39,12 @@ import { useGetProfile } from "../../reducers/authReducer";
 import testAnswerReducer, { SetTestName, useIsAllTestAnswered, useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
 import { useStrings } from "../../texts";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
-import CitiesTestContent from "./CitiesTestContent";
 import TestAnswerBadge from "./component/TestAnswerBadge";
 import UnAnsweredTestAlertButton from "./component/UnAnsweredTestAlertButton";
 import NoticeBlock from "~/components/Block/NoticeBlock";
 import getImgSrc from "~/utils/getImgSrc";
 import LazyImage from "~/components/LazyImage";
+import ScheduleTestContent from "./ScheduleTestContent";
 
 
 function TestContent() {
@@ -82,10 +83,17 @@ function TestContent() {
             label: "여행 준비",
             tests: ["leadership"]
         },
+        time:
+        {
+            type: 'time',
+            icon: "clock",
+            label: "여행 시간",
+            tests: ["time"]
+        },
         schedule:
         {
             type: 'schedule',
-            icon: "clock",
+            icon: "path",
             label: "일정",
             tests: ["schedule"]
         },
@@ -225,27 +233,32 @@ function TestContent() {
                                             <LeadershipTestContent />
                                         </TestSection>
                                     </ScrollPageItem>
-                                    <ScrollPageItem key={"schedule"} page={3} className="flex">
+                                    <ScrollPageItem key={"time"} page={3} className="flex">
+                                        <TestSection>
+                                            <TimeTestContent />
+                                        </TestSection>
+                                    </ScrollPageItem>
+                                    <ScrollPageItem key={"schedule"} page={4} className="flex">
                                         <TestSection>
                                             <ScheduleTestContent />
                                         </TestSection>
                                     </ScrollPageItem>
-                                    <ScrollPageItem key={"dailyRestaurantBudget"} page={4} className="flex">
+                                    <ScrollPageItem key={"dailyRestaurantBudget"} page={5} className="flex">
                                         <TestSection>
                                             <DailyRestaurantTestContent />
                                         </TestSection>
                                     </ScrollPageItem>
-                                    <ScrollPageItem key={"specialRestaurantBudget"} page={5} className="flex">
+                                    <ScrollPageItem key={"specialRestaurantBudget"} page={6} className="flex">
                                         <TestSection>
                                             <SpecialRestaurantTestContent />
                                         </TestSection>
                                     </ScrollPageItem>
-                                    <ScrollPageItem key={"city"} page={6} className="flex">
+                                    <ScrollPageItem key={"city"} page={7} className="flex">
                                         <TestSection>
                                             <CitiesTestContent />
                                         </TestSection>
                                     </ScrollPageItem>
-                                    <ScrollPageItem key={"confirm"} page={7} className="flex">
+                                    <ScrollPageItem key={"confirm"} page={8} className="flex">
                                         <TestSection className="block--centered block__body">
                                                 <LazyImage
                                                     alt={"alt"}

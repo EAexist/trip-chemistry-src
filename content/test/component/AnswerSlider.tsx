@@ -15,7 +15,6 @@ function AnswerSlider({ testName, answer, setAnswer, ...sliderOwnProps }: Answer
         newValue: number | number[],
     ) => {
         setAnswer(newValue as number);
-        // onChange( newValue as number );
     }
 
     return (
@@ -34,6 +33,7 @@ function AnswerSlider({ testName, answer, setAnswer, ...sliderOwnProps }: Answer
                 value={answer || (sliderOwnProps.max + sliderOwnProps.min) / 2}
                 onChange={handleAnswerChange}
                 marks
+                track={false}
                 {...sliderOwnProps}
             />
         </div>

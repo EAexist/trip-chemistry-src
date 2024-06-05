@@ -89,7 +89,7 @@ function CityDetailContent({ cityClass }: CityDetailContentProps) {
                 </Toolbar>
             </AppBar>
             <div className="block--with-margin-x block__body">
-                <Toolbar className="body__head" />
+                <Toolbar />
                 <h2 className="typography-heading">{strings.subTest[cityClass as keyof typeof strings.subTest].title}</h2>
                 {
                     isChemistryDefined &&
@@ -111,7 +111,7 @@ function CityDetailContent({ cityClass }: CityDetailContentProps) {
                                     <ImageCard
                                         src={getImgSrc("/city", cityId, { size: 'large' })}
                                         title={cityId}
-                                        className="body__head flex-end"
+                                        className="flex-end"
                                         gradient="bottom"
                                         sx={{ height: "320px" }}
                                     >

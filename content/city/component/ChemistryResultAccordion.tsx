@@ -65,7 +65,7 @@ function ChemistryResultAccordion({ cityClass }: ChemistryResultAccordionProps) 
     return (
         isChemistryEnabled &&
             <div className="block__body">
-                <Stack justifyContent={'space-between'} style={{ width: "100%" }} className="body__head">
+                <Stack justifyContent={'space-between'} style={{ width: "100%" }}>
                     <Stack>
                         <Rating value={score} readOnly precision={0.5} size={"small"} />
                         <p>{Math.round(score * 10) / 10}</p>

@@ -51,7 +51,7 @@ function UserContent(){
         >
             <RoutedMotionPage className="flex fill-window">
                 <Toolbar />
-                <div className='flex-grow block--centered block__body--large'>
+                <div className='flex-grow block--centered block__body block__body--large'>
                     <div>
                         <ButtonBase onClick={handleClickAvatar}>
                             <UserAvatar sx={{ height: "128px", width: "128px" }} showLabel={false} />

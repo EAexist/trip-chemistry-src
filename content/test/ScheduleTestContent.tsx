@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 /* Externals */
 import { Close, NavigateNext } from "@mui/icons-material";
-import { Button, Card, CardActions, CardContent, Grow, IconButton } from "@mui/material";
+import { Button, Card, CardActions, CardContent, Grow, IconButton, Slider, SliderProps } from "@mui/material";
 import { useSelector } from "react-redux";
 
 /* Swiper */
@@ -25,19 +25,57 @@ import { RootState } from "../../store";
 import { useStrings } from "../../texts";
 import { FORMATSVG } from "../../utils/getImgSrc";
 import AnswerButtonGroup from "./component/AnswerButtonGroup";
+import { useTestAnswer } from "~/reducers/testAnswerReducer";
 
 function ScheduleTestContent() {
 
     /* Strings */
     const contentstrings = useStrings().public.contents.test;
-
-    /* Reducers */
-    const scheduleAnswer = useSelector((state: RootState) => state.testAnswer.data.schedule) as number;
+    const answerStrings = useStrings().public.contents.test.test.schedule.answers;
+    const scheduleSliderProps: SliderProps = {
+        step: 1,
+        min: 1,
+        max: 5,
+        "aria-label": "special restaurant budget",
+        marks: 
+        [
+            {
+                value: 1,
+                label: "아주\n널널하게"
+            },
+            {
+                value: 2,
+                label: "널널하게"
+            },
+            {
+                value: 3,
+                label: "아무래도\n상관없어"
+            },
+            {
+                value: 4,
+                label: "알차게"
+            },
+            {
+                value: 5,
+                label: "매우\n알차게"
+            },
+        ]
+    };
 
     /* States */
+
+    /* Reducers */
+    const [scheduleAnswer, setScheduleAnswer] = useTestAnswer("schedule");
+
+    const handleAnswerChange = (
+        event: Event,
+        newValue: number | number[],
+    ) => {
+        setScheduleAnswer(newValue as number);
+    }
+    /* 구글맵 */
     const [scheduleExampleMap, setScheduleExampleMap] = useState<google.maps.Map | null>();
 
-    /* 구글맵 */
     const { zoom: googleMapZoom, center: googleMapCenter } = TEST.schedule.subTests.schedule.examples[scheduleAnswer as keyof typeof TEST.schedule.subTests.schedule.examples];
 
     /** 실제 오픈되어 있어야 하는 Info Window. Context 에 적용. */
@@ -84,7 +122,34 @@ function ScheduleTestContent() {
     }, [scheduleAnswer, scheduleExampleMap]);
 
     return (
-        <>
+        <div className="block__body">
+            <h2 className="typography-heading">일정은 얼마나 알차면 좋을까?</h2>
+            <div className="block--with-padding--small">
+                <div className="block--with-padding-x">
+                    <Slider
+                        size="small"
+                        // valueLabelDisplay="on"
+                        valueLabelFormat={( value, index )=>answerStrings[value].label}
+                        value={(scheduleAnswer === undefined) ? 2 : scheduleAnswer}
+                        onChange={handleAnswerChange}
+                        track={false}
+                        sx={{
+                            '& .MuiSlider-valueLabel': {
+                              color: "black",
+                              background: 'unset',
+                            },
+                            '& .MuiSlider-markLabel': {
+                              fontSize: 12,
+                              width: "48px",
+                              whiteSpace: "pre-line",   
+                              textAlign: "center"                           
+                            },
+                            marginBottom: "28px"
+                        }}
+                        {...scheduleSliderProps}
+                    />
+                </div>
+            </div>
             <div className="flex-grow block--centered">
                 <div className="test__google-map-container modal__container block--round block--round--large" style={{ overflow: "hidden" }}>
                     <div style={{ position: "absolute", top: 8, left: 8, zIndex: 1 }}>
@@ -130,14 +195,7 @@ function ScheduleTestContent() {
                     </GoogleMapContext.Provider>
                 </div>
             </div>
-            <div className="block block__body--large">
-                <div className="test__title">
-                    <h2 className="test__title__heading typography-heading">{contentstrings.test.schedule.title}</h2>
-                </div>
-                <AnswerButtonGroup testName="schedule" />
-                <div />
-            </div>
-        </>
+        </div>
     );
 }
 export default ScheduleTestContent

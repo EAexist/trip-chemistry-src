@@ -58,8 +58,9 @@ function SpecialRestaurantTestContent() {
     }
 
     return (
-        <div>
+        <div className="block__body">
             <h2 className="test__title__heading typography-heading">유명 맛집에서의 특별한 한끼</h2>
+            <div>
             <Accordion expanded={expanded === "count"} onChange={handleChange("count")}>
                 <AccordionSummary
                     expandIcon={(expanded === "count") && <ExpandMore />}
@@ -80,7 +81,7 @@ function SpecialRestaurantTestContent() {
                     </Stack>
                 </AccordionSummary>
                 <AccordionDetails className="block__body">
-                    <p className="body__head typography-center">3박 4일 동안</p>
+                    <p className="typography-center">3박 4일 동안</p>
                     <Stack flexWrap={"wrap"} justifyContent={"center"} rowGap={1}>
                         {
                             <>
@@ -126,6 +127,7 @@ function SpecialRestaurantTestContent() {
                     />
                 </AccordionDetails>
             </Accordion>
+            </div>
         </div>
     );
 }
