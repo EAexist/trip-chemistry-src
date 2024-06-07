@@ -26,7 +26,7 @@ const GoogleMapPolyline = ({ isActive = true, coordinates }: GoogleMapPolylinePr
                 const polylineElement = new Polyline({
                     path: coordinates,
                     zIndex: 0,
-                    strokeColor: palette.gray.dark,
+                    strokeColor: palette.primary.main,
                     strokeWeight: 3,
                 });
 

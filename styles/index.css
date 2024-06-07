@@ -168,8 +168,8 @@ video {
 }
 
 .block--with-padding {
-
     &,
+    &.MuiList-root,
     &.MuiButton-root {
         padding-top: var(--margin-top);
         padding-bottom: var(--margin-top);
@@ -281,7 +281,8 @@ video {
         margin-top: 0;
     }
 
-    &>* {
+    &>*,
+    &>.MuiListItemButton-root {
         margin-top: var(--margin-top);
     }
 

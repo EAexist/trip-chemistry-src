@@ -194,7 +194,7 @@ export const FOOD = {
     },
 };
 
-export type ICityType = "metropolis" | "history" | "nature"
+export type ICityType = "metropolis" | "history" | "nature" | "small"
 export const CITY_TYPES: Record<ICityType, {
     title: string,
     icon: string,
@@ -213,7 +213,7 @@ export const CITY_TYPES: Record<ICityType, {
     },
     "history":
     {
-        title: "유서 깊은 도시",
+        title: "문화유산이 많은 도시",
         icon: "temple_buddhist",
         examples: [
             "kyoto",
@@ -229,6 +229,15 @@ export const CITY_TYPES: Record<ICityType, {
             "shiretoko",
             "yakushima",
             "biei",
+        ]
+    },
+    "small":
+    {
+        title: "조용한 소도시",
+        icon: "forest",
+        examples: [
+            "takamatsu",
+            "onomichi",
         ]
     },
 };
@@ -804,6 +813,13 @@ export const TEST_SECTIONS = {
             "yakushima",
             "biei",
         ]
+    },
+    small:
+    {
+        type: "city",
+        icon: "forest",
+        examples: [
+        ]
     }
 };
 
@@ -875,6 +891,18 @@ export const CITIES = {
     {
         nation: "jp",
         link: "https://www.japan.travel/ko/spot/1890/",
+        linkType: "travel-japan",
+    },
+    takamatsu:
+    {
+        nation: "jp",
+        link: "",
+        linkType: "travel-japan",
+    },
+    onomichi:
+    {
+        nation: "jp",
+        link: "",
         linkType: "travel-japan",
     },
     sapporo:

@@ -4,11 +4,6 @@ import { useEffect, useState } from "react";
 /* Externals */
 import { Close, NavigateNext } from "@mui/icons-material";
 import { Button, Card, CardActions, CardContent, Grow, IconButton, Slider, SliderProps } from "@mui/material";
-import { useSelector } from "react-redux";
-
-/* Swiper */
-import 'swiper/css';
-import 'swiper/css/effect-coverflow'; /* Food Carousel */
 
 /* App */
 import { TEST } from "../../common/app-const";
@@ -20,18 +15,15 @@ import GoogleMapContext from "../../components/GoogleMap/common/GoogleMapContext
 import { OPTIONS_TEST_SCHEDULE } from "../../components/GoogleMap/common/options";
 import GoogleMap from "../../components/GoogleMap/ui/GoogleMap";
 
+import GoogleMapPolyline from "~/components/GoogleMap/ui/GoogleMapPolyline";
+import { useTestAnswer } from "~/reducers/testAnswerReducer";
 import Logo from "../../components/Logo";
-import { RootState } from "../../store";
 import { useStrings } from "../../texts";
 import { FORMATSVG } from "../../utils/getImgSrc";
-import AnswerButtonGroup from "./component/AnswerButtonGroup";
-import { useTestAnswer } from "~/reducers/testAnswerReducer";
-import GoogleMapPolyline from "~/components/GoogleMap/ui/GoogleMapPolyline";
 
 function ScheduleTestContent() {
 
     /* Strings */
-    const contentstrings = useStrings().public.contents.test;
     const answerStrings = useStrings().public.contents.test.test.schedule.answers;
     const scheduleSliderProps: SliderProps = {
         step: 1,

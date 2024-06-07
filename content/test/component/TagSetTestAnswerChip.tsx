@@ -4,8 +4,9 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Chip } from "@mui/material";
 
-import { SetTestName, addTagAnswer, deleteTagAnswer, useTagSetAnswer } from "../../../reducers/testAnswerReducer";
+import { addTagAnswer, deleteTagAnswer, useTagSetAnswer } from "../../../reducers/testAnswerReducer";
 import { useStrings } from "../../../texts";
+import { SetTestName } from "~/interfaces/ITestAnswer";
 
 interface TagSetTestAnswerChipProps {
     testName : SetTestName;

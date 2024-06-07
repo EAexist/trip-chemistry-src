@@ -10,10 +10,11 @@ import { ExpandMore } from "@mui/icons-material";
 import { CITIES, CITY_TYPES, ICityType, NATION } from "~/common/app-const";
 import ImageCard from "~/components/Card/ImageCard";
 import Flag from "~/components/Flag";
-import { NumericTestName, useTestAnswer } from "~/reducers/testAnswerReducer";
+import { useTestAnswer } from "~/reducers/testAnswerReducer";
 import { useStrings } from "~/texts";
 import getImgSrc from "~/utils/getImgSrc";
 import AnswerButtonGroup from "./component/AnswerButtonGroup";
+import { NumericTestName } from "~/interfaces/ITestAnswer";
 
 interface CityTestContentProps extends Omit<AccordionProps, "children"> {
     cityType: ICityType
@@ -83,7 +84,37 @@ function CityTestContent({ cityType, expanded, onChange }: CityTestContentProps)
                             ))
                         }
                     </Swiper>
-                        <AnswerButtonGroup testName={cityType as NumericTestName} />
+                        <AnswerButtonGroup 
+                            testName={cityType as NumericTestName}
+                            options={[
+                                {
+                                    value: 1,
+                                    label: "싫어!",
+                                    icon: "😡",
+                                },
+                                {
+                                    value: 2,
+                                    label: "별로야.",
+                                    icon: "😤",
+                                },
+                                {
+                                    value: 3,
+                                    label: "상관없어",
+                                    icon: "🤔",
+                                },
+                                {
+                                    value: 4,
+                                    label: "좋아",
+                                    icon: "😃",
+                                },
+                                {
+                                    value: 5,
+                                    label: "완전 내 취향!",
+                                    icon: "😍",
+                                },
+
+                            ]}
+                        />
                 </div>
             </AccordionDetails>
         </Accordion>

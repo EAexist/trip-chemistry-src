@@ -1,25 +1,27 @@
 import { Grid } from "@mui/material";
 
-import { TEST_SECTIONS } from "../../../common/app-const";
 import ToggleLabeledButton from "../../../components/Button/ToggleLabeledButton";
 import withTestAnswer, { WithTestAnswerProps } from "../../../hocs/withTestAnswer";
-import { useStrings } from "../../../texts";
 
-interface AnswerButtonGroupProps extends WithTestAnswerProps { };
+interface AnswerButtonGroupProps extends WithTestAnswerProps { 
+    options : {
+        icon: string, 
+        label: string, 
+        value: number
+    }[]
+};
 
-function AnswerButtonGroup({ testName, answer, setAnswer }: AnswerButtonGroupProps) {
-
-    const strings = Object(useStrings().public.contents.test.test)[TEST_SECTIONS[testName].type];
+function AnswerButtonGroup({ testName, answer, setAnswer, options }: AnswerButtonGroupProps) {
 
     const handleAnswerChange = (value: number) => {
         setAnswer(value);
     }
 
     return (
-        <Grid container columns={Object.keys(strings.answers).length}>
+        <Grid container columns={options.length}>
             {/* <Stack display={"flex"} direction={"row"} justifyContent="space-around" alignItems="stretch" height="96px" sx={{ width: '100%' }}> */}
                 {
-                    (Object.values(strings.answers) as { icon: string, display: string, label: string, value: number }[]).map(({ icon, display, label, value }) => (
+                    options.map(({ icon, label, value }) => (
                         <Grid key={value} item xs={1} display={"flex"} justifyContent={"center"}>
                             <ToggleLabeledButton
                                 contained

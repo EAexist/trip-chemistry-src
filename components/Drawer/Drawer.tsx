@@ -76,15 +76,13 @@ function Drawer({ open, onDrawerItemClick }: DrawerProps) {
                             <MotionList
                                 custom={0.5} /* delayChildren */
                                 variants={VARIANTS_STAGGER_CHILDREN}
-                                className="block__body"
+                                className="block__body block--with-padding"
                             >
-                                <MotionListSubheader disableGutters className="block--with-margin-x">{`내 정보`}</MotionListSubheader>
+                                <MotionListSubheader  className="">{`내 정보`}</MotionListSubheader>
                                 <MotionListItemButton
                                     key={"profile"}
                                     onClick={() => handleDrawerItemClick('user')}
                                     selected={pathname.includes('user')}
-                                    disableGutters
-                                    className="block--with-padding-x"
                                 >
                                     <ListItemAvatar>{
                                         isAuthorized
@@ -108,7 +106,7 @@ function Drawer({ open, onDrawerItemClick }: DrawerProps) {
                                 <div>
                                 <Divider />
                                 </div>
-                                <MotionListSubheader disableGutters className="block--with-margin-x">{`내 여행`}</MotionListSubheader>
+                                <MotionListSubheader className="">{`내 여행`}</MotionListSubheader>
                                 {
                                     Object.entries(CONTENTS).map(([content, { path, icon }]) =>
                                         // <MotionListItem key={content} >
@@ -116,7 +114,6 @@ function Drawer({ open, onDrawerItemClick }: DrawerProps) {
                                             key={content}
                                             onClick={() => handleDrawerItemClick(path)}
                                             selected={pathname.includes(path)}
-                                            className="block--with-padding-x"
                                         >
                                             <ListItemAvatar>
                                                 <Avatar variant="rounded">

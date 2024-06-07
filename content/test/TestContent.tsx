@@ -36,7 +36,7 @@ import withReducer from "../../hocs/withReducer";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import { FADEIN } from "../../motion/props";
 import { useGetProfile } from "../../reducers/authReducer";
-import testAnswerReducer, { SetTestName, useIsAllTestAnswered, useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
+import testAnswerReducer, { useIsAllTestAnswered, useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
 import { useStrings } from "../../texts";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import TestAnswerBadge from "./component/TestAnswerBadge";
@@ -45,6 +45,7 @@ import NoticeBlock from "~/components/Block/NoticeBlock";
 import getImgSrc from "~/utils/getImgSrc";
 import LazyImage from "~/components/LazyImage";
 import ScheduleTestContent from "./ScheduleTestContent";
+import { SetTestName } from "~/interfaces/ITestAnswer";
 
 
 function TestContent() {
@@ -88,7 +89,7 @@ function TestContent() {
             type: 'time',
             icon: "clock",
             label: "여행 시간",
-            tests: ["time"]
+            tests: ["scheduleStartTime", "scheduleEndTime"]
         },
         schedule:
         {

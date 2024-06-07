@@ -1,4 +1,4 @@
-import { Chip, Icon, Stack } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Chip, Icon, Stack } from "@mui/material";
 
 import ProfileImage, { UserProfileImage } from "./ProfileImage";
 import { useStrings } from "../../texts";
@@ -25,7 +25,8 @@ function TestResultBlock({ id, testResult }: TestResultBlockProps) {
                     <ProfileImage id={id} />
             }
             {
-                ( testResult.tripTagList.length > 0 ) &&
+
+                (testResult.tripTagList.length > 0) &&
                 <Stack justifyContent={"center"} flexWrap={"wrap"} rowGap={1} >
                     {
                         testResult.tripTagList.map((tag) =>
@@ -34,6 +35,12 @@ function TestResultBlock({ id, testResult }: TestResultBlockProps) {
                     }
                 </Stack>
             }
+            <>
+                <Accordion>
+                    <AccordionSummary></AccordionSummary>
+                    <AccordionDetails></AccordionDetails>
+                </Accordion>
+            </>
         </div>
     );
 }
