@@ -139,7 +139,7 @@ const chemistrySlice = createSlice({
         /* asyncGetChemistry */
         builder.addCase(asyncGetChemistry.fulfilled, (state, action: PayloadAction<IChemistry>) => {
             console.log(`asyncGetChemistry.fulfilled: action.payload=${JSON.stringify(action.payload)}`);
-            state.data = action.payload;
+            // state.data = action.payload;
             state.loadStatus = LoadStatus.SUCCESS;
         });
         builder.addCase(asyncGetChemistry.pending, (state, action) => {
