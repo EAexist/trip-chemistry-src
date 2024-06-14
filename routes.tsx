@@ -1,13 +1,12 @@
 /* React */
 import { createRoutesFromElements, Navigate, Outlet, Route, ScrollRestoration } from 'react-router-dom';
-
+import { Provider } from 'react-redux';
 import loadable from '@loadable/component';
 
 /* App */
-import { Provider } from 'react-redux';
 import { TEST } from './common/app-const';
-import Page from './route/Page';
 import { store } from './store';
+import Page from './route/Page';
 
 /* Mockup */
 // import ChemistryDetailMockupContent from './mockup/ChemistryDetailMockupContent';

@@ -17,8 +17,9 @@ import { dailyRestaurantSliderProps } from "../test/DailyRestaurantTestContent";
 import GroupAnswerSlider from "./component/GroupAnswerSlider";
 import { specialFoodBudgetSliderProps } from "../test/SpecialRestaurantTestContent";
 import { MotionListItem } from "~/motion/components/MotionListItem";
-import { useSelector } from "react-redux";
-import { RootState } from "~/store";
+import { useAppSelector } from "~/store";
+
+
 import { BrunchDining, DinnerDining, Icecream, RamenDining } from "@mui/icons-material";
 
 function RestaurantChemistryContent() {
@@ -32,7 +33,7 @@ function RestaurantChemistryContent() {
 
     /* Reducers */
     const dailyBudgetAnswerToProfiles = useValueToProfileIdList('restaurant', 'dailyBudget');
-    const specialRestaurantAnswerList = useSelector((state: RootState) =>
+    const specialRestaurantAnswerList = useAppSelector((state) =>
         Object.values(state.chemistry.data.profileList).map((profile) =>
         ({
             nickname: profile.nickname,

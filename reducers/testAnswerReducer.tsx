@@ -5,7 +5,7 @@ import { useCallback } from "react";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { StatusCodes } from "http-status-codes";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 /* App */
 import { HEADERS_AXIOS, TEST_TYPE } from "../common/app-const";
@@ -13,7 +13,7 @@ import { ActivityTag } from "../interfaces/enums/ActivityTag";
 import { ExpectationTag } from "../interfaces/enums/ExpectationTag";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
 import { HashTagTestKeys, IHashTagTestKey, ITestAnswer, ITestAnswerDTO, INumericTestKey, testAnswerToDTO, ITestKey } from "../interfaces/ITestAnswer";
-import { AppDispatch, RootState } from "../store";
+import { AppDispatch, useAppSelector } from "../store";
 import { useUserId } from "./authReducer";
 
 
@@ -150,7 +150,7 @@ export const useTestAnswer = (key: INumericTestKey, subKey?: string) => {
     const dispatch = useDispatch();
     return (
         [
-            useSelector((state: RootState) => ( subKey ? state.testAnswer.data[key][subKey] :  state.testAnswer.data[key] ) as number),
+            useAppSelector((state) => ( subKey ? state.testAnswer.data[key][subKey] :  state.testAnswer.data[key] ) as number),
             useCallback((value: number) =>
                 dispatch(testAnswerSlice.actions.setNumericAnswer({ key, subKey, value }))
                 , [dispatch])
@@ -162,7 +162,7 @@ export const useTestAnswer = (key: INumericTestKey, subKey?: string) => {
 //     const dispatch = useDispatch();
 //     return (
 //         [
-//             useSelector((state: RootState) => (state.testAnswer.data[testKey]) as Dayjs),
+//             useAppSelector((state) => (state.testAnswer.data[testKey]) as Dayjs),
 //             useCallback((value: Dayjs) =>
 //                 dispatch(testAnswerSlice.actions.setDayjsAnswer({ testKey, value }))
 //                 , [dispatch])
@@ -171,14 +171,14 @@ export const useTestAnswer = (key: INumericTestKey, subKey?: string) => {
 // };
 
 export const useTagSetAnswer = (key: IHashTagTestKey, selected = true) => {
-    const answer = useSelector((state: RootState) => (state.testAnswer.data.hashtag[key][selected ? "selected" : "unSelected"]))
+    const answer = useAppSelector((state) => (state.testAnswer.data.hashtag[key][selected ? "selected" : "unSelected"]))
     return (Array.from(answer.values()))
 };
 
 export const useIsTestAnswered = ( tests: ITestIndex[] ) => {
     return (
-        useSelector(
-            (state: RootState) => ( tests.map(({ testKey, subKey }) => {
+        useAppSelector(
+            (state) => ( tests.map(({ testKey, subKey }) => {
                 const answer = subKey ? state.testAnswer.data[testKey][subKey] : state.testAnswer.data[testKey]
                 console.log("Hello", testKey, subKey, answer );
                 return (
@@ -193,7 +193,7 @@ export const useIsTestAnswered = ( tests: ITestIndex[] ) => {
 
 export const useIsAllTestAnswered = () => {
     return (
-        useSelector((state: RootState) => (
+        useAppSelector((state) => (
             Object.entries(state.testAnswer.data).map(([ key, answer ]) =>
                 typeof answer === "object"
                 ?
@@ -213,7 +213,7 @@ const useTestAnswerStatus = () => {
     /* Using useDispatch with createAsyncThunk. 
     ( https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete ) */
     const dispatch = useDispatch();
-    const status = useSelector((state: RootState) => state.testAnswer.loadStatus);
+    const status = useAppSelector((state) => state.testAnswer.loadStatus);
     return ([
         status,
         useCallback((status: LoadStatus) => {
@@ -224,7 +224,7 @@ const useTestAnswerStatus = () => {
 
 const useSubmitAnswer = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const { data } = useSelector((state: RootState) => state.testAnswer);
+    const { data } = useAppSelector((state) => state.testAnswer);
 
     const id = useUserId();
 

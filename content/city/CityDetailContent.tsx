@@ -3,7 +3,7 @@
 /* Externals */
 import { ArrowRight, NavigateBefore } from "@mui/icons-material";
 import { AppBar, Button, CardContent, Divider, IconButton, Stack, Toolbar } from "@mui/material";
-import { useSelector } from "react-redux";
+
 import { useLocation } from "~/router-module";
 // import loadable from "@loadable/component";
 
@@ -21,14 +21,15 @@ import Flag from "../../components/Flag";
 import Logo from "../../components/Logo";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
-import { RootState } from "../../store";
-import PaginationBullets from "../../swiper/components/PaginationBullets";
+
 import { useStrings } from "../../texts";
 import getImgSrc from "../../utils/getImgSrc";
 
 import { Navigation, Pagination } from "swiper/modules";
 import { SwiperOptions } from "swiper/types";
 import ChemistryResultAccordion from "./component/ChemistryResultAccordion";
+import { useAppSelector } from "~/store";
+import PaginationBullets from "~/swiper/components/PaginationBullets";
 
 /* Loadable Components */
 // const  = loadable(() => import( /* webpackChunkName: "ChemistryResultAccordion" */ './component/ChemistryResultAccordion'));
@@ -72,7 +73,7 @@ function CityDetailContent({ cityClass }: CityDetailContentProps) {
         navigate('../..');
     };
 
-    const isChemistryDefined = useSelector((state: RootState) => (state.chemistry !== undefined));
+    const isChemistryDefined = useAppSelector((state) => (state.chemistry !== undefined));
 
     return (
         // isAppBarHidden &&

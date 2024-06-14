@@ -6,10 +6,11 @@ import { Stack, Tooltip } from "@mui/material";
 
 /* App */
 
-import { useSelector } from "react-redux";
-import { RootState } from "~/store";
+
+
 import FriendAvatar from "../../../components/Avatar/FriendAvatar";
 import ToggleButton from "../../../components/Button/ToggleButton";
+import { useAppSelector } from "~/store";
 
 interface ProfileToggleButtonGroupProps {
     activeProfileId: string
@@ -19,7 +20,7 @@ interface ProfileToggleButtonGroupProps {
 function ProfileToggleButtonGroup({ activeProfileId, setActiveProfileId } : ProfileToggleButtonGroupProps) {
 
     /* Reducers */
-    const isAnsweredList = useSelector((state: RootState) =>
+    const isAnsweredList = useAppSelector((state) =>
         Object.values(state.chemistry.data.profileList).map((profile) =>
         ({
             id: profile.id,

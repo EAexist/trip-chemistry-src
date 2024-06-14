@@ -3,7 +3,7 @@ import { Fragment, useEffect } from "react";
 
 /* Externals */
 import { m } from "framer-motion";
-import { useSelector } from "react-redux";
+
 
 import { List, ListItemAvatar, ListItemText, Stack } from "@mui/material";
 
@@ -14,7 +14,7 @@ import ProfileImage from "../../components/Profile/ProfileImage";
 import useValueToProfileIdList from "../../hooks/useValueToProfileIdList";
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import { filterProfile, useChemistry, useProfileIdList } from "../../reducers/chemistryReducer";
-import { RootState } from "../../store";
+
 import { MotionListItem } from "~/motion/components/MotionListItem";
 import FriendAvatar from "~/components/Avatar/FriendAvatar";
 
@@ -31,7 +31,7 @@ function LeadershipChemistryContent() {
 
     // const chemistry = useChemistry();
 
-    // const profileList = Object.values(useSelector((state: RootState) => state.chemistry.data.profileList))
+    // const profileList = Object.values(useAppSelector((state) => state.chemistry.data.profileList))
     // const leaderDataList = filterProfile(profileList, chemistry?.leaderList, "nickname");
     // const follwerDataList = filterProfile(profileList, answeredProfileIdList.filter(id => !chemistry?.leaderList.includes(id)), "nickname");
     const leadershipAnswerToProfileList = useValueToProfileIdList("leadership");

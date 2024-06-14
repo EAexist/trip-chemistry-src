@@ -5,7 +5,7 @@
 // import { RamenDining } from "@mui/icons-material";
 // import { Box, List, ListItemAvatar, ListItemButton, ListItemText, ListSubheader } from "@mui/material";
 // import { m } from "framer-motion";
-// import { useSelector } from "react-redux";
+// 
 
 // /* Swiper */
 // import 'swiper/css';
@@ -20,7 +20,7 @@
 // import Logo from "../../components/Logo";
 // import withReducer from "../../hocs/withReducer";
 // import testAnswerReducer from "../../reducers/testAnswerReducer";
-// import { RootState } from "../../store";
+// 
 // import { useStrings } from "../../texts";
 // import { priceText } from "../../utils/priceText";
 // import AnswerSlider from "./component/AnswerSlider";
@@ -41,7 +41,7 @@
 //     };
 
 //     /* Reducers */
-//     const restaurantAnswer = useSelector((state: RootState) => state.testAnswer.data.restaurant) as number;
+//     const restaurantAnswer = useAppSelector((state) => state.testAnswer.data.restaurant) as number;
 //     /* States */
 //     const restaurantCarouselSwiperRef = useRef<SwiperRef>(null);
 

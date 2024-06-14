@@ -16,7 +16,7 @@ import { useChemistry } from "../../reducers/chemistryReducer";
 import { dailyRestaurantSliderProps } from "../test/DailyRestaurantTestContent";
 import GroupAnswerSlider from "./component/GroupAnswerSlider";
 import { specialFoodBudgetSliderProps } from "../test/SpecialRestaurantTestContent";
-import { useSelector } from "react-redux";
+
 
 function RestaurantChemistryContent() {
 

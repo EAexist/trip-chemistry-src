@@ -6,7 +6,7 @@
 
 // /*** Trip Chemistry ***/
 // /* Component */
-// import { RootState } from "../store";
+// 
 // import { IWithLoadStatus, LoadStatus, IProfileId } from ".";
 // import { ITestAnswer, ITestKey } from "./testAnswerReducer";
 // import { ITestResult, defaultTestResult } from "../interfaces/ITestResult";
@@ -375,7 +375,7 @@
 // })
 
 // const useProfile: (id?: IProfileId) => IProfile = (id) => {
-//     return (useSelector((state: RootState) => id
+//     return (useAppSelector((state) => id
 //         ? (Object.keys(state.profile.data).includes(id)
 //             ? state.profile.data[id].data
 //             : defaultProfile)
@@ -383,7 +383,7 @@
 // }
 
 // const useProfileList: (key?: ProfileKey) => IProfile[] = (key) => {
-//     return (useSelector((state: RootState) =>
+//     return (useAppSelector((state) =>
 //         Object.values(state.profile.data).map(({ data, loadStatus }) =>
 //             key
 //                 ? data
@@ -393,7 +393,7 @@
 // }
 
 // function useProfileDataList<T extends (keyof IProfile) | IProfile>(idList?: IProfileId[], key?: keyof IProfile): T[] {
-//     return (useSelector((state: RootState) =>
+//     return (useAppSelector((state) =>
 //         Object.entries(state.profile.data).filter(([k, v]) => idList ? idList.includes(k) : true)
 //             .map(([k, { data }]) =>
 //                 key
@@ -413,7 +413,7 @@
 //     const isAdded = useProfileIdList().includes(id);
 //     const dispatch = useDispatch(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
 //     return ([
-//         useSelector((state: RootState) => isAdded ? (key ? state.profile.data[id].data[key].loadStatus : state.profile.data[id].loadStatus) : undefined),
+//         useAppSelector((state) => isAdded ? (key ? state.profile.data[id].data[key].loadStatus : state.profile.data[id].loadStatus) : undefined),
 //         useCallback((loadStatus: LoadStatus) => {
 //             if (isAdded) {
 //                 dispatch(profileSlice.actions.setStatus({ loadStatus, id, key }));
@@ -423,7 +423,7 @@
 // }
 
 // const useProfileIdList = () => {
-//     const idList = useSelector((state: RootState) => Object.keys(state.profile.data), shallowEqual);
+//     const idList = useAppSelector((state) => Object.keys(state.profile.data), shallowEqual);
 //     // const idList = useSelector(( state:RootState ) => state.profile.idList );
 //     useEffect(() => {
 //         console.log(`useProfileList: idList=${idList}`);
@@ -439,7 +439,7 @@
 //     }, [])
 
 //     return (
-//         useSelector((state: RootState) =>
+//         useAppSelector((state) =>
 //             Object.fromEntries(
 //                 Object.entries(state.profile.data).map(([id, { data }]) => {
 //                     console.log(`[useTestAnswerObject]\n id=${id}\n profile.testAnswer=${JSON.stringify(data.testAnswer)}`);
@@ -465,7 +465,7 @@
 
 // //     const dispatch = useDispatch<AppDispatch>();
 
-// //     return (useSelector((state: RootState) => idList.map((id) => ({
+// //     return (useAppSelector((state) => idList.map((id) => ({
 // //         status: state.profile.data[id].data[key].loadStatus,
 // //         setStatus: (loadStatus: LoadStatus) => {
 // //             dispatch(profileSlice.actions.setStatus({ loadStatus, id, key }));
@@ -475,7 +475,7 @@
 // // }
 // // const useTestResultObject = () => {
 // //     return (
-// //         useSelector((state: RootState) =>
+// //         useAppSelector((state) =>
 // //             Object.fromEntries(
 // //                 Object.entries( state.profile.data ).map(([id, { data }]) =>
 // //                     [id, data.testResult]
@@ -485,7 +485,7 @@
 // //     );
 // // };
 
-// // const useTestResult = (id: IProfileId) => useSelector((state: RootState) =>
+// // const useTestResult = (id: IProfileId) => useAppSelector((state) =>
 // //     state.profile.data[id].data.testResult
 // // )
 

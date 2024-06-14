@@ -5,7 +5,7 @@
 // import { Close, ExpandMore, NavigateNext, RamenDining } from "@mui/icons-material";
 // import { Alert, Box, Button, ButtonBase, Card, CardActions, CardContent, CardMedia, Divider, Grow, IconButton, List, ListItemAvatar, ListItemButton, ListItemText, ListSubheader, Modal, Stack } from "@mui/material";
 // import { m } from "framer-motion";
-// import { useSelector } from "react-redux";
+// 
 // import LazyDomAnimation from "../motion/LazyDomAnimation";
 
 // /* Swiper */
@@ -44,7 +44,7 @@
 // import { FADEIN } from "../motion/props";
 // import { useGetProfile } from "../reducers/authReducer";
 // import testAnswerReducer, { INumericTestKey, IHashTagTestKey, useIsAllTestAnswered, useSubmitAnswer, useTestAnswerStatus } from "../reducers/testAnswerReducer";
-// import { RootState } from "../store";
+// 
 // import { SWIPERPROPS_CAROUSEL } from "../swiper/props";
 // import { useStrings } from "../texts";
 // import getImgSrc, { FORMATSVG } from "../utils/getImgSrc";
@@ -66,9 +66,9 @@
 //     const commonStrings = useStrings().public.common;
 
 //     /* Reducers */
-//     const leadershipAnswer = useSelector((state: RootState) => state.testAnswer.data.leadership);
-//     const scheduleAnswer = useSelector((state: RootState) => state.testAnswer.data.schedule) as number;
-//     const restaurantAnswer = useSelector((state: RootState) => state.testAnswer.data.restaurant) as number;
+//     const leadershipAnswer = useAppSelector((state) => state.testAnswer.data.leadership);
+//     const scheduleAnswer = useAppSelector((state) => state.testAnswer.data.schedule) as number;
+//     const restaurantAnswer = useAppSelector((state) => state.testAnswer.data.restaurant) as number;
 
 //     const isAllTestAnswered = useIsAllTestAnswered();
 

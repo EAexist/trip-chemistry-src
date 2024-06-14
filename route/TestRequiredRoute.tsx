@@ -4,19 +4,20 @@
 import { Outlet, useNavigate } from "~/router-module";
 
 /* App */
-import { useSelector } from "react-redux";
+
 import NoticeBlock from "../components/Block/NoticeBlock";
 import { useHasAnsweredTest } from "../reducers/authReducer";
-import { RootState } from "../store";
+
 import getImgSrc from "../utils/getImgSrc";
 import useNavigateWithGuestContext from "../hooks/useNavigateWithGuestContext";
+import { useAppSelector } from "~/store";
 
 function TestRequiredRoute() {
 
     const navigate = useNavigateWithGuestContext();
 
     /* Reducers */
-    const nickname = useSelector((state: RootState) => state.auth.data.profile.nickname )
+    const nickname = useAppSelector((state) => state.auth.data.profile.nickname )
     const hasAnsweredTest = useHasAnsweredTest();
 
     /* Event Handlers */

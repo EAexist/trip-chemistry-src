@@ -1,18 +1,16 @@
 /*** React ***/
 import { useCallback, useEffect } from "react";
-
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams } from "~/router-module";
+import axios from "axios";
 
 /*** Trip Chemistry ***/
 import { HEADERS_AXIOS } from "../common/app-const";
 import { IProfileId } from "../interfaces/IProfile";
 import { IUserProfile, defaultUserProfile } from "../interfaces/IUserProfile";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
-import { AppDispatch, RootState } from "../store";
-
+import { AppDispatch, useAppSelector } from "../store";
 
 /* Interface */
 
@@ -347,49 +345,49 @@ const authSlice = createSlice({
 
 const useIsAutoLoginEnabled = () => {
     return (
-        useSelector((state: RootState) => state.auth.data.isAutoLoginEnabled)
+        useAppSelector((state) => state.auth.data.isAutoLoginEnabled)
     );
 }
 
 const useIsAuthorized = () => {
     return (
-        useSelector((state: RootState) => state.auth.data.isAuthorized)
+        useAppSelector((state) => state.auth.data.isAuthorized)
     );
 }
 
 const useIsInitialized = () => {
     return (
-        useSelector((state: RootState) => !state.auth.data.doRequireInitialization)
+        useAppSelector((state) => !state.auth.data.doRequireInitialization)
     );
 }
 
 const useUserId: () => IProfileId = () => {
     return (
-        useSelector((state: RootState) => state.auth.data.profile.id ? state.auth.data.profile.id : "")
+        useAppSelector((state) => state.auth.data.profile.id ? state.auth.data.profile.id : "")
     );
 }
 
 const useUserInfo: () => IUserProfile = () => {
     return (
-        useSelector((state: RootState) => state.auth.data.profile)
+        useAppSelector((state) => state.auth.data.profile)
     );
 }
 
 const useUserProfile = ( key? : keyof IUserProfile ) => {
     return (
-        useSelector((state: RootState) => key ? state.auth.data.profile[key] : state.auth.data.profile )
+        useAppSelector((state) => key ? state.auth.data.profile[key] : state.auth.data.profile )
     );
 }
 
 const useHasAnsweredTest = () => {
     return (
-        useSelector((state: RootState) => !(state.auth.data.profile.testAnswer === null))
+        useAppSelector((state) => !(state.auth.data.profile.testAnswer === null))
     )
 }
 
 const useChemistryIdList = () => {
     return (
-        useSelector((state: RootState) => state.auth.data.profile.chemistryIdList)
+        useAppSelector((state) => state.auth.data.profile.chemistryIdList)
     );
 }
 
@@ -406,7 +404,7 @@ const useAuthLoadStatus = () => {
     const dispatch = useDispatch<AppDispatch>();
 
     return ([
-        useSelector((state: RootState) => state.auth.loadStatus),
+        useAppSelector((state) => state.auth.loadStatus),
         useCallback((status: LoadStatus) => {
             dispatch(authSlice.actions.setLoadStatus(status));
         }, [dispatch]),

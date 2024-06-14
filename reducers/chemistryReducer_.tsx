@@ -8,7 +8,7 @@
 // import qs from "qs";
 
 // /*** Trip Chemistry ***/
-// import { AppDispatch, RootState } from "../store";
+// import { AppDispatch } from "../store";
 // import { IWithLoadStatus, LoadStatus, IProfileId } from ".";
 // import { HEADERS_AXIOS } from "../common/app-const";
 
@@ -84,19 +84,19 @@
 // })
 
 // const useChemistry = () => {
-//     return ( useSelector((state: RootState) => state.chemistry ));
+//     return ( useAppSelector((state) => state.chemistry ));
 // };
 
 // const useIsChemistryUpdated = () => {
-//     return ( useSelector((state: RootState) => ( state.chemistry.loadStatus === LoadStatus.REST ) && ( state.chemistry.data !== undefined ) ));
+//     return ( useAppSelector((state) => ( state.chemistry.loadStatus === LoadStatus.REST ) && ( state.chemistry.data !== undefined ) ));
 // };
 
 // const useCityChemistry = ( cityClass : string ) => {
-//     return ( useSelector((state: RootState) => state.chemistry.data ? state.chemistry.data.cityChemistry[ cityClass ] : -1 ));
+//     return ( useAppSelector((state) => state.chemistry.data ? state.chemistry.data.cityChemistry[ cityClass ] : -1 ));
 // };
 
 // const useSortedCityList = () => {
-//     return ( useSelector((state: RootState) => state.chemistry.data ? Object.entries(state.chemistry.data.cityChemistry).sort(( a, b ) => ( b[1] - a[1] )).map(([ cityClass, score ]) => cityClass )  : undefined ) );
+//     return ( useAppSelector((state) => state.chemistry.data ? Object.entries(state.chemistry.data.cityChemistry).sort(( a, b ) => ( b[1] - a[1] )).map(([ cityClass, score ]) => cityClass )  : undefined ) );
 // };
 
 // // const useGetChemistry = () => {
@@ -115,7 +115,7 @@
 //     const dispatch = useDispatch(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
 
 //     return ([
-//         useSelector((state: RootState) => state.chemistry.loadStatus),
+//         useAppSelector((state) => state.chemistry.loadStatus),
 //         useCallback((status: LoadStatus) =>
 //             dispatch(chemistrySlice.actions.setChemistryLoadStatus(status))
 //             , [ dispatch ]),

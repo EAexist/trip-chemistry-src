@@ -6,14 +6,15 @@ import { Done, NavigateBefore } from "@mui/icons-material";
 import { Button, IconButton, Toolbar } from "@mui/material";
 
 /* App */
-import { useSelector } from "react-redux";
+
 import { USER } from "../../common/app-const";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import AppBarContext, { useHideAppbar } from "../../components/AppBar/AppBarContext";
 import useSetNickname from "../../hooks/useSetNickname";
 import { useUserInfo } from "../../reducers/authReducer";
-import { RootState } from "../../store";
+
 import TextFieldBlock from "../../components/Block/TextFieldBlock";
+import { useAppSelector } from "~/store";
 
 interface SetNicknamePageProps {
     handleClose: () => void;
@@ -30,7 +31,7 @@ function SetNicknamePage({
 
     /* Reducers */
     const { nickname: currentNickname } = useUserInfo();
-    const authProviderNickname = useSelector((state: RootState) => state.auth.data.profile.authProviderNickname)
+    const authProviderNickname = useAppSelector((state) => state.auth.data.profile.authProviderNickname)
 
     /* States */
     const [value, setValue] = useState(currentNickname ? currentNickname : (authProviderNickname ? authProviderNickname : ""));

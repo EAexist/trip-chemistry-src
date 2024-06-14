@@ -2,7 +2,7 @@
 /* Externals */
 import { Button, Toolbar } from "@mui/material";
 import { m } from "framer-motion";
-import { useSelector } from "react-redux";
+
 import LazyDomAnimation from "../../motion/LazyDomAnimation";
 
 import { CHARACTERS } from "~/common/app-const";
@@ -12,8 +12,9 @@ import { UserProfileImage } from "~/components/Profile/ProfileImage";
 import { UserTripTags } from "~/components/Profile/TripTags";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import { FADEIN_FROMBOTTOM_VIEWPORT, FADEIN_VIEWPORT } from "../../motion/props";
-import { RootState } from "../../store";
+
 import { useStrings } from "../../texts";
+import { useAppSelector } from "~/store";
 
 function ResultContent() {
 
@@ -22,7 +23,7 @@ function ResultContent() {
     const navigate = useNavigateWithGuestContext();
 
     /* Reducers */
-    const character = useSelector((state: RootState) =>
+    const character = useAppSelector((state) =>
         CHARACTERS[state.auth.data.profile.testResult.characterId]
     );
 

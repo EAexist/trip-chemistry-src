@@ -1,9 +1,8 @@
 import { NavigateNext } from "@mui/icons-material";
 import { Alert, ButtonBase } from "@mui/material";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store";
 import { TEST_TYPE } from "../../../common/app-const";
 import { useScrollToCheckpoint } from "../../../components/Step/StepCheckpointContext";
+import { useAppSelector } from "~/store";
 
 interface UnAnsweredTestAlertButtonProps{
 
@@ -11,7 +10,7 @@ interface UnAnsweredTestAlertButtonProps{
 
 function UnAnsweredTestAlertButton( {} : UnAnsweredTestAlertButtonProps ){
     
-    const firstUnansweredTestIndex = useSelector((state: RootState) => (
+    const firstUnansweredTestIndex = useAppSelector((state) => (
         Object.values(state.testAnswer.data).map((answer) =>
             (typeof answer !== "object")
                 ? answer !== undefined

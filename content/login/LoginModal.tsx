@@ -12,8 +12,9 @@ import { KAKAO_AUTH_URL_BASE } from "../../common/auth";
 import KakaoLoginButton from "../../components/Button/KakaoLoginButton";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { asyncGuestSignIn, authorize } from "../../reducers/authReducer";
-import { AppDispatch, RootState } from "../../store";
+import { AppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
+import { useAppSelector } from "~/store";
 // import env from "~/env";
 
 function LoginContent() {
@@ -25,7 +26,7 @@ function LoginContent() {
     const [url, setUrl] = useState<string>(KAKAO_AUTH_URL_BASE);
 
     /* Reducers */
-    const doRequireInitialization = useSelector((state: RootState) => state.auth.data.doRequireInitialization);
+    const doRequireInitialization = useAppSelector((state) => state.auth.data.doRequireInitialization);
 
     const handleAuthSuccess = () => {
 

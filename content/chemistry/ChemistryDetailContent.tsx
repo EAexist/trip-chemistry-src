@@ -8,9 +8,11 @@ import { TEST } from "../../common/app-const";
 import SectionPaper from "../../components/Paper/SectionPaper";
 import { useStrings } from "../../texts";
 
-import { useSelector } from "react-redux";
-import { RootState } from "~/store";
+
+
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
+import { useAppSelector } from "~/store";
+
 import CharacterChemistryContent from "./CharacterChemistryContent";
 import CityChemistryContent from "./CityChemistryContent";
 import LeadershipChemistryContent from "./LeadershipChemistryContent";
@@ -24,7 +26,7 @@ function ChemistryDetailContent() {
 
     /* Reducers */
     const scoreSortedCityList =
-        useSelector((state: RootState) =>
+        useAppSelector((state) =>
             Object.entries(state.chemistry.data.city)
                 .sort(([k1, v1], [k2, v2]) => (v2 - v1))
                 .map(([k, v])=> k )

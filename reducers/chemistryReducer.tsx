@@ -5,10 +5,10 @@ import { useCallback } from "react";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch } from "react-redux";
 
 /*** Chemistry Chemistry ***/
-import type { RootState } from "../store";
+import { useAppSelector } from "../store";
 import { HEADERS_AXIOS } from "../common/app-const";
 import { IChemistry, defaultChemistry } from "../interfaces/IChemistry";
 import { IProfile, IProfileId, defaultProfile } from "../interfaces/IProfile";
@@ -156,15 +156,15 @@ const chemistrySlice = createSlice({
 
 
 const useChemistry = () => {
-    return (useSelector((state: RootState) => state.chemistry.data));
+    return (useAppSelector((state) => state.chemistry.data));
 };
 
 const useChemistryId = () => {
-    return (useSelector((state: RootState) => state.chemistry.data.id));
+    return (useAppSelector((state) => state.chemistry.data.id));
 };
 
 // const useIsChemistryUpdated = () => {
-//     return (useSelector((state: RootState) => (state.chemistry.loadStatus === LoadStatus.REST) && (state.chemistry.data !== undefined)));
+//     return (useAppSelector((state) => (state.chemistry.loadStatus === LoadStatus.REST) && (state.chemistry.data !== undefined)));
 // };
 
 const useIsChemistryEnabled = () => {
@@ -173,13 +173,13 @@ const useIsChemistryEnabled = () => {
 };
 
 const useCityChemistry = (cityClass: string) => {
-    return (useSelector((state: RootState) => state.chemistry.data ? state.chemistry.data.city[cityClass] : -1));
+    return (useAppSelector((state) => state.chemistry.data ? state.chemistry.data.city[cityClass] : -1));
 };
 
 // const useCityChemistry = (cityClass: string) => {
 
 //     const cityAnswerList =
-//         useSelector((state: RootState) => Object.values(state.chemistry.data.profileList)
+//         useAppSelector((state) => Object.values(state.chemistry.data.profileList)
 //             .filter(profile => profile.testAnswer !== null)
 //             .map(profile => profile.testAnswer.city[cityClass])
 //         )
@@ -194,7 +194,7 @@ const useChemistryLoadStatus = () => {
     const dispatch = useDispatch(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
 
     return ([
-        useSelector((state: RootState) => state.chemistry.loadStatus),
+        useAppSelector((state) => state.chemistry.loadStatus),
         useCallback((status: LoadStatus) =>
             dispatch(chemistrySlice.actions.setChemistryLoadStatus(status))
             , [dispatch]),
@@ -204,7 +204,7 @@ const useChemistryLoadStatus = () => {
 const useTestAnswerObject = (testKey: ITestKey, subKey?: string) => {
 
     return (
-        useSelector((state: RootState) =>
+        useAppSelector((state) =>
             Object.fromEntries(
                 Object.entries(state.chemistry.data?.profileList)
                     .filter(([, profile]) => profile.testAnswer !== null)
@@ -219,7 +219,7 @@ const useTestAnswerObject = (testKey: ITestKey, subKey?: string) => {
 
 const useProfile = (id: string, key?: keyof IProfile) => {
     return (
-        useSelector((state: RootState) => Object.keys(state.chemistry.data.profileList).includes(id)
+        useAppSelector((state) => Object.keys(state.chemistry.data.profileList).includes(id)
             ? key
                 ? state.chemistry.data.profileList[id][key]
                 : state.chemistry.data.profileList[id]
@@ -229,7 +229,7 @@ const useProfile = (id: string, key?: keyof IProfile) => {
 
 const useProfileIdList = (answeredProfileOnly: boolean = true) => {
     return (
-        useSelector((state: RootState) => Object.values(state.chemistry.data.profileList)
+        useAppSelector((state) => Object.values(state.chemistry.data.profileList)
             .filter(profile => answeredProfileOnly ? (profile.testAnswer !== null) : true)
             .sort((a, b) => ((b.testAnswer === null) ? -1 : 1))
             .map(profile => profile.id)
@@ -238,7 +238,7 @@ const useProfileIdList = (answeredProfileOnly: boolean = true) => {
 }
 
 function useProfileAll<T extends (keyof IProfile) | IProfile>(idList?: IProfileId[], key?: keyof IProfile, answeredProfileOnly: boolean = true) {
-    const profileList = Object.values(useSelector((state: RootState) => state.chemistry.data.profileList))
+    const profileList = Object.values(useAppSelector((state) => state.chemistry.data.profileList))
 
     return (
         profileList.filter(({ id }) => idList ? idList.includes(id) : true)

@@ -8,12 +8,13 @@ import { m } from "framer-motion";
 import { useStrings } from "../../texts";
 
 import { Box, Grid, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
-import { useSelector } from "react-redux";
+
 import PngIcon from "~/components/PngIcon";
 import { MotionListItem } from "~/motion/components/MotionListItem";
-import { RootState } from "~/store";
+
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import { useProfileIdList } from "../../reducers/chemistryReducer";
+import { useAppSelector } from "~/store";
 
 function ScheduleChemistryContent() {
 
@@ -27,7 +28,7 @@ function ScheduleChemistryContent() {
     // const [activeProfileId, setActiveProfileId] = useState<IProfileId | undefined>(answeredProfileIdList[0]);
 
     /* Reducers */
-    const scheduleAnswerList = useSelector((state: RootState) =>
+    const scheduleAnswerList = useAppSelector((state) =>
         Object.values(state.chemistry.data.profileList).map((profile) =>
         ({
             nickname: profile.nickname,

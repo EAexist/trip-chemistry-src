@@ -3,7 +3,7 @@
 
 // /* Externals */
 // import { AnimatePresence, m } from "framer-motion";
-// import { useSelector } from "react-redux";
+// 
 // import LazyDomAnimation from "../motion/LazyDomAnimation";
 
 // import { List, ListItem, ListItemAvatar, ListItemText, Stack, useTheme } from "@mui/material";
@@ -21,7 +21,7 @@
 // import useValueToProfileIdList from "../hooks/useValueToProfileIdList";
 // import { FADEIN, FADEIN_VIEWPORT, FADEIN_FROMBOTTOM_VIEWPORT, VARIANTS_SLIDEUP, VARIANTS_STAGGER_CHILDREN, VARIANTS_FADEIN_FROMBOTTOM } from "../motion/props";
 // import { filterProfile, useChemistry, useProfileAll, useProfileIdList, useSortedCityList } from "../reducers/chemistryReducer";
-// import { RootState } from "../store";
+// 
 // import CityChemistryContent from "../content/chemistry/CityChemistryContent";
 // import ChemistrySlider from "../content/chemistry/component/ChemistrySlider";
 // import { MotionListItemButton } from "~/motion/components/MotionListItemButton";
@@ -47,11 +47,11 @@
 //     const scheduleAnswerToProfiles = useValueToProfileIdList('schedule');
 //     const budgetAnswerToProfiles = useValueToProfileIdList('dailyRestaurantBudget');
 
-//     const characterSectionCharacter = useSelector((state: RootState) =>
+//     const characterSectionCharacter = useAppSelector((state) =>
 //         state.chemistry.data.profileList[answeredProfileIdList[characterSectionActiveUserIndex]]?.testResult.character
 //     );
 
-//     const profileList = Object.values(useSelector((state: RootState) => state.chemistry.data.profileList))
+//     const profileList = Object.values(useAppSelector((state) => state.chemistry.data.profileList))
 //     const leaderDataList = filterProfile(profileList, chemistry?.leaderList, "nickname");
 //     const follwerDataList = filterProfile(profileList, answeredProfileIdList.filter(id => !chemistry?.leaderList.includes(id)), "nickname");
 //     const leadershipAnswerToProfileList = useValueToProfileIdList("leadership");

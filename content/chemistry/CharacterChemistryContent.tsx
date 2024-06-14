@@ -3,7 +3,7 @@ import { useState } from "react";
 
 /* Externals */
 import { AnimatePresence, m } from "framer-motion";
-import { useSelector } from "react-redux";
+
 
 /* App */
 import { CHARACTERS } from "~/common/app-const";
@@ -12,9 +12,10 @@ import TripTags from "~/components/Profile/TripTags";
 import { IProfileId } from "~/interfaces/IProfile";
 import { FADEIN, FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import { useProfileIdList } from "../../reducers/chemistryReducer";
-import { RootState } from "../../store";
+
 import ProfileToggleButtonGroup from "./component/ProfileToggleButtonGroup";
 import { QuestionMark } from "@mui/icons-material";
+import { useAppSelector } from "~/store";
 
 function CharacterChemistryContent() {
 
@@ -22,10 +23,10 @@ function CharacterChemistryContent() {
     const profileIds = useProfileIdList(false);
     const [activeProfileId, setActiveProfileId] = useState<IProfileId | undefined>(profileIds[0]);
 
-    const isAnswered = useSelector((state: RootState) =>
+    const isAnswered = useAppSelector((state) =>
         state.chemistry.data.profileList[activeProfileId]?.testAnswer !== null
     );
-    const { characterId, nickname } = useSelector((state: RootState) => ({
+    const { characterId, nickname } = useAppSelector((state) => ({
         characterId: state.chemistry.data.profileList[activeProfileId]?.testResult?.characterId,
         nickname: state.chemistry.data.profileList[activeProfileId]?.nickname
     }));
