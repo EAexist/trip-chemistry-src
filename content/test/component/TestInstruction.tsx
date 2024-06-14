@@ -1,19 +1,18 @@
+import { Help } from "@mui/icons-material";
 import { Stack } from "@mui/material";
-import { Help, Warning } from "@mui/icons-material";
 
-import { TEST_SECTIONS } from "../../../common/app-const";
-import { useStrings } from "../../../texts";
 import withIsTestAnswered, { WithIsTestAnsweredProps } from "../../../hocs/withIsTestAnswered";
+import { useStrings } from "../../../texts";
 
 interface TestInstructionProps extends WithIsTestAnsweredProps {
     showBackdrop?: boolean;
     className?: string;
 };
 
-function TestInstruction({ testName, isAnswered, className, showBackdrop = false }: TestInstructionProps) {
+function TestInstruction({ testKey, isAnswered, className, showBackdrop = false }: TestInstructionProps) {
 
     const strings = useStrings().public.contents.test.test;
-    const instruction = strings[TEST_SECTIONS[testName as keyof typeof TEST_SECTIONS].type as keyof typeof strings].instruction;
+    const instruction = strings[testKey].instruction;
 
     return (
         isAnswered

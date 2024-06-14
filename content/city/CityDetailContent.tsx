@@ -14,7 +14,7 @@ import 'swiper/css/pagination'; /* Page */
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 /* App */
-import { CITIES, NATION, TEST } from "../../common/app-const";
+import { CITIES, CITY_TYPES, NATION, TEST } from "../../common/app-const";
 import { useHideAppbar } from "../../components/AppBar/AppBarContext";
 import ImageCard from "../../components/Card/ImageCard";
 import Flag from "../../components/Flag";
@@ -22,7 +22,7 @@ import Logo from "../../components/Logo";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { RootState } from "../../store";
-import PaginationDiv from "../../swiper/components/PaginationDiv";
+import PaginationBullets from "../../swiper/components/PaginationBullets";
 import { useStrings } from "../../texts";
 import getImgSrc from "../../utils/getImgSrc";
 
@@ -47,6 +47,8 @@ function CityDetailContent({ cityClass }: CityDetailContentProps) {
     /* Constants */
     const strings = useStrings().public.contents.test;
     const commonStrings = useStrings().public.common;
+
+    const city = CITY_TYPES[cityClass]
 
     const SWIPERPROPS_CITYDETAILCONTENT: SwiperOptions = {
         modules: [Pagination, Navigation],
@@ -85,29 +87,28 @@ function CityDetailContent({ cityClass }: CityDetailContentProps) {
                         <NavigateBefore />
                     </IconButton>
 
-                    <h5 className="typography-note " style={{ position: "absolute", width: "100%", textAlign: "center", zIndex: -1 }}>{strings.test.city.title}</h5>
+                    <h5 className="typography-note" style={{ position: "absolute", width: "100%", textAlign: "center", zIndex: -1 }}>{strings.test.city.title}</h5>
                 </Toolbar>
             </AppBar>
-            <div className="block--with-margin-x block__body">
+            <div className="wrapper content">
                 <Toolbar />
-                <h2 className="typography-heading">{strings.subTest[cityClass as keyof typeof strings.subTest].title}</h2>
+                <h2 className="typography-heading">{city.title}</h2>
                 {
                     isChemistryDefined &&
                     <ChemistryResultAccordion cityClass={cityClass} />
                 }
-                <div>
-                    <Divider />
-                </div>
             </div>
-                    {/* <div slot="container-start"> */}
-                        <PaginationDiv className='pageSwiper-pagination' sx={{ justifyContent: 'center', marginBottom: '1rem' }} />
-                    {/* </div> */}                    
+            <Divider />
             <div style={{ flexShrink: 1, overflow: "hidden" }}>
-                <Swiper {...SWIPERPROPS_CITYDETAILCONTENT} initialSlide={state && state.initialIndex ? state.initialIndex : 0} style={{ display: "flex", flexDirection: "column", height: "100%" }}>{
-                        TEST.city.subTests[cityClass].examples.map((cityId) => (
+                <Swiper {...SWIPERPROPS_CITYDETAILCONTENT} initialSlide={state && state.initialIndex ? state.initialIndex : 0} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+                    <div style={{ position: "absolute", top: "1rem", width: "100%", zIndex: 1 }}>
+                        <PaginationBullets className='pageSwiper-pagination' sx={{ justifyContent: 'center' }} />
+                    </div>
+                    {
+                        city.examples.map((cityId) => (
                             <SwiperSlide key={cityId} style={{ overflow: "scroll" }} >
-                                <div className="block--with-margin-x block__body">
-                                    <div className="block--round" style={{ position: "absolute", top: 0 }}/>
+                                <div className="wrapper content" style={{ marginTop: "1.5rem" }}>
+                                    {/* <div className="block--round" style={{ position: "absolute", top: 0 }}/> */}
                                     <ImageCard
                                         src={getImgSrc("/city", cityId, { size: 'large' })}
                                         title={cityId}

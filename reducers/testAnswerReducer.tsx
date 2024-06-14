@@ -12,34 +12,44 @@ import { HEADERS_AXIOS, TEST_TYPE } from "../common/app-const";
 import { ActivityTag } from "../interfaces/enums/ActivityTag";
 import { ExpectationTag } from "../interfaces/enums/ExpectationTag";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
-import { ITestAnswer, ITestAnswerDTO, NumericTestName, SET_TESTS, SetTestName, testAnswerToDTO } from "../interfaces/ITestAnswer";
+import { HashTagTestKeys, IHashTagTestKey, ITestAnswer, ITestAnswerDTO, INumericTestKey, testAnswerToDTO, ITestKey } from "../interfaces/ITestAnswer";
 import { AppDispatch, RootState } from "../store";
 import { useUserId } from "./authReducer";
 
 
 export const sampleTestAnswer: ITestAnswer = {
-    expectation: {
-        selected: Object.values(ExpectationTag).slice(0, 4),
-        unSelected: Object.values(ExpectationTag).slice(4)
-    },
-    activity: {
-        selected: Object.values(ActivityTag).slice(0, 4),
-        unSelected: Object.values(ActivityTag).slice(4)
+    hashtag: {
+        expectation: {
+            selected: Object.values(ExpectationTag).slice(0, 4),
+            unSelected: Object.values(ExpectationTag).slice(4)
+        },
+        activity: {
+            selected: Object.values(ActivityTag).slice(0, 4),
+            unSelected: Object.values(ActivityTag).slice(4)
+        },
     },
     leadership: 1,
-    scheduleStartTime: 6,
-    scheduleEndTime: 18,
-    schedule: 4,
-    dailyRestaurantBudget: 10000, /* 식사 평균 */
-    specialRestaurantBudget: 80000, /* 특별한 식사 */
-    specialRestaurantCount: 2, /* 특별한 식사 */
+    schedule: {
+        startTime: 6,
+        endTime: 18,
+        schedule: 4,
+    },
+    restaurant: {
+        dailyBudget: 12000, /* 식사 평균 */
+        specialBudget: 80000, /* 특별한 식사 */
+        specialCount: 2, /* 특별한 식사 */
+    },
+    city: {
+        metropolis: 1,
+        history: 2,
+        nature: 4,
+        small: 5,
+    }
     // accomodate: undefined, /* 숙소 평균 */
     // accomodateSpecial: undefined, /* 특별한 숙소 */
-    metropolis: 1,
-    history: 2,
-    nature: 4,
-    small: 5,
 };
+
+// type ITestAnswer = typeof sampleTestAnswer'
 
 type ITestAnswerState = IWithLoadStatus<ITestAnswer>
 
@@ -50,14 +60,20 @@ const initialState: ITestAnswerState = {
 };
 
 interface ISetNumericAnswerPayload {
-    testName: NumericTestName;
+    key: string;
+    subKey?: string;
     value: number;
 };
 
-interface ISetSetAnswerPayload {
-    testName: SetTestName;
+interface ISetHashTagAnswerPayload {
+    key: IHashTagTestKey;
     tag: number;
 };
+
+export interface ITestIndex{
+    testKey: ITestKey
+    subKey?: string 
+}
 
 export const asyncSubmitAnswer = createAsyncThunk("testAnswer/submitAnswer",
     async ({ id, answer }: { id: string, answer: ITestAnswerDTO }, thunkAPI) => {
@@ -89,20 +105,25 @@ const testAnswerSlice = createSlice({
         setNumericAnswer: (state, action: PayloadAction<ISetNumericAnswerPayload>) => {
             console.log(`[testAnswerSlice] [setNumericAnswer]: state=${JSON.stringify(state)} payload=${JSON.stringify(action.payload)}`);
             if (state.data) {
-                state.data[action.payload.testName] = action.payload.value;
+                if (action.payload.subKey) {
+                    state.data[action.payload.key][action.payload.subKey] = action.payload.value;
+                }
+                else {
+                    state.data[action.payload.key] = action.payload.value;
+                }
             }
         },
-        addTagAnswer: (state, action: PayloadAction<ISetSetAnswerPayload>) => {
-            if (!state.data[action.payload.testName].selected.includes(action.payload.tag)) {
-                state.data[action.payload.testName].selected.push(action.payload.tag);
+        addHashTagAnswer: (state, action: PayloadAction<ISetHashTagAnswerPayload>) => {
+            if (!state.data.hashtag[action.payload.key].selected.includes(action.payload.tag)) {
+                state.data.hashtag[action.payload.key].selected.push(action.payload.tag);
             }
-            state.data[action.payload.testName].unSelected.splice(state.data[action.payload.testName].unSelected.indexOf(action.payload.tag), 1);
+            state.data.hashtag[action.payload.key].unSelected.splice(state.data.hashtag[action.payload.key].unSelected.indexOf(action.payload.tag), 1);
         },
-        deleteTagAnswer: (state, action: PayloadAction<ISetSetAnswerPayload>) => {
-            if (!state.data[action.payload.testName].unSelected.includes(action.payload.tag)) {
-                state.data[action.payload.testName].unSelected.unshift(action.payload.tag);
+        deleteHashTagAnswer: (state, action: PayloadAction<ISetHashTagAnswerPayload>) => {
+            if (!state.data.hashtag[action.payload.key].unSelected.includes(action.payload.tag)) {
+                state.data.hashtag[action.payload.key].unSelected.unshift(action.payload.tag);
             }
-            state.data[action.payload.testName].selected.splice(state.data[action.payload.testName].selected.indexOf(action.payload.tag), 1);
+            state.data.hashtag[action.payload.key].selected.splice(state.data.hashtag[action.payload.key].selected.indexOf(action.payload.tag), 1);
         },
         setStatus: (state, action: PayloadAction<LoadStatus>) => {
             state.loadStatus = action.payload;
@@ -125,58 +146,64 @@ const testAnswerSlice = createSlice({
     },
 });
 
-export const useTestAnswer = (testName: NumericTestName) => {
+export const useTestAnswer = (key: INumericTestKey, subKey?: string) => {
     const dispatch = useDispatch();
     return (
         [
-            useSelector((state: RootState) => (state.testAnswer.data[testName]) as number),
+            useSelector((state: RootState) => ( subKey ? state.testAnswer.data[key][subKey] :  state.testAnswer.data[key] ) as number),
             useCallback((value: number) =>
-                dispatch(testAnswerSlice.actions.setNumericAnswer({ testName, value }))
+                dispatch(testAnswerSlice.actions.setNumericAnswer({ key, subKey, value }))
                 , [dispatch])
         ] as const
     )
 };
 
-// export const useDayjsTestAnswer = (testName: DayjsTestName) => {
+// export const useDayjsTestAnswer = (testKey: DayjsTestKey) => {
 //     const dispatch = useDispatch();
 //     return (
 //         [
-//             useSelector((state: RootState) => (state.testAnswer.data[testName]) as Dayjs),
+//             useSelector((state: RootState) => (state.testAnswer.data[testKey]) as Dayjs),
 //             useCallback((value: Dayjs) =>
-//                 dispatch(testAnswerSlice.actions.setDayjsAnswer({ testName, value }))
+//                 dispatch(testAnswerSlice.actions.setDayjsAnswer({ testKey, value }))
 //                 , [dispatch])
 //         ] as const
 //     )
 // };
 
-export const useTagSetAnswer = (testName: SetTestName, selected = true) => {
-    const answer = useSelector((state: RootState) => (state.testAnswer.data[testName][selected ? "selected" : "unSelected"]))
+export const useTagSetAnswer = (key: IHashTagTestKey, selected = true) => {
+    const answer = useSelector((state: RootState) => (state.testAnswer.data.hashtag[key][selected ? "selected" : "unSelected"]))
     return (Array.from(answer.values()))
 };
 
-export const useIsTestAnswered = (tests: string[]) => {
+export const useIsTestAnswered = ( tests: ITestIndex[] ) => {
     return (
-        useSelector((state: RootState) => (
-            tests.map((testName) => {
-                const answer = state.testAnswer.data[testName]
+        useSelector(
+            (state: RootState) => ( tests.map(({ testKey, subKey }) => {
+                const answer = subKey ? state.testAnswer.data[testKey][subKey] : state.testAnswer.data[testKey]
+                console.log("Hello", testKey, subKey, answer );
                 return (
-                    (SET_TESTS.includes(testName))
-                        ? answer.selected.length >= TEST_TYPE.tagSet.selectedMinLength
+                    (HashTagTestKeys.includes( testKey ))
+                        ? answer.selected.length >= TEST_TYPE.hashtag.selectedMinLength
                         : answer !== undefined
                 )
-            }
-            ).every(v => v)
-        ))
+            }).every(v => v))
+        )
     );
 }
 
 export const useIsAllTestAnswered = () => {
     return (
         useSelector((state: RootState) => (
-            Object.entries(state.testAnswer.data).map(([testName, answer]) =>
-                (SET_TESTS.includes(testName))
-                    ? answer.selected.length >= TEST_TYPE.tagSet.selectedMinLength
-                    : answer !== undefined
+            Object.entries(state.testAnswer.data).map(([ key, answer ]) =>
+                typeof answer === "object"
+                ?
+                Object.values(answer).map( value => 
+                    ( key === "hashtag" ) 
+                        ? (value as { selected : string[] }).selected.length >= TEST_TYPE.hashtag.selectedMinLength
+                        : value !== undefined
+                ).every(v => v)
+
+                : answer !== undefined
             ).every(v => v)
         ))
     );
@@ -211,6 +238,6 @@ const useSubmitAnswer = () => {
 export default testAnswerSlice.reducer;
 export { useSubmitAnswer, useTestAnswerStatus };
 export type { ITestAnswerState };
-export const { addTagAnswer, deleteTagAnswer } = testAnswerSlice.actions;
+export const { addHashTagAnswer, deleteHashTagAnswer } = testAnswerSlice.actions;
 export type { ITestAnswer };
 

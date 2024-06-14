@@ -8,7 +8,7 @@ const SectionPaper = forwardRef(({ className, square = true, children, ...props 
         square={square}
         elevation={0}
         {...props}
-        className={`block--with-padding block--with-padding--large ${className}`}
+        className={`section ${className}`}
     >
         {children}
     </Paper>

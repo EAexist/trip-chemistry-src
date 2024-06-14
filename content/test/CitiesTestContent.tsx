@@ -21,15 +21,17 @@ function CitiesTestContent({ }: CitiesTestContentProps) {
         };
 
     return (
-        <div className="block__body">
-            <h2 className="test__title__heading typography-heading">이런 곳은 어때?</h2>
-            <div>
-            {
-                Object.keys(CITY_TYPES).map(( cityType : ICityType, index ) => (
-                    <CityTestContent cityType={cityType} expanded={expanded===cityType} onChange={handleChange(cityType)}/>
-                ))
-            }
-            </div>
+        <div className="content">
+            <h2 className="typography-heading">이런 곳은 어때?</h2>
+            <ul>
+                {
+                    Object.keys(CITY_TYPES).map((cityType: ICityType, index) => (
+                        <li key={cityType}>
+                            <CityTestContent cityType={cityType} expanded={expanded === cityType} onChange={handleChange(cityType)} />
+                        </li>
+                    ))
+                }
+            </ul>
         </div>
     );
 }

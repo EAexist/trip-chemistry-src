@@ -67,12 +67,12 @@ function LoginContent() {
             handleFail: () => { }
         }}>
             <RoutedMotionPage className="flex fill-window">
-                <div className="flex-grow block--centered-row block__body block__body--large">
+                <div className="flex-grow block--centered-row content content--large">
                     <div style={{ marginTop: "128px" }} />
                     <h2 className="typography-label">
                         로그인하고 테스트를 시작해보세요
                     </h2>
-                    <div className="block--with-padding block--with-padding--large">
+                    <div className="wrapper">
                         <Grid container direction={"column"} rowSpacing={2}>
                             <Grid item>
                                 <KakaoLoginButton />

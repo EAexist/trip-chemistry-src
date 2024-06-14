@@ -10,7 +10,7 @@ import Page from './route/Page';
 import { store } from './store';
 
 /* Mockup */
-import ChemistryDetailMockupContent from './mockup/ChemistryDetailMockupContent';
+// import ChemistryDetailMockupContent from './mockup/ChemistryDetailMockupContent';
 
 /* Loadable Components */
 
@@ -94,10 +94,6 @@ const routes = createRoutesFromElements(
                 <Route key={'index'} index element={<LoginContent />} />
                 <Route key={'initializeNickname'} path={'initializeNickname'} element={<InitializeNicknameContent />} />
                 <Route key={'redirectURI'} path={'kakaoAuthRedirect'} element={<KakaoAuthRedirectPage />} />
-            </Route>
-            {/* Mockup */}
-            <Route key={'chemistryMockup'} path={'chemistryMockup/:chemistryId'} element={<ChemistryRoute />} >
-                <Route key={'index'} index element={<ChemistryDetailMockupContent />} />
             </Route>
         </Route>
 

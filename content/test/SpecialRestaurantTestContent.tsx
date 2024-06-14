@@ -1,48 +1,44 @@
 /* React */
 
 /* Externals */
-import { Accordion, AccordionDetails, AccordionSummary, Chip, Divider, SliderProps, Stack } from "@mui/material";
-import { useSelector } from "react-redux";
+import { Chip, Divider, SliderProps, Stack } from "@mui/material";
 
 /* Swiper */
 import 'swiper/css';
 import 'swiper/css/effect-coverflow'; /* Food Carousel */
 
 /* App */
-import { RootState } from "../../store";
-import { priceText } from "../../utils/priceText";
-import AnswerSlider from "./component/AnswerSlider";
-import { Edit, ExpandMore } from "@mui/icons-material";
 import { SyntheticEvent, useState } from "react";
 import { useTestAnswer } from "~/reducers/testAnswerReducer";
+import AnswerSlider from "./component/AnswerSlider";
 
+/* Strings */
+export const specialFoodBudgetSliderProps: SliderProps = {
+    step: 20000,
+    min: 20000,
+    max: 120000,
+    "aria-label": "special restaurant budget",
+    marks: [
+        {
+            value: 10000,
+            label: "만원"
+        },
+        {
+            value: 50000,
+            label: "5만원"
+        },
+        {
+            value: 100000,
+            label: "10만원"
+        },
+    ]
+};
 function SpecialRestaurantTestContent() {
 
-    /* Strings */
-    const specialFoodBudgetSliderProps: SliderProps = {
-        step: 10000,
-        min: 10000,
-        max: 110000,
-        "aria-label": "special restaurant budget",
-        marks: [
-            {
-                value: 10000,
-                label: "만원"
-            },
-            {
-                value: 50000,
-                label: "5만원"
-            },
-            {
-                value: 100000,
-                label: "10만원"
-            },
-        ]
-    };
 
     /* Reducers */
-    const [specialRestaurantBudgetAnswer] = useTestAnswer("specialRestaurantBudget");
-    const [specialRestaurantCountAnswer, setSpecialRestaurantCountAnswer] = useTestAnswer("specialRestaurantCount");
+    const [specialRestaurantBudgetAnswer] = useTestAnswer("restaurant", "specialBudget");
+    const [specialRestaurantCountAnswer, setSpecialRestaurantCountAnswer] = useTestAnswer("restaurant", "specialCount");
 
     const [expanded, setExpanded] = useState<string | false>("count");
 
@@ -58,10 +54,10 @@ function SpecialRestaurantTestContent() {
     }
 
     return (
-        <div className="block__body">
+        <div className="content">
             <h2 className="test__title__heading typography-heading">유명 맛집에서의 특별한 한끼</h2>
             <h3 className="typography-body">얼마나 많이 갈까?</h3>
-            <div className="block__body block--with-margin--large">
+            <div className="content block--with-margin--large">
                 <p className="typography-center">3박 4일 동안</p>
                 <Stack flexWrap={"wrap"} justifyContent={"center"} rowGap={1}>
                     {
@@ -84,7 +80,9 @@ function SpecialRestaurantTestContent() {
             <Divider />
             <h3 className="typography-body">얼마까지 쓸 수 있어?</h3>
             <AnswerSlider
-                testName="specialRestaurantBudget"
+                testKey="restaurant"
+                subKey="specialBudget"
+                // disabled={}
                 {...specialFoodBudgetSliderProps}
             />
         </div>

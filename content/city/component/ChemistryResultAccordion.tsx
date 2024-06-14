@@ -7,7 +7,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Button, Divider, ListIte
 import { AnimatePresence, m } from "framer-motion";
 
 /* App */
-import { TEST } from "../../../common/app-const";
+import { PREFERENCE_OPTIONS, TEST } from "../../../common/app-const";
 import FriendAvatar from "../../../components/Avatar/FriendAvatar";
 import { IProfile } from "../../../interfaces/IProfile";
 import { MotionList } from "../../../motion/components/MotionList";
@@ -37,11 +37,7 @@ function ChemistryResultAccordion({ cityClass }: ChemistryResultAccordionProps) 
     /* Reducers */
     const isChemistryEnabled = useIsChemistryEnabled();
     const score = useCityChemistry(cityClass);
-    const answerList = (useProfileAll() as IProfile[]).map(({ id, testAnswer }) =>
-        ({ id: id, answer: testAnswer[cityClass] })
-    ).sort((a, b) => (b.answer as number) - (a.answer as number));
-
-    const valueToProfileList = useValueToProfileIdList(cityClass);
+    const valueToProfileList = useValueToProfileIdList("city", cityClass);
 
     /* Event Handlers */
     const handleClickExpandButton = () => setExpanded((prev) => (!prev))
@@ -64,7 +60,7 @@ function ChemistryResultAccordion({ cityClass }: ChemistryResultAccordionProps) 
 
     return (
         isChemistryEnabled &&
-            <div className="block__body">
+            <div className="content">
                 <Stack justifyContent={'space-between'} style={{ width: "100%" }}>
                     <Stack>
                         <Rating value={score} readOnly precision={0.5} size={"small"} />
@@ -94,34 +90,19 @@ function ChemistryResultAccordion({ cityClass }: ChemistryResultAccordionProps) 
                                 exit={"hidden"}
                                 variants={variants_drawer}
                             >
-                                <MotionList variants={VARIANTS_STAGGER_CHILDREN} disablePadding>
-                                    {/* {
-                                    answerList.map(({ id, answer }) => (
-                                        <MotionListItem key={id} >
-                                            <ListItemAvatar>
-                                                <FriendAvatar id={id} />
-                                            </ListItemAvatar>
-                                            <ListItemText primary={
-                                                <Stack>
-                                                    <Rating value={Number(answer)} readOnly precision={0.5} size={"small"} />
-                                                    <p className="typography-note">{strings.test.city.answers[answer as keyof typeof strings.test.city.answers].label}</p>
-                                                </Stack>
-                                            } />
-                                        </MotionListItem>
-                                    ))
-                                } */}
+                                <MotionList variants={VARIANTS_STAGGER_CHILDREN}>
                                     {
                                         Object.entries(valueToProfileList).reverse().map(([value, idList], index) => (
                                             <MotionListItem key={value} disablePadding>
                                                 <ListItemAvatar style={{ width: "72px" }} className="block--centered">
                                                     <Rating value={Number(value)} readOnly max={Number(value)} sx={{ fontSize: "14px" }} />
-                                                    <p className="typography-note">{strings.test.city.answers[Number(value) as keyof typeof strings.test.city.answers].label}</p>
+                                                    <p className="typography-note">{PREFERENCE_OPTIONS[value].label}</p>
                                                 </ListItemAvatar>
                                                 <ListItemText primary={
                                                     <Stack spacing={0.5}>
                                                         {
                                                             idList.map((id) => (
-                                                                <FriendAvatar id={id} />
+                                                                <FriendAvatar key={id} id={id} />
                                                             ))
                                                         }
                                                     </Stack>

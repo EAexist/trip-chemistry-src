@@ -23,7 +23,7 @@ function LeadershipTestContent() {
 
     /* Strings */
     const contentstrings = useStrings().public.contents.test;
-    const strings = Object(useStrings().public.contents.test.test)[TEST_SECTIONS.leadership.type];
+    const optionStrings = Object(useStrings().public.contents.test.test.leadership.options);
 
     /* Reducers */
     const [answer, setAnswer] = useTestAnswer("leadership");
@@ -32,7 +32,7 @@ function LeadershipTestContent() {
 
     return (
         <>
-            <div className="block block__body block__body--large">
+            <div className="block content content--large">
                 <div className="test__title">
                     <h2 className="test__title__heading typography-heading">{contentstrings.test.leadership.title}</h2>
                 </div>
@@ -59,11 +59,11 @@ function LeadershipTestContent() {
                                         }}
                                     >
                                         <CardActionArea onClick={() => setAnswer(Number(value))} className="flex-end">
-                                            <CardContent className="block__body block__body--full" sx={{ textAlign: 'center' }}>
+                                            <CardContent className="content content--full" sx={{ textAlign: 'center' }}>
                                                 {
                                                     isActive && <Check color="primary"/>
                                                 }
-                                                <p className={ isActive ? "typography-label" : "typography-note"}><b>{ strings.answers[value].label }</b></p>
+                                                <p className={ isActive ? "typography-label" : "typography-note"}><b>{ optionStrings[value].label }</b></p>
                                                 {
                                                     isActive &&
                                                     <>

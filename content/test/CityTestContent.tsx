@@ -7,14 +7,13 @@ import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { ExpandMore } from "@mui/icons-material";
-import { CITIES, CITY_TYPES, ICityType, NATION } from "~/common/app-const";
+import { CITIES, CITY_TYPES, ICityType, NATION, PREFERENCE_OPTIONS } from "~/common/app-const";
 import ImageCard from "~/components/Card/ImageCard";
 import Flag from "~/components/Flag";
 import { useTestAnswer } from "~/reducers/testAnswerReducer";
 import { useStrings } from "~/texts";
 import getImgSrc from "~/utils/getImgSrc";
 import AnswerButtonGroup from "./component/AnswerButtonGroup";
-import { NumericTestName } from "~/interfaces/ITestAnswer";
 
 interface CityTestContentProps extends Omit<AccordionProps, "children"> {
     cityType: ICityType
@@ -24,11 +23,11 @@ function CityTestContent({ cityType, expanded, onChange }: CityTestContentProps)
 
     const commonStrings = useStrings().public.common;
 
-    const answerStrings = Object(useStrings().public.contents.test.test).city.answers;
+    const answerStrings = Object(useStrings().public.contents.test.test.city.answers);
 
     const { title, icon, examples } = CITY_TYPES[cityType];
 
-    const [answer] = useTestAnswer(cityType);
+    const [answer] = useTestAnswer("city", cityType);
 
     return (
         <Accordion expanded={expanded} onChange={onChange}>
@@ -49,7 +48,7 @@ function CityTestContent({ cityType, expanded, onChange }: CityTestContentProps)
                 </Stack>
             </AccordionSummary>
             <AccordionDetails>
-                <div className="block__body">
+                <div className="content">
                     <Swiper
                         modules={[Pagination]}
                         pagination={{
@@ -59,7 +58,7 @@ function CityTestContent({ cityType, expanded, onChange }: CityTestContentProps)
                         loop={true}
                        
                     >
-                        {/* <PaginationDiv className='pageSwiper-pagination' sx={{ justifyContent: 'center', marginBottom: '1rem' }} /> */}
+                        {/* <PaginationBullets className='pageSwiper-pagination' sx={{ justifyContent: 'center', marginBottom: '1rem' }} /> */}
                         {
                             examples.map((cityId, index) => (
                                 <SwiperSlide key={cityId} >
@@ -85,35 +84,9 @@ function CityTestContent({ cityType, expanded, onChange }: CityTestContentProps)
                         }
                     </Swiper>
                         <AnswerButtonGroup 
-                            testName={cityType as NumericTestName}
-                            options={[
-                                {
-                                    value: 1,
-                                    label: "싫어!",
-                                    icon: "😡",
-                                },
-                                {
-                                    value: 2,
-                                    label: "별로야.",
-                                    icon: "😤",
-                                },
-                                {
-                                    value: 3,
-                                    label: "상관없어",
-                                    icon: "🤔",
-                                },
-                                {
-                                    value: 4,
-                                    label: "좋아",
-                                    icon: "😃",
-                                },
-                                {
-                                    value: 5,
-                                    label: "완전 내 취향!",
-                                    icon: "😍",
-                                },
-
-                            ]}
+                            testKey={"city"}
+                            subKey={cityType}
+                            options={Object.values(PREFERENCE_OPTIONS)}
                         />
                 </div>
             </AccordionDetails>

@@ -2,7 +2,7 @@ import { Card, CardActionArea, CardContent, Paper, Stack } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { HEADERS_AXIOS } from "../../../common/app-const";
-import LabeledAvatar from "../../../components/Avatar/LabeledAvatar";
+import ProfileAvatar from "../../../components/Avatar/ProfileAvatar";
 import useNavigateWithGuestContext from "../../../hooks/useNavigateWithGuestContext";
 import { IChemistry, defaultChemistry } from "../../../interfaces/IChemistry";
 
@@ -50,12 +50,12 @@ function ChemistrySummaryButton({ id }: ChemistrySummaryButtonProps) {
     return (
         <Card className="block--xlarge_" elevation={0}>
             <CardActionArea onClick={handleClick} className="flex-end">
-                <CardContent className="block__body">
+                <CardContent className="content">
                     <h2 className="typography-heading body__head">{chemistry.title}</h2>
                     <Stack spacing={0.5}>
                         {
                             Object.values(chemistry.profileList).map(({ testResult, nickname }) => (
-                                <LabeledAvatar key={nickname} {...{ nickname, characterId: testResult && testResult.tripCharacter ? testResult.tripCharacter.id : "user" }} />
+                                <ProfileAvatar key={nickname} nickname={nickname} avatarId={testResult?.characterId || "user"} />
                             ))
                         }
                     </Stack>

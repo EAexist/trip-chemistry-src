@@ -16,7 +16,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
             color: '#fff',
             transform: 'translateX(22px)',
             '& .MuiSwitch-thumb:before': {
-                backgroundImage: `url('${getImgSrc('/icon', 'sun')}')`,
+                backgroundImage: `url('${getImgSrc('/icon', 'afternoon')}')`,
                 backgroundSize: 25,
             },
             '& + .MuiSwitch-track': {
@@ -38,7 +38,7 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
             top: 0,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
-            backgroundImage: `url('${getImgSrc('/icon', 'sunrise')}')`,
+            backgroundImage: `url('${getImgSrc('/icon', 'evening')}')`,
             backgroundSize: 25,
         },
     },

@@ -2,10 +2,10 @@ import { PropsWithChildren } from "react";
 
 import { Badge, BadgeProps } from "@mui/material";
 
-import { useIsTestAnswered } from "../../../reducers/testAnswerReducer";
+import { ITestIndex, useIsTestAnswered } from "../../../reducers/testAnswerReducer";
 
 interface TestAnswerBadgeProps extends BadgeProps{
-    tests: string[];
+    tests: ITestIndex[];
 };
 
 function TestAnswerBadge({ tests, children, ...props }: PropsWithChildren<TestAnswerBadgeProps>) {

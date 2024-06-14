@@ -13,7 +13,7 @@
 // import ImageCard from "../../components/Card/ImageCard";
 // import Flag from "../../components/Flag";
 // import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
-// import { NumericTestName } from "../../reducers/testAnswerReducer";
+// import { INumericTestKey } from "../../reducers/testAnswerReducer";
 // import { SWIPERPROPS_CAROUSEL } from "../../swiper/props";
 // import { useStrings } from "../../texts";
 // import getImgSrc from "../../utils/getImgSrc";
@@ -48,7 +48,7 @@
 //                         examples.map((cityId, index) => (
 //                             <SwiperSlide key={cityId} className="carousel__swiper-slide--auto">
 //                                 <ButtonBase onClick={() => handleCityCardClick(id, index)} className="block--full">
-//                                     <div className="block__body">
+//                                     <div className="content">
 //                                         <ImageCard
 //                                             src={getImgSrc("/city", cityId)}
 //                                             title={cityId}
@@ -69,10 +69,10 @@
 //                     }
 //                 </Swiper>
 //             </div>
-//             <div className="block block__body block__body--large">
+//             <div className="block content content--large">
 //                 <div className="test__title body__head">
 //                     <h2 className="test__title__heading typography-heading">{contentstrings.test.city.titleTextList.map((text) => (
-//                         text === "/testName"
+//                         text === "/testKey"
 //                             ? contentstrings.subTest[id as keyof typeof contentstrings.subTest].title
 //                             : (
 //                                 text === "/particle"
@@ -81,7 +81,7 @@
 //                             )
 //                     ))}</h2>
 //                 </div>
-//                 <AnswerButtonGroup testName={id as NumericTestName} />
+//                 <AnswerButtonGroup testKey={id as INumericTestKey} />
 //                 <div />
 //             </div>
 //         </>

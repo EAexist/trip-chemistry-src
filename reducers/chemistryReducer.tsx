@@ -2,7 +2,7 @@
 import { useCallback } from "react";
 
 /* Externals */
-import type { PayloadAction} from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -13,7 +13,7 @@ import { HEADERS_AXIOS } from "../common/app-const";
 import { IChemistry, defaultChemistry } from "../interfaces/IChemistry";
 import { IProfile, IProfileId, defaultProfile } from "../interfaces/IProfile";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
-import { ITestName } from "../interfaces/ITestAnswer";
+import { ITestKey } from "../interfaces/ITestAnswer";
 
 
 interface IChemistryCreateDTO extends Pick<IChemistry, "title" | "titleCity"> {
@@ -139,7 +139,7 @@ const chemistrySlice = createSlice({
         /* asyncGetChemistry */
         builder.addCase(asyncGetChemistry.fulfilled, (state, action: PayloadAction<IChemistry>) => {
             console.log(`asyncGetChemistry.fulfilled: action.payload=${JSON.stringify(action.payload)}`);
-            // state.data = action.payload;
+            state.data = action.payload;
             state.loadStatus = LoadStatus.SUCCESS;
         });
         builder.addCase(asyncGetChemistry.pending, (state, action) => {
@@ -153,6 +153,7 @@ const chemistrySlice = createSlice({
         });
     },
 })
+
 
 const useChemistry = () => {
     return (useSelector((state: RootState) => state.chemistry.data));
@@ -172,13 +173,22 @@ const useIsChemistryEnabled = () => {
 };
 
 const useCityChemistry = (cityClass: string) => {
-    return (useSelector((state: RootState) => state.chemistry.data ? state.chemistry.data.cityChemistry[cityClass] : -1));
+    return (useSelector((state: RootState) => state.chemistry.data ? state.chemistry.data.city[cityClass] : -1));
 };
 
-const useSortedCityList = () => {
-    const cityChemistry = useSelector((state: RootState) => state.chemistry.data.cityChemistry);
-    return (cityChemistry ? Object.entries(cityChemistry).sort((a, b) => (b[1] - a[1])).map(([cityClass, score]) => cityClass) : undefined);
-};
+// const useCityChemistry = (cityClass: string) => {
+
+//     const cityAnswerList =
+//         useSelector((state: RootState) => Object.values(state.chemistry.data.profileList)
+//             .filter(profile => profile.testAnswer !== null)
+//             .map(profile => profile.testAnswer.city[cityClass])
+//         )
+
+//     return (
+//         cityAnswerList.map(profile => profile.testAnswer.city[cityClass])
+//             .reduce((a, b) => a + b, 0) / cityAnswerList.length
+//     )
+// };
 
 const useChemistryLoadStatus = () => {
     const dispatch = useDispatch(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
@@ -191,7 +201,7 @@ const useChemistryLoadStatus = () => {
     ] as const);
 }
 
-const useTestAnswerObject = (testName: ITestName) => {
+const useTestAnswerObject = (testKey: ITestKey, subKey?: string) => {
 
     return (
         useSelector((state: RootState) =>
@@ -199,7 +209,7 @@ const useTestAnswerObject = (testName: ITestName) => {
                 Object.entries(state.chemistry.data?.profileList)
                     .filter(([, profile]) => profile.testAnswer !== null)
                     .map(([id, profile]) => {
-                        return ([id, profile.testAnswer[testName]] as const)
+                        return ([id, subKey ? profile.testAnswer[testKey][subKey] : profile.testAnswer[testKey]] as const)
                     })
             )
             , shallowEqual
@@ -221,6 +231,7 @@ const useProfileIdList = (answeredProfileOnly: boolean = true) => {
     return (
         useSelector((state: RootState) => Object.values(state.chemistry.data.profileList)
             .filter(profile => answeredProfileOnly ? (profile.testAnswer !== null) : true)
+            .sort((a, b) => ((b.testAnswer === null) ? -1 : 1))
             .map(profile => profile.id)
             , shallowEqual)
     );
@@ -256,7 +267,7 @@ function filterProfile<T extends (keyof IProfile) | IProfile>(profileList: IProf
 export default chemistrySlice.reducer;
 export type { IChemistryState }
 export const { clearChemistry } = chemistrySlice.actions;
-export { asyncGetChemistry, useChemistry, useChemistryId, useChemistryLoadStatus, useCityChemistry, useIsChemistryEnabled, useProfile, useProfileAll, useProfileIdList, useSortedCityList, useTestAnswerObject };
+export { asyncGetChemistry, useChemistry, useChemistryId, useChemistryLoadStatus, useCityChemistry, useIsChemistryEnabled, useProfile, useProfileAll, useProfileIdList, useTestAnswerObject };
 export { filterProfile }
 
 /* Deprecated */

@@ -6,18 +6,15 @@ import { FADEIN_FROMBOTTOM_VIEWPORT, VARIANTS_FADEIN_FROMBOTTOM, VARIANTS_STAGGE
 import FriendAvatar from "../../../components/Avatar/FriendAvatar";
 import useProfileIdListByAnswer from "../../../hooks/useProfileIdListByAnswer";
 import useValueToProfileIdList from "../../../hooks/useValueToProfileIdList";
-import { ITestName } from "../../../interfaces/ITestAnswer";
+import { ITestKey } from "../../../interfaces/ITestAnswer";
+import { ITestIndex } from "~/reducers/testAnswerReducer";
 
-interface ChemistrySliderProps extends SliderOwnProps {
-    testName: ITestName
-    // min?: number
-    // max?: number
-    // step?: number
+interface ChemistrySliderProps extends SliderOwnProps, ITestIndex {
 };
 
-const SliderValueLabel = m(forwardRef(({ testName, value }: { testName: ITestName, value: number }, ref: Ref<HTMLDivElement>) => {
+const SliderValueLabel = m(forwardRef(({ testKey, value }: { testKey: ITestKey, value: number }, ref: Ref<HTMLDivElement>) => {
 
-    const { userList } = useProfileIdListByAnswer(testName, value);
+    const { userList } = useProfileIdListByAnswer(testKey, value);
 
     return (
         userList.length > 0
@@ -37,9 +34,9 @@ const SliderValueLabel = m(forwardRef(({ testName, value }: { testName: ITestNam
 
 const Slider = m(MuiSlider, { forwardMotionProps: true });
 
-function ChemistrySlider({ testName, ...sliderOwnProps }: ChemistrySliderProps) {
+function ChemistrySlider({ testKey, subKey, ...sliderOwnProps }: ChemistrySliderProps ) {
 
-    const budgetAnswerToProfiles = useValueToProfileIdList(testName);
+    const budgetAnswerToProfiles = useValueToProfileIdList(testKey, subKey);
 
     const marks = Array.from(
         { length: (sliderOwnProps.max - sliderOwnProps.min) / sliderOwnProps.step + 1 },
@@ -84,7 +81,7 @@ function ChemistrySlider({ testName, ...sliderOwnProps }: ChemistrySliderProps) 
                 <m.div className="flex" initial={"hidden"} whileInView={"visible"} variants={VARIANTS_STAGGER_CHILDREN} custom={{ staggerChildren: 0.2, delayChildren: 0.5 }}>
                     {
                         marks.map((value) => (
-                            <SliderValueLabel key={value} testName={testName} value={value} variants={VARIANTS_FADEIN_FROMBOTTOM} />
+                            <SliderValueLabel key={value} testKey={testKey} value={value} variants={VARIANTS_FADEIN_FROMBOTTOM} />
                         ))
                     }
                 </m.div>
@@ -97,12 +94,12 @@ export type { ChemistrySliderProps };
 
 /* Deprecated */
 // interface ValueLabelComponentProps extends SliderValueLabelProps {
-//     testName: ITestName;
+//     testKey: ITestKey;
 // }
 
-// const valueLabelComponent = (testName: ITestName) => ({ value, children }: SliderValueLabelProps) => {
+// const valueLabelComponent = (testKey: ITestKey) => ({ value, children }: SliderValueLabelProps) => {
 
-//     const { userList, ascendingOrder } = useProfileIdListByAnswer(testName, value);
+//     const { userList, ascendingOrder } = useProfileIdListByAnswer(testKey, value);
 //     const isEven = ascendingOrder % 2 === 0;
 
 //     return (

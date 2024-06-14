@@ -36,7 +36,7 @@ import withReducer from "../../hocs/withReducer";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import { FADEIN } from "../../motion/props";
 import { useGetProfile } from "../../reducers/authReducer";
-import testAnswerReducer, { useIsAllTestAnswered, useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
+import testAnswerReducer, { ITestIndex, useIsAllTestAnswered, useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
 import { useStrings } from "../../texts";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import TestAnswerBadge from "./component/TestAnswerBadge";
@@ -45,7 +45,7 @@ import NoticeBlock from "~/components/Block/NoticeBlock";
 import getImgSrc from "~/utils/getImgSrc";
 import LazyImage from "~/components/LazyImage";
 import ScheduleTestContent from "./ScheduleTestContent";
-import { SetTestName } from "~/interfaces/ITestAnswer";
+import { IHashTagTestKey } from "~/interfaces/ITestAnswer";
 
 
 function TestContent() {
@@ -65,59 +65,104 @@ function TestContent() {
     const TEST_SECTIONS = {
         expectation:
         {
-            type: "tagSet",
+            type: "hashtag",
             icon: "expectation",
             label: "# 여행 테마",
-            tests: ["expectation"]
+            tests: [
+                {
+                    testKey: "hashtag", 
+                    subKey: "expectation"
+                }
+            ]
         },
         activity:
         {
-            type: "tagSet",
+            type: "hashtag",
             icon: "activity",
             label: "# 액티비티",
-            tests: ["activity"]
+            tests: [
+                {
+                    testKey: "hashtag", 
+                    subKey: "activity"
+                }
+            ]
         },
         leadership:
         {
             type: 'leadership',
             icon: "leadership",
             label: "여행 준비",
-            tests: ["leadership"]
+            tests: [
+                {
+                    testKey: "leadership", 
+                }
+            ]
         },
         time:
         {
             type: 'time',
             icon: "clock",
             label: "여행 시간",
-            tests: ["scheduleStartTime", "scheduleEndTime"]
+            tests: [
+                {
+                    testKey: "schedule", 
+                    subKey: "startTime"
+                },
+                {
+                    testKey: "schedule", 
+                    subKey: "endTime"
+                }
+            ]
         },
         schedule:
         {
             type: 'schedule',
             icon: "path",
             label: "일정",
-            tests: ["schedule"]
+            tests: [
+                {
+                    testKey: "schedule", 
+                    subKey: "schedule"
+                }
+            ]
         },
         dailyRestaurantBudget:
         {
             type: 'budget',
             icon: "restaurant",
             label: "식사 예산",
-            tests: ["dailyRestaurantBudget"]
+            tests: [
+                {
+                    testKey: "restaurant", 
+                    subKey: "dailyBudget"
+                }
+            ]
         },
         specialRestaurantBudget:
         {
             type: 'budget',
             icon: "delicious",
             label: "맛집 예산",
-            tests: ["specialRestaurantBudget", "specialRestaurantCount"]
+            tests: [
+                {
+                    testKey: "restaurant", 
+                    subKey: "specialBudget"
+                },
+                {
+                    testKey: "restaurant", 
+                    subKey: "specialCount"
+                }
+            ]
         },
         city:
         {
             type: "city",
             icon: "location",
             label: "여행지",
-            tests: CITY_TYPE_KEYS
+            tests: CITY_TYPE_KEYS.map( key => ({
+                testKey: "city",
+                subKey: key
+            }))
         },
         confirm:
         {
@@ -195,7 +240,7 @@ function TestContent() {
                             <StepCheckpointContext.Provider value={{ idToIndex: idToIndex, setIdToIndex: setIdToIndex, stepCheckpointList: stepCheckpointList }}>
                                 <div className="top-nav">
                                     <m.div {...FADEIN} custom={0.2}>
-                                        <Stepper className="block--with-padding-x top-nav__swiper" speed={preventInitialSwipe ? 0 : 500}>
+                                        <Stepper className="wrapper top-nav__swiper" speed={preventInitialSwipe ? 0 : 500}>
                                             {
                                                 Object.entries(TEST_SECTIONS).map(([sectionName, { tests, icon, label }], index) =>
                                                     <SwiperSlide key={sectionName} className="top-nav__swiper">
@@ -207,7 +252,7 @@ function TestContent() {
                                                             sx={{ height: "100%", display: 'flex', alignItems: 'start', paddingTop: '8px' }}
                                                             elevation={0}
                                                         >{
-                                                                <TestAnswerBadge invisible={sectionName.length === 0} tests={tests} sx={{ height: 'fit-content', padding: "4px" }}>
+                                                                <TestAnswerBadge invisible={sectionName.length === 0} tests={tests as ITestIndex[]} sx={{ height: 'fit-content', padding: "4px" }}>
                                                                     <PngIcon name={icon} size={"large"} />
                                                                 </TestAnswerBadge>
                                                             }
@@ -221,10 +266,10 @@ function TestContent() {
                                 </div>
                                 <ScrollPageContainer onPageChange={(page) => setStep(page)} pages={Object.keys(TEST_SECTIONS).length}>
                                     {
-                                        (["expectation", "activity"] as SetTestName[]).map((testName, index) =>
-                                            <ScrollPageItem key={testName} page={index} className="flex">
+                                        (["expectation", "activity"] as IHashTagTestKey[]).map((testKey, index) =>
+                                            <ScrollPageItem key={testKey} page={index} className="flex">
                                                 <TestSection>
-                                                    <HashTagTestContent testName={testName} />
+                                                    <HashTagTestContent testKey={testKey} />
                                                 </TestSection>
                                             </ScrollPageItem>
                                         )
@@ -260,7 +305,7 @@ function TestContent() {
                                         </TestSection>
                                     </ScrollPageItem>
                                     <ScrollPageItem key={"confirm"} page={8} className="flex">
-                                        <TestSection className="block--centered block__body">
+                                        <TestSection className="block--centered content">
                                                 <LazyImage
                                                     alt={"alt"}
                                                     src={getImgSrc('/info', "info", { size: "xlarge" })}

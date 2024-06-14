@@ -6,7 +6,7 @@ interface AnswerSliderProps extends WithTestAnswerProps, SliderOwnProps {
     // onChange: ( newValue : number ) => void;
 };
 
-function AnswerSlider({ testName, answer, setAnswer, ...sliderOwnProps }: AnswerSliderProps) {
+function AnswerSlider({ testKey, answer, setAnswer, disabled, ...sliderOwnProps }: AnswerSliderProps) {
 
     // const strings = useStrings().public.contents.test;   
 
@@ -18,14 +18,18 @@ function AnswerSlider({ testName, answer, setAnswer, ...sliderOwnProps }: Answer
     }
 
     return (
-        <div className="block--with-padding-x">
-            {
-                answer !== undefined
-                    ? <p className='typography-test-answer'>
-                        {answer/1000},000원{(answer === sliderOwnProps.max) ? ' 이상' : ''}
-                    </p>
-                    : <p className='typography-test-answer'>?</p>
-            }
+        <div className={`block--with-padding-x ${disabled && "disabled"}`}>
+            <p className='typography-test-answer'>
+                {
+                    answer !== undefined
+                        ?
+                        disabled ?
+                            '-'
+                            :
+                            `${answer / 1000},000원${(answer === sliderOwnProps.max) ? ' 이상' : ''}`
+                        : "?"
+                }
+            </p>
             <Slider
                 size="small"
                 valueLabelDisplay="off"
@@ -34,6 +38,7 @@ function AnswerSlider({ testName, answer, setAnswer, ...sliderOwnProps }: Answer
                 onChange={handleAnswerChange}
                 marks
                 track={false}
+                disabled={disabled}
                 {...sliderOwnProps}
             />
         </div>

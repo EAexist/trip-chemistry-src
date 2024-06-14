@@ -1,61 +1,25 @@
-import { Avatar, AvatarProps, useTheme } from "@mui/material";
-import { useEffect } from "react";
-import { IProfile } from "../../interfaces/IProfile";
-import getImgSrc from "../../utils/getImgSrc";
-import Label from "../Label";
+import { Avatar, AvatarProps, SxProps, Theme, useTheme } from "@mui/material";
+import Label, { LabelProps } from "../Label";
 
-interface LabeledAvatarProps extends AvatarProps, Pick<Partial<IProfile>, 'testResult' | 'nickname'> {
-    characterId?: string
-    showLabel?: boolean
-    labelSize?: 'medium' | 'large' | 'xlarge';
+interface LabeledAvatarProps extends AvatarProps, LabelProps {
 };
 
-function LabeledAvatar({ characterId, showLabel = true, labelSize, nickname, testResult, className, ...props }: LabeledAvatarProps) {
+function LabeledAvatar({ label, isActive, labelSize, renderLabel, showLabel, className, sx, ...props }: LabeledAvatarProps) {
 
-    const imageId = characterId ? characterId : testResult ? testResult.tripCharacter.id : ""
-    const theme = useTheme();
-
-    useEffect(() => {
-        console.log(`[LabeledAvatar] imageId=${imageId}`)
-    }, [])
+    const defaultSx = useTheme().components.MuiAvatar.defaultProps.sx
 
     return (
-        // <Stack
-        //     spacing={0.5}
-        //     direction={"column"}
-        //     display={"flex"}
-        //     flexDirection={"column"}
-        //     alignItems={"center"}
-        //     justifyContent={"center"}
-        //     width={"fit-content"}
-        // >
-        //     <Avatar
-        //         alt={nickname}
-        //         src={getImgSrc('/character', imageId })}
-        //         className={`profile__avatar ${className}`}
-        //         style={{ backgroundColor: theme.palette.primary.light }}
-        //         {...props as AvatarProps}
-        //         // sx={{ width: 36, height: 36 }}
-        //     />
-        //     {
-        //         showLabel &&
-        //         <p className={`Profile__label Profile__label-${labelSize} typography--profile-label`}>
-        //             { nickname }
-        //         </p>
-        //     }
-        // </Stack>
         <Label
-            label={ showLabel ? nickname : undefined }
+            label={ label }
             labelSize={ labelSize }
+            showLabel={ showLabel }
+            renderLabel={ renderLabel }
+            isActive={ isActive }
         >
             <Avatar
-                alt={ imageId }
-                src={ getImgSrc('/character', imageId, { size : "small" }) }
                 className={ `${ className }` }
-                // style={{ backgroundColor: theme.palette.primary.light }}
-                // style={{ backgroundColor: theme.palette.secondary.main, outlineWidth: 1, outlineStyle: 'solid', outlineColor: theme.palette.primary.light }}
-                { ...props as AvatarProps }
-                // sx={{ width: 36, height: 36 }}
+                sx={{...defaultSx, ...sx} as SxProps<Theme>}
+                { ...props}
             />
         </Label>
     );

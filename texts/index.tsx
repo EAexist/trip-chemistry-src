@@ -49,15 +49,15 @@ function useContentString( key: ContentKey ) {
 }
 
 // interface useTestStringProps {
-//     testName: ITestName;
-//     subTestName?: SubTestName;
+//     testKey: ITestKey;
+//     subTestKey?: SubTestKey;
 // };
-// function useTestString({ testName, subTestName }: useTestStringProps) {
+// function useTestString({ testKey, subTestKey }: useTestStringProps) {
 
-//     const baseStrings = usePageString('test')[testName as ITestName];
+//     const baseStrings = usePageString('test')[testKey as ITestKey];
 
 //     return(
-//         subTestName ? baseStrings.subTests[subTestName as SubTestName] : baseStrings
+//         subTestKey ? baseStrings.subTests[subTestKey as SubTestKey] : baseStrings
 //     );
 // }
 

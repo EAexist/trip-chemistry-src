@@ -8,12 +8,13 @@ import { TEST } from "../../common/app-const";
 import SectionPaper from "../../components/Paper/SectionPaper";
 import { useStrings } from "../../texts";
 
+import { useSelector } from "react-redux";
+import { RootState } from "~/store";
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
-import { useSortedCityList } from "../../reducers/chemistryReducer";
 import CharacterChemistryContent from "./CharacterChemistryContent";
 import CityChemistryContent from "./CityChemistryContent";
-import FoodBudgetChemistryContent from "./FoodBudgetChemistryContent";
 import LeadershipChemistryContent from "./LeadershipChemistryContent";
+import RestaurantChemistryContent from "./RestaurantChemistryContent";
 import ScheduleChemistryContent from "./ScheduleChemistryContent";
 
 function ChemistryDetailContent() {
@@ -22,7 +23,12 @@ function ChemistryDetailContent() {
     const strings = useStrings().public.contents.chemistry;
 
     /* Reducers */
-    const sortedCityList = useSortedCityList();
+    const scoreSortedCityList =
+        useSelector((state: RootState) =>
+            Object.entries(state.chemistry.data.city)
+                .sort(([k1, v1], [k2, v2]) => (v2 - v1))
+                .map(([k, v])=> k )
+        )
 
     return (
         <>
@@ -36,19 +42,21 @@ function ChemistryDetailContent() {
                 <ScheduleChemistryContent />
             </SectionPaper>
             <SectionPaper>
-                <FoodBudgetChemistryContent />
+                <RestaurantChemistryContent />
             </SectionPaper>
             <SectionPaper>
-                <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">{strings.sections.city.title}</m.h2>
-                <ul className="block__body">
+                <div className="content">
+                <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">어디로 떠나볼까?</m.h2>
+                <ul className="content">
                     {
-                        sortedCityList && sortedCityList.map((cityClass) => (
+                        scoreSortedCityList && scoreSortedCityList.map((cityClass) => (
                             <m.li key={cityClass} {...FADEIN_FROMBOTTOM_VIEWPORT}>
                                 <CityChemistryContent cityClass={cityClass as keyof typeof TEST.city.subTests} />
                             </m.li>
                         ))
                     }
                 </ul>
+                </div>
             </SectionPaper>
         </>
     );

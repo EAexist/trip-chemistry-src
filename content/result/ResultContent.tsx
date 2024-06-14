@@ -5,12 +5,15 @@ import { m } from "framer-motion";
 import { useSelector } from "react-redux";
 import LazyDomAnimation from "../../motion/LazyDomAnimation";
 
-import { UserTestResultBlock } from "../../components/Profile/TestResultBlock";
-import { FADEIN_VIEWPORT, FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
+import { CHARACTERS } from "~/common/app-const";
+import AppBarBackground from "~/components/AppBar/AppBarBackground";
+import { UserCharacterBody } from "~/components/Profile/CharacterBody";
+import { UserProfileImage } from "~/components/Profile/ProfileImage";
+import { UserTripTags } from "~/components/Profile/TripTags";
+import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
+import { FADEIN_FROMBOTTOM_VIEWPORT, FADEIN_VIEWPORT } from "../../motion/props";
 import { RootState } from "../../store";
 import { useStrings } from "../../texts";
-import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
-import AppBarBackground from "~/components/AppBar/AppBarBackground";
 
 function ResultContent() {
 
@@ -20,30 +23,32 @@ function ResultContent() {
 
     /* Reducers */
     const character = useSelector((state: RootState) =>
-        state.auth.data.profile.testResult.tripCharacter
+        CHARACTERS[state.auth.data.profile.testResult.characterId]
     );
 
     /* Event Handlers */
     const handleChemistryButtonClick = () => {
         navigate('../myChemistry');
     }
+
     return (
-        <div className="page fill-window flex">
-            <AppBarBackground/>
+        <div className="page fill-window flex content">
+            <AppBarBackground />
             <Toolbar />
             <LazyDomAnimation>
-                <m.div  {...FADEIN_FROMBOTTOM_VIEWPORT} className="block__body block__body--large block--with-padding-x flex-grow">
+                <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="content block--with-padding-x flex-grow">
                     {/* <SectionPaper> */}
-                    <m.h5 className="typography-heading">{strings.sections.tripCharacter.title}</m.h5>
-                    <div style={{ marginTop: '-1rem' }}>
-                        <UserTestResultBlock />
+                    <m.h5 className="typography-heading">{strings.sections.character.title}</m.h5>
+                    <UserProfileImage />
+                    <div className="content">
+                        <h2 className="typography-label">{character.prefix} {character.name}</h2>
+                        <UserCharacterBody />
                     </div>
-                    {
-                        character.body.split("\n").map((text) =>
-                            <p key={text}>{text}</p>
-                        )
-                    }
-                </m.div>       
+                    <div className="content">
+                        <h2 className="typography-label"># 여행 태그</h2>
+                        <UserTripTags />
+                    </div>
+                </m.div>
                 <m.div  {...FADEIN_VIEWPORT} className="flex">
                     <Button
                         onClick={handleChemistryButtonClick}
@@ -52,7 +57,7 @@ function ResultContent() {
                     >
                         {strings.navigateToChemistryButton}
                     </Button>
-                </m.div>     
+                </m.div>
             </LazyDomAnimation>
         </div>
     );

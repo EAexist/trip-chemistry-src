@@ -11,7 +11,7 @@ interface AnswerButtonGroupProps extends WithTestAnswerProps {
     }[]
 };
 
-function AnswerButtonGroup({ testName, answer, setAnswer, options }: AnswerButtonGroupProps) {
+function AnswerButtonGroup({ testKey, answer, setAnswer, options }: AnswerButtonGroupProps) {
 
     const handleAnswerChange = (value: number) => {
         setAnswer(value);

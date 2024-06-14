@@ -33,7 +33,7 @@ function TextFieldBlock({
     }
 
     return (
-        <div className={`block__body block__body--large flex ${className}`}>
+        <div className={`content content--large flex ${className}`}>
             <h2 className="typography-heading">
                 {title}
             </h2>

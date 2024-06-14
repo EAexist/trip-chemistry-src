@@ -1,13 +1,13 @@
-import { ITripCharacter, defaultTripCharacter } from "./ITripCharacter";
+import { ICharacterId } from "~/common/app-const";
 import { ITripTag } from "./enums/TripTag";
 
 export interface ITestResult{
     // id?: string;
     tripTagList: ITripTag[];
-    tripCharacter: ITripCharacter;
+    characterId?: ICharacterId;
     // placeGroup: string[];
 }
 export const defaultTestResult : ITestResult = {
     tripTagList: [],
-    tripCharacter: defaultTripCharacter,
+    characterId: undefined,
 }

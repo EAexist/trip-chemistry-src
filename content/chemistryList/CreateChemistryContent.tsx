@@ -154,7 +154,7 @@ function CreateChemistryContent() {
 export default withReducer(CreateChemistryContent)({ chemistry: chemistryReducer });
 
 // <SwiperSlide key={"0"} className=''>
-// <div className="block--with-margin-x block__body block__body--large">
+// <div className="block--with-margin-x content content--large">
 //     <h2 className="typography-body">
 //         연결 방식을 선택해주세요.
 //     </h2>

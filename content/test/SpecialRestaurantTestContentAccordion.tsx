@@ -2,19 +2,17 @@
 
 /* Externals */
 import { Accordion, AccordionDetails, AccordionSummary, Chip, SliderProps, Stack } from "@mui/material";
-import { useSelector } from "react-redux";
 
 /* Swiper */
 import 'swiper/css';
 import 'swiper/css/effect-coverflow'; /* Food Carousel */
 
 /* App */
-import { RootState } from "../../store";
-import { priceText } from "../../utils/priceText";
-import AnswerSlider from "./component/AnswerSlider";
 import { Edit, ExpandMore } from "@mui/icons-material";
 import { SyntheticEvent, useState } from "react";
 import { useTestAnswer } from "~/reducers/testAnswerReducer";
+import { priceText } from "../../utils/priceText";
+import AnswerSlider from "./component/AnswerSlider";
 
 function SpecialRestaurantTestContent() {
 
@@ -26,12 +24,12 @@ function SpecialRestaurantTestContent() {
         "aria-label": "special restaurant budget",
         marks: [
             {
-                value: 10000,
-                label: "만원"
+                value: 20000,
+                label: "2만원"
             },
             {
-                value: 50000,
-                label: "5만원"
+                value: 60000,
+                label: "6만원"
             },
             {
                 value: 100000,
@@ -41,8 +39,9 @@ function SpecialRestaurantTestContent() {
     };
 
     /* Reducers */
-    const [specialRestaurantBudgetAnswer] = useTestAnswer("specialRestaurantBudget");
-    const [specialRestaurantCountAnswer, setSpecialRestaurantCountAnswer] = useTestAnswer("specialRestaurantCount");
+    const [specialRestaurantBudgetAnswer] = useTestAnswer("restaurant", "specialBudget");
+    const [specialRestaurantCountAnswer, setSpecialRestaurantCountAnswer] = useTestAnswer("restaurant", "specialCount");
+    const specialBudgetTestDisabled = specialRestaurantCountAnswer < 1
 
     const [expanded, setExpanded] = useState<string | false>("count");
 
@@ -58,7 +57,7 @@ function SpecialRestaurantTestContent() {
     }
 
     return (
-        <div className="block__body">
+        <div className="content">
             <h2 className="test__title__heading typography-heading">유명 맛집에서의 특별한 한끼</h2>
             <div>
             <Accordion expanded={expanded === "count"} onChange={handleChange("count")}>
@@ -80,7 +79,7 @@ function SpecialRestaurantTestContent() {
                         }
                     </Stack>
                 </AccordionSummary>
-                <AccordionDetails className="block__body">
+                <AccordionDetails className="content">
                     <p className="typography-center">3박 4일 동안</p>
                     <Stack flexWrap={"wrap"} justifyContent={"center"} rowGap={1}>
                         {
@@ -113,7 +112,7 @@ function SpecialRestaurantTestContent() {
                             (expanded !== "budget") &&
                             (
                                 ( specialRestaurantBudgetAnswer !== undefined ) ?
-                                <p className="typography-body"><b>{priceText(specialRestaurantBudgetAnswer)}</b></p>
+                                <p className="typography-body disabled"><b>{specialBudgetTestDisabled ? "-" : priceText(specialRestaurantBudgetAnswer) }</b></p>
                                 :
                                 <Edit fontSize="small" />
                             )
@@ -122,7 +121,9 @@ function SpecialRestaurantTestContent() {
                 </AccordionSummary>
                 <AccordionDetails>
                     <AnswerSlider
-                        testName="specialRestaurantBudget"
+                        testKey="restaurant"
+                        subKey="specialBudget"
+                        disabled={specialBudgetTestDisabled}
                         {...specialFoodBudgetSliderProps}
                     />
                 </AccordionDetails>

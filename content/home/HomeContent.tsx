@@ -13,7 +13,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { SWIPER_SPEED } from "../../swiper";
 
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
-import PaginationDiv from "../../swiper/components/PaginationDiv";
+import PaginationBullets from "../../swiper/components/PaginationBullets";
 import { useStrings } from "../../texts";
 import CharacterSample from "./component/CharacterSample";
 import ConflictSample from "./component/ConflictSample";
@@ -75,7 +75,7 @@ function HomeContent() {
                                                     }
                                                 </div>
                                             </div>
-                                            <div className="block--with-margin-x block__body" style={{ justifyContent: "end" }}>
+                                            <div className="block--with-margin-x content" style={{ justifyContent: "end" }}>
                                                 <h3 className="typography-heading">{title}</h3>
                                                 <p className="">{body}</p>
                                             </div>
@@ -87,7 +87,7 @@ function HomeContent() {
                         ))
                     }
                     <div slot="container-end" style={{ zIndex: 2000, marginTop: "1rem" }}>
-                        <PaginationDiv className='pageSwiper-pagination pagination__bullets' style={{ justifyContent: 'center' }} />
+                        <PaginationBullets className='pageSwiper-pagination pagination__bullets' style={{ justifyContent: 'center' }} />
                     </div>
                 </Swiper>
             </div>

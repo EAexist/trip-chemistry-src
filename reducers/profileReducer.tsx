@@ -8,7 +8,7 @@
 // /* Component */
 // import { RootState } from "../store";
 // import { IWithLoadStatus, LoadStatus, IProfileId } from ".";
-// import { ITestAnswer, ITestName } from "./testAnswerReducer";
+// import { ITestAnswer, ITestKey } from "./testAnswerReducer";
 // import { ITestResult, defaultTestResult } from "../interfaces/ITestResult";
 // import { HEADERS_AXIOS } from "../common/app-const";
 // import { useUserId } from "./authReducer";
@@ -432,7 +432,7 @@
 //     return (idList);
 // }
 
-// const useTestAnswerObject = (testName: ITestName) => {
+// const useTestAnswerObject = (testKey: ITestKey) => {
 
 //     useEffect(() => {
 //         console.log(`[useTestAnswerObject] Using`);
@@ -446,7 +446,7 @@
 //                     return ([id, data] as const);
 //                 }).filter(([, data]) => data.testAnswer.loadStatus === LoadStatus.REST && Object.keys(data.testAnswer).length > 0)
 //                     .map(([id, data]) => {
-//                         return ([id, data.testAnswer[testName]] as const)
+//                         return ([id, data.testAnswer[testKey]] as const)
 //                     })
 //             )
 //             , shallowEqual

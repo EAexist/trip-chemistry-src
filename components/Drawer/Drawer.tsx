@@ -4,7 +4,7 @@ import { AnimatePresence, m } from "framer-motion";
 import LazyDomAnimation from "../../motion/LazyDomAnimation";
 import { useLocation, useNavigate } from "~/router-module";
 
-import { CONTENTS } from "../../common/app-const";
+import { PAGES } from "../../common/app-const";
 import { MotionList } from "../../motion/components/MotionList";
 import { MotionListItem } from "../../motion/components/MotionListItem";
 import { MotionListSubheader } from "../../motion/components/MotionListSubheader";
@@ -76,7 +76,7 @@ function Drawer({ open, onDrawerItemClick }: DrawerProps) {
                             <MotionList
                                 custom={0.5} /* delayChildren */
                                 variants={VARIANTS_STAGGER_CHILDREN}
-                                className="block__body block--with-padding"
+                                className="content block--with-padding"
                             >
                                 <MotionListSubheader  className="">{`내 정보`}</MotionListSubheader>
                                 <MotionListItemButton
@@ -87,7 +87,7 @@ function Drawer({ open, onDrawerItemClick }: DrawerProps) {
                                     <ListItemAvatar>{
                                         isAuthorized
                                             ?
-                                            <UserAvatar showLabel={false} />
+                                            <UserAvatar renderLabel={false} />
                                             : <Avatar />
                                     }
                                     </ListItemAvatar>
@@ -108,7 +108,7 @@ function Drawer({ open, onDrawerItemClick }: DrawerProps) {
                                 </div>
                                 <MotionListSubheader className="">{`내 여행`}</MotionListSubheader>
                                 {
-                                    Object.entries(CONTENTS).map(([content, { path, icon }]) =>
+                                    Object.entries(PAGES).map(([content, { path, icon }]) =>
                                         // <MotionListItem key={content} >
                                         <MotionListItemButton
                                             key={content}

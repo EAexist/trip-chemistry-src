@@ -73,7 +73,7 @@
 //             {/* https://codesandbox.io/p/sandbox/6gw7p4?file=/src/App.jsx */}
 //             <div className="flex-grow block--centered">
 //                 <Swiper {...SWIPERPROPS_FOODCARDCAROUSEL} className="carousel__swiper modal__container" ref={restaurantCarouselSwiperRef}>
-//                     <TestInstruction testName="dailyRestaurantBudget" showBackdrop={true} className="block--centered" />
+//                     <TestInstruction testKey="dailyRestaurantBudget" showBackdrop={true} className="block--centered" />
 //                     {
 //                         Object.values(TEST.restaurant.examples).map((id, index) => (
 //                             // <SwiperSlide key={id} className="carousel__swiper-slide--coverflow" style={{ width: "196px", height: "196px", borderRadius: "12px" }}>
@@ -124,7 +124,7 @@
 //                     }
 //                 </Swiper>
 //             </div>
-//             <div className="block block__body">
+//             <div className="block content">
 //                 <div className="test__title">
 //                     <h2 className="test__title__heading typography-heading">{contentstrings.subTest.restaurant.title}</h2>
 //                 </div>
@@ -137,7 +137,7 @@
 //                         : <></>
 //                 }
 //                 {/* <div className="container--center" style={{ marginTop: 0 }}> */}
-//                 <AnswerSlider testName="dailyRestaurantBudget" {...SLIDERPROPS_TEST_BUDGET_FOOD} />
+//                 <AnswerSlider testKey="dailyRestaurantBudget" {...SLIDERPROPS_TEST_BUDGET_FOOD} />
 //                 {/* </div> */}
 //                 <div />
 //             </div>

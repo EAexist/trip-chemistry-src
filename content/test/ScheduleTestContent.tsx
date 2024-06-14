@@ -21,44 +21,45 @@ import Logo from "../../components/Logo";
 import { useStrings } from "../../texts";
 import { FORMATSVG } from "../../utils/getImgSrc";
 
+export const scheduleSliderProps: SliderProps = {
+    step: 1,
+    min: 1,
+    max: 5,
+    "aria-label": "special restaurant budget",
+    marks:
+        [
+            {
+                value: 1,
+                label: "아주\n널널하게"
+            },
+            {
+                value: 2,
+                label: "널널하게"
+            },
+            {
+                value: 3,
+                label: "아무래도\n상관없어"
+            },
+            {
+                value: 4,
+                label: "알차게"
+            },
+            {
+                value: 5,
+                label: "매우\n알차게"
+            },
+        ]
+};
+
 function ScheduleTestContent() {
 
     /* Strings */
     const answerStrings = useStrings().public.contents.test.test.schedule.answers;
-    const scheduleSliderProps: SliderProps = {
-        step: 1,
-        min: 1,
-        max: 5,
-        "aria-label": "special restaurant budget",
-        marks:
-            [
-                {
-                    value: 1,
-                    label: "아주\n널널하게"
-                },
-                {
-                    value: 2,
-                    label: "널널하게"
-                },
-                {
-                    value: 3,
-                    label: "아무래도\n상관없어"
-                },
-                {
-                    value: 4,
-                    label: "알차게"
-                },
-                {
-                    value: 5,
-                    label: "매우\n알차게"
-                },
-            ]
-    };
 
     /* States */
 
     /* Reducers */
-    const [scheduleAnswer, setScheduleAnswer] = useTestAnswer("schedule");
+    const [scheduleAnswer, setScheduleAnswer] = useTestAnswer("schedule", "schedule");
 
     const handleAnswerChange = (
         event: Event,
@@ -115,7 +116,7 @@ function ScheduleTestContent() {
     }, [scheduleAnswer, scheduleExampleMap]);
 
     return (
-        <div className="block__body">
+        <div className="content">
             <h2 className="typography-heading">일정은 얼마나 알차면 좋을까?</h2>
             <div className="block--with-padding--small">
                 <div className="block--with-padding-x">

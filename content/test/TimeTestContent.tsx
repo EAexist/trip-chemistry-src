@@ -1,11 +1,11 @@
 /* React */
-import { SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 
 /* Externals */
 import { Edit, ExpandMore } from "@mui/icons-material";
-import { Accordion, AccordionDetails, AccordionSummary, Button, createTheme, FormControlLabel, Stack, Switch, ThemeProvider } from "@mui/material";
-import dayjs, { Dayjs } from "dayjs";
+import { Accordion, AccordionDetails, AccordionSummary, createTheme, FormControlLabel, Stack, ThemeProvider } from "@mui/material";
 import { TimeClock } from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 import MaterialUISwitch from "~/components/MaterialUISwitch";
 import { useTestAnswer } from "~/reducers/testAnswerReducer";
 
@@ -33,26 +33,26 @@ function TimeTestContent() {
         };
 
     // /* Reducers */
-    const [scheduleStartTimeAnswer, setScheduleStartTimeAnswer] = useTestAnswer("scheduleStartTime")
-    const [scheduleEndTimeAnswer, setScheduleEndTimeAnswer] = useTestAnswer("scheduleEndTime")
+    const [startTimeAnswer, setStartTimeAnswer] = useTestAnswer("schedule", "startTime")
+    const [endTimeAnswer, setEndTimeAnswer] = useTestAnswer("schedule", "endTime")
 
     return (
-        <div className="block__body">
+        <div className="content">
             <h2 className="typography-heading">시간</h2>
             <div>
                 {
                     [
                         {
                             id: "start",
-                            answer: (scheduleStartTimeAnswer === undefined) ? 8 :scheduleStartTimeAnswer,
-                            setAnswer: setScheduleStartTimeAnswer,
+                            answer: (startTimeAnswer === undefined) ? 8 :startTimeAnswer,
+                            setAnswer: setStartTimeAnswer,
                             summaryTitle: "시작 시간",
                             detailTitle: "숙소를 나서서 일정을 시작하려고 해.\n몇시가 좋을까?",
                         },
                         {
                             id: "end",
-                            answer: (scheduleEndTimeAnswer === undefined) ? 20 :scheduleEndTimeAnswer,
-                            setAnswer: setScheduleEndTimeAnswer,
+                            answer: (endTimeAnswer === undefined) ? 20 :endTimeAnswer,
+                            setAnswer: setEndTimeAnswer,
                             summaryTitle: "끝나는 시간",
                             detailTitle: "일정을 마치고 숙소에 들어가 쉬려고 해.\n몇시가 좋을까?",
                         }

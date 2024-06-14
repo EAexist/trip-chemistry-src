@@ -2,8 +2,7 @@ import { Skeleton } from "@mui/material";
 import { PropsWithChildren, useEffect, useRef, useState } from "react";
 
 /* https://dev.to/kunalukey/make-your-own-lazy-loading-image-component-in-react-2j7m
- * Kunal Ukey. 2022.11.21. Make Your Own Lazy Loading Image Component In React. DEV Community.
-*/
+ * Kunal Ukey. 2022.11.21. Make Your Own Lazy Loading Image Component In React. DEV Community. */
 
 interface LazyImageProps{
     src: string;

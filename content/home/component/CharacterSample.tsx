@@ -1,9 +1,9 @@
 import { Stack, ToggleButton } from "@mui/material";
 import { AnimatePresence, m } from "framer-motion";
 import { useEffect, useState } from "react";
-import LabeledAvatar from "~/components/Avatar/LabeledAvatar";
+import { ICharacterId } from "~/common/app-const";
+import ProfileAvatar from "~/components/Avatar/ProfileAvatar";
 import { ProfileImage } from "~/components/Profile/ProfileImage";
-import { ITripCharacter } from "~/interfaces/ITripCharacter";
 import LazyDomAnimation from "~/motion/LazyDomAnimation";
 import { FADEIN } from "~/motion/props";
 
@@ -14,7 +14,7 @@ function CharacterSample() {
         {
             id: "나무늘보",
             nickname: "혜인",
-            tripCharacter: {
+            character: {
                 id: "SLOTH",
                 name: "느긋한 나무늘보"
             }
@@ -22,32 +22,32 @@ function CharacterSample() {
         {
             id: "나무늘보",
             nickname: "다니엘",
-            tripCharacter: {
-                id: "SLOTH",
+            character: {
+                id: "sloth",
                 name: "느긋한 나무늘보"
             }
         },
         {
             id: "꿀벌",
             nickname: "민지",
-            tripCharacter: {
-                id: "BEE",
+            character: {
+                id: "bee",
                 name: "부지런한 꿀벌"
             }
         },
         {
             id: "너구리",
             nickname: "민지",
-            tripCharacter: {
-                id: "RACOON",
+            character: {
+                id: "racoon",
                 name: "도시의 너구리"
             }
         },
         {
             id: "판다",
             nickname: "하니",
-            tripCharacter: {
-                id: "PANDA",
+            character: {
+                id: "panda",
                 name: "미식가 판다"
             }
         },
@@ -72,22 +72,21 @@ function CharacterSample() {
         <LazyDomAnimation>
             <Stack spacing={-0.25} justifyContent={'center'} alignItems={'start'}>
                 {
-                    profileList.map(({ id, tripCharacter, nickname }, index) => (
+                    profileList.map(({ id, character, nickname }, index) => (
                         <ToggleButton
                             key={index}
                             value={index}
                             onChange={(_, value) => setUserIndex(value)}
                             selected={userIndex === index}
-                            className="toggle-button--button-base"
                         >
-                            <LabeledAvatar characterId={tripCharacter.id} nickname={nickname} labelSize="large" />
+                            <ProfileAvatar avatarId={character.id} nickname={nickname} labelSize="large" />
                         </ToggleButton>
                     ))
                 }
             </Stack>
             <AnimatePresence mode={"wait"} initial={false}>
                 <m.div key={userIndex} {...{ ...FADEIN, exit: "hidden" }} className="navigation-button__container">
-                    <ProfileImage id={profile.id} nickname={profile.nickname} testResult={{ tripCharacter: profile.tripCharacter as ITripCharacter, tripTagList: [] }} />
+                    <ProfileImage id={profile.id} nickname={profile.nickname} testResult={{ characterId: profile.character.id as ICharacterId, tripTagList: [] }} />
                 </m.div>
             </AnimatePresence>
         </LazyDomAnimation>

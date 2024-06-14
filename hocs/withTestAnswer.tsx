@@ -1,11 +1,12 @@
 import { ComponentType } from "react";
 
 import { useTestAnswer } from "../reducers/testAnswerReducer";
-import { NumericTestName } from "~/interfaces/ITestAnswer";
-// import { BudgetResponse, SubTestName, TestAnswer, ITestName } from "../interface/interfaces";
+import { INumericTestKey } from "~/interfaces/ITestAnswer";
+// import { BudgetResponse, SubTestKey, TestAnswer, ITestKey } from "../interface/interfaces";
 
 interface WithTestAnswerProps{
-    testName: NumericTestName,
+    testKey: INumericTestKey,
+    subKey?: string,
     answer: number; 
     setAnswer: ( value: number ) => void;      
 };
@@ -14,14 +15,14 @@ interface WithTestAnswerProps{
 /* HOC WithTestAnswer
     컴포넌트에 테스트 섹션 정보와 해당 정보에 대응하는 testAnswer 리듀서 state 와 setter 함수를 연결.   */
 const withTestAnswer = <T extends WithTestAnswerProps>(WrappedComponent: ComponentType<T>) => 
-    ( { testName, ...props }: Omit<T, keyof WithTestAnswerProps> & { testName: NumericTestName }) => {
+    ( { testKey, subKey, ...props }: Omit<T, keyof WithTestAnswerProps> & { testKey: INumericTestKey, subKey?: string }) => {
     
-    const [ answer, setAnswer ] = useTestAnswer( testName );
+    const [ answer, setAnswer ] = useTestAnswer( testKey, subKey );
 
     return (
         <WrappedComponent 
         {...{
-            testName,
+            testKey,
             answer,
             setAnswer: ( value: number ) => {
                 setAnswer(value)

@@ -9,7 +9,8 @@
 :root {
     --margin-x: 24px;
     --margin-x--small: 16px;
-    --margin-x--large: 40px;
+    --margin-x--xsmall: 8px;
+    --margin-x--large: 32px;
 
     --margin-top: 1em;
     --margin-top--small: 0.4em;
@@ -86,6 +87,10 @@ video {
     clip-path: inset(1px 1px);
 }
 
+.MuiAccordionSummary-root.MuiButtonBase-root, .MuiAccordionDetails-root {
+    padding: 0px;
+}
+
 /**** General ****/
 .sticky {
     position: sticky;
@@ -120,7 +125,9 @@ video {
 }
 
 .disabled {
-    opacity: 0.4;
+    &, &.MuiListItem-root {
+        opacity: 0.4;
+    }
 }
 
 .fill-window,
@@ -179,18 +186,44 @@ video {
     }
 }
 
-.block--with-padding--small {
+.block--with-padding--xsmall {
+    & {
+        padding-top: var(--margin-top--small);
+        padding-bottom: var(--margin-top--small);
+        padding-left: var(--margin-x--xsmall);
+        padding-right: var(--margin-x--xsmall);
+    }
+}
 
+.block--with-padding--small {
     &,
     &.MuiButton-root {
+        padding-top: var(--margin-top--small);
+        padding-bottom: var(--margin-top--small);
         padding-left: var(--margin-x--small);
         padding-right: var(--margin-x--small);
     }
 }
 
-.block--with-padding--large {
+.wrapper {
+    padding-top: var(--margin-top);
+    padding-bottom: var(--margin-top);
+    padding-left: var(--margin-x);
+    padding-right: var(--margin-x);
+}
+
+.section {
     padding-top: var(--margin-top--large);
     padding-bottom: var(--margin-top--large);
+    padding-left: var(--margin-x);
+    padding-right: var(--margin-x);
+}
+
+.block--with-padding-x--small {
+    & {
+        padding-left: var(--margin-x--small);
+        padding-right: var(--margin-x--small);
+    }
 }
 
 .block--with-margin,
@@ -252,6 +285,11 @@ video {
     align-items: stretch;
 }
 
+.full {
+    width: 100%;
+    height: 100%;
+}
+
 .container--center {
     display: flex;
     flex-direction: column;
@@ -259,9 +297,9 @@ video {
     /* justify-content: center; */
 }
 
-.block__body {
+.content {
 
-    &>h1,
+    /* &>h1,
     &>h2,
     &>h3,
     &>h4,
@@ -272,10 +310,10 @@ video {
         padding-right: 16px;
     }
 
-    &.block__body--full>* {
+    &.content--full>* {
         padding-left: 0;
         padding-right: 0;
-    }
+    } */
 
     &>:first-child {
         margin-top: 0;
@@ -290,17 +328,13 @@ video {
         margin-top: var(--margin-top);
     }
 
-    &>.typography-label,
-    &>.typography-label_ {
-        margin-top: 0.4em;
-    }
 
     &>.MuiStack-root {
         margin-top: 0.8em;
     }
 }
 
-.block__body--large {
+.content--large {
 
     &>* {
         margin-top: var(--margin-top--large);
@@ -532,7 +566,8 @@ video {
 }
 
 .MuiStack-root {
-    &>.MuiAvatar-root {
+    &>.MuiAvatar-root, &>*>.MuiAvatar-root {
+        outline-style: solid;
         outline-width: 2px;
         outline-color: white;
     }
@@ -545,7 +580,7 @@ video {
 }
 
 .MuiToggleButton-root {
-    &.MuiButtonBase-root {
+    &.MuiButtonBase-root, &.MuiButtonBase-root.Mui-disabled {
         padding: 0;
         border-radius: 0;
         border-width: 0;
@@ -726,12 +761,16 @@ video {
 
 .top-nav__swiper {
 
-    /* &::-webkit-scrollbar {
+
+    &::-webkit-scrollbar {
         display: none;
-    } */
+    }
 
     &.swiper {
         height: var(--topnav-height);
+        overflow-x: visible;
+    padding-left: var(--margin-x--large);
+    padding-right: var(--margin-x--large);
     }
 
     &.swiper-slide {

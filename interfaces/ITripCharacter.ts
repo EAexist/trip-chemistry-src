@@ -1,12 +1,12 @@
-export interface ITripCharacter {
-    id: string;
-    name: string;
-    prefix: string;
-    body: string;   
-}
-export const defaultTripCharacter : ITripCharacter = {
-    id: "",
-    name: "",
-    prefix: "",
-    body: "",   
-}
+// export interface ICharacter {
+//     id: string;
+//     name: string;
+//     prefix: string;
+//     body: string;   
+// }
+// export const defaultCharacter : ICharacter = {
+//     id: "",
+//     name: "",
+//     prefix: "",
+//     body: "",   
+// }

@@ -4,43 +4,46 @@ import { useState } from "react";
 /* Externals */
 import { AnimatePresence, m } from "framer-motion";
 import { useSelector } from "react-redux";
-import { Stack } from "@mui/material";
 
 /* App */
-import { useStrings } from "../../texts";
-
-import FriendAvatar from "../../components/Avatar/FriendAvatar";
-import NavigationButton from "../../components/Button/NavigationButton";
-import ToggleButton from "../../components/Button/ToggleButton";
-import TestResultBlock from "../../components/Profile/TestResultBlock";
+import { CHARACTERS } from "~/common/app-const";
+import CharacterBody from "~/components/Profile/CharacterBody";
+import TripTags from "~/components/Profile/TripTags";
+import { IProfileId } from "~/interfaces/IProfile";
 import { FADEIN, FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import { useProfileIdList } from "../../reducers/chemistryReducer";
 import { RootState } from "../../store";
+import ProfileToggleButtonGroup from "./component/ProfileToggleButtonGroup";
+import { QuestionMark } from "@mui/icons-material";
 
 function CharacterChemistryContent() {
 
-    /* Constants */
-    const strings = useStrings().public.contents.chemistry;
-
     /* States */
-    const [characterSectionActiveUserIndex, setCharacterSectionActiveUserIndex] = useState<number>(0);
+    const profileIds = useProfileIdList(false);
+    const [activeProfileId, setActiveProfileId] = useState<IProfileId | undefined>(profileIds[0]);
 
-    /* Reducers */
-    const answeredProfileIdList = useProfileIdList();
-
-    const characterSectionCharacter = useSelector((state: RootState) =>
-        state.chemistry.data.profileList[answeredProfileIdList[characterSectionActiveUserIndex]]?.testResult.tripCharacter
+    const isAnswered = useSelector((state: RootState) =>
+        state.chemistry.data.profileList[activeProfileId]?.testAnswer !== null
     );
+    const { characterId, nickname } = useSelector((state: RootState) => ({
+        characterId: state.chemistry.data.profileList[activeProfileId]?.testResult?.characterId,
+        nickname: state.chemistry.data.profileList[activeProfileId]?.nickname
+    }));
+
+    const character = CHARACTERS[characterId]
 
     return (
         <>
-            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">{strings.sections.tripCharacter.title}</m.h2>
-            <div className="block__body">
-                <CharacterChemistryContent />
+            <div className="content">
+                <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">여행 타입</m.h2>
                 <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} >
-                    <Stack spacing={-0.25} justifyContent={'center'} alignItems={'start'}>
+                    <ProfileToggleButtonGroup
+                        activeProfileId={activeProfileId}
+                        setActiveProfileId={setActiveProfileId}
+                    />
+                    {/* <Stack spacing={-0.25} justifyContent={'center'} alignItems={'start'}>
                         {
-                            answeredProfileIdList.map((id, index) => (
+                            profileIds.map((id, index) => (
                                 <ToggleButton
                                     key={id}
                                     value={index}
@@ -48,32 +51,38 @@ function CharacterChemistryContent() {
                                     selected={characterSectionActiveUserIndex === index}
                                     className="toggle-button--button-base"
                                 >
-                                    <FriendAvatar key={id} id={id} labelSize="large" />
+                                    <FriendAvatar key={id} id={id} labelSize="large" sx={(characterSectionActiveUserIndex === index) ? { width: 56, height: 56 } : {}} />
                                 </ToggleButton>
                             ))
                         }
-                    </Stack>
+                    </Stack> */}
                 </m.div>
                 <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} >
                     <AnimatePresence mode={"wait"} initial={false}>
-                        <m.div key={characterSectionActiveUserIndex} {...{ ...FADEIN, exit: "hidden" }} className="navigation-button__container">
-                            <TestResultBlock key={characterSectionActiveUserIndex} id={answeredProfileIdList[characterSectionActiveUserIndex]} />
+                        <m.div key={activeProfileId} {...{ ...FADEIN, exit: "hidden" }} className="content content--large">
                             {
-                                (characterSectionActiveUserIndex > 0) &&
-                                <NavigationButton navigateTo="prev" onClick={() => setCharacterSectionActiveUserIndex((prev) => prev > 0 ? prev - 1 : prev)} />
-                            }
-                            {
-                                (characterSectionActiveUserIndex < answeredProfileIdList.length - 1) &&
-                                <NavigationButton navigateTo="next" onClick={() => setCharacterSectionActiveUserIndex((prev) => prev < answeredProfileIdList.length - 1 ? prev + 1 : prev)} />
+                                isAnswered
+                                    ?
+                                    <>
+                                        <div className="content">
+                                            <h2 className="typography-label">{character.prefix} {character.name}</h2>
+                                            <CharacterBody id={activeProfileId} />
+                                        </div>
+                                        <div className="content">
+                                            <h2 className="typography-label"># 여행 태그</h2>
+                                            <TripTags id={activeProfileId} />
+                                        </div>
+                                    </>
+                                    :
+                                    <div className="content">
+                                        <div className="block--centered">
+                                            <QuestionMark />
+                                        </div>
+                                        <p><b>{nickname}</b> 님은 어떤 타입일까요?</p>
+                                        <p>궁금하다면 <b>{nickname}</b> 님이 테스트를 완료할 수 있게 도와주세요.</p>
+                                    </div>
                             }
                         </m.div>
-                    </AnimatePresence>
-                </m.div>
-                <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} >
-                    <AnimatePresence mode={"wait"} initial={false}>
-                        <m.p key={characterSectionActiveUserIndex} {...{ ...FADEIN, exit: "hidden" }} custom={0.5}>
-                            {characterSectionCharacter?.body}
-                        </m.p>
                     </AnimatePresence>
                 </m.div>
             </div>

@@ -1,22 +1,20 @@
 import { ComponentType } from "react";
 
-import { useIsTestAnswered } from "../reducers/testAnswerReducer";
-import { ITestName } from "../interfaces/ITestAnswer";
+import { ITestIndex, useIsTestAnswered } from "../reducers/testAnswerReducer";
 
-interface WithIsTestAnsweredProps {
-    testName?: string;
-    isAnswered?: boolean;
+interface WithIsTestAnsweredProps extends ITestIndex {
+    isAnswered: boolean;
 };
 
 const withIsTestAnswered = <T extends WithIsTestAnsweredProps>( WrappedComponent: ComponentType<T> ) =>
-    ({ testName, ...props }: Omit<T, keyof WithIsTestAnsweredProps> & { testName: ITestName }) => {
+    ({ testKey, subKey, ...props }: Omit<T, keyof WithIsTestAnsweredProps> & ITestIndex ) => {
 
-        const isAnswered = useIsTestAnswered( [testName] );
+        const isAnswered = useIsTestAnswered( [{ testKey, subKey }] );
 
         return (
             <WrappedComponent
                 {...{
-                    testName,
+                    testKey,
                     isAnswered: isAnswered,
                 }}
                 {...props as unknown as T}
@@ -26,3 +24,4 @@ const withIsTestAnswered = <T extends WithIsTestAnsweredProps>( WrappedComponent
 
 export default withIsTestAnswered;
 export type { WithIsTestAnsweredProps };
+

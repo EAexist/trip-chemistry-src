@@ -103,7 +103,7 @@ const theme = createTheme({
         },
         MuiAvatar: {
             defaultProps: {
-                style: {
+                sx: {
                     backgroundColor: defaultTheme.palette.gray.main,
                     color: defaultTheme.palette.gray.contrastText
                 }

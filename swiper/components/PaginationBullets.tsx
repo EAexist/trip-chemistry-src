@@ -1,11 +1,8 @@
 import { Box, BoxProps, styled } from "@mui/material";
 
-const PaginationDiv = styled(Box)<BoxProps>(({ theme }) => ({
-    marginTop: "16px",
-    marginBottom: "16px",
-    // width: "fit-content",
+const PaginationBullets = styled(Box)<BoxProps>(({ theme }) => ({
     display: "flex",
-    /* justify-content: "center", */
+    justifyContent: "center",
     gap: "4px",
     zIndex: "1",    
     "& .swiper-pagination-bullet-active" : {
@@ -13,4 +10,4 @@ const PaginationDiv = styled(Box)<BoxProps>(({ theme }) => ({
     }
 }));
 
-export default PaginationDiv;
+export default PaginationBullets;

@@ -40,10 +40,10 @@
 // import Stepper from "../components/Step/components/Stepper";
 // import withReducer from "../hocs/withReducer";
 // import useNavigateWithGuestContext from "../hooks/useNavigateWithGuestContext";
-// import { ITestName } from "../interfaces/ITestAnswer";
+// import { ITestKey } from "../interfaces/ITestAnswer";
 // import { FADEIN } from "../motion/props";
 // import { useGetProfile } from "../reducers/authReducer";
-// import testAnswerReducer, { NumericTestName, SetTestName, useIsAllTestAnswered, useSubmitAnswer, useTestAnswerStatus } from "../reducers/testAnswerReducer";
+// import testAnswerReducer, { INumericTestKey, IHashTagTestKey, useIsAllTestAnswered, useSubmitAnswer, useTestAnswerStatus } from "../reducers/testAnswerReducer";
 // import { RootState } from "../store";
 // import { SWIPERPROPS_CAROUSEL } from "../swiper/props";
 // import { useStrings } from "../texts";
@@ -224,18 +224,18 @@
 //                                     <m.div {...FADEIN} custom={0.2}>
 //                                         <Stepper className="block--with-padding-x top-nav__swiper" speed={preventInitialSwipe ? 0 : 500}>
 //                                             {
-//                                                 Object.entries(TEST_SECTIONS).map(([testName, { icon }], index) =>
-//                                                     <SwiperSlide key={testName} className="top-nav__swiper">
+//                                                 Object.entries(TEST_SECTIONS).map(([testKey, { icon }], index) =>
+//                                                     <SwiperSlide key={testKey} className="top-nav__swiper">
 //                                                         <SectionButton
 //                                                             labelSize={"large"}
 //                                                             value={index}
 //                                                             index={index}
-//                                                             label={contentstrings.subTest[testName as keyof typeof contentstrings.subTest].label}
+//                                                             label={contentstrings.subTest[testKey as keyof typeof contentstrings.subTest].label}
 //                                                             sx={{ height: "100%", display: 'flex', alignItems: 'start', paddingTop: '8px' }}
 //                                                             elevation={0}
 //                                                         >
-//                                                             <TestAnswerBadge testName={testName as ITestName} sx={{ height: 'fit-content', padding: "4px" }}>
-//                                                                 <PngIcon name={testName} size={"large"} />
+//                                                             <TestAnswerBadge testKey={testKey as ITestKey} sx={{ height: 'fit-content', padding: "4px" }}>
+//                                                                 <PngIcon name={testKey} size={"large"} />
 //                                                             </TestAnswerBadge>
 //                                                         </SectionButton>
 //                                                     </SwiperSlide>
@@ -247,23 +247,23 @@
 //                                 </div> */}
 //                                 <ScrollPageContainer onPageChange={(page) => setStep(page)} pages={Object.keys(TEST_SECTIONS).length}>
 //                                     {
-//                                         (["expectation", "activity"] as SetTestName[]).map((testName, index) => {
+//                                         (["expectation", "activity"] as IHashTagTestKey[]).map((testKey, index) => {
 //                                             return (
-//                                                 <ScrollPageItem key={testName} page={index} className="flex">
+//                                                 <ScrollPageItem key={testKey} page={index} className="flex">
 //                                                     <TestSection>
 //                                                         {/* https://codesandbox.io/p/sandbox/6gw7p4?file=/src/App.jsx */}
 //                                                         <div className="flex-grow block--centered">
-//                                                             <div className="block--with-margin-x block__body block__body--large">
-//                                                                 <TestInstruction testName={testName as ITestName} />
+//                                                             <div className="block--with-margin-x content content--large">
+//                                                                 <TestInstruction testKey={testKey as ITestKey} />
 //                                                                 <Stack flexWrap={"wrap"} justifyContent={"center"} rowGap={1}>
-//                                                                     <TagSetTestAnswerChip testName={testName} />
-//                                                                     <TagSetTestAnswerChip testName={testName} selected={false} />
+//                                                                     <TagSetTestAnswerChip testKey={testKey} />
+//                                                                     <TagSetTestAnswerChip testKey={testKey} selected={false} />
 //                                                                 </Stack>
 //                                                             </div>
 //                                                         </div>
 //                                                         <div className="block">
 //                                                             <div className="test__title">
-//                                                                 <h2 className="test__title__heading typography-heading">{contentstrings.subTest[testName].title}</h2>
+//                                                                 <h2 className="test__title__heading typography-heading">{contentstrings.subTest[testKey].title}</h2>
 //                                                             </div>
 //                                                             <div className="test__input">
 //                                                             </div>
@@ -276,7 +276,7 @@
 //                                     <ScrollPageItem key={"leadership"} page={2} className="flex">
 //                                         <TestSection>
 //                                             <div className="modal__container flex-grow">
-//                                                 {/* <TestInstructionModal testName="leadership" /> */}
+//                                                 {/* <TestInstructionModal testKey="leadership" /> */}
 //                                                 <Stack spacing={-4}>
 //                                                     {
 //                                                         Object.entries(contentstrings.subTest.leadership.options).map(([value, { detail }]) => (
@@ -302,11 +302,11 @@
 //                                                     }
 //                                                 </Stack>
 //                                             </div>
-//                                             <div className="block block__body block__body--large">
+//                                             <div className="block content content--large">
 //                                                 <div className="test__title">
 //                                                     <h2 className="test__title__heading typography-heading">{contentstrings.test.leadership.title}</h2>
 //                                                 </div>
-//                                                 <AnswerButtonGroup testName="leadership" />
+//                                                 <AnswerButtonGroup testKey="leadership" />
 //                                                 <div />
 //                                             </div>
 //                                         </TestSection>
@@ -358,11 +358,11 @@
 //                                                     </GoogleMapContext.Provider>
 //                                                 </div>
 //                                             </div>
-//                                             <div className="block block__body block__body--large">
+//                                             <div className="block content content--large">
 //                                                 <div className="test__title">
 //                                                     <h2 className="test__title__heading typography-heading">{contentstrings.test.schedule.title}</h2>
 //                                                 </div>
-//                                                 <AnswerButtonGroup testName="schedule" />
+//                                                 <AnswerButtonGroup testKey="schedule" />
 //                                                 <div />
 //                                             </div>
 //                                         </TestSection>
@@ -372,7 +372,7 @@
 //                                             {/* https://codesandbox.io/p/sandbox/6gw7p4?file=/src/App.jsx */}
 //                                             <div className="flex-grow block--centered">
 //                                                 <Swiper {...SWIPERPROPS_FOODCARDCAROUSEL} className="carousel__swiper modal__container" ref={restaurantCarouselSwiperRef}>
-//                                                     <TestInstruction testName="dailyRestaurantBudget" showBackdrop={true} className="block--centered" />
+//                                                     <TestInstruction testKey="dailyRestaurantBudget" showBackdrop={true} className="block--centered" />
 //                                                     {
 //                                                         Object.values(TEST.restaurant.examples).map((id, index) => (
 //                                                             // <SwiperSlide key={id} className="carousel__swiper-slide--coverflow" style={{ width: "196px", height: "196px", borderRadius: "12px" }}>
@@ -423,7 +423,7 @@
 //                                                     }
 //                                                 </Swiper>
 //                                             </div>
-//                                             <div className="block block__body">
+//                                             <div className="block content">
 //                                                 <div className="test__title">
 //                                                     <h2 className="test__title__heading typography-heading">{contentstrings.subTest.restaurant.title}</h2>
 //                                                 </div>
@@ -436,7 +436,7 @@
 //                                                         : <></>
 //                                                 }
 //                                                 {/* <div className="container--center" style={{ marginTop: 0 }}> */}
-//                                                 <AnswerSlider testName="dailyRestaurantBudget" {...SLIDERPROPS_TEST_BUDGET_FOOD} />
+//                                                 <AnswerSlider testKey="dailyRestaurantBudget" {...SLIDERPROPS_TEST_BUDGET_FOOD} />
 //                                                 {/* </div> */}
 //                                                 <div />
 //                                             </div>
@@ -455,7 +455,7 @@
 //                                                                 examples.map((cityId, index) => (
 //                                                                     <SwiperSlide key={cityId} className="carousel__swiper-slide--auto">
 //                                                                         <ButtonBase onClick={() => handleCityCardClick(key, index)} className="block--full">
-//                                                                             <div className="block__body">
+//                                                                             <div className="content">
 //                                                                                 <ImageCard
 //                                                                                     src={getImgSrc("/city", cityId)}
 //                                                                                     title={cityId}
@@ -476,10 +476,10 @@
 //                                                             }
 //                                                         </Swiper>
 //                                                     </div>
-//                                                     <div className="block block__body block__body--large">
+//                                                     <div className="block content content--large">
 //                                                         <div className="test__title body__head">
 //                                                             <h2 className="test__title__heading typography-heading">{contentstrings.test.city.titleTextList.map((text) => (
-//                                                                 text === "/testName"
+//                                                                 text === "/testKey"
 //                                                                     ? contentstrings.subTest[key as keyof typeof contentstrings.subTest].title
 //                                                                     : (
 //                                                                         text === "/particle"
@@ -488,7 +488,7 @@
 //                                                                     )
 //                                                             ))}</h2>
 //                                                         </div>
-//                                                         <AnswerButtonGroup testName={key as NumericTestName} />
+//                                                         <AnswerButtonGroup testKey={key as INumericTestKey} />
 //                                                         <div />
 //                                                     </div>
 //                                                 </TestSection>

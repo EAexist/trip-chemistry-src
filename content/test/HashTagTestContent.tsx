@@ -4,40 +4,34 @@
 import { Stack } from "@mui/material";
 
 /* App */
-import { ITestName } from "../../interfaces/ITestAnswer";
+import { ITestKey } from "../../interfaces/ITestAnswer";
 import { useStrings } from "../../texts";
 import TagSetTestAnswerChip from "./component/TagSetTestAnswerChip";
 import TestInstruction from "./component/TestInstruction";
 
 interface HashTagTestContentProps {
-    testName: "activity" | "expectation"
+    testKey: "activity" | "expectation"
 }
 
-function HashTagTestContent({ testName }: HashTagTestContentProps ) {
+function HashTagTestContent({ testKey }: HashTagTestContentProps) {
 
     /* Strings */
     const contentstrings = useStrings().public.contents.test;
 
     return (
-        <>
+        <div className="content">
             {/* https://codesandbox.io/p/sandbox/6gw7p4?file=/src/App.jsx */}
+            <h2 className="block--centered typography-heading">{contentstrings.subTest[testKey].title}</h2>
             <div className="flex-grow block--centered">
-                <div className="block--with-margin-x block__body block__body--large">
-                    <TestInstruction testName={testName as ITestName} />
+                <div className="block--with-margin-x content content--large">
+                    <TestInstruction testKey={"hashtag"} subKey={testKey} />
                     <Stack flexWrap={"wrap"} justifyContent={"center"} rowGap={1}>
-                        <TagSetTestAnswerChip testName={testName} />
-                        <TagSetTestAnswerChip testName={testName} selected={false} />
+                        <TagSetTestAnswerChip testKey={testKey} />
+                        <TagSetTestAnswerChip testKey={testKey} selected={false} />
                     </Stack>
                 </div>
             </div>
-            <div className="block">
-                <div className="test__title">
-                    <h2 className="test__title__heading typography-heading">{contentstrings.subTest[testName].title}</h2>
-                </div>
-                <div className="test__input">
-                </div>
-            </div>
-        </>
+        </div>
     )
 }
 export default HashTagTestContent;

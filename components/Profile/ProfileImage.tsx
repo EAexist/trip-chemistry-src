@@ -1,4 +1,5 @@
 
+import { CHARACTERS } from "~/common/app-const";
 import withFriendProfile from "../../hocs/withFriendProfile";
 import withUserProfile from "../../hocs/withUserProfile";
 import { IProfile } from "../../interfaces/IProfile";
@@ -12,28 +13,29 @@ interface ProfileImageProps extends Pick<IProfile, 'id' | 'testResult' | 'nickna
 
 function ProfileImage({ renderLabel, showCharacterLabel = true, id, nickname, testResult }: ProfileImageProps) {
 
-    const tripCharacter = testResult.tripCharacter;
+    const characterId = testResult.characterId;
 
     return (
         <div className="block--centered">
             <img
-                src={ getImgSrc('/character', tripCharacter.id, { size : "large" }) }
+                src={ getImgSrc('/character', characterId, { size : "large" }) }
                 alt={ nickname }
                 className="ProfileImage__image"
                 width={ "192px" }
                 height={ "192px" }
+                style={{ marginBottom: "-16px"}}
             />
             {
                 ( renderLabel === undefined )
                     ?
                     <div>
                         <h3 className="typography-heading">{ nickname }</h3>
-                        {
+                        {/* {
                             showCharacterLabel 
                             && <p className="typography-body">
-                                {tripCharacter.name}
+                                {CHARACTERS[characterId].name}
                             </p>
-                        }
+                        } */}
                     </div>
                     : renderLabel(id)
             }

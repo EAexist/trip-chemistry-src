@@ -1,27 +1,35 @@
 import { IProfile, IProfileId } from "./IProfile";
 
-interface ICityChemistry {
-    [key: string]: number
-};
-
 export interface IChemistry {
-    id: string,
-    title: string,
-    titleCity: string,
-    leaderList: IProfileId[];
-    cityChemistry: ICityChemistry;
-    scheduleChemistryText?: string[];
-    budgetChemistryText?: string[];
+    id: string
+    title: string
+    titleCity: string
+    city: {
+        [key: string]: number
+    }
+    schedule: {
+        relaxingMembers: IProfileId[]
+        busyMembers: IProfileId[]         
+    }
+    budget: {
+        interestedMembers: IProfileId[]
+        notInterestedMembers: IProfileId[]
+    }
     profileList: { [id: IProfileId]: IProfile };
 };
 
-export const defaultChemistry = {
+export const defaultChemistry : IChemistry = {
     id: "",
     title: "",
     titleCity: "",
-    leaderList: [],
-    cityChemistry: {},
-    scheduleChemistryText: [],
-    budgetChemistryText: [],
+    city: {},
+    schedule: {
+        relaxingMembers: [],
+        busyMembers: []         
+    },
+    budget: {
+        interestedMembers: [],
+        notInterestedMembers: []
+    },
     profileList: {},
 }

@@ -4,38 +4,38 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Chip } from "@mui/material";
 
-import { addTagAnswer, deleteTagAnswer, useTagSetAnswer } from "../../../reducers/testAnswerReducer";
+import { addHashTagAnswer, deleteHashTagAnswer, useTagSetAnswer } from "../../../reducers/testAnswerReducer";
 import { useStrings } from "../../../texts";
-import { SetTestName } from "~/interfaces/ITestAnswer";
+import { IHashTagTestKey } from "~/interfaces/ITestAnswer";
 
 interface TagSetTestAnswerChipProps {
-    testName : SetTestName;
+    testKey: IHashTagTestKey;
     selected?: boolean;
 };
 
-const TagSetTestAnswerChip = ({ testName, selected = true }: TagSetTestAnswerChipProps ) => {
+const TagSetTestAnswerChip = ({ testKey, selected = true }: TagSetTestAnswerChipProps ) => {
 
     const dispatch = useDispatch();
 
-    const tagToLabel = useStrings().public.test[testName].tagSet;
+    const tagToLabel = useStrings().public.test[testKey].hashtag;
 
-    const tagSet = useTagSetAnswer( testName, selected );
+    const hashtag = useTagSetAnswer( testKey, selected );
 
     const handleClick = ( tag : number ) => {
-        dispatch( addTagAnswer({ testName, tag }) )
+        dispatch( addHashTagAnswer({ key: testKey, tag }) )
     }
     const handleDelete = ( tag : number ) => {
-        dispatch( deleteTagAnswer({ testName, tag }) )
+        dispatch( deleteHashTagAnswer({ key: testKey, tag }) )
     }
 
     useEffect(()=>{
-        console.log(`[TagSetTestAnswerChip] testName=${testName} tagToLabel=${JSON.stringify(tagToLabel)} `)
-    }, [ testName, tagToLabel ])
+        console.log(`[TagSetTestAnswerChip] key=${testKey} tagToLabel=${JSON.stringify(tagToLabel)} `)
+    }, [ testKey, tagToLabel ])
 
     return(
         <>
             {
-                tagSet.map(( tag ) => (    
+                hashtag.map(( tag ) => (    
                     <Chip 
                         key={tag}
                         label={ `${selected ? '# ' : ''}${tagToLabel[ tag as keyof typeof tagToLabel ]}` }

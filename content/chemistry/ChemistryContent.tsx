@@ -129,6 +129,7 @@ function ChemistryContent() {
                 <meta property="og:description" content={Object.values(profileList).length > 0 ? `${Object.values(profileList)[0].nickname}님의 ${title}. 참여하고 여행 계획, 일정, 예산, 여행지까지 함께 결정해보세요.` : `${title}. 참여하고 여행의 리더, 일정, 예산 그리고 여행지를 함께 결정해보세요.`} />
             </Helmet>
             {/* <AnimatePresence mode="wait"> */}
+            <LazyDomAnimation>
                 {
                     (!isAuthorized && showLoginContent)
                         ?
@@ -146,10 +147,10 @@ function ChemistryContent() {
                         </MotionPage>
                         :
                         <div key="main" className="page flex block--gray">
-                            <AppBarBackground/>
+                            <AppBarBackground />
                             <Toolbar />
-                            <div className="block__body block__body--large">
-                                <SectionPaper className="block__body body__head">
+                            <div className="content content--large">
+                                <SectionPaper className="content body__head">
                                     <div className="typography-note">
                                         {
                                             isMember &&
@@ -167,106 +168,104 @@ function ChemistryContent() {
                                                     className={`${(testAnswer === null) && 'disabled'}`}
                                                     secondaryAction={
                                                         (testAnswer === null) &&
-                                                        <Stack className='typography-note' spacing={0} >
+                                                        <Stack >
                                                             <Error sx={{ fontSize: 18 }} />
-                                                            <p >테스트 기다리는 중</p>
+                                                            <p className='typography-note'>테스트 기다리는 중</p>
                                                         </Stack>
                                                     }
                                                 >
                                                     <ListItemAvatar>
-                                                        <FriendAvatar id={id} showLabel={false} />
+                                                        <FriendAvatar id={id} renderLabel={false} />
                                                     </ListItemAvatar>
                                                     <ListItemText primary={nickname} className="typography-note" />
                                                 </ListItem>
                                             )
                                         }
                                     </List>
-                                    <LazyDomAnimation>
-                                        <m.div className="flex">
-                                            {
-                                                isMember
-                                                    ?
-                                                    (
-                                                        <Button
-                                                            onClick={handleStartShare}
-                                                            startIcon={<GroupAdd />}
-                                                            variant="outlined"
-                                                            className="block--with-padding"
-                                                        >
-                                                            친구 초대하기
-                                                        </Button>
-                                                        /* [Deprecated] 친구 초대 방법 선택 > 링크 공유로 통합 */
-                                                        // <m.div>
-                                                        //     {
-                                                        //         isInviteOptionsOpen
-                                                        //             ?
-                                                        //             <m.div {...FADEIN_VIEWPORT} key={String(isInviteOptionsOpen)}>
-                                                        //                 <Grid container columnSpacing={2}>
-                                                        //                     {
-                                                        //                         [
-                                                        //                             {
-                                                        //                                 onClick: handleStartShare,
-                                                        //                                 icon: 'share',
-                                                        //                                 label: '링크 공유'
-                                                        //                             },
-                                                        //                             {
-                                                        //                                 onClick: handleStartSearch,
-                                                        //                                 icon: 'person_search',
-                                                        //                                 label: '로그인 계정 검색'
-                                                        //                             },
-                                                        //                         ].map(({ onClick, icon, label }) => (
-                                                        //                             <Grid item xs={6} display={"flex"} flexDirection={'column'}>
-                                                        //                                 <Button
-                                                        //                                     onClick={onClick}
-                                                        //                                     startIcon={<Icon>{icon}</Icon>}
-                                                        //                                     variant="outlined"
-                                                        //                                     className="block--with-padding"
-                                                        //                                 >
-                                                        //                                     {label}
-                                                        //                                 </Button>
-                                                        //                             </Grid>
-
-                                                        //                         ))
-                                                        //                     }
-                                                        //                 </Grid>
-                                                        //             </m.div>
-                                                        //             :
-                                                        //             <m.div className="flex">
-                                                        //                 <Button
-                                                        //                     onClick={() => setIsInviteOptionsOpen(true)}
-                                                        //                     startIcon={<GroupAdd />}
-                                                        //                     variant="outlined"
-                                                        //                     className="block--with-padding"
-                                                        //                 >
-                                                        //                     친구 초대하기
-                                                        //                 </Button>
-                                                        //             </m.div>
-                                                        //     }
-                                                        // </m.div>
-                                                    )
-                                                    :
+                                    <m.div className="flex">
+                                        {
+                                            isMember
+                                                ?
+                                                (
                                                     <Button
-                                                        onClick={handleJoinChemistry}
-                                                        startIcon={<AirplaneTicket />}
+                                                        onClick={handleStartShare}
+                                                        startIcon={<GroupAdd />}
                                                         variant="outlined"
                                                         className="block--with-padding"
                                                     >
-                                                        참여하기
+                                                        친구 초대하기
                                                     </Button>
-                                            }
-                                        </m.div>
-                                    </LazyDomAnimation>
+                                                    /* [Deprecated] 친구 초대 방법 선택 > 링크 공유로 통합 */
+                                                    // <m.div>
+                                                    //     {
+                                                    //         isInviteOptionsOpen
+                                                    //             ?
+                                                    //             <m.div {...FADEIN_VIEWPORT} key={String(isInviteOptionsOpen)}>
+                                                    //                 <Grid container columnSpacing={2}>
+                                                    //                     {
+                                                    //                         [
+                                                    //                             {
+                                                    //                                 onClick: handleStartShare,
+                                                    //                                 icon: 'share',
+                                                    //                                 label: '링크 공유'
+                                                    //                             },
+                                                    //                             {
+                                                    //                                 onClick: handleStartSearch,
+                                                    //                                 icon: 'person_search',
+                                                    //                                 label: '로그인 계정 검색'
+                                                    //                             },
+                                                    //                         ].map(({ onClick, icon, label }) => (
+                                                    //                             <Grid item xs={6} display={"flex"} flexDirection={'column'}>
+                                                    //                                 <Button
+                                                    //                                     onClick={onClick}
+                                                    //                                     startIcon={<Icon>{icon}</Icon>}
+                                                    //                                     variant="outlined"
+                                                    //                                     className="block--with-padding"
+                                                    //                                 >
+                                                    //                                     {label}
+                                                    //                                 </Button>
+                                                    //                             </Grid>
+
+                                                    //                         ))
+                                                    //                     }
+                                                    //                 </Grid>
+                                                    //             </m.div>
+                                                    //             :
+                                                    //             <m.div className="flex">
+                                                    //                 <Button
+                                                    //                     onClick={() => setIsInviteOptionsOpen(true)}
+                                                    //                     startIcon={<GroupAdd />}
+                                                    //                     variant="outlined"
+                                                    //                     className="block--with-padding"
+                                                    //                 >
+                                                    //                     친구 초대하기
+                                                    //                 </Button>
+                                                    //             </m.div>
+                                                    //     }
+                                                    // </m.div>
+                                                )
+                                                :
+                                                <Button
+                                                    onClick={handleJoinChemistry}
+                                                    startIcon={<AirplaneTicket />}
+                                                    variant="outlined"
+                                                    className="block--with-padding"
+                                                >
+                                                    참여하기
+                                                </Button>
+                                        }
+                                    </m.div>
                                 </SectionPaper>
                                 {
                                     isChemistryEnabled
                                         ?
-                                        <ChemistryDetailContent/>
+                                        <ChemistryDetailContent />
                                         :
                                         /* 참여자를 한 명도 추가하지 않은 경우. */
                                         <Paper elevation={0}>
                                             <NoticeBlock
                                                 alt={"invite"}
-                                                src={getImgSrc('/info', "invite", { size : "xlarge" })}
+                                                src={getImgSrc('/info', "invite", { size: "xlarge" })}
                                                 {
                                                 ...Object.keys(profileList).length < 2
                                                     ?
@@ -293,7 +292,7 @@ function ChemistryContent() {
                                         <SectionPaper
                                             square={false}
                                             sx={{ borderRadius: "16px" }}
-                                            className="block__body block--with-margin--small flex"
+                                            className="content block--with-margin--small flex"
                                         >
                                             <Grid container>
                                                 {
@@ -340,27 +339,27 @@ function ChemistryContent() {
                                     hideBackdrop={true}
                                     disableScrollLock
                                 >
-                                        <Alert
-                                            action={
-                                                <IconButton
-                                                    aria-label="close"
-                                                    color="inherit"
-                                                    size="small"
-                                                    onClick={() => {
-                                                        setIsLinkCopiedAlertOpen(false);
-                                                    }}
-                                                >
-                                                    <Close fontSize="inherit" />
-                                                </IconButton>
-                                            }
-                                            severity="success"
-                                            className="block--with-margin block--with-margin--large block--with-padding"
-                                        >
-                                            링크를 복사했어요.
-                                        </Alert>
+                                    <Alert
+                                        action={
+                                            <IconButton
+                                                aria-label="close"
+                                                color="inherit"
+                                                size="small"
+                                                onClick={() => {
+                                                    setIsLinkCopiedAlertOpen(false);
+                                                }}
+                                            >
+                                                <Close fontSize="inherit" />
+                                            </IconButton>
+                                        }
+                                        severity="success"
+                                        className="block--with-margin block--with-margin--large block--with-padding"
+                                    >
+                                        링크를 복사했어요.
+                                    </Alert>
                                 </Modal>
                                 {
-                                    ( isMember && !hasAnsweredTest )
+                                    (isMember && !hasAnsweredTest)
                                     &&
                                     <div className="floating--bottom flex">
                                         <Button
@@ -375,6 +374,7 @@ function ChemistryContent() {
                             </div>
                         </div>
                 }
+            </LazyDomAnimation>
             {/* </AnimatePresence> */}
         </>
     );

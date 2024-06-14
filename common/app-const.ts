@@ -1,12 +1,12 @@
 import { SliderProps } from "@mui/material";
-import { ChemistrySliderProps } from "../content/chemistry/component/ChemistrySlider";
+import { ChemistrySliderProps } from "../content/chemistry/component/ChemistrySliderLegacy";
 import { TripTag } from "../interfaces/enums/TripTag";
 
 export const USER = {
     maxNicknameLength: 5,
     maxPasswordLength: 8
 }
-export const CONTENTS = {
+export const PAGES = {
     test: {
         path: 'test',
         icon: 'letter'
@@ -57,6 +57,73 @@ export const LINK = {
         link: ""
     },
 }
+
+export const PREFERENCE_OPTIONS = {
+    "1": {
+        value: 1,
+        label: "싫어",
+        icon: "😡",
+    },
+    "2": {
+        value: 2,
+        label: "별로야",
+        icon: "😤",
+    },
+    "3": {
+        value: 3,
+        label: "상관 없어",
+        icon: "🤔",
+    },
+    "4": {
+        value: 4,
+        label: "좋아",
+        icon: "😃",
+    },
+    "5": {
+        value: 5,
+        label: "취향 저격",
+        icon: "😍",
+    },
+}
+
+export interface ICharacter {
+    name: string
+    prefix: string
+    body: string
+}
+
+export const CHARACTERS = {
+    bee:
+    {
+        name: "부지런한 꿀벌",
+        prefix: "쉴 틈이 없어요",
+        body: "부지런한 꿀벌형은 알차고 보람이 많은 여행을 꿈꿔요. 여행을 계획하는 시간도 좋아요.\n"
+            + "여행지에서는 부지런히 돌아다니며 최대한 많은 경험을 해야해요. 여행이 다가오는데 아무런 계획이 없거나, 여행지에서 시간을 허투루 쓰는 것은 좋아하지 않아요."
+    },
+    sloth:
+    {
+        name: "느긋한 나무늘보",
+        prefix: "여유만만",
+        body: "느긋한 나무늘보형에게 여행은 여유와 쉼이랍니다.\n"
+            + "널널한 일정으로 한 곳을 오래 둘러보고 바쁜 일상과는 다르게 여행을 통해 푹 쉬는 것을 좋아해요. 계획을 너무 빡빡하게 세우거나 일정을 소화하기 위해 여행 중에 지치고 긴장하는 것은 싫어요."
+    },
+    panda:
+    {
+        name: "미식가 판다",
+        prefix: "새로운 맛을 찾아볼까",
+        body: "미식가 판다형은 새로운 미식 경험을 위해 떠날 준비가 되어있어요.\n"
+            + "여행 중 매 끼니는 미리 계획하고 필요하다면 줄 서서 기다리는 것도 좋아요. 여행지에 특별한 음식이 있다면 반드시 먹어봐야 하죠! 여행인데도 불구하고 식비를 아끼거나 집에서도 먹을 수 있는 음식으로 끼니를 때우는 건 싫어요."
+    },
+    racoon:
+    {
+        name: "도시의 너구리",
+        prefix: "세련된 여행가",
+        body: "도시의 너구리는 사람이 많고 현대적인 도시로 떠나는 편안한 여행을 좋아해요.\n"
+            + "쇼핑을 하거나 공연을 보는 것도 좋아요.깔끔한 도시라면 어느 곳을 가던 함께 즐길 수 있는 좋은 여행 친구에요. 외지거나 생활이 불편한 곳으로 여행을 가야 한다면 괜찮은지 저에게 동의를 구해주세요!."
+    }
+}
+
+export type ICharacterId = keyof typeof CHARACTERS
 
 export const FOOD = {
     kyudong:
@@ -303,7 +370,7 @@ export const TEST_TYPE = {
     },
     "city": {
         titleTextList: [
-            "/testName",
+            "/testKey",
             " 여행은 어때?"
         ],
         "sliderProps": {
@@ -339,7 +406,7 @@ export const TEST_TYPE = {
             },
         },
     },
-    "tagSet": {
+    "hashtag": {
         selectedMinLength: 2
     },
 }
@@ -575,7 +642,7 @@ export const TEST = {
             },
         }
     },
-    tag: {
+    hashtag: {
         subTests: {
             tag: {
                 icon: "edit_calendar",
@@ -622,12 +689,12 @@ export const TEST = {
 export const TEST_SECTIONS = {
     expectation:
     {
-        type: "tagSet",
+        type: "hashtag",
         icon: "temple_buddhist",
     },
     activity:
     {
-        type: "tagSet",
+        type: "hashtag",
         icon: "temple_buddhist",
     },
     leadership:
@@ -821,13 +888,6 @@ export const TEST_SECTIONS = {
         examples: [
         ]
     }
-};
-
-export const RESULT = {
-    sections: ['tripCharacter', 'city', 'chemistry']
-};
-export const CHEMISTRY = {
-    sections: ['tripCharacter', 'leadership', 'chemistry']
 };
 
 export const CITIES = {

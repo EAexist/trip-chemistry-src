@@ -1,7 +1,7 @@
 import { ListItemAvatar, ListItemText, Stack, useTheme } from "@mui/material";
 import { m } from "framer-motion";
 import { Fragment } from "react";
-import LabeledAvatar from "~/components/Avatar/LabeledAvatar";
+import ProfileAvatar from "~/components/Avatar/ProfileAvatar";
 import { MotionList } from "~/motion/components/MotionList";
 import { MotionListItem } from "~/motion/components/MotionListItem";
 import LazyDomAnimation from "~/motion/LazyDomAnimation";
@@ -55,7 +55,7 @@ function ConflictSample() {
 
     return (
         <LazyDomAnimation>
-            <div className="block__body">
+            <div className="content">
                 <MotionList initial={"hidden"} whileInView={"visible"} variants={VARIANTS_STAGGER_CHILDREN} disablePadding custom={{ staggerChildren: 0.1 }}>
                     {
                         Object.entries(scheduleAnswerToProfiles).map(([value, { label, profileList }]) => (
@@ -72,7 +72,7 @@ function ConflictSample() {
                                         <Stack spacing={0.5}>
                                             {
                                                 profileList.map(({ characterId, nickname }) => (
-                                                    <LabeledAvatar key={nickname} characterId={characterId} nickname={nickname} />
+                                                    <ProfileAvatar key={nickname} avatarId={characterId} nickname={nickname} />
                                                 ))
                                             }
                                         </Stack>
@@ -81,7 +81,7 @@ function ConflictSample() {
                             </MotionListItem>
                         )).reverse()
                     }
-                    <m.div className="block__body" variants={VARIANTS_FADEIN_FROMBOTTOM}>
+                    <m.div className="content" variants={VARIANTS_FADEIN_FROMBOTTOM}>
                         <p style={{ fontSize: "16px", lineHeight: '1.7rem' }}>
                             {
                                 scheduleChemistryTextList.map((t, index) =>

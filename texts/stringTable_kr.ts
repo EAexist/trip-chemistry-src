@@ -408,10 +408,10 @@ const stringTable_kr = {
         "test": {
             activity: {
                 title: "액티비티",
-                tagSet: {
+                hashtag: {
                     [ActivityTag.PHOTO]: "사진",
                     [ActivityTag.INSTA]: "인스타그램",
-                    [ActivityTag.NETWORK]: "여행지에서 친구 사귀기",
+                    [ActivityTag.NETWORK]: "새 친구 사귀기",
                     [ActivityTag.EXTREME]: "익스트림 액티비티",
                     [ActivityTag.SWIM]: "물놀이",
                     [ActivityTag.DRIVE]: "드라이브",
@@ -430,7 +430,7 @@ const stringTable_kr = {
             },
             expectation: {
                 title: "제네럴",
-                tagSet: {
+                hashtag: {
                     [ExpectationTag.HEAL]: "치유되는",
                     [ExpectationTag.COMPACT]: "알찬",
                     [ExpectationTag.FULLFILL]: "보람있는",
@@ -537,7 +537,7 @@ const stringTable_kr = {
                     "leadership": {
                         title: "일행과 여행을 준비할 때의 나는?",
                         instruction: "답변을 눌러서 선택해봐!",
-                        "answers": {
+                        "options": {
                             1:
                             {
                                 value: 1,
@@ -621,7 +621,7 @@ const stringTable_kr = {
                     "city": {
                         title: "이런 곳은 어때?",
                         titleTextList: [
-                            "/testName",
+                            "/testKey",
                             " 여행은 어때?"
                         ],
                         subtitle: "여행지",
@@ -675,7 +675,7 @@ const stringTable_kr = {
                             },
                         },
                     },
-                    "tagSet": {
+                    "hashtag": {
                         instruction: "태그를 두 개 이상 선택해주세요.",
                         selectWarningStringList: [
                             "",
@@ -728,12 +728,12 @@ const stringTable_kr = {
                 "subTest": {
                     "expectation": {
                         label: "이런 여행을 하고싶어",
-                        title: "나는 이런 여행을 하고 싶어",
+                        title: "# 이런 여행을 하고 싶어",
                         particle: "",
                     },
                     "activity": {
                         label: "액티비티",
-                        title: "여행지에서는 이런 걸 해보고 싶어",
+                        title: "# 여행지에서 해보고 싶은 것",
                         particle: "",
                     },
                     "leadership": {
@@ -1000,7 +1000,7 @@ const stringTable_kr = {
                 "label": "내 여행 타입",
                 "navigateToChemistryButton": "친구들과 여행 타입 비교하기",
                 "sections": {
-                    "tripCharacter":
+                    "character":
                     {
                         title: "내 여행 타입",
                         icon: "pets",
@@ -1056,7 +1056,7 @@ const stringTable_kr = {
                             startChemistry: "친구를 모두 추가한 후에\n\"케미 확인하기\" 버튼을 클릭하세요.",
                         },
                     },
-                    "tripCharacter": {
+                    "character": {
                         label: "여행 타입",
                         icon: "pets",
                         title: "여행 타입 확인하기",
@@ -1066,7 +1066,7 @@ const stringTable_kr = {
                     "leadership": {
                         label: "리더",
                         icon: "groups",
-                        title: "이번 여행의 믿음직한 대장님",
+                        title: "이번 여행의 대장님은 누구?",
                         "leaderTitle": "듬직한 대장",
                         "idPostfix": "님",
                         "and": ",",

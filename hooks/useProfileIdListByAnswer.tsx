@@ -2,17 +2,17 @@ import { useEffect, useState } from "react";
 
 import { IProfileId } from "../interfaces/IProfile";
 import { useTestAnswerObject } from "../reducers/chemistryReducer";
-import { ITestName } from "../interfaces/ITestAnswer";
+import { ITestKey } from "../interfaces/ITestAnswer";
 
-const useProfileIdListByAnswer = ( testName: ITestName, answer: number ) => {
+const useProfileIdListByAnswer = ( testKey: ITestKey, answer: number ) => {
 
     const [ userList, setProfileList ] = useState< IProfileId[]>([] as  IProfileId[]);
     const [ ascendingOrder, setAscendingOrder ] = useState( -1 );
-    const testAnswerObject = useTestAnswerObject( testName );
+    const testAnswerObject = useTestAnswerObject( testKey );
 
     /* Debug */
     useEffect(() => {
-        console.log(`[useProfileIdListByAnswer]: testAnswerObject Updated\n testName=${JSON.stringify(testName)} testAnswerObject=${JSON.stringify(testAnswerObject)}`);
+        console.log(`[useProfileIdListByAnswer]: testAnswerObject Updated\n testKey=${JSON.stringify(testKey)} testAnswerObject=${JSON.stringify(testAnswerObject)}`);
 
         let userListTemp: IProfileId[] = [];
         Object.entries( testAnswerObject ).forEach(([ id, userAnswer ]) => {
@@ -23,7 +23,7 @@ const useProfileIdListByAnswer = ( testName: ITestName, answer: number ) => {
         setProfileList(userListTemp);
 
         setAscendingOrder( Array.from(new Set( Object.values( testAnswerObject ) )).sort().indexOf( answer ) );
-    }, [ testAnswerObject, answer, testName ]);
+    }, [ testAnswerObject, answer, testKey ]);
 
     // useEffect(()=>{
     //     console.log(`[useProfileIdListByAnswer] ${answer}/${Object.values( testAnswerObject )} ascendingOrder=${ascendingOrder}`);
