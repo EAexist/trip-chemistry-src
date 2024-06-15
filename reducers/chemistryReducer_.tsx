@@ -2,13 +2,13 @@
 // import { useCallback } from "react";
 
 // /* Externals */
-// import { useDispatch, useSelector } from "react-redux";
+// import { useAppDispatch, useSelector } from "react-redux";
 // import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 // import axios from "axios";
 // import qs from "qs";
 
 // /*** Trip Chemistry ***/
-// import { AppDispatch } from "../store";
+// import { useAppDispatch } from "../store";
 // import { IWithLoadStatus, LoadStatus, IProfileId } from ".";
 // import { HEADERS_AXIOS } from "../common/app-const";
 
@@ -100,7 +100,7 @@
 // };
 
 // // const useGetChemistry = () => {
-// //     const dispatch = useDispatch<AppDispatch>(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
+// //     const dispatch = useAppDispatch(); /* Using useAppDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
 // //     const idList = useProfileIdList();
 
 // //     return useCallback(() => {
@@ -112,7 +112,7 @@
 // // }
 
 // const useChemistryLoadStatus = () => {
-//     const dispatch = useDispatch(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
+//     const dispatch = useAppDispatch(); /* Using useAppDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
 
 //     return ([
 //         useAppSelector((state) => state.chemistry.loadStatus),
@@ -132,7 +132,7 @@
 // //     const [ doWaitApi, setDoWaitApi ] = useState<boolean>(true);
 // //     const [ status, setStatus ] = useProfileLoadStatus( id, key );
 
-// //     const dispatch = useDispatch<AppDispatch>(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
+// //     const dispatch = useAppDispatch(); /* Using useAppDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
 
 // //     /* 테스트 결과 Fetch */
 // //     useEffect(() => {

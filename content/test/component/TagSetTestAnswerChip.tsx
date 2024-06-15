@@ -1,12 +1,13 @@
 
 import { useEffect } from "react";
 
-import { useDispatch } from "react-redux";
+
 import { Chip } from "@mui/material";
 
+import { IHashTagTestKey } from "~/interfaces/ITestAnswer";
+import { useAppDispatch } from "~/store";
 import { addHashTagAnswer, deleteHashTagAnswer, useTagSetAnswer } from "../../../reducers/testAnswerReducer";
 import { useStrings } from "../../../texts";
-import { IHashTagTestKey } from "~/interfaces/ITestAnswer";
 
 interface TagSetTestAnswerChipProps {
     testKey: IHashTagTestKey;
@@ -15,7 +16,7 @@ interface TagSetTestAnswerChipProps {
 
 const TagSetTestAnswerChip = ({ testKey, selected = true }: TagSetTestAnswerChipProps ) => {
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const tagToLabel = useStrings().public.test[testKey].hashtag;
 

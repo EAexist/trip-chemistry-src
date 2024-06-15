@@ -5,7 +5,7 @@ import { useCallback } from "react";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { StatusCodes } from "http-status-codes";
-import { useDispatch } from "react-redux";
+
 
 /* App */
 import { HEADERS_AXIOS, TEST_TYPE } from "../common/app-const";
@@ -13,7 +13,7 @@ import { ActivityTag } from "../interfaces/enums/ActivityTag";
 import { ExpectationTag } from "../interfaces/enums/ExpectationTag";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
 import { HashTagTestKeys, IHashTagTestKey, ITestAnswer, ITestAnswerDTO, INumericTestKey, testAnswerToDTO, ITestKey } from "../interfaces/ITestAnswer";
-import { AppDispatch, useAppSelector } from "../store";
+import { useAppDispatch, useAppSelector } from "../store";
 import { useUserId } from "./authReducer";
 
 
@@ -147,7 +147,7 @@ const testAnswerSlice = createSlice({
 });
 
 export const useTestAnswer = (key: INumericTestKey, subKey?: string) => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     return (
         [
             useAppSelector((state) => ( subKey ? state.testAnswer.data[key][subKey] :  state.testAnswer.data[key] ) as number),
@@ -159,7 +159,7 @@ export const useTestAnswer = (key: INumericTestKey, subKey?: string) => {
 };
 
 // export const useDayjsTestAnswer = (testKey: DayjsTestKey) => {
-//     const dispatch = useDispatch();
+//     const dispatch = useAppDispatch();
 //     return (
 //         [
 //             useAppSelector((state) => (state.testAnswer.data[testKey]) as Dayjs),
@@ -210,9 +210,9 @@ export const useIsAllTestAnswered = () => {
 }
 
 const useTestAnswerStatus = () => {
-    /* Using useDispatch with createAsyncThunk. 
+    /* Using useAppDispatch with createAsyncThunk. 
     ( https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete ) */
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const status = useAppSelector((state) => state.testAnswer.loadStatus);
     return ([
         status,
@@ -223,7 +223,7 @@ const useTestAnswerStatus = () => {
 }
 
 const useSubmitAnswer = () => {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     const { data } = useAppSelector((state) => state.testAnswer);
 
     const id = useUserId();

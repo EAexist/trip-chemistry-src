@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { AirplaneTicket, Close, Error, GroupAdd, NavigateBefore } from "@mui/icons-material";
 import { Alert, AppBar, Avatar, Button, ButtonBase, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemText, Modal, Paper, Stack, Toolbar } from "@mui/material";
 import { AnimatePresence, m } from "framer-motion";
-import { useDispatch } from "react-redux";
+
 import { useParams } from "~/router-module";
 import LazyDomAnimation from "../../motion/LazyDomAnimation";
 
@@ -17,7 +17,7 @@ import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { useHasAnsweredTest, useIsAuthorized, useUserId } from "../../reducers/authReducer";
 import { asyncJoinChemistry, useChemistry, useIsChemistryEnabled } from "../../reducers/chemistryReducer";
-import type { AppDispatch } from "../../store";
+import { useAppDispatch } from "../../store";
 import getImgSrc from "../../utils/getImgSrc";
 import LoginContent from "../login/LoginContent";
 import ChemistryDetailContent from "./ChemistryDetailContent";
@@ -33,7 +33,7 @@ function ChemistryContent() {
 
     /* Hooks */
     const navigate = useNavigateWithGuestContext();
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     const params = useParams();
     const chemistryId = params.chemistryId ? params.chemistryId : "";
 

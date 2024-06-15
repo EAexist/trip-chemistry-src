@@ -1,15 +1,14 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { useSearchParams } from "~/router-module";
 
-import { asyncKakaoLogin, useUserId } from "../reducers/authReducer";
-import { AppDispatch } from "../store";
+import { asyncKakaoLogin } from "../reducers/authReducer";
+import { useAppDispatch } from "../store";
 
 const useKakaoLogin = ( ) => {
 
     /* Hooks */
     const [searchParams] = useSearchParams();
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
 
     /* Try login when access code is generated. */
     useEffect(() => {

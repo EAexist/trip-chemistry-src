@@ -2,13 +2,13 @@
 
 /* Externals */
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+
 import { useNavigate, useSearchParams } from "~/router-module";
 import useKakaoLogin from "../../hooks/useKakaoLogin";
 import { IUserProfile } from "../../interfaces/IUserProfile";
 import { LoadStatus } from "../../interfaces/enums/LoadStatus";
 import { disableAutoLogin, useAuthLoadStatus, useAuthorize, useUserProfile } from "../../reducers/authReducer";
-import { AppDispatch } from "../../store";
+import { useAppDispatch } from "../../store";
 
 function KakaoAuthRedirectPage() {
 
@@ -16,7 +16,7 @@ function KakaoAuthRedirectPage() {
     const [searchParams] = useSearchParams();
     const loginRedirectPath = searchParams.get('state');
 
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const authorize = useAuthorize();
     const userProfile = useUserProfile() as IUserProfile;

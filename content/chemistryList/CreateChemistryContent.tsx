@@ -12,12 +12,27 @@ import { Swiper, SwiperRef, SwiperSlide, } from 'swiper/react';
 import RoutedMotionPage from "~/motion/components/RoutedMotionPage";
 import TextFieldBlock from "../../components/Block/TextFieldBlock";
 import withReducer from "../../hocs/withReducer";
-import useCreateChemistry from "../../hooks/useCreateChemistry";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
-import { useGetProfile } from "../../reducers/authReducer";
-import chemistryReducer, { useChemistryId, useChemistryLoadStatus } from "../../reducers/chemistryReducer";
+import { useGetProfile, useUserId } from "../../reducers/authReducer";
+import chemistryReducer, { asyncCreateChemistry, useChemistryId, useChemistryLoadStatus } from "../../reducers/chemistryReducer";
 import { SWIPERPROPS_PAGE } from "../../swiper/props";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
+import { useAppDispatch } from "~/store";
+
+const useCreateChemistry = () => {
+
+    const dispatch = useAppDispatch();
+    const userId = useUserId();
+    return(
+        useCallback(( title: string )=>{
+            dispatch( asyncCreateChemistry({
+                title: title,
+                titleCity: "kyoto",
+                userId: userId
+            }))
+        }, [ dispatch, userId ])
+    )
+}
 
 function CreateChemistryContent() {
 

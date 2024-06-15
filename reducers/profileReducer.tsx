@@ -1,6 +1,6 @@
 // /*** React ***/
 // import { useCallback, useEffect, useState } from "react";
-// import { shallowEqual, useDispatch, useSelector } from "react-redux";
+// import { shallowEqual, useAppDispatch, useSelector } from "react-redux";
 // import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 // import axios from "axios";
 
@@ -411,7 +411,7 @@
 
 // const useProfileLoadStatus = (id: IProfileId, key?: TestDataKey) => {
 //     const isAdded = useProfileIdList().includes(id);
-//     const dispatch = useDispatch(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
+//     const dispatch = useAppDispatch(); /* Using useAppDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
 //     return ([
 //         useAppSelector((state) => isAdded ? (key ? state.profile.data[id].data[key].loadStatus : state.profile.data[id].loadStatus) : undefined),
 //         useCallback((loadStatus: LoadStatus) => {
@@ -463,7 +463,7 @@
 // /* Deprecated */
 // // const useProfileStatus = (idList: IProfileId[], key: 'testResult' | 'testAnswer') => {
 
-// //     const dispatch = useDispatch<AppDispatch>();
+// //     const dispatch = useAppDispatch();
 
 // //     return (useAppSelector((state) => idList.map((id) => ({
 // //         status: state.profile.data[id].data[key].loadStatus,
@@ -503,7 +503,7 @@
 // //     const [doWaitApi, setDoWaitApi] = useState<boolean>(true);
 // //     const [status, setStatus] = useProfileLoadStatus(id, key);
 
-// //     const dispatch = useDispatch<AppDispatch>(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
+// //     const dispatch = useAppDispatch(); /* Using useAppDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
 
 // //     /* 테스트 결과 Fetch */
 // //     useEffect(() => {
@@ -527,7 +527,7 @@
 // // };
 
 // // const useHandleSuccessAll = (status: LoadStatus, setStatus: (loadStatus: LoadStatus) => void, key: TestDataKey) => {
-// //     const dispatch = useDispatch();
+// //     const dispatch = useAppDispatch();
 // //     // const [ isSucess, setIsSuccess ]= useState();
 
 // //     // useEffect(()=>{
@@ -550,7 +550,7 @@
 // //     const [doWaitApi, setDoWaitApi] = useState<boolean>(true);
 // //     const [status, setStatus] = useProfileLoadStatusAll(key);
 
-// //     const dispatch = useDispatch<AppDispatch>(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
+// //     const dispatch = useAppDispatch(); /* Using useAppDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
 
 // //     /* 테스트 결과 Fetch */
 // //     const getDataAll = useCallback(() => {
@@ -584,7 +584,7 @@
 // //     const [status, setStatus] = useProfileLoadStatusAll(key);
 // //     const idList: IProfileId[] = useProfileIdList();
 
-// //     const dispatch = useDispatch<AppDispatch>(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
+// //     const dispatch = useAppDispatch(); /* Using useAppDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
 
 // //     useEffect(() => {
 // //         console.log(`Using [useLoadDataAll]`);

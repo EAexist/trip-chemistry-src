@@ -1,12 +1,12 @@
 import { useCallback } from "react";
-import { useDispatch } from "react-redux";
+
 
 import { asyncSetNickname, useUserId } from "../reducers/authReducer";
-import { AppDispatch } from "../store";
+import { useAppDispatch } from "../store";
 
 const useSetNickname = () => {
 
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     const userId = useUserId();
     return(
         useCallback(( value: string )=>{

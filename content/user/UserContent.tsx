@@ -3,7 +3,7 @@
 /* Externals */
 import { Edit, Help } from "@mui/icons-material";
 import { Button, ButtonBase, Icon, IconButton, Stack, Toolbar } from "@mui/material";
-import { useDispatch } from "react-redux";
+
 
 /* App */
 import UserAvatar from "../../components/Avatar/UserAvatar";
@@ -13,13 +13,13 @@ import { IUserProfile } from "../../interfaces/IUserProfile";
 import { AuthProvider } from "../../interfaces/enums/AuthProvider";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { asyncKakaoLogout, useUserProfile } from "../../reducers/authReducer";
-import { AppDispatch } from "../../store";
+import { useAppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
 
 function UserContent(){
 
     /* Hooks */
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     const navigate = useNavigateWithGuestContext();
 
     /* Reducers */

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 /* Externals */
 import { Button, Grid, Stack, Toolbar } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "~/router-module";
 
 /* App */
@@ -12,14 +11,14 @@ import { KAKAO_AUTH_URL_BASE } from "../../common/auth";
 import KakaoLoginButton from "../../components/Button/KakaoLoginButton";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { asyncGuestSignIn, authorize } from "../../reducers/authReducer";
-import { AppDispatch } from "../../store";
+import { useAppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import { useAppSelector } from "~/store";
 // import env from "~/env";
 
 function LoginContent() {
 
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { pathname } = useLocation();
 

@@ -3,8 +3,8 @@ import chemistryReducer, { asyncGetChemistry, useChemistryLoadStatus } from "../
 import withReducer from "../hocs/withReducer";
 import LoadRequiredContent from "../content/LoadRequiredContent";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import type { AppDispatch } from "../store";
+
+import { useAppDispatch } from "../store";
 import { LoadStatus } from "../reducers";
 import useNavigateWithGuestContext from "../hooks/useNavigateWithGuestContext";
 import { useGetProfile } from "../reducers/authReducer";
@@ -13,7 +13,7 @@ const ChemistryRoute = () => {
 
     /* Hooks */
     const navigate = useNavigateWithGuestContext();
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     const params = useParams();
     const chemistryId = params.chemistryId ? params.chemistryId : "";
 

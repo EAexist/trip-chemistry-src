@@ -8,7 +8,7 @@ import axios from "axios";
 import { shallowEqual, useDispatch } from "react-redux";
 
 /*** Chemistry Chemistry ***/
-import { useAppSelector } from "../store";
+import { useAppDispatch, useAppSelector } from "../store";
 import { HEADERS_AXIOS } from "../common/app-const";
 import { IChemistry, defaultChemistry } from "../interfaces/IChemistry";
 import { IProfile, IProfileId, defaultProfile } from "../interfaces/IProfile";
@@ -191,7 +191,7 @@ const useCityChemistry = (cityClass: string) => {
 // };
 
 const useChemistryLoadStatus = () => {
-    const dispatch = useDispatch(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
+    const dispatch = useAppDispatch(); /* Using useAppDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
 
     return ([
         useAppSelector((state) => state.chemistry.loadStatus),
@@ -276,7 +276,7 @@ export { filterProfile }
 //     const [ doWaitApi, setDoWaitApi ] = useState<boolean>(true);
 //     const [ status, setStatus ] = useProfileLoadStatus( id, key );
 
-//     const dispatch = useDispatch<AppDispatch>(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
+//     const dispatch = useAppDispatch(); /* Using useAppDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
 
 //     /* 테스트 결과 Fetch */
 //     useEffect(() => {

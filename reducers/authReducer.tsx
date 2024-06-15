@@ -1,7 +1,7 @@
 /*** React ***/
 import { useCallback, useEffect } from "react";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
+
 import { useParams } from "~/router-module";
 import axios from "axios";
 
@@ -10,7 +10,7 @@ import { HEADERS_AXIOS } from "../common/app-const";
 import { IProfileId } from "../interfaces/IProfile";
 import { IUserProfile, defaultUserProfile } from "../interfaces/IUserProfile";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
-import { AppDispatch, useAppSelector } from "../store";
+import { useAppDispatch, useAppSelector } from "../store";
 
 /* Interface */
 
@@ -392,7 +392,7 @@ const useChemistryIdList = () => {
 }
 
 const useAuthorize = () => {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     return (
         useCallback(() => {
             dispatch(authorize());
@@ -401,7 +401,7 @@ const useAuthorize = () => {
 }
 
 const useAuthLoadStatus = () => {
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
 
     return ([
         useAppSelector((state) => state.auth.loadStatus),
@@ -412,7 +412,7 @@ const useAuthLoadStatus = () => {
 }
 
 const useGetProfile = () => {
-    const dispatch = useDispatch<AppDispatch>(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
+    const dispatch = useAppDispatch(); /* Using useAppDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
     const id = useUserId();
 
     return useCallback(() => {
@@ -424,7 +424,7 @@ const useGetProfile = () => {
 
 const useGuestLogin = () => {
 
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     const { id } = useParams();
 
     useEffect(() => {

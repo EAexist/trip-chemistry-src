@@ -7,13 +7,13 @@ export interface IChemistry {
     city: {
         [key: string]: number
     }
-    schedule: {
-        relaxingMembers: IProfileId[]
-        busyMembers: IProfileId[]         
-    }
-    budget: {
-        interestedMembers: IProfileId[]
-        notInterestedMembers: IProfileId[]
+    memberLists: {
+        relaxing: IProfileId[]
+        busy: IProfileId[]      
+        lowDailyRestaurantBudget: IProfileId[] 
+        highDailyRestaurantBudget: IProfileId[] 
+        interested: IProfileId[]
+        notInterested: IProfileId[] 
     }
     profileList: { [id: IProfileId]: IProfile };
 };
@@ -23,13 +23,13 @@ export const defaultChemistry : IChemistry = {
     title: "",
     titleCity: "",
     city: {},
-    schedule: {
-        relaxingMembers: [],
-        busyMembers: []         
-    },
-    budget: {
-        interestedMembers: [],
-        notInterestedMembers: []
+    memberLists: {
+        relaxing: [],
+        busy: [],      
+        lowDailyRestaurantBudget: [],
+        highDailyRestaurantBudget: [],
+        interested: [],
+        notInterested: []
     },
     profileList: {},
 }

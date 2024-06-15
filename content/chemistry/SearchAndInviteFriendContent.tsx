@@ -4,7 +4,7 @@
 // /* Externals */
 // import { Close, Done, NavigateBefore, QuestionMark, Search, Warning } from '@mui/icons-material';
 // import { Button, Checkbox, Grid, Icon, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Stack, TextField, Toolbar } from '@mui/material';
-// import { useDispatch } from 'react-redux';
+// import { useAppDispatch } from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
 
 // /* App */
@@ -16,7 +16,7 @@
 // import { useUserId } from '../../reducers/authReducer';
 // import { useProfileIdList } from '../../reducers/chemistryReducer';
 // import { addFlagged, asyncSearchProfile, deleteFlagged, resetSearch, useAddProfiles, useFlaggedProfileList, useProfileSearchStatus, useSearchedProfileList } from '../../reducers/profileSearchReducer';
-// import { AppDispatch } from '../../store';
+// import { useAppDispatch } from '../../store';
 // import { useStrings } from '../../texts';
 // import useNavigateWithGuestContext from '../../hooks/useNavigateWithGuestContext';
 
@@ -33,7 +33,7 @@
 
 //     /* Hooks */
 //     const navigate = useNavigateWithGuestContext();
-//     const dispatch = useDispatch<AppDispatch>(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
+//     const dispatch = useAppDispatch(); /* Using useAppDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
 //     const isAppBarHidden = useHideAppbar();
 
 //     /* States */

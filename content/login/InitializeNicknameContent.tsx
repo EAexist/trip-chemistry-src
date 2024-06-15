@@ -5,14 +5,14 @@ import { useState } from "react";
 import { Close, Done } from "@mui/icons-material";
 import { Button, Dialog, Grid, Stack } from "@mui/material";
 import { m } from 'framer-motion';
-import { useDispatch } from "react-redux";
+
 import LazyDomAnimation from "../../motion/LazyDomAnimation";
 
 /* App */
 import { Navigate, useLocation, useNavigate } from "~/router-module";
 import { FADEIN, FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import { authorize, setIsInitialized, useUserProfile } from "../../reducers/authReducer";
-import { AppDispatch } from "../../store";
+import { useAppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import SetNicknamePage from "./SetNicknamePage";
 import { IUserProfile } from "../../interfaces/IUserProfile";
@@ -21,7 +21,7 @@ function InitializeNicknameContent() {
 
     /* Hooks */
     const { state } = useLocation();
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     /* States */

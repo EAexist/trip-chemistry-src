@@ -1,10 +1,10 @@
 import { configureStore, EnhancedStore, StoreEnhancer, ThunkDispatch, Tuple, UnknownAction } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 
+import env from "~/env";
 import authReducer, { IAuthState } from "../reducers/authReducer";
 import { IChemistryState } from "../reducers/chemistryReducer";
 import { ITestAnswerState } from "../reducers/testAnswerReducer";
-import env from "~/env";
 
 export const store: EnhancedStore<{
     auth: IAuthState;

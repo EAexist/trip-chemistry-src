@@ -1,16 +1,16 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+
 import { Outlet, useSearchParams } from "~/router-module";
 import AppBar from "../components/AppBar/AppBar";
 import { AppBarContextProvider } from "../components/AppBar/AppBarContext";
 import { AuthLoadRequiredContent } from "../content/LoadRequiredContent";
 import { asyncGuestLogin, asyncKakaoLoginByAccessToken, disableAutoLogin, useAuthorize, useIsAutoLoginEnabled } from "../reducers/authReducer";
-import { AppDispatch } from "../store";
+import { useAppDispatch } from "../store";
 
 function Page({}){
 
     /* Hooks */
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     const authorize = useAuthorize();
     const [searchParams] = useSearchParams();
     const guestId = searchParams.get('guestId');

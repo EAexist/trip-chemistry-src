@@ -1,13 +1,13 @@
 // /*** React ***/
 // import { useCallback } from "react";
 
-// import { useDispatch, useSelector } from "react-redux";
+// import { useAppDispatch, useSelector } from "react-redux";
 // import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 // import axios from "axios";
 
 // /*** Trip Chemistry ***/
 // /* Component */
-// import { AppDispatch } from "../store";
+// import { useAppDispatch } from "../store";
 // import { HEADERS_AXIOS } from "../common/app-const";
 // import { IProfile, IProfileId } from "../interfaces/IProfile";
 // import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
@@ -96,7 +96,7 @@
 // })
 
 // export const useAddProfiles = () => {
-//     const dispatch = useDispatch<AppDispatch>();
+//     const dispatch = useAppDispatch();
 //     const flaggedProfileList = useFlaggedProfileList();
 //     return (
 //         useCallback(() => {
@@ -126,7 +126,7 @@
 
 
 // const useProfileSearchStatus = () => {
-//     const dispatch = useDispatch(); /* Using useDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
+//     const dispatch = useAppDispatch(); /* Using useAppDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
 //     return ([
 //         useAppSelector((state) => state.profileSearch.loadStatus),
 //         useCallback((loadStatus: LoadStatus) => {

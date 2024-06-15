@@ -2,19 +2,17 @@
 import { useEffect, useState } from "react";
 
 /* Externals */
-import { Button, Grid, Stack, Toolbar } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { Button, Grid } from "@mui/material";
 import { useLocation, useNavigate } from "~/router-module";
 
 /* App */
 import { Help } from "@mui/icons-material";
+import { useAppSelector } from "~/store";
 import { KAKAO_AUTH_URL_BASE } from "../../common/auth";
 import KakaoLoginButton from "../../components/Button/KakaoLoginButton";
-import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { asyncGuestSignIn, authorize } from "../../reducers/authReducer";
-import { AppDispatch } from "../../store";
+import { useAppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
-import { useAppSelector } from "~/store";
 // import env from "~/env";
 interface LoginContentProps {
     title?: string;
@@ -22,7 +20,7 @@ interface LoginContentProps {
 
 function LoginContent({ title ="테스트를 시작해볼까요?" }:LoginContentProps){
 
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { pathname } = useLocation();
 

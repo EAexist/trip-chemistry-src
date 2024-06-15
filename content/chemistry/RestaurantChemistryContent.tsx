@@ -21,6 +21,7 @@ import { useAppSelector } from "~/store";
 
 
 import { BrunchDining, DinnerDining, Icecream, RamenDining } from "@mui/icons-material";
+import useTripMemberNicknames from "~/hooks/useTripMemberNicknames";
 
 function RestaurantChemistryContent() {
 
@@ -29,7 +30,8 @@ function RestaurantChemistryContent() {
 
     /* Reducers */
 
-    const chemistry = useChemistry();
+    const lowDailyBudgetMemberNicknames = useTripMemberNicknames("lowDailyRestaurantBudget")
+    const highDailyBudgetMemberNicknames = useTripMemberNicknames("highDailyRestaurantBudget")
 
     /* Reducers */
     const dailyBudgetAnswerToProfiles = useValueToProfileIdList('restaurant', 'dailyBudget');
@@ -130,22 +132,28 @@ function RestaurantChemistryContent() {
             </List>
             </div>
             <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="content">
-                {/* {
-                    chemistry?.budgetChemistryText?.map((body, index) => {
-                        const list = body.split(/(%\S*%)/)
-                        return (
-                            <p key={index}>
-                                {
-                                    list.map((t, index) =>
-                                        t[0] === "%"
-                                            ? <b key={index}>{t.replaceAll('%', '')}</b>
-                                            : <Fragment key={index}>{t}</Fragment>
-                                    )
-                                }
-                            </p>
-                        )
-                    })
-                } */}
+            <p>
+                {
+                    highDailyBudgetMemberNicknames.map(( nickname, index ) =>
+                        <Fragment>
+                        <b>{nickname}</b>
+                        {" 님, "}
+                        </Fragment>
+                    )
+                }
+                {"친구가 더 적은 식비를 생각하고 있어요. 부담이 되지 않도록 꼭 먹고 싶은 것들을 추리거나 합리적인 가격대의 식당을 함께 찾아보세요.\n친구들도 특별한 맛집이라면 돈을 더 쓰고 싶을 수 있답니다. \"특별한 한끼\" 탭을 눌러 지금 확인해보세요."}
+            </p>
+            <p>
+                {
+                    lowDailyBudgetMemberNicknames.map(( nickname, index ) =>
+                        <Fragment>
+                        <b>{nickname}</b>
+                        {" 님, "}
+                        </Fragment>
+                    )
+                } 
+                {"친구가 더 많은 식비를 생각하고 있어요. 여행지의 맛있는 음식들에 대해 친구들의 이야기를 들어보고, 예산을 조정해 함께해보세요."}
+            </p>
             </m.div>
         </div>
     );
