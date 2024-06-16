@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 
 /* Externals */
-import { AirplaneTicket, Close, Error, GroupAdd, NavigateBefore } from "@mui/icons-material";
-import { Alert, AppBar, Avatar, Button, ButtonBase, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemText, Modal, Paper, Stack, Toolbar } from "@mui/material";
+import { AirplaneTicket, Close, Error, GroupAdd, Login, NavigateBefore } from "@mui/icons-material";
+import { Alert, AppBar, Avatar, Button, ButtonBase, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Modal, Paper, Stack, Toolbar } from "@mui/material";
 import { AnimatePresence, m } from "framer-motion";
 
 import { useParams } from "~/router-module";
@@ -150,11 +150,11 @@ function ChemistryContent() {
                             <AppBarBackground />
                             <Toolbar />
                             <div className="content content--large">
-                                <SectionPaper className="content body__head">
+                                <SectionPaper className="content">
                                     <div className="typography-note">
                                         {
                                             isMember &&
-                                            <Button onClick={handleClickNavigateBefore} sx={{ padding: 0 }} startIcon={<NavigateBefore />} className="typography-note">
+                                            <Button onClick={handleClickNavigateBefore} sx={{ paddingTop: 0, paddingBottom: 0 }} startIcon={<NavigateBefore />} className="typography-note">
                                                 여행 목록
                                             </Button>
                                         }
@@ -177,84 +177,32 @@ function ChemistryContent() {
                                                     <ListItemAvatar>
                                                         <FriendAvatar id={id} renderLabel={false} />
                                                     </ListItemAvatar>
-                                                    <ListItemText primary={nickname} className="typography-note" />
+                                                    <ListItemText primary={nickname} />
                                                 </ListItem>
                                             )
                                         }
-                                    </List>
-                                    <m.div className="flex">
                                         {
                                             isMember
                                                 ?
-                                                (
-                                                    <Button
-                                                        onClick={handleStartShare}
-                                                        startIcon={<GroupAdd />}
-                                                        variant="outlined"
-                                                        className="block--with-padding"
-                                                    >
-                                                        친구 초대하기
-                                                    </Button>
-                                                    /* [Deprecated] 친구 초대 방법 선택 > 링크 공유로 통합 */
-                                                    // <m.div>
-                                                    //     {
-                                                    //         isInviteOptionsOpen
-                                                    //             ?
-                                                    //             <m.div {...FADEIN_VIEWPORT} key={String(isInviteOptionsOpen)}>
-                                                    //                 <Grid container columnSpacing={2}>
-                                                    //                     {
-                                                    //                         [
-                                                    //                             {
-                                                    //                                 onClick: handleStartShare,
-                                                    //                                 icon: 'share',
-                                                    //                                 label: '링크 공유'
-                                                    //                             },
-                                                    //                             {
-                                                    //                                 onClick: handleStartSearch,
-                                                    //                                 icon: 'person_search',
-                                                    //                                 label: '로그인 계정 검색'
-                                                    //                             },
-                                                    //                         ].map(({ onClick, icon, label }) => (
-                                                    //                             <Grid item xs={6} display={"flex"} flexDirection={'column'}>
-                                                    //                                 <Button
-                                                    //                                     onClick={onClick}
-                                                    //                                     startIcon={<Icon>{icon}</Icon>}
-                                                    //                                     variant="outlined"
-                                                    //                                     className="block--with-padding"
-                                                    //                                 >
-                                                    //                                     {label}
-                                                    //                                 </Button>
-                                                    //                             </Grid>
-
-                                                    //                         ))
-                                                    //                     }
-                                                    //                 </Grid>
-                                                    //             </m.div>
-                                                    //             :
-                                                    //             <m.div className="flex">
-                                                    //                 <Button
-                                                    //                     onClick={() => setIsInviteOptionsOpen(true)}
-                                                    //                     startIcon={<GroupAdd />}
-                                                    //                     variant="outlined"
-                                                    //                     className="block--with-padding"
-                                                    //                 >
-                                                    //                     친구 초대하기
-                                                    //                 </Button>
-                                                    //             </m.div>
-                                                    //     }
-                                                    // </m.div>
-                                                )
+                                                <ListItemButton onClick={handleStartShare}>
+                                                    <ListItemAvatar>
+                                                        <Avatar>
+                                                            <GroupAdd sx={{ color: "gray.dark" }} />
+                                                        </Avatar>
+                                                    </ListItemAvatar>
+                                                    <ListItemText primary={"친구 초대하기"} sx={{ color: "gray.dark" }} />
+                                                </ListItemButton>
                                                 :
-                                                <Button
-                                                    onClick={handleJoinChemistry}
-                                                    startIcon={<AirplaneTicket />}
-                                                    variant="outlined"
-                                                    className="block--with-padding"
-                                                >
-                                                    참여하기
-                                                </Button>
+                                                <ListItemButton onClick={handleJoinChemistry} >
+                                                    <ListItemAvatar>
+                                                        <Avatar>
+                                                            <Login sx={{ color: "gray.dark" }}  />
+                                                        </Avatar>
+                                                    </ListItemAvatar>
+                                                    <ListItemText primary={"참여하기"} sx={{ color: "gray.dark" }} />
+                                                </ListItemButton>
                                         }
-                                    </m.div>
+                                    </List>
                                 </SectionPaper>
                                 {
                                     isChemistryEnabled
@@ -380,3 +328,78 @@ function ChemistryContent() {
     );
 }
 export default ChemistryContent;
+
+/* Deprecated */
+// <m.div className="flex">
+// {
+//     isMember
+//         ?
+//         (
+//             <Button
+//                 onClick={handleStartShare}
+//                 startIcon={<GroupAdd />}
+//                 variant="outlined"
+//                 className="block--with-padding"
+//             >
+//                 친구 초대하기
+//             </Button>
+//             /* [Deprecated] 친구 초대 방법 선택 > 링크 공유로 통합 */
+//             // <m.div>
+//             //     {
+//             //         isInviteOptionsOpen
+//             //             ?
+//             //             <m.div {...FADEIN_VIEWPORT} key={String(isInviteOptionsOpen)}>
+//             //                 <Grid container columnSpacing={2}>
+//             //                     {
+//             //                         [
+//             //                             {
+//             //                                 onClick: handleStartShare,
+//             //                                 icon: 'share',
+//             //                                 label: '링크 공유'
+//             //                             },
+//             //                             {
+//             //                                 onClick: handleStartSearch,
+//             //                                 icon: 'person_search',
+//             //                                 label: '로그인 계정 검색'
+//             //                             },
+//             //                         ].map(({ onClick, icon, label }) => (
+//             //                             <Grid item xs={6} display={"flex"} flexDirection={'column'}>
+//             //                                 <Button
+//             //                                     onClick={onClick}
+//             //                                     startIcon={<Icon>{icon}</Icon>}
+//             //                                     variant="outlined"
+//             //                                     className="block--with-padding"
+//             //                                 >
+//             //                                     {label}
+//             //                                 </Button>
+//             //                             </Grid>
+
+//             //                         ))
+//             //                     }
+//             //                 </Grid>
+//             //             </m.div>
+//             //             :
+//             //             <m.div className="flex">
+//             //                 <Button
+//             //                     onClick={() => setIsInviteOptionsOpen(true)}
+//             //                     startIcon={<GroupAdd />}
+//             //                     variant="outlined"
+//             //                     className="block--with-padding"
+//             //                 >
+//             //                     친구 초대하기
+//             //                 </Button>
+//             //             </m.div>
+//             //     }
+//             // </m.div>
+//         )
+//         :
+//         <Button
+//             onClick={handleJoinChemistry}
+//             startIcon={<AirplaneTicket />}
+//             variant="outlined"
+//             className="block--with-padding"
+//         >
+//             참여하기
+//         </Button>
+// }
+// </m.div>

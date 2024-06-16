@@ -10,7 +10,7 @@ import { shallowEqual, useDispatch } from "react-redux";
 /*** Chemistry Chemistry ***/
 import { useAppDispatch, useAppSelector } from "../store";
 import { HEADERS_AXIOS } from "../common/app-const";
-import { IChemistry, defaultChemistry } from "../interfaces/IChemistry";
+import { IChemistry, IChemistryDTO, defaultChemistry } from "../interfaces/IChemistry";
 import { IProfile, IProfileId, defaultProfile } from "../interfaces/IProfile";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
 import { ITestKey } from "../interfaces/ITestAnswer";
@@ -137,9 +137,30 @@ const chemistrySlice = createSlice({
         });
 
         /* asyncGetChemistry */
-        builder.addCase(asyncGetChemistry.fulfilled, (state, action: PayloadAction<IChemistry>) => {
+        builder.addCase(asyncGetChemistry.fulfilled, (state, action: PayloadAction<IChemistryDTO>) => {
             console.log(`asyncGetChemistry.fulfilled: action.payload=${JSON.stringify(action.payload)}`);
-            state.data = action.payload;
+            state.data = {
+                ...action.payload,
+                profileList: Object.fromEntries(
+                    action.payload.profileList.map((profile, index) => ({ index, profile }))
+                        .sort((a, b) => {
+                            const isAUnanswered = ( a.profile.testAnswer === null )
+                            const isBUnanswered = ( b.profile.testAnswer === null )
+                            if( isAUnanswered == isBUnanswered )
+                                return a.index - b.index 
+                            else if ( isAUnanswered )
+                                return 1
+                            else
+                                return -1
+                        })
+                        .map(({ index, profile}) =>{
+                            console.log(profile.nickname)
+                            return(
+                            [profile.id, profile]
+                        )}
+                        )
+                )
+            };
             state.loadStatus = LoadStatus.SUCCESS;
         });
         builder.addCase(asyncGetChemistry.pending, (state, action) => {

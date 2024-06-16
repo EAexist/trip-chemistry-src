@@ -33,7 +33,7 @@ const FoodImageCard = ({ id, isActive, ...props }: FoodImageCardProps) => {
                     {
                         isActive &&
                         <div style={{ width: "100%", textAlign: "start" }} className="content">
-                            <h3 className="typography-label body__head">{strings.name}</h3>
+                            <h3 className="typography-label">{strings.name}</h3>
                             <Stack className="typography-note" spacing={0.5}>
                                 <p> {strings.restaurantName}</p>
                                 <Divider orientation="vertical" variant="middle" flexItem />

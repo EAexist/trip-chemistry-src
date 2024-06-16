@@ -112,6 +112,17 @@ const theme = createTheme({
         MuiListItem: {
             defaultProps: {
                 disableGutters: true,
+                style: {
+                    borderRadius: "12px"
+                }
+            }
+        },
+        MuiListItemButton: {
+            defaultProps: {
+                disableGutters: true,
+                style: {
+                    borderRadius: "12px"
+                }
             }
         },
         MuiBadge: {

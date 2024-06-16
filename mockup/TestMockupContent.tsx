@@ -477,7 +477,7 @@
 //                                                         </Swiper>
 //                                                     </div>
 //                                                     <div className="block content content--large">
-//                                                         <div className="test__title body__head">
+//                                                         <div className="test__title">
 //                                                             <h2 className="test__title__heading typography-heading">{contentstrings.test.city.titleTextList.map((text) => (
 //                                                                 text === "/testKey"
 //                                                                     ? contentstrings.subTest[key as keyof typeof contentstrings.subTest].title

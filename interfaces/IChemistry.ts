@@ -16,6 +16,25 @@ export interface IChemistry {
         notInterested: IProfileId[] 
     }
     profileList: { [id: IProfileId]: IProfile };
+    unAnsweredprofileList: { [id: IProfileId]: IProfile };
+};
+export interface IChemistryDTO {
+    id: string
+    title: string
+    titleCity: string
+    city: {
+        [key: string]: number
+    }
+    memberLists: {
+        relaxing: IProfileId[]
+        busy: IProfileId[]      
+        lowDailyRestaurantBudget: IProfileId[] 
+        highDailyRestaurantBudget: IProfileId[] 
+        interested: IProfileId[]
+        notInterested: IProfileId[] 
+    }
+    profileList: IProfile[];
+    unAnsweredprofileList: { [id: IProfileId]: IProfile };
 };
 
 export const defaultChemistry : IChemistry = {
@@ -32,4 +51,5 @@ export const defaultChemistry : IChemistry = {
         notInterested: []
     },
     profileList: {},
+    unAnsweredprofileList: {}
 }
