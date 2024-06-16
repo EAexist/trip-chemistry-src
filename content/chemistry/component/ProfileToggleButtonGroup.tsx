@@ -5,9 +5,6 @@ import { Dispatch, useState } from "react";
 import { Stack, Tooltip } from "@mui/material";
 
 /* App */
-
-
-
 import FriendAvatar from "../../../components/Avatar/FriendAvatar";
 import ToggleButton from "../../../components/Button/ToggleButton";
 import { useAppSelector } from "~/store";
@@ -17,16 +14,16 @@ interface ProfileToggleButtonGroupProps {
     setActiveProfileId: Dispatch<React.SetStateAction<string>>
 }
 
-function ProfileToggleButtonGroup({ activeProfileId, setActiveProfileId } : ProfileToggleButtonGroupProps) {
+function ProfileToggleButtonGroup({ activeProfileId, setActiveProfileId }: ProfileToggleButtonGroupProps) {
 
     /* Reducers */
     const isAnsweredList = useAppSelector((state) =>
-        Object.values(state.chemistry.data.profileList).map((profile) =>
+        state.chemistry.data.profileIds.map((id) =>
         ({
-            id: profile.id,
-            isAnswered: ( profile.testAnswer !== null ) 
+            id: id,
+            isAnswered: (state.chemistry.data.profiles[id].testAnswer !== null)
         })
-    ))
+        ))
 
     return (
         <Stack spacing={-0.25} justifyContent={'center'} alignItems={'center'}>
@@ -36,9 +33,9 @@ function ProfileToggleButtonGroup({ activeProfileId, setActiveProfileId } : Prof
                         key={id}
                         value={id}
                         onChange={(_, value) => setActiveProfileId(id)}
-                        selected={(id===activeProfileId) }
+                        selected={(id === activeProfileId)}
                     >
-                        <FriendAvatar key={id} id={id} labelSize="large" sx={(id===activeProfileId) ? { width: 64, height: 64 } : {}} />
+                        <FriendAvatar key={id} id={id} labelSize="large" sx={(id === activeProfileId) ? { width: 64, height: 64 } : {}} />
                     </ToggleButton>
                 ))
             }

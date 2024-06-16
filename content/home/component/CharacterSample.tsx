@@ -10,7 +10,7 @@ import { FADEIN } from "~/motion/props";
 function CharacterSample() {
 
     /* constants */
-    const profileList = [
+    const profiles = [
         {
             id: "나무늘보",
             nickname: "혜인",
@@ -55,7 +55,7 @@ function CharacterSample() {
 
     /* States */
     const [userIndex, setUserIndex] = useState<number>(1);
-    const profile = profileList[userIndex];
+    const profile = profiles[userIndex];
 
     /* Side Effects */
 
@@ -72,7 +72,7 @@ function CharacterSample() {
         <LazyDomAnimation>
             <Stack spacing={-0.25} justifyContent={'center'} alignItems={'start'}>
                 {
-                    profileList.map(({ id, character, nickname }, index) => (
+                    profiles.map(({ id, character, nickname }, index) => (
                         <ToggleButton
                             key={index}
                             value={index}

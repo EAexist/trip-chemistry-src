@@ -31,7 +31,7 @@ function ScheduleChemistryContent() {
 
     /* Reducers */
     const scheduleAnswerList = useAppSelector((state) =>
-        Object.values(state.chemistry.data.profileList).map((profile) =>
+        Object.values(state.chemistry.data.profiles).map((profile) =>
         ({
             nickname: profile.nickname,
             ...profile.testAnswer ? profile.testAnswer.schedule : { startTime: -1, endTime: -1, schedule: -1 }

@@ -141,25 +141,11 @@ const chemistrySlice = createSlice({
             console.log(`asyncGetChemistry.fulfilled: action.payload=${JSON.stringify(action.payload)}`);
             state.data = {
                 ...action.payload,
-                profileList: Object.fromEntries(
-                    action.payload.profileList.map((profile, index) => ({ index, profile }))
-                        .sort((a, b) => {
-                            const isAUnanswered = ( a.profile.testAnswer === null )
-                            const isBUnanswered = ( b.profile.testAnswer === null )
-                            if( isAUnanswered == isBUnanswered )
-                                return a.index - b.index 
-                            else if ( isAUnanswered )
-                                return 1
-                            else
-                                return -1
-                        })
-                        .map(({ index, profile}) =>{
-                            console.log(profile.nickname)
-                            return(
-                            [profile.id, profile]
-                        )}
-                        )
-                )
+                profiles: Object.fromEntries(
+                    action.payload.profiles.map((profile) => (
+                        [profile.id, profile]))
+                ),
+                profileIds: action.payload.profiles.map((profile) => profile.id),
             };
             state.loadStatus = LoadStatus.SUCCESS;
         });
@@ -200,7 +186,7 @@ const useCityChemistry = (cityClass: string) => {
 // const useCityChemistry = (cityClass: string) => {
 
 //     const cityAnswerList =
-//         useAppSelector((state) => Object.values(state.chemistry.data.profileList)
+//         useAppSelector((state) => Object.values(state.chemistry.data.profiles)
 //             .filter(profile => profile.testAnswer !== null)
 //             .map(profile => profile.testAnswer.city[cityClass])
 //         )
@@ -227,7 +213,7 @@ const useTestAnswerObject = (testKey: ITestKey, subKey?: string) => {
     return (
         useAppSelector((state) =>
             Object.fromEntries(
-                Object.entries(state.chemistry.data?.profileList)
+                Object.entries(state.chemistry.data?.profiles)
                     .filter(([, profile]) => profile.testAnswer !== null)
                     .map(([id, profile]) => {
                         return ([id, subKey ? profile.testAnswer[testKey][subKey] : profile.testAnswer[testKey]] as const)
@@ -240,17 +226,17 @@ const useTestAnswerObject = (testKey: ITestKey, subKey?: string) => {
 
 const useProfile = (id: string, key?: keyof IProfile) => {
     return (
-        useAppSelector((state) => Object.keys(state.chemistry.data.profileList).includes(id)
+        useAppSelector((state) => Object.keys(state.chemistry.data.profiles).includes(id)
             ? key
-                ? state.chemistry.data.profileList[id][key]
-                : state.chemistry.data.profileList[id]
+                ? state.chemistry.data.profiles[id][key]
+                : state.chemistry.data.profiles[id]
             : defaultProfile)
     );
 }
 
 const useProfileIdList = (answeredProfileOnly: boolean = true) => {
     return (
-        useAppSelector((state) => Object.values(state.chemistry.data.profileList)
+        useAppSelector((state) => Object.values(state.chemistry.data.profiles)
             .filter(profile => answeredProfileOnly ? (profile.testAnswer !== null) : true)
             .sort((a, b) => ((b.testAnswer === null) ? -1 : 1))
             .map(profile => profile.id)
@@ -259,10 +245,10 @@ const useProfileIdList = (answeredProfileOnly: boolean = true) => {
 }
 
 function useProfileAll<T extends (keyof IProfile) | IProfile>(idList?: IProfileId[], key?: keyof IProfile, answeredProfileOnly: boolean = true) {
-    const profileList = Object.values(useAppSelector((state) => state.chemistry.data.profileList))
+    const profiles = Object.values(useAppSelector((state) => state.chemistry.data.profiles))
 
     return (
-        profileList.filter(({ id }) => idList ? idList.includes(id) : true)
+        profiles.filter(({ id }) => idList ? idList.includes(id) : true)
             .filter(({ testAnswer }) => answeredProfileOnly ? (testAnswer !== null) : true)
             .map((profile) =>
                 key
@@ -272,10 +258,10 @@ function useProfileAll<T extends (keyof IProfile) | IProfile>(idList?: IProfileI
     );
 }
 
-function filterProfile<T extends (keyof IProfile) | IProfile>(profileList: IProfile[], idList?: IProfileId[], key?: keyof IProfile, answeredProfileOnly: boolean = true) {
+function filterProfile<T extends (keyof IProfile) | IProfile>(profiles: IProfile[], idList?: IProfileId[], key?: keyof IProfile, answeredProfileOnly: boolean = true) {
 
     return (
-        profileList.filter(({ id }) => idList ? idList.includes(id) : true)
+        profiles.filter(({ id }) => idList ? idList.includes(id) : true)
             .filter(({ testAnswer }) => answeredProfileOnly ? (testAnswer !== null) : true)
             .map((profile) =>
                 key

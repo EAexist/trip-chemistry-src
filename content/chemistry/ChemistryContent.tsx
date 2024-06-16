@@ -17,7 +17,7 @@ import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { useHasAnsweredTest, useIsAuthorized, useUserId } from "../../reducers/authReducer";
 import { asyncJoinChemistry, useChemistry, useIsChemistryEnabled } from "../../reducers/chemistryReducer";
-import { useAppDispatch } from "../../store";
+import { useAppDispatch, useAppSelector } from "../../store";
 import getImgSrc from "../../utils/getImgSrc";
 import LoginContent from "../login/LoginContent";
 import ChemistryDetailContent from "./ChemistryDetailContent";
@@ -41,14 +41,14 @@ function ChemistryContent() {
     const link = `http://localhost:3000/chemistry/${chemistryId}`;
 
     /* Reducers */
-    const { title, profileList } = useChemistry();
+    const { title, profiles, profileIds } = useAppSelector((state) => state.chemistry.data);
     const isChemistryEnabled = useIsChemistryEnabled();
     const userId = useUserId();
     const isAuthorized = useIsAuthorized();
     const hasAnsweredTest = useHasAnsweredTest();
 
     /* Induced */
-    const isMember = Object.keys(profileList).includes(userId);
+    const isMember = Object.keys(profiles).includes(userId);
 
     /* States */
     const [isShareModalOpen, setIsShareModalOpen] = useState(false);
@@ -126,7 +126,7 @@ function ChemistryContent() {
          */
         <>
             <Helmet>
-                <meta property="og:description" content={Object.values(profileList).length > 0 ? `${Object.values(profileList)[0].nickname}님의 ${title}. 참여하고 여행 계획, 일정, 예산, 여행지까지 함께 결정해보세요.` : `${title}. 참여하고 여행의 리더, 일정, 예산 그리고 여행지를 함께 결정해보세요.`} />
+                <meta property="og:description" content={profileIds.length > 0 ? `${profiles[profileIds[0]].nickname}님의 ${title}. 참여하고 여행 계획, 일정, 예산, 여행지까지 함께 결정해보세요.` : `${title}. 참여하고 여행의 리더, 일정, 예산 그리고 여행지를 함께 결정해보세요.`} />
             </Helmet>
             {/* <AnimatePresence mode="wait"> */}
             <LazyDomAnimation>
@@ -143,7 +143,7 @@ function ChemistryContent() {
                                     <NavigateBefore />
                                 </IconButton>
                             </Toolbar>
-                            <LoginContent title={`${Object.values(profileList)[0].nickname}님의 ${title}에 참여해보세요.`} />
+                            <LoginContent title={`${profiles[profileIds[0]].nickname}님의 ${title}에 참여해보세요.`} />
                         </MotionPage>
                         :
                         <div key="main" className="page flex block--gray">
@@ -162,23 +162,27 @@ function ChemistryContent() {
                                     <h2 className="typography-heading" style={{ marginTop: '0.5rem' }}>{title}</h2>
                                     <List>
                                         {
-                                            Object.values(profileList).map(({ id, nickname, testAnswer }) =>
-                                                <ListItem
-                                                    key={id}
-                                                    className={`${(testAnswer === null) && 'disabled'}`}
-                                                    secondaryAction={
-                                                        (testAnswer === null) &&
-                                                        <Stack >
-                                                            <Error sx={{ fontSize: 18 }} />
-                                                            <p className='typography-note'>테스트 기다리는 중</p>
-                                                        </Stack>
-                                                    }
-                                                >
-                                                    <ListItemAvatar>
-                                                        <FriendAvatar id={id} renderLabel={false} />
-                                                    </ListItemAvatar>
-                                                    <ListItemText primary={nickname} />
-                                                </ListItem>
+                                            profileIds.map((id) => {
+                                                const { testAnswer, nickname } = profiles[id]
+                                                return (
+                                                    <ListItem
+                                                        key={id}
+                                                        className={`${(testAnswer === null) && 'disabled'}`}
+                                                        secondaryAction={
+                                                            (testAnswer === null) &&
+                                                            <Stack >
+                                                                <Error sx={{ fontSize: 18 }} />
+                                                                <p className='typography-note'>테스트 기다리는 중</p>
+                                                            </Stack>
+                                                        }
+                                                    >
+                                                        <ListItemAvatar>
+                                                            <FriendAvatar id={id} renderLabel={false} />
+                                                        </ListItemAvatar>
+                                                        <ListItemText primary={nickname} />
+                                                    </ListItem>
+                                                )
+                                            }
                                             )
                                         }
                                         {
@@ -196,7 +200,7 @@ function ChemistryContent() {
                                                 <ListItemButton onClick={handleJoinChemistry} >
                                                     <ListItemAvatar>
                                                         <Avatar>
-                                                            <Login sx={{ color: "gray.dark" }}  />
+                                                            <Login sx={{ color: "gray.dark" }} />
                                                         </Avatar>
                                                     </ListItemAvatar>
                                                     <ListItemText primary={"참여하기"} sx={{ color: "gray.dark" }} />
@@ -215,7 +219,7 @@ function ChemistryContent() {
                                                 alt={"invite"}
                                                 src={getImgSrc('/info', "invite", { size: "xlarge" })}
                                                 {
-                                                ...Object.keys(profileList).length < 2
+                                                ...Object.keys(profiles).length < 2
                                                     ?
                                                     { body: "여행을 함께할 친구를 초대하고\n케미스트리를 확인해보세요." }
                                                     :

@@ -9,7 +9,7 @@ export interface IUserProfile extends IProfile {
         [id: string]: {
             title: string,
             titleCity: string,
-            profileList: {
+            profiles: {
                 nickname: string,
                 avatarId: string,
             }[]

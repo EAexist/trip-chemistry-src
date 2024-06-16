@@ -48,12 +48,12 @@
 //     const budgetAnswerToProfiles = useValueToProfileIdList('dailyRestaurantBudget');
 
 //     const characterSectionCharacter = useAppSelector((state) =>
-//         state.chemistry.data.profileList[answeredProfileIdList[characterSectionActiveUserIndex]]?.testResult.character
+//         state.chemistry.data.profiles[answeredProfileIdList[characterSectionActiveUserIndex]]?.testResult.character
 //     );
 
-//     const profileList = Object.values(useAppSelector((state) => state.chemistry.data.profileList))
-//     const leaderDataList = filterProfile(profileList, chemistry?.leaderList, "nickname");
-//     const follwerDataList = filterProfile(profileList, answeredProfileIdList.filter(id => !chemistry?.leaderList.includes(id)), "nickname");
+//     const profiles = Object.values(useAppSelector((state) => state.chemistry.data.profiles))
+//     const leaderDataList = filterProfile(profiles, chemistry?.leaderList, "nickname");
+//     const follwerDataList = filterProfile(profiles, answeredProfileIdList.filter(id => !chemistry?.leaderList.includes(id)), "nickname");
 //     const leadershipAnswerToProfileList = useValueToProfileIdList("leadership");
 
 //     const sortedCityList = useSortedCityList();

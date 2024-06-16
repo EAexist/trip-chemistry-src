@@ -24,11 +24,11 @@ function CharacterChemistryContent() {
     const [activeProfileId, setActiveProfileId] = useState<IProfileId | undefined>(profileIds[0]);
 
     const isAnswered = useAppSelector((state) =>
-        state.chemistry.data.profileList[activeProfileId]?.testAnswer !== null
+        state.chemistry.data.profiles[activeProfileId]?.testAnswer !== null
     );
     const { characterId, nickname } = useAppSelector((state) => ({
-        characterId: state.chemistry.data.profileList[activeProfileId]?.testResult?.characterId,
-        nickname: state.chemistry.data.profileList[activeProfileId]?.nickname
+        characterId: state.chemistry.data.profiles[activeProfileId]?.testResult?.characterId,
+        nickname: state.chemistry.data.profiles[activeProfileId]?.nickname
     }));
 
     const character = CHARACTERS[characterId]

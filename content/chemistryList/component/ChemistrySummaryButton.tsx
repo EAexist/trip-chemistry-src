@@ -37,13 +37,20 @@ function ChemistrySummaryButton({ id }: ChemistrySummaryButtonProps) {
                 }
             })
             .then((response) => {
-                setChemistry(response.data);
+                setChemistry({
+                    ...response.data as IChemistry,
+                    profiles: Object.fromEntries(
+                        response.data.profiles.map((profile) => (
+                            [profile.id, profile]))
+                    ),
+                    profileIds: response.data.profiles.map((profile) => profile.id),
+                });
             });
 
     }, [id])
 
     useEffect(() => {
-        console.log(`[ChemistrySummaryButton] chemistry=${chemistry}`);
+        console.log(`[ChemistrySummaryButton] chemistry=${JSON.stringify(chemistry)}`);
     }, [chemistry])
 
 
@@ -54,9 +61,12 @@ function ChemistrySummaryButton({ id }: ChemistrySummaryButtonProps) {
                     <h2 className="typography-heading">{chemistry.title}</h2>
                     <Stack spacing={0.5}>
                         {
-                            Object.values(chemistry.profileList).map(({ testResult, nickname }) => (
-                                <ProfileAvatar key={nickname} nickname={nickname} avatarId={testResult?.characterId || "user"} />
-                            ))
+                            chemistry.profileIds.map((id) => {
+                                const { nickname, testResult } = chemistry.profiles[id]
+                                return (
+                                    <ProfileAvatar key={nickname} nickname={nickname} avatarId={testResult?.characterId || "user"} />
+                                )
+                            })
                         }
                     </Stack>
                 </CardContent>

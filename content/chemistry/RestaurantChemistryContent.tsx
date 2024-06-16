@@ -36,7 +36,7 @@ function RestaurantChemistryContent() {
     /* Reducers */
     const dailyBudgetAnswerToProfiles = useValueToProfileIdList('restaurant', 'dailyBudget');
     const specialRestaurantAnswerList = useAppSelector((state) =>
-        Object.values(state.chemistry.data.profileList).map((profile) =>
+        Object.values(state.chemistry.data.profiles).map((profile) =>
         ({
             nickname: profile.nickname,
             ...profile.testAnswer ? { specialCount: profile.testAnswer.restaurant.specialCount, specialBudget: profile.testAnswer.restaurant.specialBudget } : { specialCount: -1, specialBudget: -1 }

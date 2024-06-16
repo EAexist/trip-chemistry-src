@@ -18,7 +18,7 @@ function ConflictSample() {
     const scheduleAnswerToProfiles = {
         1: {
             label: "아주 널널하게",
-            profileList: [
+            profiles: [
                 {
                     characterId: "SLOTH",
                     nickname: "혜인"
@@ -31,7 +31,7 @@ function ConflictSample() {
         },
         4: {
             label: "알차게",
-            profileList: [
+            profiles: [
                 {
                     characterId: "RACOON",
                     nickname: "민지"
@@ -44,7 +44,7 @@ function ConflictSample() {
         },
         5: {
             label: "매우 알차게",
-            profileList: [
+            profiles: [
                 {
                     characterId: "BEE",
                     nickname: "해린"
@@ -58,7 +58,7 @@ function ConflictSample() {
             <div className="content">
                 <MotionList initial={"hidden"} whileInView={"visible"} variants={VARIANTS_STAGGER_CHILDREN} disablePadding custom={{ staggerChildren: 0.1 }}>
                     {
-                        Object.entries(scheduleAnswerToProfiles).map(([value, { label, profileList }]) => (
+                        Object.entries(scheduleAnswerToProfiles).map(([value, { label, profiles }]) => (
                             <MotionListItem variants={VARIANTS_FADEIN_FROMBOTTOM} key={value} disableGutters dense>
                                 {
                                     (value === "4") &&
@@ -71,7 +71,7 @@ function ConflictSample() {
                                     <Stack>
                                         <Stack spacing={0.5}>
                                             {
-                                                profileList.map(({ characterId, nickname }) => (
+                                                profiles.map(({ characterId, nickname }) => (
                                                     <ProfileAvatar key={nickname} avatarId={characterId} nickname={nickname} />
                                                 ))
                                             }
