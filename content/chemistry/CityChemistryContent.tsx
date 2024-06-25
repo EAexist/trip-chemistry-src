@@ -21,8 +21,6 @@ interface CityChemistryContentProps {
 
 function CityChemistryContent({ cityType }: CityChemistryContentProps) {
 
-    const navigate = useNavigateWithGuestContext();
-
     const city = CITY_TYPES[cityType];
 
     useEffect(() => {
