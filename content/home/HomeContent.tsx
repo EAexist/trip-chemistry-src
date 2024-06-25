@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 
 /* Externals */
-import { AppBar, Slide, Toolbar } from "@mui/material";
+import { AppBar, MobileStepper, Slide, Toolbar } from "@mui/material";
 import { m } from "framer-motion";
 
 import { ExpandMore } from "@mui/icons-material";
@@ -64,75 +64,85 @@ function HomeContent() {
     };
 
     return (
-            <div className="page fill-window">
-                <AppBar>
-                    <Toolbar ref={containerRef}>
-                        <Slide direction="up" in={page > 0} container={containerRef.current}>
-                            <div>
-                                <AppTitleButton />
-                            </div>
-                        </Slide>
-                        <MainMenuButton />
-                    </Toolbar>
-                </AppBar>
-                <ScrollPageContainer page={page} setPage={setPage} pages={4}>
-                    <ScrollPageItem key={"home"} page={0} className={`flex`}>
-                        <Toolbar />
-                        <div className="wrapper content block--centered" style={{ flexGrow: 1 }}>
-                            <PngIcon name={"app"} size="xlarge" />
-                            <h2 className="typography-title">여행 타입 테스트</h2>
-                            <p>{`친구와 나의 같은 듯 다른 여행 스타일,\n여행 전 미리 알아보고 떠나자!`}</p>
-                            <m.div
-                                animate={{ opacity: [1, 0.2, 1] }}
-                                transition={{
-                                    duration: 2.5,
-                                    times: [0, 0.5, 1],
-                                    ease: "easeInOut",
-                                    repeat: Infinity,
-                                }}
-                            >
-                                <ExpandMore sx={{ fontSize: "40px", color: "gray.dark" }} />
-                            </m.div>
+        <div className="page fill-window">
+            <AppBar>
+                <Toolbar ref={containerRef}>
+                    <Slide direction="up" in={page > 0} container={containerRef.current}>
+                        <div>
+                            <AppTitleButton />
                         </div>
-                        <div className="fab-placeholder" style={{ marginTop: "1rem" }} />
-                    </ScrollPageItem>
-                    {
-                        (sections as { id: string, title: string, body: string }[]).map(({ id, title, body }, index) => (
-                            <ScrollPageItem key={id} page={index + 1} className={`flex`}>
-                                <Toolbar />
-                                <div className="wrapper flex content" style={{ flexGrow: 1 }}>
-                                    <div style={{ flexGrow: 1 }} className="block--centered">
-                                        {
-
-                                            (id === "test")
-                                                ?
-                                                <TestSample />
-                                                :
-                                                (id === "conflict")
-                                                    ?
-                                                    <ConflictSample />
-                                                    :
-                                                    (id === "character")
-                                                        ?
-                                                        <CharacterSample />
-                                                        : <></>
-                                        }
-                                    </div>
-                                    <h2 className="typography-heading">{title}</h2>
-                                    <p>{body}</p>
-                                </div>
-                                <div className="fab-placeholder" style={{ marginTop: "1rem" }} />
-                            </ScrollPageItem>
-                        ))
-                    }
-                </ScrollPageContainer>
+                    </Slide>
+                    <MainMenuButton />
+                </Toolbar>
+            </AppBar>
+            <MobileStepper
+                steps={5}
+                position="static"
+                activeStep={page+1}
+                nextButton={null}
+                backButton={null}
+                variant="progress"
+                sx={{ position: "fixed", bottom: "96px", left: "50%", transform: "translateX(-50%)", width: "128px", "& .MuiLinearProgress-root" : { width: "100%" } }}
+            />
+            <ScrollPageContainer page={page} setPage={setPage} pages={4}>
+                <ScrollPageItem key={"home"} page={0} className={`flex`}>
+                    <Toolbar />
+                    <div className="wrapper content block--centered" style={{ flexGrow: 1 }}>
+                        <PngIcon name={"app"} size="xlarge" />
+                        <h2 className="typography-title">여행 타입 테스트</h2>
+                        <p>{`친구와 나의 같은 듯 다른 여행 스타일,\n여행 전 미리 알아보고 떠나자!`}</p>
+                        <m.div
+                            animate={{ opacity: [1, 0.2, 1] }}
+                            transition={{
+                                duration: 2.5,
+                                times: [0, 0.5, 1],
+                                ease: "easeInOut",
+                                repeat: Infinity,
+                            }}
+                        >
+                            <ExpandMore sx={{ fontSize: "40px", color: "gray.dark" }} />
+                        </m.div>
+                    </div>
+                    <div className="fab-placeholder" />
+                </ScrollPageItem>
                 {
-                    (showFloatingButton) &&
-                    <Fab onClick={handleTestStart} >
-                        {strings.startButton}
-                    </Fab>
+                    (sections as { id: string, title: string, body: string }[]).map(({ id, title, body }, index) => (
+                        <ScrollPageItem key={id} page={index + 1} className={`flex`}>
+                            <Toolbar />
+                            <div style={{ height: "24px" }}/>
+                            <div className="wrapper flex content" style={{ flexGrow: 1 }}>
+                                <div style={{ flexGrow: 1 }} className="block--centered">
+                                    {
+
+                                        (id === "test")
+                                            ?
+                                            <TestSample />
+                                            :
+                                            (id === "conflict")
+                                                ?
+                                                <ConflictSample />
+                                                :
+                                                (id === "character")
+                                                    ?
+                                                    <CharacterSample />
+                                                    : <></>
+                                    }
+                                </div>
+                                <h2 className="typography-heading">{title}</h2>
+                                <p>{body}</p>
+                            </div>
+                            <div className="fab-placeholder" style={{ marginTop: "48px" }} />
+                        </ScrollPageItem>
+                    ))
                 }
-            </div>
+            </ScrollPageContainer>
+            {
+                (showFloatingButton) &&
+                <Fab onClick={handleTestStart} >
+                    {strings.startButton}
+                </Fab>
+            }
+        </div>
     );
 }
 export default HomeContent;
