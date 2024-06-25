@@ -2,16 +2,13 @@
 import { useState } from "react";
 
 /* Externals */
+import { QuestionMark } from "@mui/icons-material";
 import { AnimatePresence, m } from "framer-motion";
 
-
 /* App */
-import { CHARACTERS } from "~/common/app-const";
 import { IProfileId } from "~/interfaces/IProfile";
 import { FADEIN, FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import { useProfileIdList } from "../../reducers/chemistryReducer";
-
-import { QuestionMark } from "@mui/icons-material";
 import TestResultBlock from "~/components/Profile/TestResultBlock";
 import withFriendProfile from "~/hocs/withFriendProfile";
 import { useAppSelector } from "~/store";
@@ -28,12 +25,10 @@ function CharacterChemistryContent() {
     const isAnswered = useAppSelector((state) =>
         state.chemistry.data.profiles[activeProfileId]?.testAnswer !== null
     );
-    const { characterId, nickname } = useAppSelector((state) => ({
-        characterId: state.chemistry.data.profiles[activeProfileId]?.testResult?.characterId,
-        nickname: state.chemistry.data.profiles[activeProfileId]?.nickname
-    }));
 
-    const character = CHARACTERS[characterId]
+    const nickname= useAppSelector((state) => (
+        state.chemistry.data.profiles[activeProfileId]?.testResult?.characterId
+    ));
 
     return (
         <div className="content">

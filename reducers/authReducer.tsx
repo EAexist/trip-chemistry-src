@@ -1,8 +1,7 @@
 /*** React ***/
-import { useCallback, useEffect } from "react";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { useCallback } from "react";
 
-import { useParams } from "~/router-module";
 import axios from "axios";
 
 /*** Trip Chemistry ***/
@@ -343,21 +342,9 @@ const authSlice = createSlice({
     },
 })
 
-const useIsAutoLoginEnabled = () => {
-    return (
-        useAppSelector((state) => state.auth.data.isAutoLoginEnabled)
-    );
-}
-
 const useIsAuthorized = () => {
     return (
         useAppSelector((state) => state.auth.data.isAuthorized)
-    );
-}
-
-const useIsInitialized = () => {
-    return (
-        useAppSelector((state) => !state.auth.data.doRequireInitialization)
     );
 }
 
@@ -367,15 +354,9 @@ const useUserId: () => IProfileId = () => {
     );
 }
 
-const useUserInfo: () => IUserProfile = () => {
+const useUserProfile = () => {
     return (
-        useAppSelector((state) => state.auth.data.profile)
-    );
-}
-
-const useUserProfile = ( key? : keyof IUserProfile ) => {
-    return (
-        useAppSelector((state) => key ? state.auth.data.profile[key] : state.auth.data.profile )
+        useAppSelector((state) => state.auth.data.profile )
     );
 }
 
@@ -383,12 +364,6 @@ const useHasAnsweredTest = () => {
     return (
         useAppSelector((state) => !(state.auth.data.profile.testAnswer === null))
     )
-}
-
-const useChemistryIdList = () => {
-    return (
-        useAppSelector((state) => state.auth.data.profile.chemistryIdList)
-    );
 }
 
 const useAuthorize = () => {
@@ -416,33 +391,35 @@ const useGetProfile = () => {
     const id = useUserId();
 
     return useCallback(() => {
-        console.log(`[useGetProfile] id=${id}`);
+        // console.log(`[useGetProfile] id=${id}`);
         dispatch(asyncGetProfile(id));
     }
         , [dispatch, id]);
 }
 
-const useGuestLogin = () => {
-
-    const dispatch = useAppDispatch();
-    const { id } = useParams();
-
-    useEffect(() => {
-        console.log(`[useGuestLogin] id=${id}`);
-        if (id) {
-            dispatch(asyncGuestLogin(id));
-        }
-    }, [ id, dispatch ])
-}
-
 export default authSlice.reducer;
 export type { IAuthState };
 export const { authorize, setLoadStatus, setIsInitialized, disableAutoLogin } = authSlice.actions;
-export { asyncGuestSignIn, asyncKakaoLogin, asyncKakaoLoginByAccessToken, asyncKakaoLogout, asyncGuestLogin };
+export { asyncGuestLogin, asyncGuestSignIn, asyncKakaoLogin, asyncKakaoLoginByAccessToken, asyncKakaoLogout };
 
 /* Selector Hooks */
-export { useChemistryIdList, useHasAnsweredTest, useIsAuthorized, useIsAutoLoginEnabled, useIsInitialized, useUserId, useUserInfo, useUserProfile };
+    export { useHasAnsweredTest, useIsAuthorized, useUserId, useUserProfile };
 
 /* Selector & Dispatch Hooks */
-export { useAuthLoadStatus, useAuthorize, useGetProfile };
+    export { useAuthLoadStatus, useAuthorize, useGetProfile };
+
+/* Deprecated */
+
+// const useGuestLogin = () => {
+
+//     const dispatch = useAppDispatch();
+//     const { id } = useParams();
+
+//     useEffect(() => {
+//         console.log(`[useGuestLogin] id=${id}`);
+//         if (id) {
+//             dispatch(asyncGuestLogin(id));
+//         }
+//     }, [ id, dispatch ])
+// }
 

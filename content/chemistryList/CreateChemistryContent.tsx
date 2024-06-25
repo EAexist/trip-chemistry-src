@@ -11,12 +11,12 @@ import { Swiper, SwiperRef, SwiperSlide, } from 'swiper/react';
 /* App */
 import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
 import RoutedMotionPage from "~/motion/components/RoutedMotionPage";
-import { useAppDispatch } from "~/store";
+import { useAppDispatch, useAppSelector } from "~/store";
 import TextFieldBlock from "../../components/Block/TextFieldBlock";
 import withReducer from "../../hocs/withReducer";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import { useGetProfile, useUserId } from "../../reducers/authReducer";
-import chemistryReducer, { asyncCreateChemistry, useChemistryId, useChemistryLoadStatus } from "../../reducers/chemistryReducer";
+import chemistryReducer, { asyncCreateChemistry, useChemistryLoadStatus } from "../../reducers/chemistryReducer";
 import { SWIPERPROPS_PAGE } from "../../swiper/props";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
 
@@ -46,7 +46,7 @@ function CreateChemistryContent() {
 
     /* Reducers */
     const [status, setStatus] = useChemistryLoadStatus();
-    const chemistryId = useChemistryId();
+    const chemistryId = useAppSelector((state) => state.chemistry.data.id);
     const getProfile = useGetProfile();
 
     /* States */

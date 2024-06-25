@@ -5,10 +5,10 @@ import { m } from 'framer-motion';
 
 /* App */
 import MainAppBar from "~/components/AppBar/MainAppBar";
+import { useAppSelector } from "~/store";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { FADEIN_VIEWPORT, STAGGER_CHILDREN, VARIANTS_SLIDEUP } from "../../motion/props";
-import { useChemistryIdList } from "../../reducers/authReducer";
 import ChemistrySummaryButton from "./component/ChemistrySummaryButton";
 
 function ChemistryListContent() {
@@ -18,7 +18,7 @@ function ChemistryListContent() {
     const { palette } = useTheme();
 
     /* Reducers */
-    const chemistryIdList = useChemistryIdList();
+    const chemistryIdList =  useAppSelector((state) => state.auth.data.profile.chemistryIdList)
 
     /* Event Handler */
     const handleAddChemistry = () => {

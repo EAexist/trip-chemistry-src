@@ -4,8 +4,6 @@
 import { Stack } from "@mui/material";
 
 /* App */
-import { ITestKey } from "../../interfaces/ITestAnswer";
-import { useStrings } from "../../texts";
 import TagSetTestAnswerChip from "./component/TagSetTestAnswerChip";
 import TestInstruction from "./component/TestInstruction";
 
@@ -14,9 +12,6 @@ interface HashTagTestContentProps {
 }
 
 function HashTagTestContent({ testKey }: HashTagTestContentProps) {
-
-    /* Strings */
-    const contentstrings = useStrings().public.contents.test;
 
     return (
         <div className="content content--sparse">

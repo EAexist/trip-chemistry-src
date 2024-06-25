@@ -6,7 +6,6 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { StatusCodes } from "http-status-codes";
 
-
 /* App */
 import { HEADERS_AXIOS, TEST_TYPE } from "../common/app-const";
 import { ActivityTag } from "../interfaces/enums/ActivityTag";
@@ -16,8 +15,25 @@ import { IHashTagTestKey, INumericTestKey, ITestAnswer, ITestAnswerDTO, ITestKey
 import { useAppDispatch, useAppSelector } from "../store";
 import { useUserId } from "./authReducer";
 
+type ITestAnswerState = IWithLoadStatus<ITestAnswer>
 
-export const sampleTestAnswer_ : ITestAnswer = {
+interface ISetNumericAnswerPayload {
+    key: string;
+    subKey?: string;
+    value: number;
+};
+
+interface ISetHashTagAnswerPayload {
+    key: IHashTagTestKey;
+    tag: number;
+};
+
+export interface ITestIndex {
+    testKey: ITestKey
+    subKey?: string
+}
+
+export const sampleTestAnswer_: ITestAnswer = {
     hashtag: {
         expectation: {
             selected: Object.values(ExpectationTag).slice(0, 4),
@@ -49,7 +65,7 @@ export const sampleTestAnswer_ : ITestAnswer = {
     // accomodateSpecial: undefined, /* 특별한 숙소 */
 };
 
-export const sampleTestAnswer : ITestAnswer = {
+export const sampleTestAnswer: ITestAnswer = {
     hashtag: {
         expectation: {
             selected: Object.values(ExpectationTag).slice(0, 1),
@@ -79,31 +95,11 @@ export const sampleTestAnswer : ITestAnswer = {
     }
 };
 
-// type ITestAnswer = typeof sampleTestAnswer'
-
-type ITestAnswerState = IWithLoadStatus<ITestAnswer>
-
 const initialState: ITestAnswerState = {
     data: sampleTestAnswer,
     // data: defaultTestAnswer,
     loadStatus: LoadStatus.REST
 };
-
-interface ISetNumericAnswerPayload {
-    key: string;
-    subKey?: string;
-    value: number;
-};
-
-interface ISetHashTagAnswerPayload {
-    key: IHashTagTestKey;
-    tag: number;
-};
-
-export interface ITestIndex{
-    testKey: ITestKey
-    subKey?: string 
-}
 
 export const asyncSubmitAnswer = createAsyncThunk("testAnswer/submitAnswer",
     async ({ id, answer }: { id: string, answer: ITestAnswerDTO }, thunkAPI) => {
@@ -176,11 +172,14 @@ const testAnswerSlice = createSlice({
     },
 });
 
-export const useTestAnswer = (key: INumericTestKey, subKey?: string) => {
+
+/* hooks */
+
+const useTestAnswer = (key: INumericTestKey, subKey?: string) => {
     const dispatch = useAppDispatch();
     return (
         [
-            useAppSelector((state) => ( subKey ? state.testAnswer.data[key][subKey] :  state.testAnswer.data[key] ) as number),
+            useAppSelector((state) => (subKey ? state.testAnswer.data[key][subKey] : state.testAnswer.data[key]) as number),
             useCallback((value: number) =>
                 dispatch(testAnswerSlice.actions.setNumericAnswer({ key, subKey, value }))
                 , [dispatch])
@@ -188,55 +187,24 @@ export const useTestAnswer = (key: INumericTestKey, subKey?: string) => {
     )
 };
 
-// export const useDayjsTestAnswer = (testKey: DayjsTestKey) => {
-//     const dispatch = useAppDispatch();
-//     return (
-//         [
-//             useAppSelector((state) => (state.testAnswer.data[testKey]) as Dayjs),
-//             useCallback((value: Dayjs) =>
-//                 dispatch(testAnswerSlice.actions.setDayjsAnswer({ testKey, value }))
-//                 , [dispatch])
-//         ] as const
-//     )
-// };
-
-export const useTagSetAnswer = (key: IHashTagTestKey, selected = true) => {
+const useTagSetAnswer = (key: IHashTagTestKey, selected = true) => {
     const answer = useAppSelector((state) => (state.testAnswer.data.hashtag[key][selected ? "selected" : "unSelected"]))
     return (Array.from(answer.values()))
 };
 
-export const useIsTestAnswered = ( tests: ITestIndex[] ) => {
+const useIsTestAnswered = (tests: ITestIndex[]) => {
     return (
         useAppSelector(
-            (state) => ( tests.map(({ testKey, subKey }) => {
+            (state) => (tests.map(({ testKey, subKey }) => {
                 const answer = subKey ? state.testAnswer.data[testKey][subKey] : state.testAnswer.data[testKey]
-                console.log("Hello", testKey, subKey, answer );
+                console.log("Hello", testKey, subKey, answer);
                 return (
-                    ( testKey === "hashtag" ) 
+                    (testKey === "hashtag")
                         ? answer.selected.length >= TEST_TYPE.hashtag.selectedMinLength
                         : answer !== undefined
                 )
             }).every(v => v))
         )
-    );
-}
-
-
-export const useIsAllTestAnswered = () => {
-    return (
-        useAppSelector((state) => (
-            Object.entries(state.testAnswer.data).map(([ key, answer ]) =>
-                typeof answer === "object"
-                ?
-                Object.values(answer).map( value => 
-                    ( key === "hashtag" ) 
-                        ? (value as { selected : string[] }).selected.length >= TEST_TYPE.hashtag.selectedMinLength
-                        : value !== undefined
-                ).every(v => v)
-
-                : answer !== undefined
-            ).every(v => v)
-        ))
     );
 }
 
@@ -267,8 +235,25 @@ const useSubmitAnswer = () => {
 }
 
 export default testAnswerSlice.reducer;
-export { useSubmitAnswer, useTestAnswerStatus };
-export type { ITestAnswerState };
+export { useSubmitAnswer, useTestAnswerStatus, useTestAnswer, useTagSetAnswer, useIsTestAnswered };
+export type { ITestAnswer, ITestAnswerState };
 export const { addHashTagAnswer, deleteHashTagAnswer } = testAnswerSlice.actions;
-export type { ITestAnswer };
 
+/* Depreacated */
+// const useIsAllTestAnswered = () => {
+//     return (
+//         useAppSelector((state) => (
+//             Object.entries(state.testAnswer.data).map(([key, answer]) =>
+//                 typeof answer === "object"
+//                     ?
+//                     Object.values(answer).map(value =>
+//                         (key === "hashtag")
+//                             ? (value as { selected: string[] }).selected.length >= TEST_TYPE.hashtag.selectedMinLength
+//                             : value !== undefined
+//                     ).every(v => v)
+
+//                     : answer !== undefined
+//             ).every(v => v)
+//         ))
+//     );
+// }

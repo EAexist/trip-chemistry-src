@@ -9,7 +9,7 @@ import { MotionList } from "../../motion/components/MotionList";
 import { MotionListItem } from "../../motion/components/MotionListItem";
 import { MotionListSubheader } from "../../motion/components/MotionListSubheader";
 import { VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
-import { useHasAnsweredTest, useIsAuthorized, useUserInfo } from "../../reducers/authReducer";
+import { useHasAnsweredTest, useIsAuthorized, useUserProfile } from "../../reducers/authReducer";
 import { useStrings } from "../../texts";
 import UserAvatar from "../Avatar/UserAvatar";
 import PngIcon from "../PngIcon";
@@ -31,7 +31,7 @@ function AppDrawer({ open, onDrawerItemClick }: AppDrawerProps) {
 
     /* Reducers */
     const isAuthorized = useIsAuthorized();
-    const user = useUserInfo();
+    const user = useUserProfile();
     const hasAnsweredTest = useHasAnsweredTest();
 
     /* Event handlers  */

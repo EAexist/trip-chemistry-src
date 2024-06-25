@@ -1,13 +1,13 @@
 /* React */
-import { Dispatch, useState } from "react";
+import { Dispatch } from "react";
 
 /* Externals */
-import { Stack, Tooltip } from "@mui/material";
+import { Stack } from "@mui/material";
 
 /* App */
+import { useProfileIdList } from "~/reducers/chemistryReducer";
 import FriendAvatar from "../../../components/Avatar/FriendAvatar";
 import ToggleButton from "../../../components/Button/ToggleButton";
-import { useAppSelector } from "~/store";
 
 interface ProfileToggleButtonGroupProps {
     activeProfileId: string
@@ -17,18 +17,12 @@ interface ProfileToggleButtonGroupProps {
 function ProfileToggleButtonGroup({ activeProfileId, setActiveProfileId }: ProfileToggleButtonGroupProps) {
 
     /* Reducers */
-    const isAnsweredList = useAppSelector((state) =>
-        state.chemistry.data.profileIds.map((id) =>
-        ({
-            id: id,
-            isAnswered: (state.chemistry.data.profiles[id].testAnswer !== null)
-        })
-        ))
+    const profileIdList = useProfileIdList();
 
     return (
         <Stack spacing={0} alignItems={'end'}>
             {
-                isAnsweredList.map(({ id, isAnswered }, index) => (
+                profileIdList.map((id) => (
                     <ToggleButton
                         key={id}
                         value={id}

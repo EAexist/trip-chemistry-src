@@ -1,19 +1,14 @@
 /* React */
 
 /* Externals */
+import { QuestionMark } from "@mui/icons-material";
 import { m } from "framer-motion";
 
 /* App */
 import { TEST } from "../../common/app-const";
 import SectionPaper from "../../components/Paper/SectionPaper";
-import { useStrings } from "../../texts";
-
-
-
 import { useAppSelector } from "~/store";
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
-
-import { QuestionMark } from "@mui/icons-material";
 import CharacterChemistryContent from "./CharacterChemistryContent";
 import CityChemistryContent from "./CityChemistryContent";
 import LeadershipChemistryContent from "./LeadershipChemistryContent";
@@ -23,18 +18,14 @@ import ScheduleChemistryContent from "./ScheduleChemistryContent";
 function ChemistryDetailContent() {
 
     /* Constants */
-    const strings = useStrings().public.contents.chemistry;
-
     const cityTypeRecommendationScoreThreshold = 4;
 
-    /* Reducers */
-    const sortedCityTypes = useAppSelector((state) =>
-        Object.entries(state.chemistry.data.city)
-            .sort(([k1, v1], [k2, v2]) => (v2 - v1))
-    )
+    const cityTypesSortedByScore = Object.entries(
+        useAppSelector(state => state.chemistry.data.city)
+    ).sort(([k1, v1], [k2, v2]) => (v2 - v1))
 
-    const recommendedCityTypeEntries = sortedCityTypes.filter(([k, v]) => v >= cityTypeRecommendationScoreThreshold)
-    const notRecommendedCityTypeEntries = sortedCityTypes.filter(([k, v]) => v < cityTypeRecommendationScoreThreshold)
+    const recommendedCityTypeEntries = cityTypesSortedByScore.filter(([k, v]) => v >= cityTypeRecommendationScoreThreshold)
+    const notRecommendedCityTypeEntries = cityTypesSortedByScore.filter(([k, v]) => v < cityTypeRecommendationScoreThreshold)
 
     return (
         <>
@@ -56,7 +47,7 @@ function ChemistryDetailContent() {
                     recommendedCityTypeEntries.length > 0 ?
                         <ul className="content">
                             {
-                                sortedCityTypes.filter(([k, v]) => v >= cityTypeRecommendationScoreThreshold).map(([cityType]) => (
+                                cityTypesSortedByScore.filter(([k, v]) => v >= cityTypeRecommendationScoreThreshold).map(([cityType]) => (
                                     <m.li key={cityType} {...FADEIN_FROMBOTTOM_VIEWPORT}>
                                         <CityChemistryContent cityType={cityType as keyof typeof TEST.city.subTests} />
                                     </m.li>
@@ -80,7 +71,7 @@ function ChemistryDetailContent() {
                         <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">이런 곳도 있어</m.h2>
                         <ul className="content">
                             {
-                                sortedCityTypes.filter(([k, v]) => v < cityTypeRecommendationScoreThreshold).map(([cityType]) => (
+                                cityTypesSortedByScore.filter(([k, v]) => v < cityTypeRecommendationScoreThreshold).map(([cityType]) => (
                                     <m.li key={cityType} {...FADEIN_FROMBOTTOM_VIEWPORT}>
                                         <CityChemistryContent cityType={cityType as keyof typeof TEST.city.subTests} />
                                     </m.li>

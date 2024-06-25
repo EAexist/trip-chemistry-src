@@ -10,7 +10,7 @@ import { AppBar, Button, Toolbar } from "@mui/material";
 import { USER } from "../../common/app-const";
 import useSetNickname from "../../hooks/useSetNickname";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
-import { useUserInfo } from "../../reducers/authReducer";
+import { useUserProfile } from "../../reducers/authReducer";
 
 import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
 import { useAppSelector } from "~/store";
@@ -30,7 +30,7 @@ function SetNicknamePage({
     const setNickname = useSetNickname();
 
     /* Reducers */
-    const { nickname: currentNickname } = useUserInfo();
+    const { nickname: currentNickname } = useUserProfile();
     const authProviderNickname = useAppSelector((state) => state.auth.data.profile.authProviderNickname)
 
     /* States */

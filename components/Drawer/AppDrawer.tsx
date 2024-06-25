@@ -9,7 +9,7 @@ import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext
 import { MotionList } from "../../motion/components/MotionList";
 import { MotionListSubheader } from "../../motion/components/MotionListSubheader";
 import { VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
-import { useIsAuthorized, useUserInfo } from "../../reducers/authReducer";
+import { useIsAuthorized, useUserProfile } from "../../reducers/authReducer";
 import { useStrings } from "../../texts";
 import UserAvatar from "../Avatar/UserAvatar";
 import NavigateBeforeButton from "../Button/NavigateBeforeButton";
@@ -29,7 +29,7 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
 
     /* Reducers */
     const isAuthorized = useIsAuthorized();
-    const user = useUserInfo();
+    const user = useUserProfile();
 
     /* Event handlers  */
     const handleDrawerItemClick = (path: string) => {

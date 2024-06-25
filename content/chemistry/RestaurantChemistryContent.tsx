@@ -15,6 +15,8 @@ import GroupAnswerSlider from "./component/GroupAnswerSlider";
 
 import { Restaurant } from "@mui/icons-material";
 import useTripMemberNicknames from "~/hooks/useTripMemberNicknames";
+import { IProfile } from "~/interfaces/IProfile";
+import { createSelector } from "@reduxjs/toolkit";
 
 function RestaurantChemistryContent() {
 
@@ -29,14 +31,18 @@ function RestaurantChemistryContent() {
 
     /* Reducers */
     const dailyBudgetAnswerToProfiles = useValueToProfileIdList('restaurant', 'dailyBudget');
-    const specialRestaurantAnswerList = useAppSelector((state) =>
-        Object.values(state.chemistry.data.profiles).map((profile) =>
-        ({
-            nickname: profile.nickname,
-            ...profile.testAnswer ? { specialCount: profile.testAnswer.restaurant.specialCount, specialBudget: profile.testAnswer.restaurant.specialBudget } : { specialCount: -1, specialBudget: -1 }
-        })
+    const specialRestaurantAnswerList = useAppSelector(
+        createSelector(
+            state => state.chemistry.data.profiles,
+            (profiles: IProfile[]) =>
+                Object.values(profiles).map((profile) =>
+                ({
+                    nickname: profile.nickname,
+                    ...profile.testAnswer ? { specialCount: profile.testAnswer.restaurant.specialCount, specialBudget: profile.testAnswer.restaurant.specialBudget } : { specialCount: -1, specialBudget: -1 }
+                })
+                ).sort((a, b) => ((b.specialCount - a.specialCount) === 0) ? b.specialBudget - a.specialBudget : b.specialCount - a.specialCount)
         )
-    ).sort((a, b) => ((b.specialCount - a.specialCount) === 0) ? b.specialBudget - a.specialBudget : b.specialCount - a.specialCount)
+    )
 
     useEffect(() => {
         console.log(`[RestaurantChemistryContent] specialBudgetAnswerToProfiles=${JSON.stringify(dailyBudgetAnswerToProfiles)}`)

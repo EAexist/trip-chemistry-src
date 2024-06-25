@@ -10,6 +10,7 @@ import { WithProfileProps } from "../../hocs/withUserProfile";
 import FriendAvatar from "../Avatar/FriendAvatar";
 import { ActivityTagChip, ExpectationTagChip, TripTagChip } from "../Chip/TagChip";
 import PngIcon from "../PngIcon";
+import { createSelector } from "@reduxjs/toolkit";
 
 const expectationToTripTagMap = {
     HEAL: [TripTag.REST],
@@ -60,11 +61,18 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
     const expectationTags = getHashTags(expectationToTripTagMap, ExpectationTag)
     const activityTags = getHashTags(activityToTripTagMap, ActivityTag)
 
-    const isChemistryDefined = useAppSelector((state) => (state.chemistry !== undefined))
-    const tagSharingFriends = useAppSelector((state) => state.chemistry?.data.profileIds.filter((profileId) =>
-        (profileId !== id) &&
-        state.chemistry.data.profiles[profileId].testResult?.tripTagList.includes(selectedTag)
-    ))
+    const isChemistryDefined = useAppSelector((state) => state.chemistry !== undefined)
+
+    const friendsWithSelectedTag = useAppSelector(
+        createSelector(
+            state => state.chemistry?.data.profileIds,
+            state => state.chemistry?.data.profiles,
+            (profileIds, profiles) => profileIds.filter(profileId =>
+                (profileId !== id) &&
+                profiles[profileId].testResult?.tripTagList.includes(selectedTag)
+            )
+        )
+    )
 
     return (
         <div className="content">
@@ -79,7 +87,6 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
             }
             <h2 className="typography-heading--secondary">{`${nickname} 님의 여행 태그`}</h2>
             {
-                // (testResult.tripTagList.length > 0) ?
                 <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={1} >
                     {
                         testResult.tripTagList.map((tag) =>
@@ -92,8 +99,6 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                         )
                     }
                 </Stack>
-                // :
-                // <TripTagChip tagId={TripTag.DEFAULT} />
             }
             {
                 (selectedTag !== undefined)
@@ -138,9 +143,9 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                                     <Stack>
                                         <PngIcon name="raiseHand" />
                                         {
-                                            (tagSharingFriends.length > 0) ?
-                                                tagSharingFriends.map((id) =>
-                                                    <FriendAvatar id={id} />
+                                            (friendsWithSelectedTag.length > 0) ?
+                                                friendsWithSelectedTag.map((id) =>
+                                                    <FriendAvatar key={id} id={id} />
                                                 )
                                                 :
                                                 <p className="typography-note">같은 태그의 친구가 없어요.</p>

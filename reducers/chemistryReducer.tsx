@@ -161,41 +161,15 @@ const chemistrySlice = createSlice({
     },
 })
 
-
-const useChemistry = () => {
-    return (useAppSelector((state) => state.chemistry.data));
-};
-
-const useChemistryId = () => {
-    return (useAppSelector((state) => state.chemistry.data.id));
-};
-
-// const useIsChemistryUpdated = () => {
-//     return (useAppSelector((state) => (state.chemistry.loadStatus === LoadStatus.REST) && (state.chemistry.data !== undefined)));
-// };
-
 const useIsChemistryEnabled = () => {
-
     return useProfileIdList().length > 1;
 };
 
 const useCityChemistry = (cityType: string) => {
-    return (useAppSelector((state) => state.chemistry.data ? state.chemistry.data.city[cityType] : -1));
+    return (
+        useAppSelector((state) => state.chemistry.data ? state.chemistry.data.city[cityType] : -1)
+    );
 };
-
-// const useCityChemistry = (cityType: string) => {
-
-//     const cityAnswerList =
-//         useAppSelector((state) => Object.values(state.chemistry.data.profiles)
-//             .filter(profile => profile.testAnswer !== null)
-//             .map(profile => profile.testAnswer.city[cityType])
-//         )
-
-//     return (
-//         cityAnswerList.map(profile => profile.testAnswer.city[cityType])
-//             .reduce((a, b) => a + b, 0) / cityAnswerList.length
-//     )
-// };
 
 const useChemistryLoadStatus = () => {
     const dispatch = useAppDispatch(); /* Using useAppDispatch with createAsyncThunk. https://stackoverflow.com/questions/70143816/argument-of-type-asyncthunkactionany-void-is-not-assignable-to-paramete */
@@ -244,40 +218,27 @@ const useProfileIdList = (answeredProfileOnly: boolean = true) => {
     );
 }
 
-function useProfileAll<T extends (keyof IProfile) | IProfile>(idList?: IProfileId[], key?: keyof IProfile, answeredProfileOnly: boolean = true) {
-    const profiles = Object.values(useAppSelector((state) => state.chemistry.data.profiles))
-
-    return (
-        profiles.filter(({ id }) => idList ? idList.includes(id) : true)
-            .filter(({ testAnswer }) => answeredProfileOnly ? (testAnswer !== null) : true)
-            .map((profile) =>
-                key
-                    ? profile[key]
-                    : profile
-            )
-    );
-}
-
-function filterProfile<T extends (keyof IProfile) | IProfile>(profiles: IProfile[], idList?: IProfileId[], key?: keyof IProfile, answeredProfileOnly: boolean = true) {
-
-    return (
-        profiles.filter(({ id }) => idList ? idList.includes(id) : true)
-            .filter(({ testAnswer }) => answeredProfileOnly ? (testAnswer !== null) : true)
-            .map((profile) =>
-                key
-                    ? profile[key]
-                    : profile
-            )
-    );
-}
-
 export default chemistrySlice.reducer;
 export type { IChemistryState }
 export const { clearChemistry } = chemistrySlice.actions;
-export { asyncGetChemistry, useChemistry, useChemistryId, useChemistryLoadStatus, useCityChemistry, useIsChemistryEnabled, useProfile, useProfileAll, useProfileIdList, useTestAnswerObject };
-export { filterProfile }
+export { asyncGetChemistry, useChemistryLoadStatus, useCityChemistry, useIsChemistryEnabled, useProfile, useProfileIdList, useTestAnswerObject };
 
 /* Deprecated */
+
+// function useProfileAll<T extends (keyof IProfile) | IProfile>(idList?: IProfileId[], key?: keyof IProfile, answeredProfileOnly: boolean = true) {
+//     const profiles = Object.values(useAppSelector((state) => state.chemistry.data.profiles))
+
+//     return (
+//         profiles.filter(({ id }) => idList ? idList.includes(id) : true)
+//             .filter(({ testAnswer }) => answeredProfileOnly ? (testAnswer !== null) : true)
+//             .map((profile) =>
+//                 key
+//                     ? profile[key]
+//                     : profile
+//             )
+//     );
+// }
+
 /* 데이터 Fetch, 로드 상태 관리, 로드 전 초기 렌더 방지. */
 // const useLoadChemistry () => {
 //     const [ doWaitApi, setDoWaitApi ] = useState<boolean>(true);

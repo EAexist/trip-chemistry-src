@@ -12,6 +12,8 @@ import { useAppSelector } from "~/store";
 import { FADEIN_FROMBOTTOM_VIEWPORT, SLIDEUP_VIEWPORT, VARIANTS_SLIDEUP, VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
 import { MotionList } from "~/motion/components/MotionList";
 import { MotionListItem } from "~/motion/components/MotionListItem";
+import { createSelector } from "@reduxjs/toolkit";
+import { IProfile } from "~/interfaces/IProfile";
 
 const scheduleAnswerLabels = {
     1: "매우 널널",
@@ -30,14 +32,17 @@ function ScheduleChemistryContent() {
     };
 
     /* Reducers */
-    const scheduleAnswerList = useAppSelector((state) =>
-        Object.values(state.chemistry.data.profiles).map((profile) =>
-        ({
-            nickname: profile.nickname,
-            ...profile.testAnswer ? profile.testAnswer.schedule : { startTime: -1, endTime: -1, schedule: -1 }
-        })
+    const scheduleAnswersSorted = useAppSelector(
+        createSelector(state => state.chemistry.data.profiles,
+            (profiles: IProfile[]) =>
+                Object.values(profiles).map((profile) =>
+                ({
+                    nickname: profile.nickname,
+                    ...profile.testAnswer ? profile.testAnswer.schedule : { startTime: -1, endTime: -1, schedule: -1 }
+                })
+                ).sort((a, b) => (((b.endTime - b.startTime) - (a.endTime - b.startTime)) === 0) ? b.schedule - a.schedule : (b.endTime - b.startTime) - (a.endTime - b.startTime))
         )
-    ).sort((a, b) => (((b.endTime - b.startTime) - (a.endTime - b.startTime)) === 0) ? b.schedule - a.schedule : (b.endTime - b.startTime) - (a.endTime - b.startTime));
+    );
 
     const relaxingMemberNicknames = useTripMemberNicknames("relaxing")
     const busyMemberNicknames = useTripMemberNicknames("busy")
@@ -57,13 +62,13 @@ function ScheduleChemistryContent() {
                     } label={<p className="typography-note">널널함 표시</p>} labelPlacement="start" />
                 </Stack>
                 <MotionList
-                            // custom={0.5} /* delayChildren */
+                    // custom={0.5} /* delayChildren */
                     initial={"hidden"}
                     whileInView={"visible"}
-                            variants={VARIANTS_STAGGER_CHILDREN}
-                    >
+                    variants={VARIANTS_STAGGER_CHILDREN}
+                >
                     {
-                        scheduleAnswerList.map(({ nickname, startTime, endTime, schedule }) =>
+                        scheduleAnswersSorted.map(({ nickname, startTime, endTime, schedule }) =>
                             <MotionListItem
                                 key={nickname}
                                 disabled={(startTime < 0)}
@@ -77,7 +82,7 @@ function ScheduleChemistryContent() {
                                         ?
                                         <Box sx={{ backgroundColor: "gray.main", height: "8px", borderRadius: "16px", position: "relative", marginTop: "0.8rem", marginBottom: "0.8rem" }}>
                                             <Box sx={{ backgroundColor: "white", height: "8px", width: `${(endTime - startTime) * 100 / 24}%`, borderRadius: "16px", position: "absolute", left: `${startTime * 100 / 24}%` }}>
-                                                <Box sx={{ backgroundColor: ( schedule > 0 ) ? "primary.main" : "gray.dark", width: "100%", height: "100%", borderRadius: "16px", opacity: ( schedule > 0 ) ? 0.25 * schedule : 1 }} />
+                                                <Box sx={{ backgroundColor: (schedule > 0) ? "primary.main" : "gray.dark", width: "100%", height: "100%", borderRadius: "16px", opacity: (schedule > 0) ? 0.25 * schedule : 1 }} />
                                             </Box>
                                             <p className="typography-note" style={{ position: "absolute", left: `${startTime * 100 / 24}%`, top: "100%", transform: "translateX(-50%)" }}>
                                                 {startTime}시

@@ -36,6 +36,7 @@ import { useGetProfile } from "../../reducers/authReducer";
 import testAnswerReducer, { useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import ScheduleTestContent from "./ScheduleTestContent";
+import { createSelector } from "@reduxjs/toolkit";
 
 export const TEST_SECTIONS = {
     expectation:
@@ -168,18 +169,23 @@ function TestContent() {
     const submitAnswer = useSubmitAnswer();
     const [submitStatus, setSubmitStatus] = useTestAnswerStatus();
 
-    const IsTestSectionAnsweredList = useAppSelector((state) => (
-        Object.values(TEST_SECTIONS).map(({ tests }) => (
-            tests.map(({ testKey, subKey }) => {
-                const answer = subKey ? state.testAnswer.data[testKey][subKey] : state.testAnswer.data[testKey]
-                return (
-                    (testKey === "hashtag")
-                        ? answer.selected.length >= TEST_TYPE.hashtag.selectedMinLength
-                        : answer !== undefined
-                )
-            }).every(v => v)
-        )))
+    const selectIsTestSectionAnsweredList = createSelector(
+        state => state.testAnswer.data,
+        testAnswer =>
+            Object.values(TEST_SECTIONS).map(({ tests }) => (
+                tests.map(({ testKey, subKey }) => {
+                    const answer = subKey ? testAnswer[testKey][subKey] : testAnswer[testKey]
+                    return (
+                        (testKey === "hashtag")
+                            ? answer.selected.length >= TEST_TYPE.hashtag.selectedMinLength
+                            : answer !== undefined
+                    )
+                }).every(v => v)
+            ))
     )
+
+    const IsTestSectionAnsweredList = useAppSelector(selectIsTestSectionAnsweredList)
+
     const isAllTestAnswered = IsTestSectionAnsweredList.every(v => v)
     const isActiveTestAnswered = IsTestSectionAnsweredList[activeSectionIndex]
 
@@ -202,11 +208,11 @@ function TestContent() {
         }
     }
 
-    const [ speed, setSpeed ] = useState(0)
+    const [speed, setSpeed] = useState(0)
 
     useEffect(() => {
         setSpeed(500)
-    }, [ setSpeed ])
+    }, [setSpeed])
 
     useEffect(() => {
         swiperRef.current.swiper.slideTo(activeSectionIndex)
@@ -275,78 +281,78 @@ function TestContent() {
                 handleSuccess: handleLoadSuccess,
                 isEnabled: isAnswerSubmitted,
             }}>
-                    <div className="page fill-window flex">
-                        <AppBar >
-                            <Toolbar sx={{ justifyContent: "end" }}>
-                                <MainMenuButton />
-                            </Toolbar>
-                        </AppBar>
-                        <Toolbar />
-                        <Stack className="wrapper" style={{ paddingBottom: 0, marginLeft: "-8px" }} display="flex" justifyContent={"space-between"}>
-                            <Button onClick={() => setOpenSectionListModal(true)} endIcon={<ArrowDropDown />}>
-                                <h2 className="typography-heading">{Object.values(TEST_SECTIONS)[activeSectionIndex].label}</h2>
-                            </Button>
-                            <p className="typography-note">{`${activeSectionIndex + 1} / ${Object.keys(TEST_SECTIONS).length}`}</p>
-                        </Stack>
-                        <div style={{ flexShrink: 1, flexGrow: 1, overflow: "hidden" }}>
-                            <Swiper speed={speed} noSwipingClass='testcontent-swiper-no-swiping' onActiveIndexChange={(swiper) => setActiveSectionIndex(swiper.activeIndex)} ref={swiperRef} style={{ height: "100%" }} {...SWIPERPROPS}>
+                <div className="page fill-window flex">
+                    <AppBar >
+                        <Toolbar sx={{ justifyContent: "end" }}>
+                            <MainMenuButton />
+                        </Toolbar>
+                    </AppBar>
+                    <Toolbar />
+                    <Stack className="wrapper" style={{ paddingBottom: 0, marginLeft: "-8px" }} display="flex" justifyContent={"space-between"}>
+                        <Button onClick={() => setOpenSectionListModal(true)} endIcon={<ArrowDropDown />}>
+                            <h2 className="typography-heading">{Object.values(TEST_SECTIONS)[activeSectionIndex].label}</h2>
+                        </Button>
+                        <p className="typography-note">{`${activeSectionIndex + 1} / ${Object.keys(TEST_SECTIONS).length}`}</p>
+                    </Stack>
+                    <div style={{ flexShrink: 1, flexGrow: 1, overflow: "hidden" }}>
+                        <Swiper speed={speed} noSwipingClass='testcontent-swiper-no-swiping' onActiveIndexChange={(swiper) => setActiveSectionIndex(swiper.activeIndex)} ref={swiperRef} style={{ height: "100%" }} {...SWIPERPROPS}>
+                            {
+                                (Object.entries(TEST_SECTIONS) as [id: string, { subtitle?: string, contentComponent?: React.ReactNode }][]).map(([id, { subtitle, contentComponent }]) => (
+                                    <SwiperSlide key={id} style={{ overflowX: "scroll" }} data-hash={id}>
+                                        <div className="wrapper content">
+                                            {
+                                                subtitle
+                                                &&
+                                                <p>{subtitle}</p>
+                                            }
+                                            {contentComponent}
+                                        </div>
+                                        <div className="fab-placeholder" />
+                                    </SwiperSlide>
+                                ))
+                            }
+                        </Swiper>
+                    </div>
+                    <Fab onClick={isAllTestAnswered ? handleFinishTest : handleNextButtonClick} disabled={(!isAllTestAnswered) && !isActiveTestAnswered}>
+                        {isAllTestAnswered ? "결과 확인하기" : "다음"}
+                    </Fab>
+                    <ConfirmDialog
+                        open={openConfirmDialog}
+                        onClose={handleCloseConfirmDialog}
+                        onCancel={handleCloseConfirmDialog}
+                        onConfirm={handleConfirmSubmit}
+                        title={"답변을 제출할까요?"}
+                        cancelButtonLabel={'답변 한 번 더 확인하기'}
+                    />
+                    <DraggableModal
+                        open={opensectionlistmodal}
+                        onClose={handleSectionListModalClose}
+                        className="wrapper content"
+                    >
+                        <h2 className="typography-heading">테스트</h2>
+                        <div>
+                            <Grid container spacing={1}>
                                 {
-                                    (Object.entries(TEST_SECTIONS) as [id: string, { subtitle?: string, contentComponent?: React.ReactNode }][]).map(([id, { subtitle, contentComponent }]) => (
-                                        <SwiperSlide key={id} style={{ overflowX: "scroll" }} data-hash={id}>
-                                            <div className="wrapper content">
-                                                {
-                                                    subtitle
-                                                    &&
-                                                    <p>{subtitle}</p>
-                                                }
-                                                {contentComponent}
-                                            </div>
-                                            <div className="fab-placeholder" />
-                                        </SwiperSlide>
-                                    ))
-                                }
-                            </Swiper>
-                        </div>
-                        <Fab onClick={isAllTestAnswered ? handleFinishTest : handleNextButtonClick} disabled={(!isAllTestAnswered) && !isActiveTestAnswered}>
-                            {isAllTestAnswered ? "결과 확인하기" : "다음"}
-                        </Fab>
-                        <ConfirmDialog
-                            open={openConfirmDialog}
-                            onClose={handleCloseConfirmDialog}
-                            onCancel={handleCloseConfirmDialog}
-                            onConfirm={handleConfirmSubmit}
-                            title={"답변을 제출할까요?"}
-                            cancelButtonLabel={'답변 한 번 더 확인하기'}
-                        />
-                        <DraggableModal
-                            open={opensectionlistmodal}
-                            onClose={handleSectionListModalClose}
-                            className="wrapper content"
-                        >
-                            <h2 className="typography-heading">테스트</h2>
-                            <div>
-                                <Grid container spacing={1}>
-                                    {
-                                        IsTestSectionAnsweredList.map((isAnswered, index) => {
-                                            const isActive = (index === activeSectionIndex)
-                                            return (
-                                                <Grid key={index} item xs={6}>
-                                                    <Button onClick={handleSectionButtonClick(index)} startIcon={<PngIcon name={Object.values(TEST_SECTIONS)[index]?.icon} />} variant={"contained"} color={isActive ? "gray" : "secondary"} sx={{ ...!isAnswered && { '& > *': { opacity: 0.5 } }, paddingLeft: '12px' }}>
-                                                        <p>{Object.values(TEST_SECTIONS)[index]?.label}</p>
-                                                    </Button>
-                                                </Grid>
+                                    IsTestSectionAnsweredList.map((isAnswered, index) => {
+                                        const isActive = (index === activeSectionIndex)
+                                        return (
+                                            <Grid key={index} item xs={6}>
+                                                <Button onClick={handleSectionButtonClick(index)} startIcon={<PngIcon name={Object.values(TEST_SECTIONS)[index]?.icon} />} variant={"contained"} color={isActive ? "gray" : "secondary"} sx={{ ...!isAnswered && { '& > *': { opacity: 0.5 } }, paddingLeft: '12px' }}>
+                                                    <p>{Object.values(TEST_SECTIONS)[index]?.label}</p>
+                                                </Button>
+                                            </Grid>
 
-                                            )
-                                        })
-                                    }
-                                </Grid>
-                            </div>
-                            <Stack justifyContent={"end"} spacing={0}>
-                                <Button onClick={highlightAnsweredSections} className="typography-note" style={{ fontWeight: 600 }}>{`답변한 질문 : ${IsTestSectionAnsweredList.filter((isAnswered) => isAnswered).length}`}</Button>
-                                <Button onClick={highlightUnAnsweredSections} className="typography-note disabled">{`남은 질문 : ${IsTestSectionAnsweredList.filter((isAnswered) => !isAnswered).length}`}</Button>
-                            </Stack>
-                        </DraggableModal>
-                    </div >
+                                        )
+                                    })
+                                }
+                            </Grid>
+                        </div>
+                        <Stack justifyContent={"end"} spacing={0}>
+                            <Button onClick={highlightAnsweredSections} className="typography-note" style={{ fontWeight: 600 }}>{`답변한 질문 : ${IsTestSectionAnsweredList.filter((isAnswered) => isAnswered).length}`}</Button>
+                            <Button onClick={highlightUnAnsweredSections} className="typography-note disabled">{`남은 질문 : ${IsTestSectionAnsweredList.filter((isAnswered) => !isAnswered).length}`}</Button>
+                        </Stack>
+                    </DraggableModal>
+                </div >
             </AuthLoadRequiredContent>
         </LoadRequiredContent >
     );

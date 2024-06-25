@@ -1,11 +1,11 @@
 import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import AppDrawer from "~/components/Drawer/AppDrawer";
+import LazyDomAnimation from "~/motion/LazyDomAnimation";
 import { Outlet, useSearchParams } from "~/router-module";
 import { AuthLoadRequiredContent } from "../content/LoadRequiredContent";
-import { asyncGuestLogin, asyncKakaoLoginByAccessToken, disableAutoLogin, useAuthorize, useIsAutoLoginEnabled } from "../reducers/authReducer";
-import { useAppDispatch } from "../store";
-import LazyDomAnimation from "~/motion/LazyDomAnimation";
+import { asyncGuestLogin, asyncKakaoLoginByAccessToken, disableAutoLogin, useAuthorize } from "../reducers/authReducer";
+import { useAppDispatch, useAppSelector } from "../store";
 
 interface DrawerContextProps {
     openDrawer: boolean,
@@ -20,7 +20,7 @@ function Page({ }) {
     const authorize = useAuthorize();
     const [searchParams] = useSearchParams();
     const guestId = searchParams.get('guestId');
-    const isAutoLoginEnabaled = useIsAutoLoginEnabled();
+    const isAutoLoginEnabaled = useAppSelector((state) => state.auth.data.isAutoLoginEnabled);
 
     /* States */
 
