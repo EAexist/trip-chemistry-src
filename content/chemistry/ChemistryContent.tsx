@@ -26,6 +26,7 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import getImgSrc from "../../utils/getImgSrc";
 import LoginContent from "../login/LoginContent";
 import ChemistryDetailContent from "./ChemistryDetailContent";
+import ConfirmDialog from "~/components/ConfirmDialog";
 
 const { Helmet } = ReactHelmetAsync
 
@@ -55,7 +56,7 @@ function ChemistryContent() {
     const hasAnsweredTest = useHasAnsweredTest();
 
     /* Induced */
-    const isMember = Object.keys(profiles).includes(userId);
+    const isMember = (profileIds.length > 0) && profileIds.includes(userId);
 
     /* States */
     const [openShareModal, setOpenShareModal] = useState(false);
@@ -113,7 +114,7 @@ function ChemistryContent() {
     const handleJoinChemistry = isAuthorized
         ?
         () => {
-            dispatch(asyncJoinChemistry({ userId, chemistryId }));
+            setOpenConfirmJoinDialog(true);
         }
         :
         () => {
@@ -136,6 +137,24 @@ function ChemistryContent() {
         }
     }, [openSnsShareUnsupportedAlert])
 
+    /* Confirm Dialog */
+    const [openConfirmJoinDialog, setOpenConfirmJoinDialog] = useState(false);
+
+    const handleCloseConfirmJoinDialog = () => {
+        setOpenConfirmJoinDialog(false);
+    }
+
+    const handleConfirmJoin = () => {
+        setOpenConfirmJoinDialog(false);
+        dispatch(asyncJoinChemistry({ userId, chemistryId }));
+    }
+
+    useEffect(()=>{
+        if( isAuthorized && !isMember){
+            setOpenConfirmJoinDialog(true);
+        }
+    }, [ isAuthorized, isMember ])
+
     return (
         /** MetaData
          *  Not Crawled.
@@ -149,18 +168,23 @@ function ChemistryContent() {
                 (!isAuthorized && showLoginContent)
                     ?
                     <MotionPage key="login" animate={"visible"} initial={"hidden"} custom={"left"} {...motionProp_page_slideIn} >
-                        <Toolbar style={{ position: "fixed" }}>
-                            <IconButton
-                                aria-label="cancel"
-                                onClick={handleCloseLoginModal}
-                                edge="start"
-                            >
-                                <NavigateBefore />
-                            </IconButton>
-                        </Toolbar>
-                        <LoginContent title={`${profiles[profileIds[0]].nickname}님의 ${title}에 참여해보세요.`} />
+                        <AppBar>
+                            <Toolbar>
+                                <IconButton
+                                    aria-label="cancel"
+                                    onClick={handleCloseLoginModal}
+                                    edge="start"
+                                >
+                                    <NavigateBefore />
+                                </IconButton>
+                                <MainMenuButton/>
+                            </Toolbar>
+                        </AppBar>
+                        <LoginContent title={`${profiles[profileIds[0]].nickname}님의 ${title}에\n 참여해보세요.`} />
                     </MotionPage>
                     :
+                    (
+                    ( profileIds.length > 0 ) &&                        
                     <Box key="main" className="page flex" sx={{ backgroundColor: "gray.main" }}>
                         <AppBar>
                             <Toolbar ref={containerRef}>
@@ -185,53 +209,53 @@ function ChemistryContent() {
                             <SectionPaper className="content">
                                 <h2 className="typography-heading">{title}</h2>
                                 <div>
-                                <List>
-                                    {
-                                        profileIds.map((id) => {
-                                            const { testAnswer, nickname } = profiles[id]
-                                            return (
-                                                <ListItem
-                                                    key={id}
-                                                    className={`${(testAnswer === null) && 'disabled'}`}
-                                                    secondaryAction={
-                                                        (testAnswer === null) &&
-                                                        <Stack >
-                                                            <Error sx={{ fontSize: 18 }} />
-                                                            <p className='typography-note'>테스트 기다리는 중</p>
-                                                        </Stack>
-                                                    }
-                                                >
-                                                    <ListItemAvatar>
-                                                        <FriendAvatar id={id} renderLabel={false} />
-                                                    </ListItemAvatar>
-                                                    <ListItemText primary={nickname} />
-                                                </ListItem>
+                                    <List>
+                                        {
+                                            profileIds.map((id) => {
+                                                const { testAnswer, nickname } = profiles[id]
+                                                return (
+                                                    <ListItem
+                                                        key={id}
+                                                        className={`${(testAnswer === null) && 'disabled'}`}
+                                                        secondaryAction={
+                                                            (testAnswer === null) &&
+                                                            <Stack >
+                                                                <Error sx={{ fontSize: 18 }} />
+                                                                <p className='typography-note'>테스트 기다리는 중</p>
+                                                            </Stack>
+                                                        }
+                                                    >
+                                                        <ListItemAvatar>
+                                                            <FriendAvatar id={id} renderLabel={false} />
+                                                        </ListItemAvatar>
+                                                        <ListItemText primary={nickname} />
+                                                    </ListItem>
+                                                )
+                                            }
                                             )
                                         }
-                                        )
-                                    }
-                                    {
-                                        isMember
-                                            ?
-                                            <ListItemButton onClick={handleStartShare}>
-                                                <ListItemAvatar>
-                                                    <Avatar>
-                                                        <GroupAdd sx={{ color: "gray.dark" }} />
-                                                    </Avatar>
-                                                </ListItemAvatar>
-                                                <ListItemText primary={"친구 초대하기"} sx={{ color: "gray.dark" }} />
-                                            </ListItemButton>
-                                            :
-                                            <ListItemButton onClick={handleJoinChemistry} >
-                                                <ListItemAvatar>
-                                                    <Avatar>
-                                                        <Login sx={{ color: "gray.dark" }} />
-                                                    </Avatar>
-                                                </ListItemAvatar>
-                                                <ListItemText primary={"참여하기"} sx={{ color: "gray.dark" }} />
-                                            </ListItemButton>
-                                    }
-                                </List>
+                                        {
+                                            isMember
+                                                ?
+                                                <ListItemButton onClick={handleStartShare}>
+                                                    <ListItemAvatar>
+                                                        <Avatar>
+                                                            <GroupAdd />
+                                                        </Avatar>
+                                                    </ListItemAvatar>
+                                                    <ListItemText primary={"친구 초대하기"} />
+                                                </ListItemButton>
+                                                :
+                                                <ListItemButton onClick={handleJoinChemistry} >
+                                                    <ListItemAvatar>
+                                                        <Avatar>
+                                                            <Login/>
+                                                        </Avatar>
+                                                    </ListItemAvatar>
+                                                    <ListItemText primary={"참여하기"} />
+                                                </ListItemButton>
+                                        }
+                                    </List>
                                 </div>
                             </SectionPaper>
                             {
@@ -259,6 +283,15 @@ function ChemistryContent() {
                                         }
                                     </Paper>
                             }
+                            <ConfirmDialog
+                                open={openConfirmJoinDialog}
+                                onClose={handleCloseConfirmJoinDialog}
+                                onCancel={handleCloseConfirmJoinDialog}
+                                onConfirm={handleConfirmJoin}
+                                title={`여행에 참여할까요?`}
+                                body={`${profiles[profileIds[0]].nickname}님의 ${title}`}
+                                cancelButtonLabel={'취소'}
+                            />
                             {/* 링크 공유 모달 */}
                             <DraggableModal
                                 open={openShareModal}
@@ -371,6 +404,7 @@ function ChemistryContent() {
                             }
                         </div>
                     </Box>
+                )
             }
         </>
     );

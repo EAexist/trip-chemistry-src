@@ -102,11 +102,18 @@ const chemistrySlice = createSlice({
     },
     extraReducers: (builder) => {
         /* asyncCreateChemistry */
-        builder.addCase(asyncCreateChemistry.fulfilled, (state, action: PayloadAction<IChemistry>) => {
+        builder.addCase(asyncCreateChemistry.fulfilled, (state, action: PayloadAction<IChemistryDTO>) => {
             console.log(`asyncCreateChemistry.fulfilled: action.payload=${JSON.stringify(action.payload)}`);
             state.data = {
                 ...defaultChemistry,
-                ...action.payload,
+                ...{
+                    ...action.payload,
+                    profiles: Object.fromEntries(
+                        action.payload.profiles.map((profile) => (
+                            [profile.id, profile]))
+                    ),
+                    profileIds: action.payload.profiles.map((profile) => profile.id)
+                },
             }
             state.loadStatus = LoadStatus.SUCCESS;
         });
@@ -121,9 +128,16 @@ const chemistrySlice = createSlice({
         });
 
         /* asyncJoinChemistry */
-        builder.addCase(asyncJoinChemistry.fulfilled, (state, action: PayloadAction<IChemistry>) => {
+        builder.addCase(asyncJoinChemistry.fulfilled, (state, action: PayloadAction<IChemistryDTO>) => {
             console.log(`asyncJoinChemistry.fulfilled: action.payload=${JSON.stringify(action.payload)}`);
-            state.data = action.payload;
+            state.data = {
+                ...action.payload,
+                profiles: Object.fromEntries(
+                    action.payload.profiles.map((profile) => (
+                        [profile.id, profile]))
+                ),
+                profileIds: action.payload.profiles.map((profile) => profile.id),
+            };
             state.loadStatus = LoadStatus.SUCCESS;
         });
         builder.addCase(asyncJoinChemistry.pending, (state, action) => {

@@ -35,7 +35,7 @@ function SetNicknamePage({
 
     /* States */
     const [value, setValue] = useState(currentNickname ? currentNickname : (authProviderNickname ? authProviderNickname : ""));
-    const isInputAllowed = value.length > 0
+    const isInputAllowed = (value.length > 0)
 
     /* Event Handlers */
     const handleConfirm = (value: string) => {
@@ -46,7 +46,7 @@ function SetNicknamePage({
     ), [doRequireInitialization, currentNickname]);
 
     const getIsValueAllowed = useCallback((value: string) => (
-        value.length <= USER.maxNicknameLength
+        (value.length <= USER.maxNicknameLength) && !value.includes(' ')
     ), [USER.maxNicknameLength]);
 
     const helperText = useCallback((value: string) => (
@@ -69,14 +69,20 @@ function SetNicknamePage({
                     </Button>
                 </Toolbar>
             </AppBar>
-            <Toolbar/>
+            <Toolbar />
             <div className="wrapper">
                 <TextFieldBlock
                     value={value}
                     setValue={setValue}
                     getIsValueAllowed={getIsValueAllowed}
                     helperText={helperText}
-                    title={"사용할 이름을 입력해주세요."}
+                    title={"사용할 이름을 입력해주세요"}
+                    note={
+                        <div className="content content--narrow">
+                            <p>- 최대 5글자까지 가능해요.</p>
+                            <p>- 공백은 포함할 수 없어요.</p>
+                        </div>
+                    }
                 />
             </div>
         </RoutedMotionPage>

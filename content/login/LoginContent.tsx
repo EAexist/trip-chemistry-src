@@ -2,18 +2,19 @@
 import { useEffect, useState } from "react";
 
 /* Externals */
-import { Button, Grid, Stack, Toolbar } from "@mui/material";
+import { Button, Stack, Toolbar } from "@mui/material";
 import { useLocation, useNavigate } from "~/router-module";
 
 /* App */
 import { Help } from "@mui/icons-material";
+import MainAppBar from "~/components/AppBar/MainAppBar";
 import { useAppSelector } from "~/store";
 import { KAKAO_AUTH_URL_BASE } from "../../common/auth";
 import KakaoLoginButton from "../../components/Button/KakaoLoginButton";
 import { asyncGuestSignIn, authorize } from "../../reducers/authReducer";
 import { useAppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
-import MainAppBar from "~/components/AppBar/MainAppBar";
+import { KakoLoginHelp } from "~/components/KakaoLoginHelp";
 // import env from "~/env";
 interface LoginContentProps {
     title?: string;
@@ -69,7 +70,6 @@ function LoginContent({ title = "테스트를 시작해볼까요?" }: LoginConte
             handleSuccess: handleAuthSuccess,
             handleFail: () => { }
         }}>
-            <MainAppBar />
             <div className="fill-window flex">
                 <Toolbar />
                 <div className="flex-grow block--centered content content--sparse">
@@ -86,12 +86,7 @@ function LoginContent({ title = "테스트를 시작해볼까요?" }: LoginConte
                             게스트 로그인
                         </Button>
                     </Stack>
-                    <p className="typography-note block--width-large">
-                        <Help fontSize="inherit" />
-                        {
-                            "카카오 로그인을 이용하면\n링크를 잃어버려도 내 테스트 결과를 안전하게 불러올 수 있어요."
-                        }
-                    </p>
+                    <KakoLoginHelp/>
                 </div>
             </div>
         </AuthLoadRequiredContent>

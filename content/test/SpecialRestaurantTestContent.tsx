@@ -59,9 +59,9 @@ function SpecialRestaurantTestContent() {
         if (option !== specialRestaurantCountAnswer) {
             setSpecialRestaurantCountAnswer(option)
         }
-        // if (option === 0) {
-        //     setSpecialRestaurantBudgetAnswer(0)
-        // }
+        if (option === 0) {
+            setSpecialRestaurantBudgetAnswer(0)
+        }
     }
 
     return (

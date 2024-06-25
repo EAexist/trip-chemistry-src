@@ -27,7 +27,7 @@ function CharacterChemistryContent() {
     );
 
     const nickname= useAppSelector((state) => (
-        state.chemistry.data.profiles[activeProfileId]?.testResult?.characterId
+        state.chemistry.data.profiles[activeProfileId]?.nickname
     ));
 
     return (

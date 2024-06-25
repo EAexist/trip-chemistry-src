@@ -1,5 +1,5 @@
 /* React */
-import { ChangeEvent } from "react";
+import { ChangeEvent, ReactNode } from "react";
 
 /* Externals */
 import { Close } from "@mui/icons-material";
@@ -11,7 +11,7 @@ interface TextFieldBlockProps {
     getIsValueAllowed: (value: string) => boolean;
     helperText: string | ((value: string) => string);
     title?: string;
-    note?: string;
+    note?: ReactNode;
     autoFocus?: boolean;
     className?: string;
 };
@@ -33,15 +33,12 @@ function TextFieldBlock({
     }
 
     return (
-        <div className={`content content--sparse flex ${className}`}>
+        <div className={`content flex ${className}`}>
             <h2 className="typography-heading">
                 {title}
             </h2>
             {
-                note &&
-                <p className="typography-note">
-                    {note}
-                </p>
+                note
             }
             <div>
                 <TextField

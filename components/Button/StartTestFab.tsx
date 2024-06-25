@@ -9,7 +9,7 @@ const StartTestFab = ((props: StartTestFabProps) => {
     const navigate = useNavigateWithGuestContext();
 
     const handleStartTest = () => {
-        navigate('test');
+        navigate('/test');
     }
     return (
         <Fab onClick={handleStartTest} {...props}>

@@ -15,12 +15,7 @@ import Page from './route/Page';
 
 /* Intermediate Routes */
 const AuthRequiredRoute = loadable(() => import(/* webpackChunkName: "AuthRequiredRoute" */ './route/AuthRequiredRoute'));
-const TestRequiredRoute = loadable(() => import( /* webpackChunkName: "TestRequiredRoute" */'./route/TestRequiredRoute'));
 const ChemistryRoute = loadable(() => import(/* webpackChunkName: "ChemistryRoute" */ './route/ChemistryRoute'));
-
-/* Deprecated */
-// const GuestRoute = loadable(() => import( /* webpackChunkName: "GuestRoute" */'./route/GuestRoute'));
-// const AuthRecommendedPage = loadable(() => import(/* webpackChunkName: "AuthRecommendedPage" */ './route/AuthRecommendedPage'));
 
 /* Public Contents */
 const HomeContent = loadable(() => import(/* webpackChunkName: "HomeContent" */ './content/home/HomeContent'));
@@ -39,6 +34,11 @@ const ResultContent = loadable(() => import( /* webpackChunkName: "ResultContent
 const ChemistryListContent = loadable(() => import( /* webpackChunkName: "ChemistryListContent" */'./content/chemistryList/ChemistryListContent'));
 const CreateChemistryContent = loadable(() => import( /* webpackChunkName: "CreateChemistryContent" */'./content/chemistryList/CreateChemistryContent'));
 
+/* Deprecated */
+// const GuestRoute = loadable(() => import( /* webpackChunkName: "GuestRoute" */'./route/GuestRoute'));
+// const AuthRecommendedPage = loadable(() => import(/* webpackChunkName: "AuthRecommendedPage" */ './route/AuthRecommendedPage'));
+// const TestRequiredRoute = loadable(() => import( /* webpackChunkName: "TestRequiredRoute" */'./route/TestRequiredRoute'));
+
 const cityDetailRoute =
     <Route key={'city'} path={'city'} element={<Outlet />}>
         {
@@ -49,7 +49,7 @@ const cityDetailRoute =
     </Route>
 
 const routes = createRoutesFromElements(
-    <Route path={'/'} element={
+    <Route path={'*'} element={
         <Provider store={store}>
             <ScrollRestoration
                 getKey={(location, matches) => {
@@ -62,10 +62,10 @@ const routes = createRoutesFromElements(
             <Page />
         </Provider>} >
         <Route key={'index'} element={<Outlet />} >
-            <Route key={'testPreview'} path={'testPreview'} element={<TestContent />} />
-            <Route path="/" element={<Navigate to="home" />} />
+            <Route path="*" element={<Navigate to="home" />} />
             <Route key={'home'} index path={'home'} element={<HomeContent />} />
             <Route key={'chemistry'} path={'chemistry/:chemistryId'} element={<ChemistryRoute />} >
+                <Route path="*" element={<Navigate to=".." />} />
                 <Route key={'index'} index element={<ChemistryContent />} />
                 {/** @TODO 닉네임을 통한 사용자 검색 및 친구 초대 */}
                 {/* <Route key={'searchAndInviteFriend'} path={'searchAndInviteFriend'} element={<SearchAndInviteFriendContent />} /> */}
@@ -81,9 +81,7 @@ const routes = createRoutesFromElements(
                     <Route key={'index'} index element={<UserContent />} />
                     <Route key={'setNickname'} path={'setNickname'} element={<EditNicknameContent />} />
                 </Route>
-                <Route key={'testRequired'} element={<TestRequiredRoute />}>
-                    <Route key={'result'} path={'result'} element={<ResultContent />} />
-                </Route>
+                <Route key={'result'} path={'result'} element={<ResultContent />} />
                 <Route key={'myChemistry'} path={'myChemistry'} element={<Outlet />} >
                     <Route key={'myChemistry'} index element={<ChemistryListContent />} />
                     <Route key={'new'} path={'new'} element={<CreateChemistryContent />} />

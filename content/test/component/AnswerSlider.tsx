@@ -21,11 +21,8 @@ function AnswerSlider({ testKey, answer, setAnswer, disabled, ...sliderOwnProps 
         <div className={`testcontent-swiper-no-swiping ${disabled && "disabled"}`}>
             <p className='typography-test-answer'>
                 {
-                    answer !== undefined
+                    (answer !== undefined) && (answer > 0 )
                         ?
-                        disabled ?
-                            '-'
-                            :
                             `${answer / 1000},000원${(answer === sliderOwnProps.max) ? ' 이상' : ''}`
                         : "?"
                 }

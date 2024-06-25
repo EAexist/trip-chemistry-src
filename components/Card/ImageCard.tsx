@@ -15,7 +15,8 @@ const ImageCard = ({ sx, title, src, gradient, children, className, ...props }: 
                 borderRadius: "16px",
                 title: title,
                 ...sx,
-                ...backgrounSx
+                ...backgrounSx,
+                backgroundPosition: "center"
             }}
             className={`ImageCard ${className}`}
             {...props}

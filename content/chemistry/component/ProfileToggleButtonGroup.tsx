@@ -17,7 +17,7 @@ interface ProfileToggleButtonGroupProps {
 function ProfileToggleButtonGroup({ activeProfileId, setActiveProfileId }: ProfileToggleButtonGroupProps) {
 
     /* Reducers */
-    const profileIdList = useProfileIdList();
+    const profileIdList = useProfileIdList( false );
 
     return (
         <Stack spacing={0} alignItems={'end'}>

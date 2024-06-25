@@ -2,11 +2,13 @@
 
 /* Externals */
 import { Edit, Help } from "@mui/icons-material";
-import { Button, ButtonBase, Icon, IconButton, Stack, Toolbar } from "@mui/material";
+import { Button, ButtonBase, Icon, IconButton, Toolbar } from "@mui/material";
 
 
 /* App */
+import { useState } from "react";
 import MainAppBar from "~/components/AppBar/MainAppBar";
+import ConfirmDialog from "~/components/ConfirmDialog";
 import UserAvatar from "../../components/Avatar/UserAvatar";
 import KakaoLoginButton from "../../components/Button/KakaoLoginButton";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
@@ -16,9 +18,7 @@ import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { asyncKakaoLogout, useUserProfile } from "../../reducers/authReducer";
 import { useAppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
-import StartTestFab from "~/components/Button/StartTestFab";
-import ConfirmDialog from "~/components/ConfirmDialog";
-import { useState } from "react";
+import { KakoLoginHelp } from "~/components/KakaoLoginHelp";
 
 function UserContent() {
 
@@ -101,14 +101,7 @@ function UserContent() {
                                 {
                                     (AuthProvider[authProvider] === AuthProvider.GUEST)
                                     &&
-                                    <>
-                                        <Help fontSize="inherit" />
-                                        <p className="typography-note">
-                                            {
-                                                "카카오 로그인을 이용하면\n링크를 잃어버려도 내 테스트 결과를 안전하게 불러올 수 있어요."
-                                            }
-                                        </p>
-                                    </>
+                                    <KakoLoginHelp/>
                                 }
                                 <div style={{ width: "100%" }}>
                                     <KakaoLoginButton sx={{ width: "100%" }} />

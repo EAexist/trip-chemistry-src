@@ -67,28 +67,34 @@ function RestaurantChemistryContent() {
                     <m.div key={"daily"}  {...{ ...FADEIN, exit: "hidden" }} className="content">
                         <GroupAnswerSlider answerToProfiles={dailyBudgetAnswerToProfiles} {...dailyRestaurantSliderProps} />
                         <div className="content">
-                            <p className="typography-article">
-                                {
-                                    highDailyBudgetMemberNicknames.map((nickname, index) =>
-                                        <Fragment key={nickname}>
-                                            <b>{nickname}</b>
-                                            {" 님, "}
-                                        </Fragment>
-                                    )
-                                }
-                                {"친구들은 더 적은 식비를 생각하고 있어요. 부담이 되지 않도록 꼭 먹고 싶은 것들을 추리거나 합리적인 가격대의 식당을 함께 찾아보세요.\n친구들도 특별한 맛집이라면 돈을 더 쓰고 싶을 수 있답니다. \"특별한 한끼\" 탭을 눌러 지금 확인해보세요."}
-                            </p>
-                            <p className="typography-article">
-                                {
-                                    lowDailyBudgetMemberNicknames.map((nickname, index) =>
-                                        <Fragment key={nickname}>
-                                            <b>{nickname}</b>
-                                            {" 님, "}
-                                        </Fragment>
-                                    )
-                                }
-                                {"친구들은 더 많은 식비를 생각하고 있어요. 여행지의 맛있는 음식들에 대해 친구들의 이야기를 들어보고, 예산을 조정해 함께해보세요."}
-                            </p>
+                            {
+                                (highDailyBudgetMemberNicknames.length > 0) &&
+                                <p className="typography-article">
+                                    {
+                                        highDailyBudgetMemberNicknames.map((nickname, index) =>
+                                            <Fragment key={nickname}>
+                                                <b>{nickname}</b>
+                                                {" 님, "}
+                                            </Fragment>
+                                        )
+                                    }
+                                    {"친구들은 더 적은 식비를 생각하고 있어요. 부담이 되지 않도록 꼭 먹고 싶은 것들을 추리거나 합리적인 가격대의 식당을 함께 찾아보세요.\n친구들도 특별한 맛집이라면 돈을 더 쓰고 싶을 수 있답니다. \"특별한 한끼\" 탭을 눌러 지금 확인해보세요."}
+                                </p>
+                            }
+                            {
+                                (lowDailyBudgetMemberNicknames.length > 0) &&
+                                <p className="typography-article">
+                                    {
+                                        lowDailyBudgetMemberNicknames.map((nickname, index) =>
+                                            <Fragment key={nickname}>
+                                                <b>{nickname}</b>
+                                                {" 님, "}
+                                            </Fragment>
+                                        )
+                                    }
+                                    {"친구들은 더 많은 식비를 생각하고 있어요. 여행지의 맛있는 음식들에 대해 친구들의 이야기를 들어보고, 예산을 조정해 함께해보세요."}
+                                </p>
+                            }
                         </div>
                     </m.div>
                 }

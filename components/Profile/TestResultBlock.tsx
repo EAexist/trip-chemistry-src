@@ -67,7 +67,7 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
         createSelector(
             state => state.chemistry?.data.profileIds,
             state => state.chemistry?.data.profiles,
-            (profileIds, profiles) => profileIds.filter(profileId =>
+            (profileIds, profiles) => profileIds?.filter(profileId =>
                 (profileId !== id) &&
                 profiles[profileId].testResult?.tripTagList.includes(selectedTag)
             )
@@ -116,7 +116,7 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                                 <Divider />
                                 {
                                     (expectationTags.length > 0) &&
-                                    <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={1} >
+                                    <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={2} >
                                         <PngIcon name="expectation" />
                                         {
                                             expectationTags.map((tag) =>
@@ -128,7 +128,7 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                                 }
                                 {
                                     (activityTags.length > 0) &&
-                                    <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={1} >
+                                    <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={2} >
                                         <PngIcon name="activity" />
                                         {
                                             activityTags.map((tag) =>

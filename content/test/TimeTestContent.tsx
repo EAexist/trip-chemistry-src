@@ -60,7 +60,9 @@ function TimeTestContent() {
                     const displayAnswer = (answer !== undefined) ? answer : defaultAnswer
                     const dayjsObject = dayjs('2024-06-05 00:00').set("hour", displayAnswer)
                     const isPm = displayAnswer >= 12
-                    const color = isPm ? pmPalette[Math.floor(displayAnswer / 3) - 4] : amPalette[Math.floor(displayAnswer / 3)]
+                    const color = isPm ? pmPalette[Math.floor((displayAnswer-12) / 3)] : amPalette[Math.floor(displayAnswer / 3)]
+
+                    console.log(`displayAnswer=${displayAnswer}`)
 
                     return (
                         <Accordion key={id} expanded={isExpanded} onChange={(event: SyntheticEvent, isExpanded: boolean) => {
@@ -100,7 +102,7 @@ function TimeTestContent() {
                                                 <MaterialUISwitch
                                                     checked={isPm}
                                                     color="primary"
-                                                    onChange={() => setAnswer((answer + 12) % 24)}
+                                                    onChange={() => setAnswer((((answer !== undefined) ? answer : displayAnswer) + 12) % 24)}
                                                 />
                                             }
                                             label={<p className="typography-label">{isPm ? "오후" : "오전"}</p>}

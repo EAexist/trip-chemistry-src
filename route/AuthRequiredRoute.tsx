@@ -1,10 +1,10 @@
 /* React */
-import { Navigate, Outlet, useLocation } from "~/router-module";
+import { Outlet, useLocation } from "~/router-module";
 
 /* Externals */
 import { useEffect, useState } from "react";
+import LoginPage from "~/content/login/LoginPage";
 import { useIsAuthorized } from "../reducers/authReducer";
-import LoginContent from "../content/login/LoginContent";
 
 function AuthRequiredRoute(){
 
@@ -39,7 +39,7 @@ function AuthRequiredRoute(){
         ?
         <Outlet />
         : 
-        <LoginContent title={title}/>
+        <LoginPage title={title}/>
     );
 }
 export default AuthRequiredRoute;

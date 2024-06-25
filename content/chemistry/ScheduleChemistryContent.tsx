@@ -1,19 +1,19 @@
 /* React */
 
 /* Externals */
-import { Box, Fade, FormControlLabel, List, ListItem, ListItemAvatar, ListItemText, Stack, Switch } from "@mui/material";
+import { Box, Fade, FormControlLabel, ListItemAvatar, ListItemText, Stack, Switch } from "@mui/material";
 import { m } from "framer-motion";
 
 /* App */
+import { createSelector } from "@reduxjs/toolkit";
 import { ChangeEvent, useState } from "react";
 import { Fragment } from "react/jsx-runtime";
 import useTripMemberNicknames from "~/hooks/useTripMemberNicknames";
-import { useAppSelector } from "~/store";
-import { FADEIN_FROMBOTTOM_VIEWPORT, SLIDEUP_VIEWPORT, VARIANTS_SLIDEUP, VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
+import { IProfile } from "~/interfaces/IProfile";
 import { MotionList } from "~/motion/components/MotionList";
 import { MotionListItem } from "~/motion/components/MotionListItem";
-import { createSelector } from "@reduxjs/toolkit";
-import { IProfile } from "~/interfaces/IProfile";
+import { useAppSelector } from "~/store";
+import { FADEIN_FROMBOTTOM_VIEWPORT, SLIDEUP_VIEWPORT, VARIANTS_SLIDEUP, VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
 
 const scheduleAnswerLabels = {
     1: "매우 널널",
@@ -40,7 +40,7 @@ function ScheduleChemistryContent() {
                     nickname: profile.nickname,
                     ...profile.testAnswer ? profile.testAnswer.schedule : { startTime: -1, endTime: -1, schedule: -1 }
                 })
-                ).sort((a, b) => (((b.endTime - b.startTime) - (a.endTime - b.startTime)) === 0) ? b.schedule - a.schedule : (b.endTime - b.startTime) - (a.endTime - b.startTime))
+                ).sort((a, b) => (((b.endTime - b.startTime) - (a.endTime - a.startTime)) === 0) ? (b.schedule - a.schedule) : (b.endTime - b.startTime) - (a.endTime - a.startTime))
         )
     );
 
@@ -73,6 +73,7 @@ function ScheduleChemistryContent() {
                                 key={nickname}
                                 disabled={(startTime < 0)}
                                 variants={VARIANTS_SLIDEUP}
+                                sx={{ opacity: 0.5 }}
                             >
                                 <ListItemAvatar className="block--centered" sx={{ width: "72px" }}>
                                     <p>{nickname}</p>
@@ -106,28 +107,34 @@ function ScheduleChemistryContent() {
                     }
                 </MotionList>
             </div>
-            <m.p className="typography-article" {...SLIDEUP_VIEWPORT}>
-                {
-                    relaxingMemberNicknames.map((nickname, index) =>
-                        <Fragment key={nickname}>
-                            <b>{nickname}</b>
-                            {" 님, "}
-                        </Fragment>
-                    )
-                }
-                친구들은 숙소 밖에서 더 많은 시간을 보내고 싶어해요. 친구들을 따라 여행지 곳곳을 돌아다니는 데에 시간을 더 투자해보세요.
-            </m.p>
-            <m.p className="typography-article" {...SLIDEUP_VIEWPORT}>
-                {
-                    busyMemberNicknames.map((nickname, index) =>
-                        <Fragment key={nickname}>
-                            <b>{nickname}</b>
-                            {" 님, "}
-                        </Fragment>
-                    )
-                }
-                친구들은 숙소에서 쉬는 시간을 더 갖고 싶어해요. 계획을 짤 때 친구들이 지치지 않도록 신경 써 주세요. 이른 아침 또는 늦은 밤의 일정은 친구들과 따로 다니며 즐기는 것도 고려해보세요.
-            </m.p>
+            {
+                (relaxingMemberNicknames.length > 0) &&
+                <m.p className="typography-article" {...SLIDEUP_VIEWPORT}>
+                    {
+                        relaxingMemberNicknames.map((nickname) =>
+                            <Fragment key={nickname}>
+                                <b>{nickname}</b>
+                                {" 님, "}
+                            </Fragment>
+                        )
+                    }
+                    친구들은 숙소 밖에서 더 많은 시간을 보내고 싶어해요. 친구들을 따라 여행지 곳곳을 돌아다니는 데에 시간을 더 투자해보세요.
+                </m.p>
+            }
+            {
+                (busyMemberNicknames.length > 0) &&
+                <m.p className="typography-article" {...SLIDEUP_VIEWPORT}>
+                    {
+                        busyMemberNicknames.map((nickname) =>
+                            <Fragment key={nickname}>
+                                <b>{nickname}</b>
+                                {" 님, "}
+                            </Fragment>
+                        )
+                    }
+                    친구들은 숙소에서 쉬는 시간을 더 갖고 싶어해요. 계획을 짤 때 친구들이 지치지 않도록 신경 써 주세요. 이른 아침 또는 늦은 밤의 일정은 친구들과 따로 다니며 즐기는 것도 고려해보세요.
+                </m.p>
+            }
         </div>
     );
 }
