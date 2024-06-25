@@ -1,13 +1,14 @@
-import { ComponentType, ReactNode, useEffect, useState } from "react";
+import { ComponentType, ReactNode, useContext, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 
 import { CENTER_FUKUOKA_TENJIN } from "../common/options";
 import { useGoogleMapContext } from "../common/GoogleMapContext";
 import Marker, { MarkerProps } from "./Marker";
 import { useInfoWindowContext } from "../common/InfoWindowContext";
-import { Card, CardActionArea, CardContent, CardMedia, Stack, useTheme } from "@mui/material";
-import { NavigateNext } from "@mui/icons-material";
+import { Card, CardActionArea, CardContent, CardMedia, IconButton, Stack, useTheme } from "@mui/material";
+import { Cancel, NavigateNext } from "@mui/icons-material";
 import getImgSrc from "~/utils/getImgSrc";
+import SelectedPlaceContext from "../common/SelectedPlaceContext";
 
 interface GoogleMapMarkerProps extends MarkerProps {
     isActive?: boolean
@@ -15,8 +16,8 @@ interface GoogleMapMarkerProps extends MarkerProps {
     label?: string
     body?: string
     href?: string
-    name?: string
-    infoWindowStyle? : string
+    id?: string
+    infoWindowStyle?: string
     marker?: google.maps.marker.AdvancedMarkerElement
 };
 
@@ -27,14 +28,16 @@ const renderContent = (children: ReactNode) => {
     return (content);
 }
 
-const GoogleMapMarker = ({ isActive = true, position, label, body, href, name, icon, infoWindowStyle }: GoogleMapMarkerProps) => {
+const GoogleMapMarker = ({ isActive = true, position, label, body, href, id, icon, infoWindowStyle }: GoogleMapMarkerProps) => {
 
     const { map } = useGoogleMapContext();
-    const { selectedInfoWindow, setSelectedInfoWindow } = useInfoWindowContext();
+    // const { selectedInfoWindow, setSelectedInfoWindow } = useInfoWindowContext();
+    const { selectedPlaceId, setSelectedPlaceId } = useContext(SelectedPlaceContext);
     const [marker, setMarker] = useState<google.maps.marker.AdvancedMarkerElement>();
-    const [infoWindow, setInfoWindow] = useState<google.maps.InfoWindow>();
+    // const [infoWindow, setInfoWindow] = useState<google.maps.InfoWindow>();
     // const [isSelected, setIsSelected] = useState(false);
-    const isSelected = selectedInfoWindow === infoWindow;
+    const isSelected = selectedPlaceId === id;
+    const isOutFoucsed = selectedPlaceId && (selectedPlaceId !== id);
 
     /** 
      * GoogleMapMarker의 Content 노드 (Marker, InfoWindow) 에 theme을 적용할 경우
@@ -55,64 +58,67 @@ const GoogleMapMarker = ({ isActive = true, position, label, body, href, name, i
                 const markerElement = new AdvancedMarkerElement({
                     position: position,
                     title: label,
-                    content: renderContent(<Marker icon={icon} color={palette.gray.dark} />),
+                    content: renderContent(<Marker key={id} icon={icon} color={palette.primary.main} />),
                     zIndex: 0,
                 });
 
-                // GoogleMap InfoWindow 객체
-                const infoWindow = new InfoWindow({
-                    content: renderContent(
-                        ( infoWindowStyle === "simple" )
-                        ?
-                        /** 
-                         * 기본 InfoWindow 스타일은 padding 값이 있어 CardMedia 이미지를 InfoWindow 에 빈틈없이 채울 수 없음. 
-                         * index.css > .gm-style-iw 에서 !important annotation으로 스타일을 수정.
-                        */
-                        <div>
-                            <Card sx={{ }}>
-                                <CardActionArea style={{ display: "flex", alignItems: "stretch" }} href={href}>
-                                    <CardContent sx={{ padding: "12px" }}>
-                                        <h2 className="typography-label">{label}<NavigateNext sx={{ fontSize: "inherit" }}/></h2>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </div>
-                        :
-                        <div>
-                            <Card sx={{ }}>
-                                <CardActionArea style={{ display: "flex", alignItems: "stretch" }} href={href}>
-                                    <CardMedia
-                                        component="img"
-                                        sx={{ width: 80, outlineColor: "blue", outlineWidth: 3 }}
-                                        image={getImgSrc("/test/schedule", name )} 
-                                        alt={label}
-                                    />
-                                    <CardContent sx={{ padding: "12px" }}>
-                                        <h2 className="typography-label" style={{  }}>{label}<span style={{ fontSize: "inherit", position: "relative" }}><NavigateNext sx={{ fontSize: "inherit", position: "absolute", top: "50%", transform: "translateY(-50%)" }}/></span></h2>
-                                        <p className="typography-note">{body}</p>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </div>
-                    ) as Element,
-                    ariaLabel: label,
-                });
+                // const handleClose = () => {
+                //     setSelectedInfoWindow(undefined);
+                // }
 
-                infoWindow.addListener("closeclick", () => {
-                    setSelectedInfoWindow(undefined);
-                });
+                // GoogleMap InfoWindow 객체
+                // const infoWindow = new InfoWindow({
+                //     content: renderContent(
+                //         /** 
+                //          * 기본 InfoWindow 스타일은 padding 값이 있어 CardMedia 이미지를 InfoWindow 에 빈틈없이 채울 수 없음. 
+                //          * index.css > .gm-style-iw 에서 !important annotation으로 스타일을 수정.
+                //         */
+                //         <div>
+                //             <Card>
+                //                 <IconButton onClick={handleClose} sx={{ zIndex: 1, position: "absolute", top: 0, right: 0 }}>
+                //                     <Cancel sx={{ }} />
+                //                 </IconButton>
+                //                 <CardActionArea href={href}>
+                //                     {
+                //                         (infoWindowStyle !== "simple")
+                //                         &&
+                //                         <CardMedia
+                //                             component="img"
+                //                             image={getImgSrc("/test/schedule", name)}
+                //                             alt={label}
+                //                             height={"96px"}
+                //                         />
+                //                     }
+                //                     <CardContent sx={{ padding: "12px" }}>
+                //                         <h2 className="typography-label" style={{}}>{label}<span style={{ fontSize: "inherit", position: "relative" }}><NavigateNext sx={{ fontSize: "inherit", position: "absolute", top: "50%", transform: "translateY(-50%)" }} /></span></h2>
+                //                         <p className="typography-note">{body}</p>
+                //                     </CardContent>
+                //                 </CardActionArea>
+                //             </Card>
+                //         </div>
+                //     ) as Element,
+                //     ariaLabel: label,
+                // });
+
+                // infoWindow.addListener("closeclick", () => {
+                //     setSelectedInfoWindow(undefined);
+                // });
 
                 markerElement.addListener("click", () => {
-                    setSelectedInfoWindow(infoWindow);
-                    
-                    infoWindow.open({
-                        anchor: markerElement,
-                        map,
-                    });
+
+                    // setSelectedInfoWindow(infoWindow);
+                    setSelectedPlaceId(id);
+                    map?.panTo(position)
+                    // map?.panBy(0, 64)
+
+                    // infoWindow.open({
+                    //     anchor: markerElement,
+                    //     map,
+                    // });
                 });
 
                 setMarker(markerElement);
-                setInfoWindow(infoWindow);
+                // setInfoWindow(infoWindow);
             };
             asyncSetMarker();
         }
@@ -127,26 +133,32 @@ const GoogleMapMarker = ({ isActive = true, position, label, body, href, name, i
 
     }, [marker, map])
 
-    // 마커를 클릭한 경우 (isSelected === true )
+    // 마커를 선택한 경우 (isSelected === true )
     useEffect(() => {
-        if( isSelected ){
-            if( marker ){
-                // Marker 강조
-                marker.content = renderContent(<Marker icon={icon} color={palette.primary.main}/>)
-                marker.zIndex = 1
+        if (isSelected && marker) {
+            // Marker 강조
+            marker.zIndex = 1
+        }
+    }, [isSelected, marker])
+
+    // 다른 마커가 선택된 경우
+    useEffect(() => {
+        if (marker) {
+            if (isOutFoucsed) {
+                // 선택된 Marker 강조를 위해 Outfocus.
+                marker.content = renderContent(<Marker icon={icon} color={palette.primary.light} />)
+                marker.zIndex = 0
                 // InfoWindow 표시 
-                infoWindow?.open({
-                    anchor: marker,
-                    map,
-                });
+                // infoWindow?.open({
+                //     anchor: marker,
+                //     map,
+                // });
+            }
+            else {
+                marker.content = renderContent(<Marker icon={icon} color={palette.primary.main} />)
             }
         }
-        else{
-            marker.content = renderContent(<Marker icon={icon} color={palette.gray.dark}/>)
-            marker.zIndex = 0
-            infoWindow?.close();
-        }
-    }, [ isSelected, infoWindow, marker ])
+    }, [isOutFoucsed, marker])
 
 
     // isActive 값에 따라 Map 에 Marker를 표시. 

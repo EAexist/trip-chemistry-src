@@ -2,9 +2,9 @@
 import { Add } from "@mui/icons-material";
 import { Button, Toolbar, useTheme } from "@mui/material";
 import { m } from 'framer-motion';
-import LazyDomAnimation from "../../motion/LazyDomAnimation";
 
 /* App */
+import MainAppBar from "~/components/AppBar/MainAppBar";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { FADEIN_VIEWPORT, STAGGER_CHILDREN, VARIANTS_SLIDEUP } from "../../motion/props";
@@ -27,10 +27,9 @@ function ChemistryListContent() {
 
     return (
         <RoutedMotionPage className="page fill-window flex" style={{ backgroundColor: palette.gray.main }}>
-            {/* <div className="page  fill-window"> */}
+            <MainAppBar color="transparent"/>
             <Toolbar />
-            <LazyDomAnimation>
-                <div className="wrapper content content--large">
+                <div className="wrapper content content--sparse">
                     <m.h2 {...FADEIN_VIEWPORT} className="typography-heading">
                         내 여행
                     </m.h2>
@@ -55,8 +54,6 @@ function ChemistryListContent() {
                         </m.li>
                     </m.ul>
                 </div>
-            </LazyDomAnimation>
-            {/* </div> */}
         </RoutedMotionPage>
     );
 }

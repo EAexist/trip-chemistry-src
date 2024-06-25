@@ -3,7 +3,6 @@ import { PropsWithChildren, useRef } from "react";
 
 /* Framer Motion */
 import { m } from 'framer-motion';
-import LazyDomAnimation from "../../motion/LazyDomAnimation";
 
 /* App */
 import { FADEIN } from "../../motion/props";
@@ -15,7 +14,7 @@ import { usePage } from "./PageContext";
 
 interface ScrollPageItemProps {
     page: number
-    className: string
+    className?: string
 };
 
 const ScrollPageItem = ({ page, children, className }: PropsWithChildren<ScrollPageItemProps>) => {
@@ -25,7 +24,6 @@ const ScrollPageItem = ({ page, children, className }: PropsWithChildren<ScrollP
 
     return (
         (activePage === page) &&
-        <LazyDomAnimation>
             <m.div
                 ref={pageRef}
                 {...FADEIN}
@@ -33,7 +31,6 @@ const ScrollPageItem = ({ page, children, className }: PropsWithChildren<ScrollP
             >
                 {children}
             </m.div>
-        </LazyDomAnimation>
     );
 };
 

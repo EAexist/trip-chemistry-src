@@ -12,12 +12,12 @@ import { HEADERS_AXIOS, TEST_TYPE } from "../common/app-const";
 import { ActivityTag } from "../interfaces/enums/ActivityTag";
 import { ExpectationTag } from "../interfaces/enums/ExpectationTag";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
-import { HashTagTestKeys, IHashTagTestKey, ITestAnswer, ITestAnswerDTO, INumericTestKey, testAnswerToDTO, ITestKey } from "../interfaces/ITestAnswer";
+import { IHashTagTestKey, INumericTestKey, ITestAnswer, ITestAnswerDTO, ITestKey, testAnswerToDTO } from "../interfaces/ITestAnswer";
 import { useAppDispatch, useAppSelector } from "../store";
 import { useUserId } from "./authReducer";
 
 
-export const sampleTestAnswer: ITestAnswer = {
+export const sampleTestAnswer_ : ITestAnswer = {
     hashtag: {
         expectation: {
             selected: Object.values(ExpectationTag).slice(0, 4),
@@ -43,10 +43,40 @@ export const sampleTestAnswer: ITestAnswer = {
         metropolis: 1,
         history: 2,
         nature: 4,
-        small: 5,
+        small: undefined,
     }
     // accomodate: undefined, /* 숙소 평균 */
     // accomodateSpecial: undefined, /* 특별한 숙소 */
+};
+
+export const sampleTestAnswer : ITestAnswer = {
+    hashtag: {
+        expectation: {
+            selected: Object.values(ExpectationTag).slice(0, 1),
+            unSelected: Object.values(ExpectationTag).slice(1)
+        },
+        activity: {
+            selected: Object.values(ActivityTag).slice(0, 1),
+            unSelected: Object.values(ActivityTag).slice(1)
+        },
+    },
+    leadership: undefined,
+    schedule: {
+        startTime: undefined,
+        endTime: undefined,
+        schedule: undefined,
+    },
+    restaurant: {
+        dailyBudget: undefined, /* 식사 평균 */
+        specialBudget: undefined, /* 특별한 식사 */
+        specialCount: undefined, /* 특별한 식사 */
+    },
+    city: {
+        metropolis: undefined,
+        history: undefined,
+        nature: undefined,
+        small: undefined,
+    }
 };
 
 // type ITestAnswer = typeof sampleTestAnswer'
@@ -182,7 +212,7 @@ export const useIsTestAnswered = ( tests: ITestIndex[] ) => {
                 const answer = subKey ? state.testAnswer.data[testKey][subKey] : state.testAnswer.data[testKey]
                 console.log("Hello", testKey, subKey, answer );
                 return (
-                    (HashTagTestKeys.includes( testKey ))
+                    ( testKey === "hashtag" ) 
                         ? answer.selected.length >= TEST_TYPE.hashtag.selectedMinLength
                         : answer !== undefined
                 )
@@ -190,6 +220,7 @@ export const useIsTestAnswered = ( tests: ITestIndex[] ) => {
         )
     );
 }
+
 
 export const useIsAllTestAnswered = () => {
     return (

@@ -31,11 +31,7 @@ function LeadershipTestContent() {
     const theme= useTheme();
 
     return (
-        <>
-            <div className="block content content--large">
-                <div className="test__title">
-                    <h2 className="test__title__heading typography-heading">{contentstrings.test.leadership.title}</h2>
-                </div>
+            <div className="content">
                 <div className="modal__container flex-grow">
                     <Stack display={'flex'} width={"100%"}>
                         {
@@ -49,13 +45,12 @@ function LeadershipTestContent() {
                                         elevation={isActive ? 3 : 1}                                
                                         // elevation={1}
                                         sx={{
-                                            zIndex: isActive ? "2" : "1",
-                                            // opacity: isActive ? "1" : "0.5",
                                             backgroundColor: isActive ? "white" : theme.palette.secondary.dark,
-                                            // scale: isActive ? "1" : "0.8",
                                             borderRadius: "12px",
-                                            transformOrigin: "top center",
-                                            flexBasis: isActive ? "50%" : "25%",
+                                            // flexBasis: isActive ? "50%" : "25%",
+                                            flexBasis: "144px",
+                                            // flexGrow: isActive ? 1 : 0
+                                            flexShrink: isActive ? 0 : 1
                                         }}
                                     >
                                         <CardActionArea onClick={() => setAnswer(Number(value))} className="flex-end">
@@ -88,7 +83,6 @@ function LeadershipTestContent() {
                 </div>
                 <div />
             </div >
-        </>
     );
 }
 

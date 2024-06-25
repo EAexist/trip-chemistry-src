@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { useGoogleMapContext } from "../common/GoogleMapContext";
 import { MarkerProps } from "./Marker";
 import { useTheme } from "@mui/material";
+import SelectedPlaceContext from "../common/SelectedPlaceContext";
 
 interface GoogleMapPolylineProps extends MarkerProps {
     isActive?: boolean
@@ -12,8 +13,28 @@ interface GoogleMapPolylineProps extends MarkerProps {
 const GoogleMapPolyline = ({ isActive = true, coordinates }: GoogleMapPolylineProps) => {
 
     const { map } = useGoogleMapContext();
+    const isAnyMarkerSelected = useContext(SelectedPlaceContext).selectedPlaceId !== undefined;
     const [polyline, setPolyline] = useState<google.maps.Polyline>();
-    const { palette }= useTheme();
+    const { palette } = useTheme();
+
+    const getOptions : (color?: string) => google.maps.PolylineOptions = (color = palette.primary.main) => ({
+        path: coordinates,
+        zIndex: 0,
+        strokeOpacity: 0,
+        icons: [
+            {
+                icon: {
+                    path: "M 0,-1 0,1",
+                    strokeOpacity: 1,
+                    scale: 2.5,
+                    strokeColor: color,
+                },
+                offset: "0",
+                repeat: "12.5px",
+            },
+        ],
+    })
+
 
     useEffect(() => {
 
@@ -23,12 +44,7 @@ const GoogleMapPolyline = ({ isActive = true, coordinates }: GoogleMapPolylinePr
                 const { Polyline } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
 
                 // GoogleMap API Polyline 객체
-                const polylineElement = new Polyline({
-                    path: coordinates,
-                    zIndex: 0,
-                    strokeColor: palette.primary.main,
-                    strokeWeight: 3,
-                });
+                const polylineElement = new Polyline(getOptions());
 
                 setPolyline(polylineElement);
             };
@@ -44,6 +60,19 @@ const GoogleMapPolyline = ({ isActive = true, coordinates }: GoogleMapPolylinePr
         }
 
     }, [polyline, map])
+
+    // 특정 마커가 선택된 경우 (isSelected === true )
+    useEffect(() => {
+        if (polyline) {
+            if (isAnyMarkerSelected) {
+                // 선택된 Marker 강조를 위해 Outfocus.
+                polyline.setOptions( getOptions(palette.primary.light) )
+            }
+            else {
+                polyline.setOptions( getOptions(palette.primary.main) )
+            }
+        }
+    }, [ isAnyMarkerSelected, polyline ])
 
     // isActive 값에 따라 Map 에 Marker를 표시. 
     useEffect(() => {

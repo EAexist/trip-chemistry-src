@@ -69,7 +69,7 @@
 //                     }
 //                 </Swiper>
 //             </div>
-//             <div className="block content content--large">
+//             <div className="block content content--sparse">
 //                 <div className="test__title">
 //                     <h2 className="test__title__heading typography-heading">{contentstrings.test.city.titleTextList.map((text) => (
 //                         text === "/testKey"

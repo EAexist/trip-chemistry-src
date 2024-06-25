@@ -17,8 +17,8 @@ function Logo({ id, format = 'webp', size = "medium", iconName, ...props }: Logo
         <img
             src={ src }
             alt={id}
-            width={"32px"}
-            height={"32px"}
+            // width={"32px"}
+            // height={"32px"}
             className={`Logo Logo--${size}`}
             srcSet={ `${src.replace(size, `medium`)} 24w` }
             sizes={ '24w' }

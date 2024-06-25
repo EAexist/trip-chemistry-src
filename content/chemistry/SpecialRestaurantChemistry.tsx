@@ -1,21 +1,15 @@
 /* React */
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 
 /* Externals */
 import { m } from "framer-motion";
 
-
 /* App */
-import { useStrings } from "../../texts";
-
-import { AvatarGroup, Slider } from "@mui/material";
-import FriendAvatar from "~/components/Avatar/FriendAvatar";
 import useValueToProfileIdList from "../../hooks/useValueToProfileIdList";
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
-import { useChemistry } from "../../reducers/chemistryReducer";
+import { specialFoodBudgetSliderProps } from "../test/_SpecialRestaurantTestContent";
 import { dailyRestaurantSliderProps } from "../test/DailyRestaurantTestContent";
 import GroupAnswerSlider from "./component/GroupAnswerSlider";
-import { specialFoodBudgetSliderProps } from "../test/SpecialRestaurantTestContent";
 
 
 function RestaurantChemistryContent() {
@@ -37,24 +31,6 @@ function RestaurantChemistryContent() {
             <GroupAnswerSlider answerToProfiles={dailyBudgetAnswerToProfiles} {...dailyRestaurantSliderProps} className="block--with-padding--small" />
             <m.h3>유명 맛집에서의 특별한 한끼</m.h3>
             <GroupAnswerSlider answerToProfiles={specialBudgetAnswerToProfiles} {...specialFoodBudgetSliderProps} className="block--with-padding--small" />
-            <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="content">
-                {/* {
-                    chemistry?.budgetChemistryText?.map((body, index) => {
-                        const list = body.split(/(%\S*%)/)
-                        return (
-                            <p key={index}>
-                                {
-                                    list.map((t, index) =>
-                                        t[0] === "%"
-                                            ? <b key={index}>{t.replaceAll('%', '')}</b>
-                                            : <Fragment key={index}>{t}</Fragment>
-                                    )
-                                }
-                            </p>
-                        )
-                    })
-                } */}
-            </m.div>
         </div>
     );
 }

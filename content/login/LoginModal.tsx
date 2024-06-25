@@ -67,7 +67,7 @@ function LoginContent() {
             handleFail: () => { }
         }}>
             <RoutedMotionPage className="flex fill-window">
-                <div className="flex-grow block--centered-row content content--large">
+                <div className="flex-grow block--centered-row content content--sparse">
                     <div style={{ marginTop: "128px" }} />
                     <h2 className="typography-label">
                         로그인하고 테스트를 시작해보세요

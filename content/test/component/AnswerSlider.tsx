@@ -18,7 +18,7 @@ function AnswerSlider({ testKey, answer, setAnswer, disabled, ...sliderOwnProps 
     }
 
     return (
-        <div className={`block--with-padding-x ${disabled && "disabled"}`}>
+        <div className={`testcontent-swiper-no-swiping ${disabled && "disabled"}`}>
             <p className='typography-test-answer'>
                 {
                     answer !== undefined
@@ -30,17 +30,19 @@ function AnswerSlider({ testKey, answer, setAnswer, disabled, ...sliderOwnProps 
                         : "?"
                 }
             </p>
-            <Slider
-                size="small"
-                valueLabelDisplay="off"
-                getAriaValueText={priceText}
-                value={answer || (sliderOwnProps.max + sliderOwnProps.min) / 2}
-                onChange={handleAnswerChange}
-                marks
-                track={false}
-                disabled={disabled}
-                {...sliderOwnProps}
-            />
+            <div style={{ padding: "1rem 16px" }}>
+                <Slider
+                    size="small"
+                    valueLabelDisplay="off"
+                    getAriaValueText={priceText}
+                    value={answer || (sliderOwnProps.max + sliderOwnProps.min) / 2}
+                    onChange={handleAnswerChange}
+                    marks
+                    track={false}
+                    disabled={disabled}
+                    {...sliderOwnProps}
+                />
+            </div>
         </div>
     );
 }

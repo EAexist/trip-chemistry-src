@@ -1,21 +1,11 @@
 /* React */
 
 /* Externals */
-import { ArrowRight, NavigateBefore } from "@mui/icons-material";
-import { AppBar, Button, CardContent, Divider, IconButton, Stack, Toolbar } from "@mui/material";
-
-import { useLocation } from "~/router-module";
-// import loadable from "@loadable/component";
-
-/* Swiper */
-import 'swiper/css';
-import 'swiper/css/navigation'; /* Page */
-import 'swiper/css/pagination'; /* Page */
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { ArrowRight } from "@mui/icons-material";
+import { AppBar, Fade, Stack, Toolbar, useScrollTrigger } from "@mui/material";
 
 /* App */
-import { CITIES, CITY_TYPES, NATION, TEST } from "../../common/app-const";
-import { useHideAppbar } from "../../components/AppBar/AppBarContext";
+import { CITIES, CITY_TYPES, NATION } from "../../common/app-const";
 import ImageCard from "../../components/Card/ImageCard";
 import Flag from "../../components/Flag";
 import Logo from "../../components/Logo";
@@ -25,136 +15,87 @@ import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { useStrings } from "../../texts";
 import getImgSrc from "../../utils/getImgSrc";
 
-import { Navigation, Pagination } from "swiper/modules";
-import { SwiperOptions } from "swiper/types";
-import ChemistryResultAccordion from "./component/ChemistryResultAccordion";
-import { useAppSelector } from "~/store";
-import PaginationBullets from "~/swiper/components/PaginationBullets";
-
-/* Loadable Components */
-// const  = loadable(() => import( /* webpackChunkName: "ChemistryResultAccordion" */ './component/ChemistryResultAccordion'));
+import Fab from "~/components/Button/Fab";
+import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
+import { useLocation } from "react-router-dom";
 
 interface CityDetailContentProps {
-    cityClass: keyof typeof TEST.city.subTests;
+    cityId: string;
 }
 
-function CityDetailContent({ cityClass }: CityDetailContentProps) {
+function CityDetailContent({ cityId }: CityDetailContentProps) {
 
     /* Hooks */
     const navigate = useNavigateWithGuestContext();
-    const { state } = useLocation();
-    const isAppBarHidden = useHideAppbar();
+
+    const { pathname } = useLocation()
 
     /* Constants */
-    const strings = useStrings().public.contents.test;
+    const city = CITIES[cityId] as typeof CITIES[keyof typeof CITIES]
+    const cityType = CITY_TYPES[city.type]
     const commonStrings = useStrings().public.common;
-
-    const city = CITY_TYPES[cityClass]
-
-    const SWIPERPROPS_CITYDETAILCONTENT: SwiperOptions = {
-        modules: [Pagination, Navigation],
-        loop: true,
-        speed: 800,
-        slidesPerView: 1,
-        pagination: {
-            clickable: true,
-            el: '.pageSwiper-pagination',
-        },
-        navigation: {
-            prevEl: `.pageSwiper-prevEl`,
-            nextEl: `.pageSwiper-nextEl`,
-        },
-        // autoHeight: true,
-    }
+    const cityStrings = commonStrings.city[cityId]
 
     /* Event Handlers */
-    const handleClose = () => {
-        console.log(`[CityDetailContent] handleClose`)
-        navigate('../..');
+    const handleNavigateBefore = () => {
+        console.log(`[CityDetailContent] handleNavigateBefore`)
+        navigate('../..', {}, pathname.includes("test") ? "city" : undefined );
     };
-
-    const isChemistryDefined = useAppSelector((state) => (state.chemistry !== undefined));
+    const hiddenTitleTrigger = useScrollTrigger({
+        disableHysteresis: true,
+        threshold: 56,
+    });
 
     return (
         // isAppBarHidden &&
-        <RoutedMotionPage className="fill-window flex">
+        <RoutedMotionPage className="fill-window">
             <AppBar>
-                <Toolbar className="block--with-margin-x">
-                    <IconButton
-                        edge="start"
-                        aria-label="close"
-                        onClick={handleClose}
-                    >
-                        <NavigateBefore />
-                    </IconButton>
-
-                    <h5 className="typography-note" style={{ position: "absolute", width: "100%", textAlign: "center", zIndex: -1 }}>{strings.test.city.title}</h5>
+                <Toolbar>
+                    <NavigateBeforeButton onClick={handleNavigateBefore} />
+                    <Fade in={hiddenTitleTrigger}>
+                        <Stack>
+                            <h2>{cityStrings.name}</h2>
+                            <p className="typography-note">{`# ${cityType.title}`}</p>
+                        </Stack>
+                    </Fade>
                 </Toolbar>
             </AppBar>
+            <Toolbar />
             <div className="wrapper content">
-                <Toolbar />
-                <h2 className="typography-heading">{city.title}</h2>
+                <Stack justifyContent={"space-between"}>
+                    <Stack spacing={2}>
+                        <h2 className="typography-heading">{cityStrings.name}</h2>
+                        {/* <h3 className="typography-heading">{cityId}</h3> */}
+                        {
+                            NATION[city.nation as keyof typeof NATION].flag
+                            && <Flag id={city.nation} />
+                        }
+                    </Stack>
+                    <p className="typography-note">{`# ${cityType.title}`}</p>
+                </Stack>
+                <ImageCard
+                    src={getImgSrc("/city", cityId, { size: 'large' })}
+                    title={cityId}
+                    sx={{ height: "256px" }}
+                ></ImageCard>
+                <h4 className="typography-label">{cityStrings.intro}</h4>
+                <p>{cityStrings.body}</p>
+                <Stack>
+                    <p className="typography-note">{commonStrings.reference}{commonStrings.linkType[city.linkType as keyof typeof commonStrings.linkType].name}</p>
+                    <Logo id={city.linkType} />
+                </Stack>
+            </div>
+            <div className="fab-placeholder" />
+            <Fab endIcon={<ArrowRight />} href={city.link}>
                 {
-                    isChemistryDefined &&
-                    <ChemistryResultAccordion cityClass={cityClass} />
+                    commonStrings.linkTextList.map((text) => (
+                        text === "/link" ? commonStrings.linkType[city.linkType as keyof typeof commonStrings.linkType].name
+                            : (text === "/city" ? cityStrings.name
+                                : text
+                            )
+                    ))
                 }
-            </div>
-            <Divider />
-            <div style={{ flexShrink: 1, overflow: "hidden" }}>
-                <Swiper {...SWIPERPROPS_CITYDETAILCONTENT} initialSlide={state && state.initialIndex ? state.initialIndex : 0} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-                    <div style={{ position: "absolute", top: "1rem", width: "100%", zIndex: 1 }}>
-                        <PaginationBullets className='pageSwiper-pagination' sx={{ justifyContent: 'center' }} />
-                    </div>
-                    {
-                        city.examples.map((cityId) => (
-                            <SwiperSlide key={cityId} style={{ overflow: "scroll" }} >
-                                <div className="wrapper content" style={{ marginTop: "1.5rem" }}>
-                                    {/* <div className="block--round" style={{ position: "absolute", top: 0 }}/> */}
-                                    <ImageCard
-                                        src={getImgSrc("/city", cityId, { size: 'large' })}
-                                        title={cityId}
-                                        className="flex-end"
-                                        gradient="bottom"
-                                        sx={{ height: "320px" }}
-                                    >
-                                        <CardContent>
-                                            <Stack spacing={0}>
-                                                <h2 className="typography-heading typography-heading--large typography-white">{commonStrings.city[cityId as keyof typeof commonStrings.city].name}</h2>
-                                                <h3 className="typography-heading typography-white">{cityId}</h3>
-                                                {
-                                                    NATION[CITIES[cityId as keyof typeof CITIES].nation as keyof typeof NATION].flag
-                                                    && <Flag id={CITIES[cityId as keyof typeof CITIES].nation} style={{ marginLeft: 8 }} outlined={false} />
-                                                }
-                                            </Stack>
-                                        </CardContent>
-                                    </ImageCard>
-                                    <h4 className="typography-label" style={{ marginTop: "1rem", width: "90%" }}>{commonStrings.city[cityId as keyof typeof commonStrings.city].intro}</h4>
-                                    <p>{commonStrings.city[cityId as keyof typeof commonStrings.city].body}</p>
-                                    <div>
-                                        <a href={CITIES[cityId as keyof typeof CITIES].link} target="_blank" rel="noopener noreferrer" className="flex">
-                                            <Button variant={"contained"} color="gray" className="block--with-padding" endIcon={<ArrowRight />}>
-                                                {
-                                                    commonStrings.linkTextList.map((text) => (
-                                                        text === "/link" ? commonStrings.linkType[CITIES[cityId as keyof typeof CITIES].linkType as keyof typeof commonStrings.linkType].name
-                                                            : (text === "/city" ? commonStrings.city[cityId as keyof typeof commonStrings.city].name
-                                                                : text
-                                                            )
-                                                    ))
-                                                }
-                                            </Button>
-                                        </a>
-                                    </div>
-                                    <Stack>
-                                        <p className="typography-note">{commonStrings.reference}{commonStrings.linkType[CITIES[cityId as keyof typeof CITIES].linkType as keyof typeof commonStrings.linkType].name}</p>
-                                        <Logo id={CITIES[cityId as keyof typeof CITIES].linkType} />
-                                    </Stack>
-                                    <div />
-                                </div>
-                            </SwiperSlide>
-                        ))
-                    }
-                </Swiper>
-            </div>
+            </Fab>
         </RoutedMotionPage>
     );
 }

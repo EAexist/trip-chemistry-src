@@ -1,18 +1,17 @@
-import { Stack, ToggleButton } from "@mui/material";
+import { Paper, Stack, ToggleButton } from "@mui/material";
 import { AnimatePresence, m } from "framer-motion";
 import { useEffect, useState } from "react";
-import { ICharacterId } from "~/common/app-const";
 import ProfileAvatar from "~/components/Avatar/ProfileAvatar";
-import { ProfileImage } from "~/components/Profile/ProfileImage";
-import LazyDomAnimation from "~/motion/LazyDomAnimation";
+import LazyImage from "~/components/LazyImage";
 import { FADEIN } from "~/motion/props";
+import getImgSrc from "~/utils/getImgSrc";
 
 function CharacterSample() {
 
     /* constants */
     const profiles = [
         {
-            id: "나무늘보",
+            id: "hyein",
             nickname: "혜인",
             character: {
                 id: "SLOTH",
@@ -20,7 +19,7 @@ function CharacterSample() {
             }
         },
         {
-            id: "나무늘보",
+            id: "danielle",
             nickname: "다니엘",
             character: {
                 id: "sloth",
@@ -28,7 +27,7 @@ function CharacterSample() {
             }
         },
         {
-            id: "꿀벌",
+            id: "minji",
             nickname: "민지",
             character: {
                 id: "bee",
@@ -36,15 +35,15 @@ function CharacterSample() {
             }
         },
         {
-            id: "너구리",
-            nickname: "민지",
+            id: "haerin",
+            nickname: "해린",
             character: {
                 id: "racoon",
                 name: "도시의 너구리"
             }
         },
         {
-            id: "판다",
+            id: "hanni",
             nickname: "하니",
             character: {
                 id: "panda",
@@ -62,34 +61,43 @@ function CharacterSample() {
     const userIndexSwitchInterval = 2000;
 
     // Infinitely loop userIndex from 2 ~ 5
-    useEffect(() => { 
+    useEffect(() => {
         setInterval(() => {
             setUserIndex((prev) => (prev === 4) ? 1 : prev + 1)
         }, userIndexSwitchInterval)
     }, [])
 
     return (
-        <LazyDomAnimation>
-            <Stack spacing={-0.25} justifyContent={'center'} alignItems={'start'}>
-                {
-                    profiles.map(({ id, character, nickname }, index) => (
-                        <ToggleButton
-                            key={index}
-                            value={index}
-                            onChange={(_, value) => setUserIndex(value)}
-                            selected={userIndex === index}
-                        >
-                            <ProfileAvatar avatarId={character.id} nickname={nickname} labelSize="large" />
-                        </ToggleButton>
-                    ))
-                }
-            </Stack>
-            <AnimatePresence mode={"wait"} initial={false}>
-                <m.div key={userIndex} {...{ ...FADEIN, exit: "hidden" }} className="navigation-button__container">
-                    <ProfileImage id={profile.id} nickname={profile.nickname} testResult={{ characterId: profile.character.id as ICharacterId, tripTagList: [] }} />
-                </m.div>
-            </AnimatePresence>
-        </LazyDomAnimation>
+            <div className="content content--sparse">
+                <Stack spacing={0} justifyContent={'center'}>
+                    {
+                        profiles.map(({ id, character, nickname }, index) => (
+                            <ToggleButton
+                                key={id}
+                                value={id}
+                                selected={userIndex === index}
+                            >
+                                <ProfileAvatar avatarId={character.id} nickname={nickname} labelSize="large" />
+                            </ToggleButton>
+                        ))
+                    }
+                </Stack>
+                <div className="block--centered">
+                    <Paper className="wrapper wrapper--small" sx={{ backgroundColor: "gray.main", width: "fit-content", height: "fit-content", paddingTop: 0 }}>
+                        <AnimatePresence mode={"wait"}>
+                            <m.div key={userIndex} {...FADEIN}>
+                                <LazyImage
+                                    alt={profile.character.id}
+                                    src={getImgSrc('/character', profile.character.id, { size: "large" })}
+                                    width={"196px"}
+                                    height={"196px"}
+                                />
+                                <p className="typography-label">{profile.character.name}</p>
+                            </m.div>
+                        </AnimatePresence>
+                    </Paper>
+                </div>
+            </div>
     );
 }
 export default CharacterSample;

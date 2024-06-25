@@ -10,8 +10,8 @@ const useNavigateWithGuestContext = () => {
     const guestId = searchParams.get('guestId');
 
     /* Try login when access code is generated. */
-    return useCallback(( to: To, options?: NavigateOptions )=>{
-        navigate( `${to}${ guestId ? `?guestId=${guestId}` : ''}`, options)
+    return useCallback(( to: To, options?: NavigateOptions, hash?: string, )=>{
+        navigate( `${to}${ guestId ? `?guestId=${guestId}` : ''}${( hash !== undefined ) && ( hash !== "" ) ? `#${hash}` : ''}`, options)
     }, [ guestId ])
 }
 

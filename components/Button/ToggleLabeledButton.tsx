@@ -42,7 +42,7 @@ const ToggleLabeledButton = ({ label, children, onChange, size ="medium", labelS
             isActive={selected}
         >
             <Paper                
-                elevation={ elevated ? 5 : elevation }
+                // elevation={ elevated ? 5 : elevation }
                 sx={{
                     ...(
                     ( selected ) 
@@ -53,11 +53,11 @@ const ToggleLabeledButton = ({ label, children, onChange, size ="medium", labelS
                         color: 'primary.contrastText'
                     }
                     :{
-                        backgroundColor: 'gray.main',
+                        backgroundColor: 'transparent',
                     }
                     :
                     {
-                        backgroundColor: 'gray.main',
+                        backgroundColor: 'transparent',
                         ...paperSx
                     })
                 }}

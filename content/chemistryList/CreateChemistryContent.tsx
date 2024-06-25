@@ -2,14 +2,16 @@
 import { useCallback, useRef, useState } from "react";
 
 /* Externals */
-import { Done, NavigateBefore, NavigateNext } from "@mui/icons-material";
-import { Button, IconButton, Toolbar } from "@mui/material";
+import { Done, NavigateNext } from "@mui/icons-material";
+import { AppBar, Button, IconButton, Toolbar } from "@mui/material";
 
 import SwiperType from "swiper";
 import { Swiper, SwiperRef, SwiperSlide, } from 'swiper/react';
 
 /* App */
+import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
 import RoutedMotionPage from "~/motion/components/RoutedMotionPage";
+import { useAppDispatch } from "~/store";
 import TextFieldBlock from "../../components/Block/TextFieldBlock";
 import withReducer from "../../hocs/withReducer";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
@@ -17,20 +19,19 @@ import { useGetProfile, useUserId } from "../../reducers/authReducer";
 import chemistryReducer, { asyncCreateChemistry, useChemistryId, useChemistryLoadStatus } from "../../reducers/chemistryReducer";
 import { SWIPERPROPS_PAGE } from "../../swiper/props";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
-import { useAppDispatch } from "~/store";
 
 const useCreateChemistry = () => {
 
     const dispatch = useAppDispatch();
     const userId = useUserId();
-    return(
-        useCallback(( title: string )=>{
-            dispatch( asyncCreateChemistry({
+    return (
+        useCallback((title: string) => {
+            dispatch(asyncCreateChemistry({
                 title: title,
                 titleCity: "kyoto",
                 userId: userId
             }))
-        }, [ dispatch, userId ])
+        }, [dispatch, userId])
     )
 }
 
@@ -101,19 +102,10 @@ function CreateChemistryContent() {
             <AuthLoadRequiredContent
                 handleSuccess={handleGetProfileSuccess}
             >
-                <RoutedMotionPage doHideAppbar={true} className="fill-window">
-                    {
-                        <Toolbar className="block--with-margin-x" >
-                            {
-                                <IconButton
-                                    edge="start"
-                                    aria-label="cancel"
-                                    onClick={swiper?.isBeginning ? handleClose : handleNavigatePrev}
-                                >
-                                    <NavigateBefore />
-                                </IconButton>
-
-                            }
+                <RoutedMotionPage  className="fill-window">
+                    <AppBar>
+                        <Toolbar>
+                        <NavigateBeforeButton onClick={swiper?.isBeginning ? handleClose : handleNavigatePrev}/>
                             {
                                 swiper?.isEnd
                                     ? <Button
@@ -136,7 +128,8 @@ function CreateChemistryContent() {
 
                             }
                         </Toolbar>
-                    }
+                    </AppBar>
+                    <Toolbar/>
                     <Swiper
                         {...SWIPERPROPS_PAGE}
                         ref={swiperRef}
@@ -146,7 +139,7 @@ function CreateChemistryContent() {
                         <SwiperSlide key={"title"} className=''>
                             {
                                 ({ isActive }) => (
-                                    <div className="block--with-margin-x">
+                                    <div className="wrapper">
                                         <TextFieldBlock
                                             value={title}
                                             setValue={setTItle}
@@ -169,8 +162,8 @@ function CreateChemistryContent() {
 export default withReducer(CreateChemistryContent)({ chemistry: chemistryReducer });
 
 // <SwiperSlide key={"0"} className=''>
-// <div className="block--with-margin-x content content--large">
-//     <h2 className="typography-body">
+// <div className="block--with-margin-x content content--sparse">
+//     <h2 className="">
 //         연결 방식을 선택해주세요.
 //     </h2>
 //     <Grid container>

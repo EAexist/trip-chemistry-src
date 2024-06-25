@@ -1,13 +1,19 @@
-import { useEffect } from "react";
+import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
 
+import AppDrawer from "~/components/Drawer/AppDrawer";
 import { Outlet, useSearchParams } from "~/router-module";
-import AppBar from "../components/AppBar/AppBar";
-import { AppBarContextProvider } from "../components/AppBar/AppBarContext";
 import { AuthLoadRequiredContent } from "../content/LoadRequiredContent";
 import { asyncGuestLogin, asyncKakaoLoginByAccessToken, disableAutoLogin, useAuthorize, useIsAutoLoginEnabled } from "../reducers/authReducer";
 import { useAppDispatch } from "../store";
+import LazyDomAnimation from "~/motion/LazyDomAnimation";
 
-function Page({}){
+interface DrawerContextProps {
+    openDrawer: boolean,
+    setOpenDrawer: Dispatch<SetStateAction<boolean>>
+}
+export const DrawerContext = createContext<DrawerContextProps>({} as DrawerContextProps)
+
+function Page({ }) {
 
     /* Hooks */
     const dispatch = useAppDispatch();
@@ -47,27 +53,34 @@ function Page({}){
     }, [isAutoLoginEnabaled, dispatch]);
 
     /* Guest 접속 주소일 경우 주소의 id를 이용해 게스트로 로그인. */
-
     useEffect(() => {
-        if ( guestId ) {
+        if (guestId) {
             console.log(`[Page] useEffect guestId=${guestId}`);
             dispatch(asyncGuestLogin(guestId));
         }
-    }, [ guestId, dispatch ])
-      
+    }, [guestId, dispatch])
+
+    /* Drawer */
+    const [openDrawer, setOpenDrawer] = useState(false);
 
     return (
-        <AppBarContextProvider>
+        <LazyDomAnimation>
             <AuthLoadRequiredContent
                 isEnabled={isAutoLoginEnabaled}
                 handleFail={handleFail}
                 handleSuccess={handleSuccess}
                 showHandleFailButton={false}
             >
-                <AppBar />
-                <Outlet />
+                <DrawerContext.Provider value={{ openDrawer, setOpenDrawer }}>
+                    <AppDrawer
+                        open={openDrawer}
+                        onClose={() => setOpenDrawer(false)}
+                        onDrawerItemClick={() => setOpenDrawer(false)}
+                    />
+                    <Outlet />
+                </DrawerContext.Provider>
             </AuthLoadRequiredContent>
-        </AppBarContextProvider>
+        </LazyDomAnimation>
     );
 }
 export default Page;

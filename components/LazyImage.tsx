@@ -16,7 +16,7 @@ interface LazyImageProps{
     ref? : any;
     containerClassName?: string;
 } 
-function LazyImage ({ src, alt, ref, sx = { objectFit: 'contain', width: '100%', height: '100%' }, containerClassName, className, children }: PropsWithChildren<LazyImageProps>) {
+function LazyImage ({ src, alt, ref, sx = { objectFit: 'contain', width: '100%', height: '100%' }, containerClassName, className, width, height }: PropsWithChildren<LazyImageProps>) {
 
   /* States */
   const [ isLoaded, setIsLoaded ] = useState(false);
@@ -46,7 +46,7 @@ function LazyImage ({ src, alt, ref, sx = { objectFit: 'contain', width: '100%',
   };
 
   return (
-    <div className={ containerClassName } ref={placeholderRef}>
+    <div className={ containerClassName } ref={placeholderRef} style={{ width, height }}>
       {!isLoaded && <Skeleton variant="rectangular" width={"100%"} height={"100%"}/>}
       <img
         // ref={ref}

@@ -1,20 +1,15 @@
 import { createTheme } from "@mui/material";
 
+
 declare module '@mui/material/Button' {
-    interface ButtonPropsVariantOverrides {
-        base: true;
+    interface ButtonPropsColorOverrides {
+        gray: true;
     }
 }
 
 declare module '@mui/material/ToggleButton' {
     interface ToggleButtonPropsVariantOverrides {
         contained: true;
-    }
-}
-
-declare module '@mui/material/Avatar' {
-    interface AvatarPropsVariantOverrides {
-        primary: true;
     }
 }
 
@@ -30,11 +25,12 @@ declare module '@mui/material/Icon' {
     }
 }
 
-declare module '@mui/material/Button' {
-    interface ButtonPropsColorOverrides {
+declare module '@mui/material/Paper' {
+    interface PaperPropsVariantOverrides {
         gray: true;
     }
 }
+
 
 declare module '@mui/material/styles' {
     interface Palette {
@@ -50,11 +46,13 @@ const { palette: defaultPalette } = createTheme()
 
 const defaultTheme = createTheme({
     palette: {
-        primary: {
-            main: '#FF7949',
-            light: '#FFDDCF',
-            contrastText: '#fff',
-        },
+        primary: defaultPalette.augmentColor({
+            color: {
+                main: '#FF7949',
+                light: '#ffbca4',
+                contrastText: '#fff',
+            }
+        }),
         secondary: {
             main: '#fff',
             light: '#fff',
@@ -66,62 +64,78 @@ const defaultTheme = createTheme({
                 main: '#F2F4F6',
                 // light: '#f9fafb',
             },
-            name: 'salmon',
         }),
-        /* Create gray palette by theme.palette.augmentColor() */
-        // primary: defaultPalette.augmentColor({
-        //     color: {
-        //         main: '#FF7949',
-        //     },
-        //     name: 'salmon',
-        // }),
     }
-},
-);
+});
 
 const theme = createTheme({
     ...defaultTheme,
+    // zIndex: {
+    //     drawer: defaultTheme.zIndex.appBar -1
+    // },
+    shape: {
+        borderRadius: 16
+    },
     typography: {
         fontFamily: [
             '\"Pretendard Variable\"',
             'Pretendard'
         ].join(','),
+        // fontSize: 14,
     },
     components: {
         MuiAppBar: {
             defaultProps: {
                 elevation: 0,
-                color: 'transparent'
+                color: 'secondary'
+            },
+            styleOverrides: {
+                root: {
+                    height: "48px",
+                    paddingLeft: "24px",
+                    paddingRight: "24px",
+                    overflow: "hidden"
+                }
             }
         },
-        MuiStack: {
+        MuiAccordion: {
             defaultProps: {
-                direction: 'row',
-                alignItems: 'center',
-                spacing: 1,
+                elevation: 0,
+            },
+            styleOverrides: {
+                root: {
+                    backgroundColor: defaultTheme.palette.gray.light,
+                    color: defaultTheme.palette.gray.contrastText,
+                }
+            }
+        },
+        MuiAlert: {
+            styleOverrides: {
+                root: {
+                    paddingTop: "0.8rem",
+                    paddingBottom: "0.8rem",
+                    paddingLeft: "24px",
+                    paddingRight: "24px",
+                    alignItems: "center"
+                },
+                action:{
+                    padding: 0
+                }
             }
         },
         MuiAvatar: {
+            variants: [
+                {
+                    props: { variant: 'rounded' },
+                    style: {
+                        borderRadius: "8px"
+                    },
+                },
+            ],
             defaultProps: {
                 sx: {
                     backgroundColor: defaultTheme.palette.gray.main,
                     color: defaultTheme.palette.gray.contrastText
-                }
-            }
-        },
-        MuiListItem: {
-            defaultProps: {
-                disableGutters: true,
-                style: {
-                    borderRadius: "12px"
-                }
-            }
-        },
-        MuiListItemButton: {
-            defaultProps: {
-                disableGutters: true,
-                style: {
-                    borderRadius: "12px"
                 }
             }
         },
@@ -134,53 +148,26 @@ const theme = createTheme({
                 }),
             }
         },
-        MuiAlert: {
-            defaultProps: {
-                style: {
-                    paddingTop: '0.5rem',
-                    paddingBottom: '0.5rem',
-                    paddingLeft: '24px',
-                    paddingRight: '24px',
-                }
-            }
-        },
         MuiButton: {
             variants: [
-                {
-                    props: { variant: 'base' },
-                    style: {
-                        padding: 0,
-                        borderRadius: 0,
-                        height: 'fit-content',
-                    },
-                },
-                {
-                    props: { color: 'gray' },
-                    style: {
-                        // backgroundColor: defaultTheme.palette.gray.main
-                    },
-                },
                 {
                     props: { variant: 'text' },
                     style: {
                         color: defaultTheme.palette.secondary.contrastText,
                     },
                 },
-                {
-                    props: { variant: 'contained' },
-                    style: {
-                        borderRadius: "16px",
-                    },
-                },
-                {
-                    props: { variant: 'outlined' },
-                    style: {
-                        borderRadius: "16px",
-                    },
-                },
             ],
             defaultProps: {
                 disableElevation: true
+            },
+            styleOverrides: {
+                contained: {
+                    paddingTop: "0.8rem",
+                    paddingBottom: "0.8rem",
+                    paddingLeft: "24px",
+                    paddingRight: "24px",
+                    fontWeight: 600
+                },
             }
         },
         MuiCard: {
@@ -188,6 +175,39 @@ const theme = createTheme({
                 elevation: 0,
                 style: {
                     borderRadius: "16px"
+                }
+            }
+        },
+        MuiCardContent: {
+            styleOverrides: {
+                root: {
+                    ':last-child': {
+                        paddingBottom: "1rem"
+                    }
+                }
+            }
+        },
+        MuiDivider: {
+            styleOverrides: {
+                root: {
+                    marginTop: "0.8rem"
+                }
+            }
+        },
+        MuiDrawer: {
+            styleOverrides: {
+                    paper: ({ ownerState }) => ({
+                        ...(ownerState.anchor === 'bottom' && {
+                            borderTopRightRadius: "16px",
+                            borderTopLeftRadius: "16px",
+                        }),
+                    }),          
+            }
+        },
+        MuiFormControlLabel: {
+            styleOverrides: {
+                root: {
+                    margin: 0
                 }
             }
         },
@@ -200,6 +220,46 @@ const theme = createTheme({
                     },
                 },
             ],
+        },
+        MuiListItem: {
+            defaultProps: {
+                disableGutters: true,
+            },
+            styleOverrides: {
+                root: {
+                    borderRadius: "12px"
+                }
+            }
+        },
+        MuiListItemButton: {
+            defaultProps: {
+                disableGutters: true,
+            },
+            styleOverrides: {
+                root: {
+                    borderRadius: "12px"
+                }
+            }
+        },
+        MuiPaper: {
+            defaultProps: {
+                elevation: 0
+            },
+            variants: [
+                {
+                    props: { variant: 'gray' },
+                    style: {
+                        backgroundColor: defaultTheme.palette.gray.main
+                    },
+                },
+            ],
+        },
+        MuiStack: {
+            defaultProps: {
+                direction: 'row',
+                alignItems: 'center',
+                spacing: 1,
+            }
         },
         MuiTooltip: {
             defaultProps: {
@@ -218,13 +278,6 @@ const theme = createTheme({
             defaultProps: {
                 disableGutters: true,
                 variant: 'dense'
-            }
-        },
-        MuiAccordion: {
-            defaultProps: {
-                disableGutters: true,
-                square: true,
-                elevation: 0
             }
         },
         MuiIconButton: {

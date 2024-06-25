@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 /* Externals */
-import { ButtonBase } from "@mui/material";
+import { ButtonBase, ButtonBaseProps } from "@mui/material";
 import { useLocation } from "~/router-module";
 
 /* App */
@@ -10,7 +10,7 @@ import { KAKAO_AUTH_URL_BASE } from "../../common/auth";
 import getImgSrc from "../../utils/getImgSrc";
 // import env from "~/env";
 
-function KakaoLoginButton(){
+function KakaoLoginButton({ sx, ...props }: Omit<ButtonBaseProps, "href">) {
 
     const { state, pathname } = useLocation();
     const [url, setUrl] = useState<string>(KAKAO_AUTH_URL_BASE);
@@ -44,11 +44,9 @@ function KakaoLoginButton(){
     }, [url])
 
     return (
-        <a href={url}>
-            <ButtonBase>
-                <img height={'45px'} width={'183px'} src={getImgSrc("/kakao", "kakao_login_large_narrow", { size: "default" } )} alt={"kakao_login"} className="width-full"/>
-            </ButtonBase>
-        </a>
+        <ButtonBase href={url} sx={{ height: "45px", borderRadius: "6px", overflow: "hidden", backgroundColor: "#FEE500" , ...sx }}>
+            <img src={getImgSrc("/kakao", "kakao_login_large_narrow", { size: "default" })} alt={"kakao_login"} height={"100%"}/>
+        </ButtonBase>
     );
 }
 export default KakaoLoginButton;

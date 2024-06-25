@@ -1,12 +1,8 @@
-import { ForwardedRef, forwardRef, PropsWithChildren, ReactElement, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState } from "react";
 import { useLocation } from "~/router-module";
 import MotionPage, { MotionPageProps, motionProp_page_slideIn } from "./MotionPage";
-import { m } from "framer-motion";
-import { Slide } from "@mui/material";
 
-interface RoutedMotionPageProps extends MotionPageProps {
-};
-
+interface RoutedMotionPageProps extends MotionPageProps {};
 
 const RoutedMotionPage = ({ children, direction, ...motionPageProps }: PropsWithChildren<RoutedMotionPageProps>) => {
 

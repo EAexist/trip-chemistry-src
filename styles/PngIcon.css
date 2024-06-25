@@ -8,5 +8,13 @@
 }
 
 .PngIcon--large {     
-    width: 30px;
+    /* width: 30px; */
+    width: 40px;
+    height: 40px;
+}
+
+.PngIcon--xlarge {     
+    /* width: 30px; */
+    width: 96px;
+    height: 96px;
 }

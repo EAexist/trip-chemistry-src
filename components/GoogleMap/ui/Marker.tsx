@@ -7,16 +7,17 @@ import { Circle, LocationOn } from '@mui/icons-material';
 import styles from "./GoogleMapMarker.module.css";
 
 export interface MarkerProps {
-  icon?: string;
-  color?: string;
+  icon?: string
+  color?: string
+  scale?: number
 };
 
-const Marker = ({ icon, color } : MarkerProps) => {
+const Marker = ({ icon, color, scale } : MarkerProps) => {
 
   return (    
     // <div className='flex flex-col items-center -translate-x-1/2 -translate-y-14 card animate-fadeIn'
     // onMouseEnter={ handleMouseEnter } onMouseLeave={ handleMouseLeave }>    
-    <div className={ styles.marker }>    
+    <div className={ styles.marker } style={{ scale: scale }}>    
       <div className={ styles.marker__container }>
         <LocationOn sx={{ fontSize: 52, color: color }} className={ styles.marker__background }/>
         <Circle className={ styles.marker__glyph } sx={{ fontSize: 28, color: "white", }}/>

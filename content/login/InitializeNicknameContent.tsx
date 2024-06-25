@@ -2,20 +2,16 @@
 import { useState } from "react";
 
 /* Externals */
-import { Close, Done } from "@mui/icons-material";
-import { Button, Dialog, Grid, Stack } from "@mui/material";
-import { m } from 'framer-motion';
 
-import LazyDomAnimation from "../../motion/LazyDomAnimation";
 
 /* App */
+import ConfirmDialog from "~/components/ConfirmDialog";
 import { Navigate, useLocation, useNavigate } from "~/router-module";
-import { FADEIN, FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
+import { IUserProfile } from "../../interfaces/IUserProfile";
 import { authorize, setIsInitialized, useUserProfile } from "../../reducers/authReducer";
 import { useAppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import SetNicknamePage from "./SetNicknamePage";
-import { IUserProfile } from "../../interfaces/IUserProfile";
 
 function InitializeNicknameContent() {
 
@@ -25,22 +21,22 @@ function InitializeNicknameContent() {
     const navigate = useNavigate();
 
     /* States */
-    const [isConfirmCancelModalOpen, setIsConfirmCancelModalOpen] = useState(false);
+    const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
     /* Reducers */
     const { id: userId, authProvider } = useUserProfile() as IUserProfile;
 
     /* Event Handlers */
     const handleClose = () => {
-        setIsConfirmCancelModalOpen(true);
+        setOpenConfirmDialog(true);
     }
 
     const handleCancelLogin = () => {
         navigate(`${((state !== null) && state.loginRedirectPath) ? state.loginRedirectPath : ""}`, { state: { navigateDirection: 'prev' } });
     }
 
-    const handleCloseConfirmCancelModal = () => {
-        setIsConfirmCancelModalOpen(false);
+    const handleContinueLogin = () => {
+        setOpenConfirmDialog(false);
     }
 
     const handleSuccess = () => {
@@ -68,45 +64,16 @@ function InitializeNicknameContent() {
                     handleClose={handleClose}
                     doRequireInitialization={true}
                 />
-                <Dialog
-                    fullScreen
-                    open={isConfirmCancelModalOpen}
+                <ConfirmDialog
+                    open={openConfirmDialog}
                     onClose={handleCancelLogin}
-                >
-                    <LazyDomAnimation>
-                        <m.div {...FADEIN} className="page fill-window flex">
-                            <div className='block--with-margin content content--large block--centered flex-grow'>
-                                <h3 className='typography-heading'>
-                                    {`닉네임을 설정 중이에요.\n취소하고 처음으로 돌아갈까요?`}
-                                </h3>
-                                <div>                                
-                                    <Stack spacing={2}>
-                                    <Button onClick={handleCloseConfirmCancelModal} startIcon={<Close />} variant="contained" sx={{ borderRadius: "24px" }}>
-                                        로그인 계속하기
-                                    </Button>
-                                    <Button onClick={handleCancelLogin} startIcon={<Done />} variant="contained" color="gray" sx={{ borderRadius: "24px" }}>
-                                        확인
-                                    </Button>
-                                </Stack>
-                                </div>
-
-                                {/* [Deprecated] Grid */}
-                                {/* <Grid container columnSpacing={4}>
-                                        <Grid item xs={6}>
-                                            <Button onClick={handleCloseConfirmCancelModal} startIcon={<Close />}>
-                                                로그인 계속하기
-                                            </Button>
-                                        </Grid>
-                                        <Grid item xs={6} display={"flex"} justifyContent={"center"} >
-                                            <Button onClick={handleCancelLogin} startIcon={<Done />}>
-                                                확인
-                                            </Button>
-                                        </Grid>
-                                    </Grid> */}
-                            </div>
-                        </m.div>
-                    </LazyDomAnimation>
-                </Dialog>
+                    onCancel={handleContinueLogin}
+                    onConfirm={handleCancelLogin}
+                    title={`다음에 할까요?`}
+                    body={`이름을 입력하면 바로 테스트를 시작할 수 있어요.\n취소하고 처음으로 돌아갈까요?`}
+                    cancelButtonLabel={'로그인 계속하기'}
+                    isConfirmDefault={false}
+                />
             </AuthLoadRequiredContent>
             : <Navigate to={'/home'} />
     );

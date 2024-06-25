@@ -8,20 +8,23 @@ interface LabelProps {
     showLabel?: boolean
     renderLabel?: boolean
 };
- 
+
 function Label({ label, labelSize = 'medium', children, isActive = false, renderLabel = true, showLabel = true }: PropsWithChildren<LabelProps>) {
 
     return (
         <div className={"Label"}>
-            {/* <div> */}
-                {children}
-            {/* </div> */}
+            {children}
             {
                 (renderLabel)
-                && <p className={`Label__label-${labelSize} typography--profile-label ${isActive ? "typography--profile-label--active" : ""}`}
-                    style={showLabel ? {} : { color: "transparent" }}>
-                    {label}
-                </p>
+                &&
+                <div style={{ position: "relative", width: "100%" }}>
+                    <p 
+                        className={`Label__label Label__label--${labelSize} typography--profile-label ${isActive ? "typography--profile-label--active" : ""}`}
+                        style={showLabel ? {} : { color: "transparent" }}
+                    >
+                        {label}
+                    </p>
+                </div>
             }
         </div>
     );

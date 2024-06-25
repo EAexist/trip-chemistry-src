@@ -14,13 +14,15 @@ import PageContext from "./PageContext";
 */
 
 interface ScrollPageContainerProps {
-    pages: number;
-    onPageChange?: (page: number) => void;
+    page: number 
+    setPage: React.Dispatch<React.SetStateAction<number>>
+    pages: number
+    onPageChange?: (page: number) => void
 };
 
-const ScrollPageContainer = ({ onPageChange, pages, children }: PropsWithChildren<ScrollPageContainerProps>) => {
+const ScrollPageContainer = ({ page, setPage, onPageChange, pages, children }: PropsWithChildren<ScrollPageContainerProps>) => {
 
-    const [page, setPage] = useState<number>();
+    // const [page, setPage] = useState<number>();
     const { pathname } = useLocation();
 
     const ref = useRef<HTMLDivElement>(null);
@@ -53,7 +55,7 @@ const ScrollPageContainer = ({ onPageChange, pages, children }: PropsWithChildre
         <div ref={ref} className="ScrollPageContainer">
             {
                 Array.from({ length: pages }, (value, index) => (
-                    <Step key={index} index={index} className="fill-window" style={{ visibility: "hidden" }}/>
+                    <div key={index} className="fill-window" style={{ visibility: "hidden" }}/>
                 ))
             }
             <div className="fill-window" />

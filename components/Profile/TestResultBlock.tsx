@@ -1,63 +1,158 @@
-import { Accordion, AccordionDetails, AccordionSummary, Chip, Icon, Stack, Tab, Tabs, tabsClasses } from "@mui/material";
 
-import ProfileImage, { UserProfileImage } from "./ProfileImage";
-import { useStrings } from "../../texts";
-import { CHARACTERS, TRIPTAG } from "../../common/app-const";
-import withUserProfile, { WithProfileProps } from "../../hocs/withUserProfile";
-import withFriendProfile from "../../hocs/withFriendProfile";
-import { useUserId } from "../../reducers/authReducer";
-import { m } from "framer-motion";
+import { Divider, Icon, Paper, Stack } from "@mui/material";
 import { useState } from "react";
+import { CHARACTERS, TRIP_TAGS } from "~/common/app-const";
+import { ActivityTag } from "~/interfaces/enums/ActivityTag";
+import { ExpectationTag } from "~/interfaces/enums/ExpectationTag";
+import { TripTag } from "~/interfaces/enums/TripTag";
+import { useAppSelector } from "~/store";
+import { WithProfileProps } from "../../hocs/withUserProfile";
+import FriendAvatar from "../Avatar/FriendAvatar";
+import { ActivityTagChip, ExpectationTagChip, TripTagChip } from "../Chip/TagChip";
+import PngIcon from "../PngIcon";
+
+const expectationToTripTagMap = {
+    HEAL: [TripTag.REST],
+    COMPACT: [TripTag.PASSION],
+    FULLFILL: [TripTag.PASSION],
+    MEMORY: [TripTag.FRIENDSHIP],
+    RELAX: [TripTag.REST, TripTag.REFRESH],
+    COMFORT: [TripTag.REST],
+    ADVENTURE: [TripTag.ADVENTURE],
+    NEW: [TripTag.ADVENTURE, TripTag.PASSION],
+    DIGITAL_DETOX: [TripTag.REFRESH],
+    REST: [TripTag.REST],
+    VIEW: [TripTag.ADVENTURE],
+    FRIENDSHIP: [TripTag.FRIENDSHIP],
+}
+const activityToTripTagMap = {
+    PHOTO: [TripTag.PHOTO],
+    INSTA: [TripTag.PHOTO, TripTag.INFLUENCER],
+    NETWORK: [TripTag.FRIENDSHIP, TripTag.ADVENTURE, TripTag.PASSION],
+    EXTREME: [TripTag.PHYSICAL],
+    SWIM: [TripTag.PHYSICAL],
+    DRIVE: [TripTag.ADVENTURE, TripTag.REFRESH],
+    WALK: [TripTag.REFRESH],
+    THEMEPARK: [TripTag.CULTURE],
+    MARKET: [TripTag.ADVENTURE],
+    HOTEL: [TripTag.REST],
+    VLOG: [TripTag.INFLUENCER],
+    WAITING: [TripTag.EAT],
+    BAR: [TripTag.EAT],
+    CAFE: [TripTag.EAT, TripTag.COFFEE],
+    SHOPPING: [],
+    SHOW: [TripTag.CULTURE],
+}
 
 interface TestResultBlockProps extends WithProfileProps { };
 
-function TestResultBlock({ id, testResult }: TestResultBlockProps) {
+function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
 
-    const tripTagToLabel = useStrings().public.tripTag;
-    const userId = useUserId();
-    const [value, setValue] = useState(0);
+    const [selectedTag, setSelectedTag] = useState<number>();
+    const character = CHARACTERS[testResult.characterId]
 
-    const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-        setValue(newValue);
-    };
+    const handleTripTagClick = (tag: number) => () => {
+        setSelectedTag((selectedTag === tag) ? undefined : tag)
+    }
+
+    const getHashTags = (toTripTagMap: { [k: string]: number[] }, tags: { [k: string]: number }) => Object.entries(toTripTagMap).filter(([k, v]) => v.includes(selectedTag)).map(([k, v]) => tags[k])
+
+    const expectationTags = getHashTags(expectationToTripTagMap, ExpectationTag)
+    const activityTags = getHashTags(activityToTripTagMap, ActivityTag)
+
+    const isChemistryDefined = useAppSelector((state) => (state.chemistry !== undefined))
+    const tagSharingFriends = useAppSelector((state) => state.chemistry?.data.profileIds.filter((profileId) =>
+        (profileId !== id) &&
+        state.chemistry.data.profiles[profileId].testResult?.tripTagList.includes(selectedTag)
+    ))
 
     return (
         <div className="content">
             <div>
-            {
-                (id === userId)
-                    ?
-                    <UserProfileImage />
-                    :
-                    <ProfileImage id={id} />
-            }
+                <p className="">{character.prefix}</p>
+                <h2 className="typography-title">{character.name}</h2>
             </div>
             {
-                CHARACTERS[ testResult.characterId ].body.split("\n").map((text) =>
-                    <p key={text}>{text}</p>
+                character.body.split("\n").map((text) =>
+                    <p className="typography-article" key={text}>{text}</p>
                 )
             }
-            <div className="content">
-            <h2 className="typography-label"># 여행 태그</h2>
+            <h2 className="typography-heading--secondary">{`${nickname} 님의 여행 태그`}</h2>
             {
-
-                (testResult.tripTagList.length > 0) &&
-                <Stack justifyContent={"center"} rowGap={1} flexWrap={"wrap"}>
+                // (testResult.tripTagList.length > 0) ?
+                <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={1} >
                     {
                         testResult.tripTagList.map((tag) =>
-                            <Chip key={tag} icon={<Icon>{TRIPTAG[tag]}</Icon>} label={tripTagToLabel[tag]} />
+                            <TripTagChip
+                                key={tag}
+                                tagId={tag}
+                                variant={(selectedTag === tag) ? "filled" : "outlined"}
+                                onClick={handleTripTagClick(tag)}
+                            />
                         )
                     }
                 </Stack>
+                // :
+                // <TripTagChip tagId={TripTag.DEFAULT} />
             }
-            </div>
+            {
+                (selectedTag !== undefined)
+                &&
+                <Paper sx={{ backgroundColor: "gray.main" }} className="wrapper content">
+                    <Stack>
+                        <Icon>{TRIP_TAGS[selectedTag].icon}</Icon>
+                        <p>{TRIP_TAGS[selectedTag].label}</p>
+                    </Stack>
+                    {
+                        (Object.keys(TripTag)[selectedTag] === "DEFAULT")
+                            ? <p className="typography-note">기본 태그</p>
+                            :
+                            <>
+                                <Divider />
+                                {
+                                    (expectationTags.length > 0) &&
+                                    <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={1} >
+                                        <PngIcon name="expectation" />
+                                        {
+                                            expectationTags.map((tag) =>
+                                                // <p className="typography-note"># {EXPECTATION_TAGS[tag].label}</p>
+                                                <ExpectationTagChip key={tag} tagId={tag} size="small" />
+                                            )
+                                        }
+                                    </Stack>
+                                }
+                                {
+                                    (activityTags.length > 0) &&
+                                    <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={1} >
+                                        <PngIcon name="activity" />
+                                        {
+                                            activityTags.map((tag) =>
+                                                // <p className="typography-note"># {ACTIVITY_TAGS[tag].label}</p>
+                                                <ActivityTagChip key={tag} tagId={tag} size="small" />
+                                            )
+                                        }
+                                    </Stack>
+                                }
+                                {
+                                    isChemistryDefined &&
+                                    <Stack>
+                                        <PngIcon name="raiseHand" />
+                                        {
+                                            (tagSharingFriends.length > 0) ?
+                                                tagSharingFriends.map((id) =>
+                                                    <FriendAvatar id={id} />
+                                                )
+                                                :
+                                                <p className="typography-note">같은 태그의 친구가 없어요.</p>
+                                        }
+                                    </Stack>
+                                }
+                            </>
+                    }
+                </Paper>
+            }
         </div>
     );
 }
 
-export default withFriendProfile(TestResultBlock);
-
-const MotionTestResultBlock = m(withFriendProfile(TestResultBlock), { forwardMotionProps: true });
-
-const UserTestResultBlock = withUserProfile(TestResultBlock);
-export { MotionTestResultBlock, UserTestResultBlock, TestResultBlock };
+export default TestResultBlock;

@@ -2,211 +2,186 @@
 import { useEffect, useRef, useState } from "react";
 
 /* Externals */
-import { Close, ExpandMore } from "@mui/icons-material";
-import { Alert, Button, Divider, IconButton, Modal } from "@mui/material";
-import { m } from "framer-motion";
-import LazyDomAnimation from "../../motion/LazyDomAnimation";
+import { ArrowDropDown } from "@mui/icons-material";
+import { AppBar, Button, Grid, Stack, Toolbar } from "@mui/material";
+
 
 /* Swiper */
 import 'swiper/css';
-import 'swiper/css/effect-coverflow'; /* Food Carousel */
-import { SwiperSlide } from 'swiper/react';
+import { HashNavigation } from 'swiper/modules';
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 /* App */
 
 /* Contents */
+import CitiesTestContent from "./CitiesTestContent";
 import DailyRestaurantTestContent from "./DailyRestaurantTestContent";
 import HashTagTestContent from "./HashTagTestContent";
 import LeadershipTestContent from "./LeadershipTestContent";
+import SpecialRestaurantTestContent from "./SpecialRestaurantTestContent";
 import TimeTestContent from "./TimeTestContent";
-import SpecialRestaurantTestContent from "./SpecialRestaurantTestContentAccordion";
-import CitiesTestContent from "./CitiesTestContent";
 
-import TestSection from "../../components/Block/TestSection";
 
-import { CITY_TYPE_KEYS } from "~/common/app-const";
+import { SwiperOptions } from "swiper/types";
+import { CITY_TYPE_KEYS, TEST_TYPE } from "~/common/app-const";
+import Fab from "~/components/Button/Fab";
+import MainMenuButton from "~/components/Button/MenuButton";
+import ConfirmDialog from "~/components/ConfirmDialog";
+import DraggableModal from "~/components/Paper/DraggableModal";
+import { useAppSelector } from "~/store";
 import PngIcon from "../../components/PngIcon";
-import ScrollPageContainer from "../../components/ScrollPage/ScrollPageContainer";
-import ScrollPageItem from "../../components/ScrollPage/ScrollPageItem";
-import SectionButton from "../../components/Step/components/SectionButton";
-import Stepper from "../../components/Step/components/Stepper";
-import StepCheckpointContext, { IdToIndex } from "../../components/Step/StepCheckpointContext";
-import StepContext from "../../components/Step/StepContext";
 import withReducer from "../../hocs/withReducer";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
-import { FADEIN } from "../../motion/props";
 import { useGetProfile } from "../../reducers/authReducer";
-import testAnswerReducer, { ITestIndex, useIsAllTestAnswered, useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
-import { useStrings } from "../../texts";
+import testAnswerReducer, { useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
-import TestAnswerBadge from "./component/TestAnswerBadge";
-import UnAnsweredTestAlertButton from "./component/UnAnsweredTestAlertButton";
-import NoticeBlock from "~/components/Block/NoticeBlock";
-import getImgSrc from "~/utils/getImgSrc";
-import LazyImage from "~/components/LazyImage";
 import ScheduleTestContent from "./ScheduleTestContent";
-import { IHashTagTestKey } from "~/interfaces/ITestAnswer";
 
+export const TEST_SECTIONS = {
+    expectation:
+    {
+        type: "hashtag",
+        icon: "expectation",
+        label: "# 여행 테마",
+        subtitle: "이런 여행을 하고 싶어",
+        tests: [
+            {
+                testKey: "hashtag",
+                subKey: "expectation"
+            }
+        ],
+        contentComponent: <HashTagTestContent testKey={"expectation"} />
+    },
+    activity:
+    {
+        type: "hashtag",
+        icon: "activity",
+        label: "# 액티비티",
+        subtitle: "여행지에서는 이런 것들을 해보고 싶어",
+        tests: [
+            {
+                testKey: "hashtag",
+                subKey: "activity"
+            }
+        ],
+        contentComponent: <HashTagTestContent testKey={"activity"} />
+    },
+    leadership:
+    {
+        type: 'leadership',
+        icon: "leadership",
+        label: "여행 준비",
+        subtitle: "일행과 여행을 준비할 때의 나는?",
+        tests: [
+            {
+                testKey: "leadership",
+            }
+        ],
+        contentComponent: <LeadershipTestContent />
+    },
+    time:
+    {
+        type: 'time',
+        icon: "clock",
+        label: "여행 시간",
+        tests: [
+            {
+                testKey: "schedule",
+                subKey: "startTime",
+            },
+            {
+                testKey: "schedule",
+                subKey: "endTime"
+            }
+        ],
+        contentComponent: <TimeTestContent />
+    },
+    schedule:
+    {
+        type: 'schedule',
+        icon: "path",
+        label: "일정",
+        tests: [
+            {
+                testKey: "schedule",
+                subKey: "schedule"
+            }
+        ],
+        subtitle: "일정은 얼마나 알차게 짤까?",
+        contentComponent: <ScheduleTestContent />
+    },
+    dailyRestaurantBudget:
+    {
+        type: 'budget',
+        icon: "restaurant",
+        label: "식사 예산",
+        tests: [
+            {
+                testKey: "restaurant",
+                subKey: "dailyBudget"
+            }
+        ],
+        subtitle: "여행 중 평범한 식사 한끼에는 평균적으로 얼마나 쓸까?",
+        contentComponent: <DailyRestaurantTestContent />
+    },
+    specialRestaurantBudget:
+    {
+        type: 'budget',
+        icon: "delicious",
+        label: "맛집 예산",
+        subtitle: "유명 맛집에서의 특별한 한끼",
+        tests: [
+            {
+                testKey: "restaurant",
+                subKey: "specialBudget"
+            },
+            {
+                testKey: "restaurant",
+                subKey: "specialCount"
+            }
+        ],
+        contentComponent: <SpecialRestaurantTestContent />
+    },
+    city:
+    {
+        type: "city",
+        icon: "location",
+        label: "여행지",
+        tests: CITY_TYPE_KEYS.map(key => ({
+            testKey: "city",
+            subKey: key
+        })),
+        contentComponent: <CitiesTestContent />
+    },
+};
 
 function TestContent() {
 
+    /* States */
+    const swiperRef = useRef<SwiperRef>(null)
+    const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false)
+    const [activeSectionIndex, setActiveSectionIndex] = useState<number>(0)
+
     const navigate = useNavigateWithGuestContext();
-
-    /* Strings */
-    const contentstrings = useStrings().public.contents.test;
-
-    const isAllTestAnswered = useIsAllTestAnswered();
 
     const getProfile = useGetProfile();
     const submitAnswer = useSubmitAnswer();
     const [submitStatus, setSubmitStatus] = useTestAnswerStatus();
 
-
-    const TEST_SECTIONS = {
-        expectation:
-        {
-            type: "hashtag",
-            icon: "expectation",
-            label: "# 여행 테마",
-            tests: [
-                {
-                    testKey: "hashtag", 
-                    subKey: "expectation"
-                }
-            ]
-        },
-        activity:
-        {
-            type: "hashtag",
-            icon: "activity",
-            label: "# 액티비티",
-            tests: [
-                {
-                    testKey: "hashtag", 
-                    subKey: "activity"
-                }
-            ]
-        },
-        leadership:
-        {
-            type: 'leadership',
-            icon: "leadership",
-            label: "여행 준비",
-            tests: [
-                {
-                    testKey: "leadership", 
-                }
-            ]
-        },
-        time:
-        {
-            type: 'time',
-            icon: "clock",
-            label: "여행 시간",
-            tests: [
-                {
-                    testKey: "schedule", 
-                    subKey: "startTime"
-                },
-                {
-                    testKey: "schedule", 
-                    subKey: "endTime"
-                }
-            ]
-        },
-        schedule:
-        {
-            type: 'schedule',
-            icon: "path",
-            label: "일정",
-            tests: [
-                {
-                    testKey: "schedule", 
-                    subKey: "schedule"
-                }
-            ]
-        },
-        dailyRestaurantBudget:
-        {
-            type: 'budget',
-            icon: "restaurant",
-            label: "식사 예산",
-            tests: [
-                {
-                    testKey: "restaurant", 
-                    subKey: "dailyBudget"
-                }
-            ]
-        },
-        specialRestaurantBudget:
-        {
-            type: 'budget',
-            icon: "delicious",
-            label: "맛집 예산",
-            tests: [
-                {
-                    testKey: "restaurant", 
-                    subKey: "specialBudget"
-                },
-                {
-                    testKey: "restaurant", 
-                    subKey: "specialCount"
-                }
-            ]
-        },
-        city:
-        {
-            type: "city",
-            icon: "location",
-            label: "여행지",
-            tests: CITY_TYPE_KEYS.map( key => ({
-                testKey: "city",
-                subKey: key
-            }))
-        },
-        confirm:
-        {
-            type: "confrim",
-            icon: "check",
-            label: "결과 확인",
-            tests: []
-        },
-    };
-
-    /* States */
-    const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
-
-    /* Step */
-    const [step, setStep] = useState(0);
-
-    /* StepCheckpoint */
-    const [idToIndex, setIdToIndex] = useState<IdToIndex>({} as IdToIndex)
-    const stepCheckpointList = useRef<HTMLDivElement[]>([]);
-
-    /* Scroll Down */
-    const showScrollDownIcon = step < 1;
-    const [showScrollDownAlert, setShowScrollDownAlert] = useState(false);
-    const alertTimeout = 2000;
-
-    const handleScrollDownButtonClick = () => {
-        setShowScrollDownAlert(true);
-    }
-    useEffect(() => {
-        if (showScrollDownAlert) {
-            let timer = setTimeout(() => { setShowScrollDownAlert(false) }, alertTimeout);
-        }
-    }, [showScrollDownAlert])
-
-    /* 첫 렌더 후 Scroll Resotration 중에 Top Nav 가 슬라이드 되는 모션을 방지함. */
-    const [preventInitialSwipe, setPreventInitialSwipe] = useState(true);
-
-    const handleConfirmButtonClick = () => {
-        submitAnswer();
-    }
-
-    const handleFabClick = () => {
-
-    }
+    const IsTestSectionAnsweredList = useAppSelector((state) => (
+        Object.values(TEST_SECTIONS).map(({ tests }) => (
+            tests.map(({ testKey, subKey }) => {
+                const answer = subKey ? state.testAnswer.data[testKey][subKey] : state.testAnswer.data[testKey]
+                return (
+                    (testKey === "hashtag")
+                        ? answer.selected.length >= TEST_TYPE.hashtag.selectedMinLength
+                        : answer !== undefined
+                )
+            }).every(v => v)
+        )))
+    )
+    const isAllTestAnswered = IsTestSectionAnsweredList.every(v => v)
+    const isActiveTestAnswered = IsTestSectionAnsweredList[activeSectionIndex]
 
     const handleSubmitSuccess = () => {
         setIsAnswerSubmitted(true);
@@ -217,12 +192,78 @@ function TestContent() {
         navigate('../result');
     }
 
-    /* 첫 렌더 후 100ms 동안 Top Nav의 애니메이션 비활성화 */
+    /* Swiper Control */
+
+    const SWIPERPROPS: SwiperOptions = {
+        slidesPerView: 1,
+        modules: [HashNavigation],
+        hashNavigation: {
+            watchState: true,
+        }
+    }
+
+    const [ speed, setSpeed ] = useState(0)
+
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setPreventInitialSwipe(false);
-        }, 100);
-    }, []);
+        setSpeed(500)
+    }, [ setSpeed ])
+
+    useEffect(() => {
+        swiperRef.current.swiper.slideTo(activeSectionIndex)
+    }, [swiperRef, activeSectionIndex])
+
+    /* Section Dialog */
+    const [opensectionlistmodal, setOpenSectionListModal] = useState(false)
+
+    const handleSectionButtonClick = (index: number) => () => {
+        setActiveSectionIndex(index)
+        let timer = setTimeout(() => { setOpenSectionListModal(false) }, 500);
+    }
+
+    const handleSectionListModalClose = () => {
+        setOpenSectionListModal(false);
+    };
+
+    const highlightAnsweredSections = () => {
+    }
+
+    const highlightUnAnsweredSections = () => {
+
+    }
+
+    /* Confirm Dialog */
+    const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+
+    const handleCloseConfirmDialog = () => {
+        setOpenConfirmDialog(false);
+    }
+
+    const handleConfirmSubmit = () => {
+        submitAnswer();
+    }
+
+    /* Main Action Button */
+    const handleFinishTest = () => {
+        setOpenConfirmDialog(true);
+    }
+
+    const handleNextButtonClick = () => {
+        console.log(`[handleNextButtonClick] ${JSON.stringify(IsTestSectionAnsweredList.map((isTestAnswered, index) => ({ isTestAnswered, index })).filter(({ isTestAnswered, index }) => !isTestAnswered))}`)
+        setActiveSectionIndex((prev) => {
+            const nextUnAnsweredTestIndex = IsTestSectionAnsweredList.map((isTestAnswered, index) => ({ isTestAnswered, index })).slice(activeSectionIndex).filter(({ isTestAnswered, index }) => !isTestAnswered)[0]
+            if (nextUnAnsweredTestIndex !== undefined) {
+                return nextUnAnsweredTestIndex.index
+            }
+            else {
+                const firstUnAnsweredTestIndex = IsTestSectionAnsweredList.map((isTestAnswered, index) => ({ isTestAnswered, index })).filter(({ isTestAnswered, index }) => !isTestAnswered)[0]?.index
+
+                if (firstUnAnsweredTestIndex !== undefined)
+                    return firstUnAnsweredTestIndex
+                else
+                    return prev
+            }
+        })
+    }
 
     return (
         <LoadRequiredContent {...{
@@ -234,157 +275,78 @@ function TestContent() {
                 handleSuccess: handleLoadSuccess,
                 isEnabled: isAnswerSubmitted,
             }}>
-                <div className="page">
-                    <LazyDomAnimation>
-                        <StepContext.Provider value={{ step, setStep }}>
-                            <StepCheckpointContext.Provider value={{ idToIndex: idToIndex, setIdToIndex: setIdToIndex, stepCheckpointList: stepCheckpointList }}>
-                                <div className="top-nav">
-                                    <m.div {...FADEIN} custom={0.2}>
-                                        <Stepper className="wrapper top-nav__swiper" speed={preventInitialSwipe ? 0 : 500}>
-                                            {
-                                                Object.entries(TEST_SECTIONS).map(([sectionName, { tests, icon, label }], index) =>
-                                                    <SwiperSlide key={sectionName} className="top-nav__swiper">
-                                                        <SectionButton
-                                                            labelSize={"large"}
-                                                            value={index}
-                                                            index={index}
-                                                            label={label}
-                                                            sx={{ height: "100%", display: 'flex', alignItems: 'start', paddingTop: '8px' }}
-                                                            elevation={0}
-                                                        >{
-                                                                <TestAnswerBadge invisible={sectionName.length === 0} tests={tests as ITestIndex[]} sx={{ height: 'fit-content', padding: "4px" }}>
-                                                                    <PngIcon name={icon} size={"large"} />
-                                                                </TestAnswerBadge>
-                                                            }
-                                                        </SectionButton>
-                                                    </SwiperSlide>
-                                                )
-                                            }
-                                        </Stepper>
-                                    </m.div>
-                                    <Divider />
-                                </div>
-                                <ScrollPageContainer onPageChange={(page) => setStep(page)} pages={Object.keys(TEST_SECTIONS).length}>
-                                    {
-                                        (["expectation", "activity"] as IHashTagTestKey[]).map((testKey, index) =>
-                                            <ScrollPageItem key={testKey} page={index} className="flex">
-                                                <TestSection>
-                                                    <HashTagTestContent testKey={testKey} />
-                                                </TestSection>
-                                            </ScrollPageItem>
-                                        )
-                                    }
-                                    <ScrollPageItem key={"leadership"} page={2} className="flex">
-                                        <TestSection>
-                                            <LeadershipTestContent />
-                                        </TestSection>
-                                    </ScrollPageItem>
-                                    <ScrollPageItem key={"time"} page={3} className="flex">
-                                        <TestSection>
-                                            <TimeTestContent />
-                                        </TestSection>
-                                    </ScrollPageItem>
-                                    <ScrollPageItem key={"schedule"} page={4} className="flex">
-                                        <TestSection>
-                                            <ScheduleTestContent />
-                                        </TestSection>
-                                    </ScrollPageItem>
-                                    <ScrollPageItem key={"dailyRestaurantBudget"} page={5} className="flex">
-                                        <TestSection>
-                                            <DailyRestaurantTestContent />
-                                        </TestSection>
-                                    </ScrollPageItem>
-                                    <ScrollPageItem key={"specialRestaurantBudget"} page={6} className="flex">
-                                        <TestSection>
-                                            <SpecialRestaurantTestContent />
-                                        </TestSection>
-                                    </ScrollPageItem>
-                                    <ScrollPageItem key={"city"} page={7} className="flex">
-                                        <TestSection>
-                                            <CitiesTestContent />
-                                        </TestSection>
-                                    </ScrollPageItem>
-                                    <ScrollPageItem key={"confirm"} page={8} className="flex">
-                                        <TestSection className="block--centered content">
-                                                <LazyImage
-                                                    alt={"alt"}
-                                                    src={getImgSrc('/info', "info", { size: "xlarge" })}
-                                                    width={"256px"}
-                                                    height={"256px"}
-                                                    containerClassName="NoticeBlock__image"
-                                                />
+                    <div className="page fill-window flex">
+                        <AppBar >
+                            <Toolbar sx={{ justifyContent: "end" }}>
+                                <MainMenuButton />
+                            </Toolbar>
+                        </AppBar>
+                        <Toolbar />
+                        <Stack className="wrapper" style={{ paddingBottom: 0, marginLeft: "-8px" }} display="flex" justifyContent={"space-between"}>
+                            <Button onClick={() => setOpenSectionListModal(true)} endIcon={<ArrowDropDown />}>
+                                <h2 className="typography-heading">{Object.values(TEST_SECTIONS)[activeSectionIndex].label}</h2>
+                            </Button>
+                            <p className="typography-note">{`${activeSectionIndex + 1} / ${Object.keys(TEST_SECTIONS).length}`}</p>
+                        </Stack>
+                        <div style={{ flexShrink: 1, flexGrow: 1, overflow: "hidden" }}>
+                            <Swiper speed={speed} noSwipingClass='testcontent-swiper-no-swiping' onActiveIndexChange={(swiper) => setActiveSectionIndex(swiper.activeIndex)} ref={swiperRef} style={{ height: "100%" }} {...SWIPERPROPS}>
+                                {
+                                    (Object.entries(TEST_SECTIONS) as [id: string, { subtitle?: string, contentComponent?: React.ReactNode }][]).map(([id, { subtitle, contentComponent }]) => (
+                                        <SwiperSlide key={id} style={{ overflowX: "scroll" }} data-hash={id}>
+                                            <div className="wrapper content">
                                                 {
-                                                    isAllTestAnswered
-                                                        ?
-                                                        <Button
-                                                            onClick={handleConfirmButtonClick}
-                                                            disabled={!isAllTestAnswered}
-                                                            variant="contained"
-                                                            className="block--with-padding"
-                                                            style={{ marginTop: 0 }}
-                                                        >
-                                                            결과 확인하기
-                                                        </Button>
-                                                        :
-                                                        <div>
-                                                        <UnAnsweredTestAlertButton />
-                                                        </div>
+                                                    subtitle
+                                                    &&
+                                                    <p>{subtitle}</p>
                                                 }
-                                        </TestSection>
-                                    </ScrollPageItem>
-                                </ScrollPageContainer>
-                            </StepCheckpointContext.Provider>
-                        </StepContext.Provider>
-                        {
-                            showScrollDownIcon
-                            &&
-                            <m.div
-                                animate={{ opacity: [1, 0.2, 1] }}
-                                transition={{
-                                    duration: 2.5,
-                                    times: [0, 0.5, 1],
-                                    ease: "easeInOut",
-                                    repeat: Infinity,
-                                }}
-                                className="floating--bottom block--centered"
-                                style={{ marginBottom: "2rem" }}
-                            >
-                                <IconButton onClick={handleScrollDownButtonClick}>
-                                    <ExpandMore className="typography-gray" sx={{ fontSize: "40px" }} />
-                                </IconButton>
-                            </m.div>
-                        }
-                        {
-                            <Modal
-                                open={showScrollDownAlert}
-                                onClose={() => setShowScrollDownAlert(false)}
-                                hideBackdrop={true}
-                                disableScrollLock
-                            >
-                                <div className="floating--bottom">
-                                    <Alert
-                                        action={
-                                            <IconButton
-                                                aria-label="close"
-                                                color="inherit"
-                                                size="small"
-                                                onClick={() => {
-                                                    setShowScrollDownAlert(false);
-                                                }}
-                                            >
-                                                <Close fontSize="inherit" />
-                                            </IconButton>
-                                        }
-                                        severity="info"
-                                        className="block--with-margin block--with-margin--large block--with-padding"
-                                    >
-                                        아래로 스크롤해보세요.
-                                    </Alert>
-                                </div>
-                            </Modal>
-                        }
-                    </LazyDomAnimation>
-                </div >
+                                                {contentComponent}
+                                            </div>
+                                            <div className="fab-placeholder" />
+                                        </SwiperSlide>
+                                    ))
+                                }
+                            </Swiper>
+                        </div>
+                        <Fab onClick={isAllTestAnswered ? handleFinishTest : handleNextButtonClick} disabled={(!isAllTestAnswered) && !isActiveTestAnswered}>
+                            {isAllTestAnswered ? "결과 확인하기" : "다음"}
+                        </Fab>
+                        <ConfirmDialog
+                            open={openConfirmDialog}
+                            onClose={handleCloseConfirmDialog}
+                            onCancel={handleCloseConfirmDialog}
+                            onConfirm={handleConfirmSubmit}
+                            title={"답변을 제출할까요?"}
+                            cancelButtonLabel={'답변 한 번 더 확인하기'}
+                        />
+                        <DraggableModal
+                            open={opensectionlistmodal}
+                            onClose={handleSectionListModalClose}
+                            className="wrapper content"
+                        >
+                            <h2 className="typography-heading">테스트</h2>
+                            <div>
+                                <Grid container spacing={1}>
+                                    {
+                                        IsTestSectionAnsweredList.map((isAnswered, index) => {
+                                            const isActive = (index === activeSectionIndex)
+                                            return (
+                                                <Grid key={index} item xs={6}>
+                                                    <Button onClick={handleSectionButtonClick(index)} startIcon={<PngIcon name={Object.values(TEST_SECTIONS)[index]?.icon} />} variant={"contained"} color={isActive ? "gray" : "secondary"} sx={{ ...!isAnswered && { '& > *': { opacity: 0.5 } }, paddingLeft: '12px' }}>
+                                                        <p>{Object.values(TEST_SECTIONS)[index]?.label}</p>
+                                                    </Button>
+                                                </Grid>
+
+                                            )
+                                        })
+                                    }
+                                </Grid>
+                            </div>
+                            <Stack justifyContent={"end"} spacing={0}>
+                                <Button onClick={highlightAnsweredSections} className="typography-note" style={{ fontWeight: 600 }}>{`답변한 질문 : ${IsTestSectionAnsweredList.filter((isAnswered) => isAnswered).length}`}</Button>
+                                <Button onClick={highlightUnAnsweredSections} className="typography-note disabled">{`남은 질문 : ${IsTestSectionAnsweredList.filter((isAnswered) => !isAnswered).length}`}</Button>
+                            </Stack>
+                        </DraggableModal>
+                    </div >
             </AuthLoadRequiredContent>
         </LoadRequiredContent >
     );

@@ -1,18 +1,9 @@
-import { Accordion, AccordionDetails, AccordionProps, AccordionSummary, CardContent, Stack } from "@mui/material";
-/* Swiper */
-import 'swiper/css';
-import 'swiper/css/autoplay';
-import 'swiper/css/pagination';
-import { Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Accordion, AccordionDetails, AccordionProps, AccordionSummary, Stack } from "@mui/material";
 
-import { ExpandMore } from "@mui/icons-material";
-import { CITIES, CITY_TYPES, ICityType, NATION, PREFERENCE_OPTIONS } from "~/common/app-const";
-import ImageCard from "~/components/Card/ImageCard";
-import Flag from "~/components/Flag";
+import { ExpandMore, NavigateNext } from "@mui/icons-material";
+import { CITY_TYPES, ICityType, PREFERENCE_OPTIONS } from "~/common/app-const";
+import CityCarousel from "~/components/CityCarousel";
 import { useTestAnswer } from "~/reducers/testAnswerReducer";
-import { useStrings } from "~/texts";
-import getImgSrc from "~/utils/getImgSrc";
 import AnswerButtonGroup from "./component/AnswerButtonGroup";
 
 interface CityTestContentProps extends Omit<AccordionProps, "children"> {
@@ -21,11 +12,7 @@ interface CityTestContentProps extends Omit<AccordionProps, "children"> {
 
 function CityTestContent({ cityType, expanded, onChange }: CityTestContentProps) {
 
-    const commonStrings = useStrings().public.common;
-
-    const answerStrings = Object(useStrings().public.contents.test.test.city.answers);
-
-    const { title, icon, examples } = CITY_TYPES[cityType];
+    const { title } = CITY_TYPES[cityType];
 
     const [answer] = useTestAnswer("city", cityType);
 
@@ -37,28 +24,48 @@ function CityTestContent({ cityType, expanded, onChange }: CityTestContentProps)
                 id="panel1bh-header"
             >
                 <Stack direction="row" justifyContent="space-between" width="100%">
-                    <h3 className="typography-body">{title}</h3>
+                    <h3 className="">{title}{expanded && " 여행은 어때?"}</h3>
                     {
                         (!expanded) &&
-                        <Stack>
-                            <p className="typography-body">{answerStrings[answer].value}</p>
-                            <p className="" style={{ color: "inherit" }}>{answerStrings[answer].icon}</p>
-                        </Stack>
+                        (
+                            (answer !== undefined) ?
+                                <Stack>
+                                    <p><b>{PREFERENCE_OPTIONS[answer].label}</b></p>
+                                    <p style={{ fontSize: "18px" }}>{PREFERENCE_OPTIONS[answer].icon}</p>
+                                </Stack>
+                                :
+                                <NavigateNext sx={{ opacity: 0.5 }} />
+                        )
                     }
                 </Stack>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails sx={{ overflow: "hidden" }}>
                 <div className="content">
-                    <Swiper
+                    <AnswerButtonGroup
+                        testKey={"city"}
+                        subKey={cityType}
+                        options={Object.values(PREFERENCE_OPTIONS)}
+                    />
+                    <div className='testcontent-swiper-no-swiping'>
+                        <CityCarousel cityType={cityType} />
+                    </div>
+                </div>
+            </AccordionDetails>
+        </Accordion>
+    );
+}
+export default CityTestContent;
+
+
+{/* <Swiper
                         modules={[Pagination]}
                         pagination={{
                             clickable: true,
                             el: '.swiper-pagination',
                         }}
                         loop={true}
-                       
+
                     >
-                        {/* <PaginationBullets className='pageSwiper-pagination' sx={{ justifyContent: 'center', marginBottom: '1rem' }} /> */}
                         {
                             examples.map((cityId, index) => (
                                 <SwiperSlide key={cityId} >
@@ -82,15 +89,4 @@ function CityTestContent({ cityType, expanded, onChange }: CityTestContentProps)
                                 </SwiperSlide>
                             ))
                         }
-                    </Swiper>
-                        <AnswerButtonGroup 
-                            testKey={"city"}
-                            subKey={cityType}
-                            options={Object.values(PREFERENCE_OPTIONS)}
-                        />
-                </div>
-            </AccordionDetails>
-        </Accordion>
-    );
-}
-export default CityTestContent;
+                    </Swiper> */}

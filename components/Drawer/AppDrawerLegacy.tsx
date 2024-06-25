@@ -16,12 +16,12 @@ import PngIcon from "../PngIcon";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import { MotionListItemButton } from "~/motion/components/MotionListItemButton";
 
-interface DrawerProps {
+interface AppDrawerProps {
     open: boolean
     onDrawerItemClick: () => void
 };
 
-function Drawer({ open, onDrawerItemClick }: DrawerProps) {
+function AppDrawer({ open, onDrawerItemClick }: AppDrawerProps) {
 
     /* Hooks */
     const navigate = useNavigateWithGuestContext();
@@ -66,7 +66,7 @@ function Drawer({ open, onDrawerItemClick }: DrawerProps) {
                         animate={"visible"}
                         exit={"hidden"}
                         variants={variants_drawer}
-                        style={{ zIndex: `${zIndex.appBar - 1}` }}
+                        // style={{ zIndex: `${zIndex.appBar - 1}` }}
                         className="drawer"
                     >
                         <div
@@ -137,4 +137,4 @@ function Drawer({ open, onDrawerItemClick }: DrawerProps) {
         </LazyDomAnimation>
     );
 }
-export default Drawer;
+export default AppDrawer;

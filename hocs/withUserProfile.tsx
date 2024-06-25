@@ -1,5 +1,4 @@
 import { ComponentType } from "react";
-import { IProfileId } from "../interfaces/IProfile";
 import { IProfile } from "../interfaces/IProfile";
 import { useUserProfile } from "../reducers/authReducer";
 

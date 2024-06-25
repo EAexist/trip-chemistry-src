@@ -245,9 +245,9 @@
 //                     <m.h2 {...FADEIN_VIEWPORT} className="typography-heading">{strings.sections.city.title}</m.h2>
 //                     <ul className="content">
 //                         {
-//                             sortedCityList && sortedCityList.map((cityClass) => (
-//                                 <m.li key={cityClass} {...FADEIN_VIEWPORT}>
-//                                     <CityChemistryContent cityClass={cityClass as keyof typeof TEST.city.subTests} />
+//                             sortedCityList && sortedCityList.map((cityType) => (
+//                                 <m.li key={cityType} {...FADEIN_VIEWPORT}>
+//                                     <CityChemistryContent cityType={cityType as keyof typeof TEST.city.subTests} />
 //                                 </m.li>
 //                             ))
 //                         }

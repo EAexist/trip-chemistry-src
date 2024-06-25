@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 /* Externals */
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, Stack, Toolbar } from "@mui/material";
 import { useLocation, useNavigate } from "~/router-module";
 
 /* App */
@@ -13,12 +13,13 @@ import KakaoLoginButton from "../../components/Button/KakaoLoginButton";
 import { asyncGuestSignIn, authorize } from "../../reducers/authReducer";
 import { useAppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
+import MainAppBar from "~/components/AppBar/MainAppBar";
 // import env from "~/env";
 interface LoginContentProps {
     title?: string;
 }
 
-function LoginContent({ title ="테스트를 시작해볼까요?" }:LoginContentProps){
+function LoginContent({ title = "테스트를 시작해볼까요?" }: LoginContentProps) {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -36,7 +37,7 @@ function LoginContent({ title ="테스트를 시작해볼까요?" }:LoginContent
             dispatch(authorize());
         }
         else {
-            navigate('/login/initializeNickname', { state: { loginRedirectPath: pathname, navigateDirection : "next" } });
+            navigate('/login/initializeNickname', { state: { loginRedirectPath: pathname, navigateDirection: "next" } });
         }
     }
 
@@ -66,31 +67,25 @@ function LoginContent({ title ="테스트를 시작해볼까요?" }:LoginContent
     return (
         <AuthLoadRequiredContent {...{
             handleSuccess: handleAuthSuccess,
-            handleFail: () =>{}
+            handleFail: () => { }
         }}>
-                <div className="flex-grow block--centered-row content content--large">
-                    <div style={{ marginTop: "128px" }} />
+            <MainAppBar />
+            <div className="fill-window flex">
+                <Toolbar />
+                <div className="flex-grow block--centered content content--sparse">
                     <h2 className="typography-label">
                         {title}
                     </h2>
-                    <div className="wrapper">
-                        <Grid container direction={"column"} rowSpacing={2}>
-                            <Grid item>
-                                <KakaoLoginButton />
-                            </Grid>
-                            <Grid item>
-                                <Button
-                                    onClick={handleGuestSignIn}
-                                    variant="contained"
-                                    sx={{ width: '183px', height: '45px', borderRadius: "4px" }}
-                                >
-                                    게스트 로그인
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </div>
-                </div>
-                <div className="block--with-margin block--with-margin--large block--centered">
+                    <Stack direction={"column"} spacing={2} className="wrapper">
+                        <KakaoLoginButton />
+                        <Button
+                            onClick={handleGuestSignIn}
+                            variant="contained"
+                            sx={{ width: "100%", height: '45px', borderRadius: "6px" }}
+                        >
+                            게스트 로그인
+                        </Button>
+                    </Stack>
                     <p className="typography-note block--width-large">
                         <Help fontSize="inherit" />
                         {
@@ -98,6 +93,7 @@ function LoginContent({ title ="테스트를 시작해볼까요?" }:LoginContent
                         }
                     </p>
                 </div>
+            </div>
         </AuthLoadRequiredContent>
     );
 }

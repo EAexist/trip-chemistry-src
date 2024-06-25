@@ -30,7 +30,7 @@ function AnswerButtonGroup({ testKey, answer, setAnswer, options }: AnswerButton
                                 selected={value === answer}
                                 onChange={(_, value) => handleAnswerChange(value)}
                                 label={label}
-                                size={"small"}
+                                size={"medium"}
                                 labelSize={"large"}
                             >
                                 <p className="" style={{ color: "inherit" }}>{icon}</p>

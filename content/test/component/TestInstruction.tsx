@@ -15,16 +15,14 @@ function TestInstruction({ testKey, isAnswered, className, showBackdrop = false 
     const instruction = strings[testKey].instruction;
 
     return (
-        isAnswered
-            ?
-            <></>
-            :
-            <div className={ `${className} ${showBackdrop ? "backdrop" : ""}`}>
-                <Stack justifyContent={"center"}>
-                    <Help sx={{ fontSize : 18 }}/>
-                    <h4 className='typography--center typography-note'>{instruction}</h4>
-                </Stack>
-            </div>
+        !isAnswered
+        &&
+        <div className={`${className} ${showBackdrop ? "backdrop" : ""}`}>
+            <Stack>
+                <Help sx={{ fontSize: 18 }} />
+                <h4 className='typography-note'>{instruction}</h4>
+            </Stack>
+        </div>
 
     );
 }

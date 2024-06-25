@@ -91,12 +91,12 @@
 //     return ( useAppSelector((state) => ( state.chemistry.loadStatus === LoadStatus.REST ) && ( state.chemistry.data !== undefined ) ));
 // };
 
-// const useCityChemistry = ( cityClass : string ) => {
-//     return ( useAppSelector((state) => state.chemistry.data ? state.chemistry.data.cityChemistry[ cityClass ] : -1 ));
+// const useCityChemistry = ( cityType : string ) => {
+//     return ( useAppSelector((state) => state.chemistry.data ? state.chemistry.data.cityChemistry[ cityType ] : -1 ));
 // };
 
 // const useSortedCityList = () => {
-//     return ( useAppSelector((state) => state.chemistry.data ? Object.entries(state.chemistry.data.cityChemistry).sort(( a, b ) => ( b[1] - a[1] )).map(([ cityClass, score ]) => cityClass )  : undefined ) );
+//     return ( useAppSelector((state) => state.chemistry.data ? Object.entries(state.chemistry.data.cityChemistry).sort(( a, b ) => ( b[1] - a[1] )).map(([ cityType, score ]) => cityType )  : undefined ) );
 // };
 
 // // const useGetChemistry = () => {

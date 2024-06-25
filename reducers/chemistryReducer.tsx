@@ -179,20 +179,20 @@ const useIsChemistryEnabled = () => {
     return useProfileIdList().length > 1;
 };
 
-const useCityChemistry = (cityClass: string) => {
-    return (useAppSelector((state) => state.chemistry.data ? state.chemistry.data.city[cityClass] : -1));
+const useCityChemistry = (cityType: string) => {
+    return (useAppSelector((state) => state.chemistry.data ? state.chemistry.data.city[cityType] : -1));
 };
 
-// const useCityChemistry = (cityClass: string) => {
+// const useCityChemistry = (cityType: string) => {
 
 //     const cityAnswerList =
 //         useAppSelector((state) => Object.values(state.chemistry.data.profiles)
 //             .filter(profile => profile.testAnswer !== null)
-//             .map(profile => profile.testAnswer.city[cityClass])
+//             .map(profile => profile.testAnswer.city[cityType])
 //         )
 
 //     return (
-//         cityAnswerList.map(profile => profile.testAnswer.city[cityClass])
+//         cityAnswerList.map(profile => profile.testAnswer.city[cityType])
 //             .reduce((a, b) => a + b, 0) / cityAnswerList.length
 //     )
 // };

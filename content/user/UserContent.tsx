@@ -6,6 +6,7 @@ import { Button, ButtonBase, Icon, IconButton, Stack, Toolbar } from "@mui/mater
 
 
 /* App */
+import MainAppBar from "~/components/AppBar/MainAppBar";
 import UserAvatar from "../../components/Avatar/UserAvatar";
 import KakaoLoginButton from "../../components/Button/KakaoLoginButton";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
@@ -15,8 +16,11 @@ import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { asyncKakaoLogout, useUserProfile } from "../../reducers/authReducer";
 import { useAppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
+import StartTestFab from "~/components/Button/StartTestFab";
+import ConfirmDialog from "~/components/ConfirmDialog";
+import { useState } from "react";
 
-function UserContent(){
+function UserContent() {
 
     /* Hooks */
     const dispatch = useAppDispatch();
@@ -32,7 +36,23 @@ function UserContent(){
         // }
     };
 
+    const handleEdit = () => {
+        navigate('setNickname', { state: { navigateDirection: 'next' } });
+    }
+
+
+    /* ConfirmDialog */
+    const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+
     const handleLogout = () => {
+        setOpenConfirmDialog(true);
+    }
+    
+    const handleCancelLogout = () => {
+        setOpenConfirmDialog(false);
+    }
+
+    const handleConfirmLogout = () => {
         dispatch(asyncKakaoLogout(id));
     }
 
@@ -40,22 +60,20 @@ function UserContent(){
         window.localStorage.setItem("kakaoAccessToken", "");
     }
 
-    const handleEdit = () => {
-        navigate('setNickname', { state: { navigateDirection: 'next' } });
-    }
-
-
     return (
         <AuthLoadRequiredContent
             handleSuccess={handleLogoutSuccess}
         >
             <RoutedMotionPage className="flex fill-window">
+                <MainAppBar />
                 <Toolbar />
-                <div className='flex-grow block--centered content content--large'>
+                <div className='flex-grow block--centered content'>
                     <div>
                         <ButtonBase onClick={handleClickAvatar}>
                             <UserAvatar sx={{ height: "128px", width: "128px" }} renderLabel={false} />
                         </ButtonBase>
+                    </div>
+                    <div>
                         <Toolbar>
                             <IconButton
                                 edge="start"
@@ -64,9 +82,7 @@ function UserContent(){
                             >
                                 <Icon />
                             </IconButton>
-                            {/* <div className="block--center"> */}
-                            <p className="typography-heading  typography-heading--large">{nickname}</p>
-                            {/* </div> */}
+                            <p className="typography-heading ">{nickname}</p>
                             <IconButton
                                 edge="end"
                                 aria-label="edit"
@@ -76,32 +92,44 @@ function UserContent(){
                             </IconButton>
                         </Toolbar>
                     </div>
-                    <div>
-                        <Stack direction={'column'}>
-                            {
-                                (AuthProvider[authProvider] === AuthProvider.GUEST)
-                                    ?
-                                    <KakaoLoginButton />
-                                    :
-                                    <Button onClick={handleLogout} variant="outlined">
-                                        로그아웃
-                                    </Button>
-                            }
-                        </Stack>
-                    </div>
                 </div>
-                {
-                    (AuthProvider[authProvider] === AuthProvider.GUEST)
-                    &&
-                    <div className="block--with-margin block--with-margin--large block--centered">
-                        <p className="typography-note block--width-large">
-                            <Help fontSize="inherit" />
-                            {
-                                "카카오 로그인을 이용하면\n링크를 잃어버려도 내 테스트 결과를 안전하게 불러올 수 있어요."
-                            }
-                        </p>
-                    </div>
-                }
+                <div className="wrapper content block--centered">
+                    {
+                        (AuthProvider[authProvider] === AuthProvider.GUEST)
+                            ?
+                            <>
+                                {
+                                    (AuthProvider[authProvider] === AuthProvider.GUEST)
+                                    &&
+                                    <>
+                                        <Help fontSize="inherit" />
+                                        <p className="typography-note">
+                                            {
+                                                "카카오 로그인을 이용하면\n링크를 잃어버려도 내 테스트 결과를 안전하게 불러올 수 있어요."
+                                            }
+                                        </p>
+                                    </>
+                                }
+                                <div style={{ width: "100%" }}>
+                                    <KakaoLoginButton sx={{ width: "100%" }} />
+                                </div>
+                            </>
+                            :
+                            <Button onClick={handleLogout} color="gray" variant="contained" className="main-action-button">
+                                로그아웃
+                            </Button>
+                    }
+                </div>
+                <ConfirmDialog
+                    open={openConfirmDialog}
+                    onClose={handleCancelLogout}
+                    onCancel={handleCancelLogout}
+                    onConfirm={handleConfirmLogout}
+                    title={`로그아웃 할까요?`}
+                    body={`로그아웃하면 다시 로그인하기 전까지\n테스트 결과와 여행들을 확인할 수 없어요.`}
+                    cancelButtonLabel={'로그인 유지하기'}
+                    isConfirmDefault={false}
+                />
             </RoutedMotionPage>
         </AuthLoadRequiredContent>
     );

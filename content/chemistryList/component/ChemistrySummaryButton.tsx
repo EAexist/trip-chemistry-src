@@ -55,11 +55,11 @@ function ChemistrySummaryButton({ id }: ChemistrySummaryButtonProps) {
 
 
     return (
-        <Card className="block--xlarge_" elevation={0}>
+        <Card elevation={0}>
             <CardActionArea onClick={handleClick} className="flex-end">
                 <CardContent className="content">
-                    <h2 className="typography-heading">{chemistry.title}</h2>
-                    <Stack spacing={0.5}>
+                    <h2 className="typography-label">{chemistry.title}</h2>
+                    <Stack >
                         {
                             chemistry.profileIds.map((id) => {
                                 const { nickname, testResult } = chemistry.profiles[id]

@@ -112,7 +112,7 @@
 //             {
 //                 isConfirmModalOpen
 //                     ?
-//                     <div className='block--with-margin content content--large block--centered flex-grow'>
+//                     <div className='block--with-margin content content--sparse block--centered flex-grow'>
 //                         <h3 className='typography-label'>
 //                             {`${flaggedProfileListLength}명을 친구로 추가할까요?`}
 //                         </h3>
@@ -151,7 +151,7 @@
 //                                 }
 //                             </Button>
 //                         </Toolbar>
-//                         <div className='block--with-margin flex-grow content content--large flex'>
+//                         <div className='block--with-margin flex-grow content content--sparse flex'>
 //                             <TextField
 //                                 onChange={(event: ChangeEvent<HTMLInputElement>) => {
 //                                     setInput(event.target.value);
@@ -170,7 +170,7 @@
 //                             {
 //                                 profileSearchtatus === LoadStatus.FAIL
 //                                     ?
-//                                     <div className='flex-grow block--centered content content--large'>
+//                                     <div className='flex-grow block--centered content content--sparse'>
 //                                         <Warning />
 //                                         <h4>{commonStrings.error.connect}</h4>
 //                                         <p>{commonStrings.error.contact}</p>

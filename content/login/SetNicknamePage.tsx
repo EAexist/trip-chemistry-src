@@ -2,19 +2,19 @@
 import { useCallback, useContext, useState } from "react";
 
 /* Externals */
-import { Done, NavigateBefore } from "@mui/icons-material";
-import { Button, IconButton, Toolbar } from "@mui/material";
+import { Done } from "@mui/icons-material";
+import { AppBar, Button, Toolbar } from "@mui/material";
 
 /* App */
 
 import { USER } from "../../common/app-const";
-import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
-import AppBarContext, { useHideAppbar } from "../../components/AppBar/AppBarContext";
 import useSetNickname from "../../hooks/useSetNickname";
+import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { useUserInfo } from "../../reducers/authReducer";
 
-import TextFieldBlock from "../../components/Block/TextFieldBlock";
+import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
 import { useAppSelector } from "~/store";
+import TextFieldBlock from "../../components/Block/TextFieldBlock";
 
 interface SetNicknamePageProps {
     handleClose: () => void;
@@ -35,7 +35,6 @@ function SetNicknamePage({
 
     /* States */
     const [value, setValue] = useState(currentNickname ? currentNickname : (authProviderNickname ? authProviderNickname : ""));
-    const { setShow: setShowAppBar } = useContext(AppBarContext);
     const isInputAllowed = value.length > 0
 
     /* Event Handlers */
@@ -55,33 +54,31 @@ function SetNicknamePage({
     ), [USER.maxNicknameLength]);
 
     return (
-        <RoutedMotionPage doHideAppbar={true}>
-            <Toolbar className="block--with-margin-x">
-                <IconButton
-                    aria-label="cancel"
-                    onClick={handleClose}
-                    edge="start"
-                >
-                    <NavigateBefore />
-                </IconButton>
-                <Button
-                    disabled={!isInputAllowed || getIsConfirmAllowed(value)}
-                    onClick={() => handleConfirm(value)}
-                    variant='text'
-                    className=""
-                    startIcon={<Done />}
-                >
-                    확인
-                </Button>
-            </Toolbar>
-            <TextFieldBlock
-                value={value}
-                setValue={setValue}
-                getIsValueAllowed={getIsValueAllowed}
-                helperText={helperText}
-                title={"사용할 이름을 입력해주세요."}
-                className="block--with-margin-x"
-            />
+        <RoutedMotionPage >
+            <AppBar>
+                <Toolbar>
+                    <NavigateBeforeButton onClick={handleClose} />
+                    <Button
+                        disabled={!isInputAllowed || getIsConfirmAllowed(value)}
+                        onClick={() => handleConfirm(value)}
+                        variant='text'
+                        className=""
+                        startIcon={<Done />}
+                    >
+                        확인
+                    </Button>
+                </Toolbar>
+            </AppBar>
+            <Toolbar/>
+            <div className="wrapper">
+                <TextFieldBlock
+                    value={value}
+                    setValue={setValue}
+                    getIsValueAllowed={getIsValueAllowed}
+                    helperText={helperText}
+                    title={"사용할 이름을 입력해주세요."}
+                />
+            </div>
         </RoutedMotionPage>
     );
 }

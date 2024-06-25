@@ -1,24 +1,25 @@
-import { ListItemAvatar, ListItemText, Stack, useTheme } from "@mui/material";
-import { m } from "framer-motion";
-import { Fragment } from "react";
+import { Fade, Paper, Slider, Stack, Zoom } from "@mui/material";
+import { Fragment, useEffect, useState } from "react";
 import ProfileAvatar from "~/components/Avatar/ProfileAvatar";
-import { MotionList } from "~/motion/components/MotionList";
-import { MotionListItem } from "~/motion/components/MotionListItem";
-import LazyDomAnimation from "~/motion/LazyDomAnimation";
-import { VARIANTS_FADEIN_FROMBOTTOM, VARIANTS_STAGGER_CHILDREN } from "~/motion/props";
+import { dailyRestaurantSliderProps } from "~/content/test/DailyRestaurantTestContent";
 
 function ConflictSample() {
 
-    /* constants */
-    const { palette } = useTheme();
-
-    const scheduleChemistryText = "%해린% 님, %민지% 님, %하니% 님은 일정에 대한 욕심을 덜어보는 건 어떨까요?."
-    const scheduleChemistryTextList = scheduleChemistryText.split(/(%\S*%)/)
-
-    const scheduleAnswerToProfiles = {
-        1: {
-            label: "아주 널널하게",
-            profiles: [
+    const [show, setShow] = useState(true)
+    const answerToProfiles = {
+        8000:
+            [
+                {
+                    characterId: "RACOON",
+                    nickname: "민지"
+                },
+                {
+                    characterId: "BEE",
+                    nickname: "해린"
+                }
+            ],
+        16000:
+            [
                 {
                     characterId: "SLOTH",
                     nickname: "혜인"
@@ -27,74 +28,103 @@ function ConflictSample() {
                     characterId: "SLOTH",
                     nickname: "다니엘"
                 }
-            ]
-        },
-        4: {
-            label: "알차게",
-            profiles: [
-                {
-                    characterId: "RACOON",
-                    nickname: "민지"
-                },
+            ],
+        20000:
+            [
                 {
                     characterId: "PANDA",
                     nickname: "하니"
                 }
-            ]
-        },
-        5: {
-            label: "매우 알차게",
-            profiles: [
-                {
-                    characterId: "BEE",
-                    nickname: "해린"
-                }
-            ]
-        },
+            ],
     }
 
+    const lowDailyBudgetMemberNicknames = ["민지", "해린"]
+
+    const userIndexSwitchInterval = 6000
+
+    useEffect(() => {
+        setInterval(() => {
+            setShow(false)
+        }, userIndexSwitchInterval)
+    }, [])
+
+    useEffect(() => {
+        if (!show)
+            setTimeout(() =>
+                setShow(true),
+                1000
+            )
+    }, [show])
+
     return (
-        <LazyDomAnimation>
-            <div className="content">
-                <MotionList initial={"hidden"} whileInView={"visible"} variants={VARIANTS_STAGGER_CHILDREN} disablePadding custom={{ staggerChildren: 0.1 }}>
-                    {
-                        Object.entries(scheduleAnswerToProfiles).map(([value, { label, profiles }]) => (
-                            <MotionListItem variants={VARIANTS_FADEIN_FROMBOTTOM} key={value} disableGutters dense>
-                                {
-                                    (value === "4") &&
-                                    <div style={{ position: 'absolute', backgroundColor: palette.primary.light, opacity: 0.5, width: '100%', height: '100%' }} className="block--round" />
-                                }
-                                <ListItemAvatar style={{ width: "100px", zIndex: 1 }} className="block--centered">
-                                    <p className="typography-label">{label}</p>
-                                </ListItemAvatar>
-                                <ListItemText primary={
-                                    <Stack>
-                                        <Stack spacing={0.5}>
-                                            {
-                                                profiles.map(({ characterId, nickname }) => (
-                                                    <ProfileAvatar key={nickname} avatarId={characterId} nickname={nickname} />
-                                                ))
-                                            }
-                                        </Stack>
+            <div className="content wrapper">
+                {
+                    show &&
+                    <>
+                        <Fade in={show} style={{ transitionDelay: show ? `2000ms` : '0ms' }}>
+                            <Paper sx={{ backgroundColor: "gray.main", transform: "scale(0.9)" }} className="wrapper wrapper--small">
+                                <p className="typography-article">
+                                    {
+                                        lowDailyBudgetMemberNicknames.map((nickname, index) =>
+                                            <Fragment key={nickname}>
+                                                <b>{nickname}</b>
+                                                {" 님, "}
+                                            </Fragment>
+                                        )
+                                    }
+                                    {"여행지의 맛있는 음식들에 대해 친구들의 이야기를 들어보고, 예산을 조정해 함께해보세요."}
+                                </p>
+                            </Paper>
+                        </Fade>
+                        <div className="wrapper">
+                            <Slider
+                                {...dailyRestaurantSliderProps}
+                                size="small"
+                                valueLabelDisplay="on"
+                                valueLabelFormat={(value, index) => (
+                                    Object.keys(answerToProfiles).includes(value.toString())
+                                    &&
+                                    <Stack spacing={-0.5}>
+                                        {
+                                            answerToProfiles[value].map(({ characterId, nickname }) =>
+                                                <Zoom key={nickname} in={show} style={{ transitionDelay: show ? `${400 * index}ms` : '0ms' }}>
+                                                    <div>
+                                                        <ProfileAvatar avatarId={characterId} nickname={nickname} />
+                                                    </div>
+                                                </Zoom>
+                                            )
+                                        }
                                     </Stack>
-                                } sx={{ marginLeft: "16px", zIndex: 1 }} />
-                            </MotionListItem>
-                        )).reverse()
-                    }
-                    <m.div className="content" variants={VARIANTS_FADEIN_FROMBOTTOM}>
-                        <p style={{ fontSize: "16px", lineHeight: '1.7rem' }}>
-                            {
-                                scheduleChemistryTextList.map((t, index) =>
-                                    t[0] === "%"
-                                        ? <b key={index}>{t.replaceAll('%', '')}</b>
-                                        : <Fragment key={index}>{t}</Fragment>
-                                )
-                            }
-                        </p>
-                    </m.div>
-                </MotionList>
+                                )}
+                                track={false}
+                                sx={{
+                                    '& .MuiSlider-valueLabel': {
+                                        background: 'unset',
+                                    },
+                                    '& .MuiSlider-markLabel': {
+                                        fontSize: 12,
+                                        width: "48px",
+                                        whiteSpace: "pre-line",
+                                        textAlign: "center"
+                                    },
+                                    '& .Mui-disabled': {
+                                        color: "primary.main"
+                                    },
+                                    marginTop: "48px",
+                                    marginBottom: 0,
+                                }}
+                                value={Object.keys(answerToProfiles).map(value => Number(value))}
+                                marks={Object.keys(answerToProfiles).map(value => ({
+                                    value: Number(value),
+                                    label: value
+                                }))}
+                                min={8000}
+                                max={20000}
+                            />
+                        </div>
+                    </>
+                }
             </div>
-        </LazyDomAnimation>
     );
 }
 export default ConflictSample;

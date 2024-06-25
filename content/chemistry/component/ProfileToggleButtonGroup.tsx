@@ -26,7 +26,7 @@ function ProfileToggleButtonGroup({ activeProfileId, setActiveProfileId }: Profi
         ))
 
     return (
-        <Stack spacing={-0.25} justifyContent={'center'} alignItems={'center'}>
+        <Stack spacing={0} alignItems={'end'}>
             {
                 isAnsweredList.map(({ id, isAnswered }, index) => (
                     <ToggleButton

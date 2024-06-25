@@ -245,7 +245,7 @@
 //                                     </m.div>
 //                                     <Divider />
 //                                 </div> */}
-//                                 <ScrollPageContainer onPageChange={(page) => setStep(page)} pages={Object.keys(TEST_SECTIONS).length}>
+//                                 <ScrollPageContainer page={page} setPage={setPage} onPageChange={(page) => setStep(page)} pages={Object.keys(TEST_SECTIONS).length}>
 //                                     {
 //                                         (["expectation", "activity"] as IHashTagTestKey[]).map((testKey, index) => {
 //                                             return (
@@ -253,7 +253,7 @@
 //                                                     <TestSection>
 //                                                         {/* https://codesandbox.io/p/sandbox/6gw7p4?file=/src/App.jsx */}
 //                                                         <div className="flex-grow block--centered">
-//                                                             <div className="block--with-margin-x content content--large">
+//                                                             <div className="block--with-margin-x content content--sparse">
 //                                                                 <TestInstruction testKey={testKey as ITestKey} />
 //                                                                 <Stack flexWrap={"wrap"} justifyContent={"center"} rowGap={1}>
 //                                                                     <TagSetTestAnswerChip testKey={testKey} />
@@ -302,7 +302,7 @@
 //                                                     }
 //                                                 </Stack>
 //                                             </div>
-//                                             <div className="block content content--large">
+//                                             <div className="block content content--sparse">
 //                                                 <div className="test__title">
 //                                                     <h2 className="test__title__heading typography-heading">{contentstrings.test.leadership.title}</h2>
 //                                                 </div>
@@ -314,7 +314,7 @@
 //                                     <ScrollPageItem key={"schedule"} page={3} className="flex">
 //                                         <TestSection>
 //                                             <div className="flex-grow block--centered">
-//                                                 <div className="test__google-map-container modal__container block--round block--round--large" style={{ overflow: "hidden" }}>
+//                                                 <div className="google-map__container modal__container block--round" style={{ overflow: "hidden" }}>
 //                                                     <div style={{ position: "absolute", top: 8, left: 8, zIndex: 1 }}>
 //                                                         {
 //                                                             showMapTitle ?
@@ -358,7 +358,7 @@
 //                                                     </GoogleMapContext.Provider>
 //                                                 </div>
 //                                             </div>
-//                                             <div className="block content content--large">
+//                                             <div className="block content content--sparse">
 //                                                 <div className="test__title">
 //                                                     <h2 className="test__title__heading typography-heading">{contentstrings.test.schedule.title}</h2>
 //                                                 </div>
@@ -476,7 +476,7 @@
 //                                                             }
 //                                                         </Swiper>
 //                                                     </div>
-//                                                     <div className="block content content--large">
+//                                                     <div className="block content content--sparse">
 //                                                         <div className="test__title">
 //                                                             <h2 className="test__title__heading typography-heading">{contentstrings.test.city.titleTextList.map((text) => (
 //                                                                 text === "/testKey"

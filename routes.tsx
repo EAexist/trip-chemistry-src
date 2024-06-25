@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import loadable from '@loadable/component';
 
 /* App */
-import { TEST } from './common/app-const';
+import { CITIES, TEST } from './common/app-const';
 import { store } from './store';
 import Page from './route/Page';
 
@@ -28,6 +28,7 @@ const ChemistryContent = loadable(() => import( /* webpackChunkName: "ChemistryC
 
 /* Auth-requiring Contents */
 const CityDetailContent = loadable(() => import( /* webpackChunkName: "CityDetailContent" */'./content/city/CityDetailContent'));
+
 const TestContent = loadable(() => import(/* webpackChunkName: "TestContent" */ './content/test/TestContent'));
 const LoginContent = loadable(() => import( /* webpackChunkName: "LoginContent" */'./content/login/LoginContent'));
 const InitializeNicknameContent = loadable(() => import( /* webpackChunkName: "InitializeNicknameContent" */'./content/login/InitializeNicknameContent'));
@@ -39,10 +40,10 @@ const ChemistryListContent = loadable(() => import( /* webpackChunkName: "Chemis
 const CreateChemistryContent = loadable(() => import( /* webpackChunkName: "CreateChemistryContent" */'./content/chemistryList/CreateChemistryContent'));
 
 const cityDetailRoute =
-    <Route key={'city'} path={'city'} element={<Outlet />} >
+    <Route key={'city'} path={'city'} element={<Outlet />}>
         {
-            Object.keys(TEST.city.subTests).map((cityClass) => (
-                <Route key={cityClass} path={cityClass} element={<CityDetailContent cityClass={cityClass as keyof typeof TEST.city.subTests} />} />
+            Object.keys(CITIES).map((cityId) => (
+                <Route key={cityId} path={cityId} element={<CityDetailContent cityId={cityId} />} />
             ))
         }
     </Route>

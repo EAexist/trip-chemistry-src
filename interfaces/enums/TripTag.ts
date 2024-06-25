@@ -1,6 +1,7 @@
 import { enumFromList } from "../../utils/utils";
 
 const TripTagList = [
+    "DEFAULT",
     "PHOTO",
     "EAT",
     "FRIENDSHIP",

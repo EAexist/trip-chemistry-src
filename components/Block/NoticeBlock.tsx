@@ -2,12 +2,12 @@
 import { PropsWithChildren } from "react";
 
 /* Externals */
-import { Button, ButtonProps, Toolbar } from "@mui/material";
+import { ButtonProps, Toolbar } from "@mui/material";
 import { m } from 'framer-motion';
-import LazyDomAnimation from "../../motion/LazyDomAnimation";
 
 /* App */
-import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
+import { FADEIN } from "../../motion/props";
+import Fab from "../Button/Fab";
 import LazyImage from "../LazyImage";
 
 
@@ -34,12 +34,11 @@ function NoticeBlock({
 
     return (
             <div className={`page flex ${isFullscreen ? 'fill-window' : ''}`}>
-            <LazyDomAnimation>
                 {
                     isFullscreen &&
                     <Toolbar />
                 }
-                <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className='flex-grow block--centered content content--large wrapper'>
+                <m.div {...FADEIN} className='flex-grow block--centered content content--sparse wrapper'>
                     {
                         title &&
                         <h2 className="typography-heading">
@@ -70,22 +69,17 @@ function NoticeBlock({
                 </m.div>
                 {
                     buttonProps.onClick &&
-                    <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="flex">
-                            <Button
-                                variant="contained"
-                                style={{
-                                    visibility: buttonProps.onClick !== undefined
-                                        ? "visible"
-                                        : "hidden"
-                                }}
-                                className="block--with-padding block--with-margin block--with-margin--large"
-                                {...buttonProps}
-                            >
-                                { buttonText }
-                            </Button>
-                    </m.div>
+                    <Fab
+                        sx={{
+                            visibility: buttonProps.onClick !== undefined
+                                ? "visible"
+                                : "hidden"
+                        }}
+                        {...buttonProps}
+                    >
+                        { buttonText }
+                    </Fab>
                 }
-                </LazyDomAnimation>
             </div>
     );
 }
