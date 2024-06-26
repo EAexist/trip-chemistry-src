@@ -56,7 +56,7 @@ function LoginContent({ title = "테스트를 시작해볼까요?" }: LoginConte
     useEffect(() => {
         const urlObject = new URL(url);
         urlObject.searchParams.set('client_id', `${window.ENV.REACT_APP_KAKAO_REST_API_KEY}`);
-        urlObject.searchParams.set('redirect_uri', `${window.ENV.REACT_APP_KAKAO_REDIRECT_URL}`);
+        urlObject.searchParams.set('redirect_uri', `${window.ENV.PUBLIC_URL}${window.ENV.REACT_APP_KAKAO_REDIRECT_PATH}`);
         urlObject.searchParams.set('response_type', 'code');
         setUrl(urlObject.toString());
     }, []);
