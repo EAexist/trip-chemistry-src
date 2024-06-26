@@ -478,12 +478,8 @@ button {
     /* object-fit: contain; */
 }
 
-.Logo--small {
-    height: 1.6rem;
-}
-
 .Logo--medium {
-    height: 2rem;
+    height: 32px;
 }
 
 /* flag */

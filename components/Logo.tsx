@@ -11,7 +11,7 @@ interface LogoProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 function Logo({ id, format = 'webp', size = "medium", iconName, ...props }: LogoProps) {
 
     // const src = getImgSrc( '/logos', `logo-${id}-${size}`, format )
-    const src = getImgSrc( '/logos', `logo-${id}`, { format } )
+    const src = getImgSrc( '/logos', `${id}`, { format } )
 
     return (
         <img

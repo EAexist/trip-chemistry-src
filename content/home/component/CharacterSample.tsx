@@ -14,8 +14,8 @@ function CharacterSample() {
             id: "hyein",
             nickname: "혜인",
             character: {
-                id: "SLOTH",
-                name: "느긋한 나무늘보"
+                id: "user",
+                name: "사용자"
             }
         },
         {

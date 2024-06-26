@@ -82,7 +82,7 @@ const stringTable_kr = {
                     name: "웹사이트",
                     body: ""
                 },
-                "discovering-hongkong": {
+                "hongkong-tourism-board": {
                     name: "홍콩관광청",
                     body: ""
                 },
@@ -328,7 +328,7 @@ const stringTable_kr = {
                     name: "삿포로",
                     nation: "jp",
                     // link: "https://www.discoverhongkong.com/eng/index.html",
-                    // linkType: "discovering-hongkong",
+                    // linkType: "hongkong-tourism-board",
                     intro: "일본의 수도이자 세계에서 인구밀도가 가장 높은 대도시 도쿄는 전통과 혁신이 공존하며, 맛있는 음식과 쇼핑을 즐기고 탐방할 공간이 가득합니다.",
                     body: "\
                         도쿄는 일본의 가장 큰 섬인 혼슈의 간토 지방에 속하는 도쿄만에 위치합니다. \
@@ -344,7 +344,7 @@ const stringTable_kr = {
                     name: "홍콩",
                     nation: "hk",
                     link: "https://www.discoverhongkong.com/kr/explore/neighbourhoods/old-town-central.html",
-                    linkType: "discovering-hongkong",
+                    linkType: "hongkong-tourism-board",
                     intro: "세계가 만나는 곳",
                     body: "\
                         홍콩은 화려한 고층 건물과 세계적인 수준의 명소들로 잘 알려져 있지만, 오늘날 홍콩이라는 도시가 어떻게 이 같은 대도시로 부상하게 된지 이해하려면 올드 타운 센트럴을 방문하면 됩니다. \
@@ -385,7 +385,7 @@ const stringTable_kr = {
             "website": {
                 name: "웹사이트",
             },
-            "discovering-hongkong": {
+            "hongkong-tourism-board": {
                 name: "홍콩관광청",
             },
         },

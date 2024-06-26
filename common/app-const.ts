@@ -183,7 +183,7 @@ export const LINK = {
     "website": {
         link: ""
     },
-    "discovering-hongkong": {
+    "hongkong-tourism-board": {
         link: ""
     },
 }
@@ -1117,8 +1117,8 @@ export const CITIES = {
     hongkong:
     {
         nation: "hk",
-        link: "https://www.discoverhongkong.com/eng/index.html",
-        linkType: "discovering-hongkong",
+        link: "https://www.discoverhongkong.com/us/index.html",
+        linkType: "hongkong-tourism-board",
         type: "metropolis"
     },
 }
