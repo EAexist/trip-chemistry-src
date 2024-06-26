@@ -1,13 +1,15 @@
-import { createBrowserRouter, RouterProvider, ScrollRestoration } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { ThemeProvider } from '@mui/material'
-import routes from './routes'
-import './styles/index.css'
-import theme from './mui/theme'
-
-import { HelmetProvider } from 'react-helmet-async'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { HelmetProvider } from 'react-helmet-async'
+
+import theme from './mui/theme'
+import routes from './routes'
+
+
+import './styles/index.css'
 
 export default function App() {
 
