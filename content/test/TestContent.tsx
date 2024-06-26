@@ -26,7 +26,7 @@ import { SwiperOptions } from "swiper/types";
 import { CITY_TYPE_KEYS, TEST_TYPE } from "~/common/app-const";
 import Fab from "~/components/Button/Fab";
 import MainMenuButton from "~/components/Button/MenuButton";
-import ConfirmDialog from "~/components/ConfirmDialog";
+import ConfirmDrawer from "~/components/ConfirmDrawer";
 import DraggableModal from "~/components/Paper/DraggableModal";
 import { useAppSelector } from "~/store";
 import PngIcon from "../../components/PngIcon";
@@ -238,10 +238,10 @@ function TestContent() {
     }
 
     /* Confirm Dialog */
-    const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+    const [openConfirmDrawer, setOpenConfirmDrawer] = useState(false);
 
-    const handleCloseConfirmDialog = () => {
-        setOpenConfirmDialog(false);
+    const handleCloseConfirmDrawer = () => {
+        setOpenConfirmDrawer(false);
     }
 
     const handleConfirmSubmit = () => {
@@ -250,7 +250,7 @@ function TestContent() {
 
     /* Main Action Button */
     const handleFinishTest = () => {
-        setOpenConfirmDialog(true);
+        setOpenConfirmDrawer(true);
     }
 
     const handleNextButtonClick = () => {
@@ -316,10 +316,10 @@ function TestContent() {
                     <Fab onClick={isAllTestAnswered ? handleFinishTest : handleNextButtonClick} disabled={(!isAllTestAnswered) && !isActiveTestAnswered}>
                         {isAllTestAnswered ? "결과 확인하기" : "다음"}
                     </Fab>
-                    <ConfirmDialog
-                        open={openConfirmDialog}
-                        onClose={handleCloseConfirmDialog}
-                        onCancel={handleCloseConfirmDialog}
+                    <ConfirmDrawer
+                        open={openConfirmDrawer}
+                        onClose={handleCloseConfirmDrawer}
+                        onCancel={handleCloseConfirmDrawer}
                         onConfirm={handleConfirmSubmit}
                         title={"답변을 제출할까요?"}
                         cancelButtonLabel={'답변 한 번 더 확인하기'}

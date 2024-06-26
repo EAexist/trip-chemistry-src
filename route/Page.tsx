@@ -74,6 +74,7 @@ function Page({ }) {
                 <DrawerContext.Provider value={{ openDrawer, setOpenDrawer }}>
                     <AppDrawer
                         open={openDrawer}
+                        onOpen={() => setOpenDrawer(true)}
                         onClose={() => setOpenDrawer(false)}
                         onDrawerItemClick={() => setOpenDrawer(false)}
                     />

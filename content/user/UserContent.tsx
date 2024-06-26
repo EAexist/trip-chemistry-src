@@ -8,7 +8,7 @@ import { Button, ButtonBase, Icon, IconButton, Toolbar } from "@mui/material";
 /* App */
 import { useState } from "react";
 import MainAppBar from "~/components/AppBar/MainAppBar";
-import ConfirmDialog from "~/components/ConfirmDialog";
+import ConfirmDrawer from "~/components/ConfirmDrawer";
 import UserAvatar from "../../components/Avatar/UserAvatar";
 import KakaoLoginButton from "../../components/Button/KakaoLoginButton";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
@@ -41,15 +41,15 @@ function UserContent() {
     }
 
 
-    /* ConfirmDialog */
-    const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+    /* ConfirmDrawer */
+    const [openConfirmDrawer, setOpenConfirmDrawer] = useState(false);
 
     const handleLogout = () => {
-        setOpenConfirmDialog(true);
+        setOpenConfirmDrawer(true);
     }
     
     const handleCancelLogout = () => {
-        setOpenConfirmDialog(false);
+        setOpenConfirmDrawer(false);
     }
 
     const handleConfirmLogout = () => {
@@ -113,8 +113,8 @@ function UserContent() {
                             </Button>
                     }
                 </div>
-                <ConfirmDialog
-                    open={openConfirmDialog}
+                <ConfirmDrawer
+                    open={openConfirmDrawer}
                     onClose={handleCancelLogout}
                     onCancel={handleCancelLogout}
                     onConfirm={handleConfirmLogout}

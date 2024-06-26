@@ -1,5 +1,5 @@
 
-import { AppBar, Avatar, Divider, Drawer, DrawerProps, ListItemAvatar, ListItemButton, ListItemText, Stack, Toolbar, useTheme } from "@mui/material";
+import { AppBar, Avatar, Divider, ListItemAvatar, ListItemButton, ListItemText, Stack, SwipeableDrawer, SwipeableDrawerProps, Toolbar } from "@mui/material";
 import { m } from "framer-motion";
 import { useLocation } from "~/router-module";
 
@@ -15,7 +15,7 @@ import UserAvatar from "../Avatar/UserAvatar";
 import NavigateBeforeButton from "../Button/NavigateBeforeButton";
 import PngIcon from "../PngIcon";
 
-interface AppDrawerProps extends DrawerProps {
+interface AppDrawerProps extends SwipeableDrawerProps {
     onDrawerItemClick: () => void
 };
 
@@ -24,8 +24,7 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
     /* Hooks */
     const navigate = useNavigateWithGuestContext();
     const strings = useStrings();
-    const { pathname, search } = useLocation();
-    const { zIndex } = useTheme();
+    const { pathname } = useLocation();
 
     /* Reducers */
     const isAuthorized = useIsAuthorized();
@@ -36,10 +35,9 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
         onDrawerItemClick();
         navigate(path);
     };
-    const title = useStrings().public.common.title
 
     return (
-            <Drawer
+            <SwipeableDrawer
                 anchor={"right"}
                 {...props}
             >
@@ -123,13 +121,12 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
                                             }
                                         />
                                     </MotionListItemButton>
-                                    // </MotionListItem>
                                 )
                             }
                         </MotionList>
                     </div>
                 </m.div>
-            </Drawer>
+            </SwipeableDrawer>
     );
 }
 export default AppDrawer;

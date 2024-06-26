@@ -5,7 +5,7 @@ import { useState } from "react";
 
 
 /* App */
-import ConfirmDialog from "~/components/ConfirmDialog";
+import ConfirmDrawer from "~/components/ConfirmDrawer";
 import { Navigate, useLocation, useNavigate } from "~/router-module";
 import { IUserProfile } from "../../interfaces/IUserProfile";
 import { authorize, setIsInitialized, useUserProfile } from "../../reducers/authReducer";
@@ -21,14 +21,14 @@ function InitializeNicknameContent() {
     const navigate = useNavigate();
 
     /* States */
-    const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+    const [openConfirmDrawer, setOpenConfirmDrawer] = useState(false);
 
     /* Reducers */
     const { id: userId, authProvider } = useUserProfile() as IUserProfile;
 
     /* Event Handlers */
     const handleClose = () => {
-        setOpenConfirmDialog(true);
+        setOpenConfirmDrawer(true);
     }
 
     const handleCancelLogin = () => {
@@ -36,7 +36,7 @@ function InitializeNicknameContent() {
     }
 
     const handleContinueLogin = () => {
-        setOpenConfirmDialog(false);
+        setOpenConfirmDrawer(false);
     }
 
     const handleSuccess = () => {
@@ -64,8 +64,8 @@ function InitializeNicknameContent() {
                     handleClose={handleClose}
                     doRequireInitialization={true}
                 />
-                <ConfirmDialog
-                    open={openConfirmDialog}
+                <ConfirmDrawer
+                    open={openConfirmDrawer}
                     onClose={handleCancelLogin}
                     onCancel={handleContinueLogin}
                     onConfirm={handleCancelLogin}

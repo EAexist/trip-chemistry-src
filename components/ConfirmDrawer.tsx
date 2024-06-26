@@ -1,13 +1,10 @@
 /* React */
 
 /* Externals */
+import { Button, Stack, SwipeableDrawer, SwipeableDrawerProps } from "@mui/material";
 import { Close, Done } from "@mui/icons-material";
-import { Button, DialogProps, Drawer, Stack } from "@mui/material";
 
-
-/* App */
-
-interface ConfirmDialogProps extends Pick<DialogProps, "open" | "onClose"> {
+interface ConfirmDrawerProps extends Pick<SwipeableDrawerProps, "open" | "onOpen" | "onClose"> {
     onCancel: () => void
     onConfirm: () => void
     title: string
@@ -16,15 +13,14 @@ interface ConfirmDialogProps extends Pick<DialogProps, "open" | "onClose"> {
     isConfirmDefault?: boolean
 };
 
-function ConfirmDialog({ open, onClose, title, body, cancelButtonLabel, onConfirm, onCancel, isConfirmDefault = true }: ConfirmDialogProps) {
+function ConfirmDrawer({ title, body, cancelButtonLabel, onConfirm, onCancel, isConfirmDefault = true, ...props }: ConfirmDrawerProps) {
     return (
-            <Drawer
+            <SwipeableDrawer
                 anchor="bottom"
-                open={open}
-                onClose={onClose}
                 sx={{
                     borderRadius: "16px"
                 }}
+                {...props}
             >
                 <div className='wrapper content content--sparse'>
                     <h2 className='typography-heading'>
@@ -44,10 +40,10 @@ function ConfirmDialog({ open, onClose, title, body, cancelButtonLabel, onConfir
                         </Stack>
                     </div>
                 </div>
-            </Drawer>
+            </SwipeableDrawer>
     );
 }
-export default ConfirmDialog;
+export default ConfirmDrawer;
 
 /* Deprecated */
 

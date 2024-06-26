@@ -26,7 +26,7 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import getImgSrc from "../../utils/getImgSrc";
 import LoginContent from "../login/LoginContent";
 import ChemistryDetailContent from "./ChemistryDetailContent";
-import ConfirmDialog from "~/components/ConfirmDialog";
+import ConfirmDrawer from "~/components/ConfirmDrawer";
 
 const { Helmet } = ReactHelmetAsync
 
@@ -283,7 +283,7 @@ function ChemistryContent() {
                                         }
                                     </Paper>
                             }
-                            <ConfirmDialog
+                            <ConfirmDrawer
                                 open={openConfirmJoinDialog}
                                 onClose={handleCloseConfirmJoinDialog}
                                 onCancel={handleCloseConfirmJoinDialog}
