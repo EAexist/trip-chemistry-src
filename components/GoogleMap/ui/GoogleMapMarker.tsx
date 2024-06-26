@@ -1,14 +1,10 @@
-import { ComponentType, ReactNode, useContext, useEffect, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
+import { useTheme } from "@mui/material";
 
-import { CENTER_FUKUOKA_TENJIN } from "../common/options";
 import { useGoogleMapContext } from "../common/GoogleMapContext";
-import Marker, { MarkerProps } from "./Marker";
-import { useInfoWindowContext } from "../common/InfoWindowContext";
-import { Card, CardActionArea, CardContent, CardMedia, IconButton, Stack, useTheme } from "@mui/material";
-import { Cancel, NavigateNext } from "@mui/icons-material";
-import getImgSrc from "~/utils/getImgSrc";
 import SelectedPlaceContext from "../common/SelectedPlaceContext";
+import Marker, { MarkerProps } from "./Marker";
 
 interface GoogleMapMarkerProps extends MarkerProps {
     isActive?: boolean
@@ -17,7 +13,6 @@ interface GoogleMapMarkerProps extends MarkerProps {
     body?: string
     href?: string
     id?: string
-    infoWindowStyle?: string
     marker?: google.maps.marker.AdvancedMarkerElement
 };
 
@@ -28,7 +23,7 @@ const renderContent = (children: ReactNode) => {
     return (content);
 }
 
-const GoogleMapMarker = ({ isActive = true, position, label, body, href, id, icon, infoWindowStyle }: GoogleMapMarkerProps) => {
+const GoogleMapMarker = ({ isActive = true, position, label, body, href, id, icon }: GoogleMapMarkerProps) => {
 
     const { map } = useGoogleMapContext();
     // const { selectedInfoWindow, setSelectedInfoWindow } = useInfoWindowContext();
@@ -52,7 +47,7 @@ const GoogleMapMarker = ({ isActive = true, position, label, body, href, id, ico
         if (marker === undefined) {
             const asyncSetMarker = async () => {
                 const { AdvancedMarkerElement } = await google.maps.importLibrary("marker") as google.maps.MarkerLibrary;
-                const { InfoWindow } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
+                // const { InfoWindow } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
 
                 // GoogleMap API Marker 객체
                 const markerElement = new AdvancedMarkerElement({
@@ -179,4 +174,4 @@ const GoogleMapMarker = ({ isActive = true, position, label, body, href, id, ico
 };
 
 export default GoogleMapMarker;
-export type { GoogleMapMarkerProps }
+export type { GoogleMapMarkerProps };

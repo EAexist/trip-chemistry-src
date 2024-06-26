@@ -47,7 +47,7 @@ function ChemistryContent() {
     const chemistryId = params.chemistryId ? params.chemistryId : "";
 
     /* Induced */
-    const link = `${env.REACT_APP_API_URL}/chemistry/${chemistryId}`;
+    const link = `${env.PUBLIC_URL}/chemistry/${chemistryId}`;
 
     /* Reducers */
     const { title, profiles, profileIds } = useAppSelector((state) => state.chemistry.data);
@@ -151,7 +151,7 @@ function ChemistryContent() {
     }
 
     useEffect(()=>{
-        if( isAuthorized && !isMember){
+        if( isAuthorized && (isMember===false)){
             setOpenConfirmJoinDialog(true);
         }
     }, [ isAuthorized, isMember ])

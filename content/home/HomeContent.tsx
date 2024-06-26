@@ -82,7 +82,7 @@ function HomeContent() {
                 nextButton={null}
                 backButton={null}
                 variant="progress"
-                sx={{ position: "fixed", bottom: "96px", left: "50%", transform: "translateX(-50%)", width: "128px", "& .MuiLinearProgress-root" : { width: "100%" } }}
+                sx={{ position: "fixed", bottom: "88px", left: "50%", transform: "translateX(-50%)", width: "128px", "& .MuiLinearProgress-root" : { width: "100%" } }}
             />
             <ScrollPageContainer page={page} setPage={setPage} pages={4}>
                 <ScrollPageItem key={"home"} page={0} className={`flex`}>
