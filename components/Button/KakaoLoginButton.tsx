@@ -8,6 +8,7 @@ import { useLocation } from "~/router-module";
 /* App */
 import { KAKAO_AUTH_URL_BASE } from "../../common/auth";
 import getImgSrc from "../../utils/getImgSrc";
+import env from "~/env";
 // import env from "~/env";
 
 function KakaoLoginButton({ sx, ...props }: Omit<ButtonBaseProps, "href">) {
@@ -33,8 +34,8 @@ function KakaoLoginButton({ sx, ...props }: Omit<ButtonBaseProps, "href">) {
 
     useEffect(() => {
         const urlObject = new URL(url);
-        urlObject.searchParams.set('client_id', `${window.ENV.REACT_APP_KAKAO_REST_API_KEY}`);
-        urlObject.searchParams.set('redirect_uri', `${window.ENV.PUBLIC_URL}${window.ENV.REACT_APP_KAKAO_REDIRECT_PATH}`);
+        urlObject.searchParams.set('client_id', `${env.REACT_APP_KAKAO_REST_API_KEY}`);
+        urlObject.searchParams.set('redirect_uri', `${env.REACT_APP_PUBLIC_URL}${env.REACT_APP_KAKAO_REDIRECT_PATH}`);
         urlObject.searchParams.set('response_type', 'code');
         setUrl(urlObject.toString());
     }, []);

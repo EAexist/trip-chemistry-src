@@ -31,10 +31,10 @@ export default function App() {
                 <meta property="og:site_name" content={"여행 타입 테스트"} />
                 <meta property="og:title" content={"여행 타입 테스트"} />
                 <meta property="og:description" content={"여행 타입 테스트로 친구랑 함께 떠나는 여행 준비하기. 나의 여행 MBTI는 뭘까? 여행 계획, 여행 일정, 여행 예산, 국내 해외 여행지까지 서로 다른 취향을 맞춰봐."} />
-                <meta property="og:url" content={env.PUBLIC_URL} />
+                <meta property="og:url" content={env.REACT_APP_PUBLIC_URL} />
                 <meta property="og:image" content={"/images/icon/app-large.webp"} />
 
-                <link rel="canonical" href={env.PUBLIC_URL} />
+                <link rel="canonical" href={env.REACT_APP_PUBLIC_URL} />
             </Helmet>
             <ThemeProvider theme={theme}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>

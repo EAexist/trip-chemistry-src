@@ -6,15 +6,14 @@ import { Button, Stack, Toolbar } from "@mui/material";
 import { useLocation, useNavigate } from "~/router-module";
 
 /* App */
-import { Help } from "@mui/icons-material";
-import MainAppBar from "~/components/AppBar/MainAppBar";
+import { KakoLoginHelp } from "~/components/KakaoLoginHelp";
+import env from "~/env";
 import { useAppSelector } from "~/store";
 import { KAKAO_AUTH_URL_BASE } from "../../common/auth";
 import KakaoLoginButton from "../../components/Button/KakaoLoginButton";
 import { asyncGuestSignIn, authorize } from "../../reducers/authReducer";
 import { useAppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
-import { KakoLoginHelp } from "~/components/KakaoLoginHelp";
 // import env from "~/env";
 interface LoginContentProps {
     title?: string;
@@ -55,8 +54,8 @@ function LoginContent({ title = "테스트를 시작해볼까요?" }: LoginConte
 
     useEffect(() => {
         const urlObject = new URL(url);
-        urlObject.searchParams.set('client_id', `${window.ENV.REACT_APP_KAKAO_REST_API_KEY}`);
-        urlObject.searchParams.set('redirect_uri', `${window.ENV.PUBLIC_URL}${window.ENV.REACT_APP_KAKAO_REDIRECT_PATH}`);
+        urlObject.searchParams.set('client_id', `${env.REACT_APP_KAKAO_REST_API_KEY}`);
+        urlObject.searchParams.set('redirect_uri', `${env.REACT_APP_PUBLIC_URL}${env.REACT_APP_KAKAO_REDIRECT_PATH}`);
         urlObject.searchParams.set('response_type', 'code');
         setUrl(urlObject.toString());
     }, []);
