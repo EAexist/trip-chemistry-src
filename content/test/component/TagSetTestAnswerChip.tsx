@@ -2,7 +2,8 @@
 import { useEffect } from "react";
 
 
-import { Chip } from "@mui/material";
+import { Chip, Zoom } from "@mui/material";
+import { m } from "framer-motion";
 
 import { IHashTagTestKey } from "~/interfaces/ITestAnswer";
 import { useAppDispatch } from "~/store";
@@ -36,16 +37,18 @@ const TagSetTestAnswerChip = ({ testKey, selected = true }: TagSetTestAnswerChip
     return(
         <>
             {
-                hashtag.map(( tag ) => (    
+                hashtag.map(( tag ) => (   
+                    <Zoom in={true} appear={selected}> 
                     <Chip 
                         key={tag}
-                        label={ `${selected ? '# ' : ''}${tagToLabel[ tag as keyof typeof tagToLabel ]}` }
+                        label={ `${selected ? '# ' : ''}${tagToLabel[tag]}` }
                         onClick={ selected ? () => handleDelete(tag) : () => handleClick(tag) }
                         // onClick={ selected ? undefined : () => handleClick(tag) }
                         // onDelete={ selected ? () => handleDelete(tag) :  undefined }
                         variant={ selected ? "filled" : "outlined" }
                         color={"primary"}
                     />
+                    </Zoom>
                 ))
             }
         </>
