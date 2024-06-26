@@ -318,6 +318,7 @@ function TestContent() {
                     </Fab>
                     <ConfirmDrawer
                         open={openConfirmDrawer}
+                        onOpen={()=>setOpenConfirmDrawer(true)}
                         onClose={handleCloseConfirmDrawer}
                         onCancel={handleCloseConfirmDrawer}
                         onConfirm={handleConfirmSubmit}

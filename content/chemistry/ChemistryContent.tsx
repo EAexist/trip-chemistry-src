@@ -285,6 +285,7 @@ function ChemistryContent() {
                             }
                             <ConfirmDrawer
                                 open={openConfirmJoinDialog}
+                                onOpen={()=>setOpenConfirmJoinDialog(true)}
                                 onClose={handleCloseConfirmJoinDialog}
                                 onCancel={handleCloseConfirmJoinDialog}
                                 onConfirm={handleConfirmJoin}

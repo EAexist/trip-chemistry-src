@@ -66,6 +66,7 @@ function InitializeNicknameContent() {
                 />
                 <ConfirmDrawer
                     open={openConfirmDrawer}
+                    onOpen={()=>setOpenConfirmDrawer(true)}
                     onClose={handleCancelLogin}
                     onCancel={handleContinueLogin}
                     onConfirm={handleCancelLogin}

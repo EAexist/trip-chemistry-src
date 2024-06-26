@@ -115,6 +115,7 @@ function UserContent() {
                 </div>
                 <ConfirmDrawer
                     open={openConfirmDrawer}
+                    onOpen={()=>setOpenConfirmDrawer(true)}
                     onClose={handleCancelLogout}
                     onCancel={handleCancelLogout}
                     onConfirm={handleConfirmLogout}
