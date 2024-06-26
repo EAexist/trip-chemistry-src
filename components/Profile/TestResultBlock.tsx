@@ -75,87 +75,91 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
     )
 
     return (
-        <div className="content">
-            <div>
-                <p className="">{character.prefix}</p>
-                <h2 className="typography-title">{character.name}</h2>
+        <div className="content content--sparse">
+            <div className="content">
+                <div>
+                    <p className="">{character.prefix}</p>
+                    <h2 className="typography-title">{character.name}</h2>
+                </div>
+                {
+                    character.body.split("\n").map((text) =>
+                        <p className="typography-article" key={text}>{text}</p>
+                    )
+                }
             </div>
-            {
-                character.body.split("\n").map((text) =>
-                    <p className="typography-article" key={text}>{text}</p>
-                )
-            }
-            <h2 className="typography-heading--secondary">{`${nickname} 님의 여행 태그`}</h2>
-            {
-                <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={1} >
-                    {
-                        testResult.tripTagList.map((tag) =>
-                            <TripTagChip
-                                key={tag}
-                                tagId={tag}
-                                variant={(selectedTag === tag) ? "filled" : "outlined"}
-                                onClick={handleTripTagClick(tag)}
-                            />
-                        )
-                    }
-                </Stack>
-            }
-            {
-                (selectedTag !== undefined)
-                &&
-                <Paper sx={{ backgroundColor: "gray.main" }} className="wrapper content">
-                    <Stack>
-                        <Icon>{TRIP_TAGS[selectedTag].icon}</Icon>
-                        <p>{TRIP_TAGS[selectedTag].label}</p>
+            <div className="content">
+                <h2 className="typography-heading--secondary">{`${nickname} 님의 여행 태그`}</h2>
+                {
+                    <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={1} >
+                        {
+                            testResult.tripTagList.map((tag) =>
+                                <TripTagChip
+                                    key={tag}
+                                    tagId={tag}
+                                    variant={(selectedTag === tag) ? "filled" : "outlined"}
+                                    onClick={handleTripTagClick(tag)}
+                                />
+                            )
+                        }
                     </Stack>
-                    {
-                        (Object.keys(TripTag)[selectedTag] === "DEFAULT")
-                            ? <p className="typography-note">기본 태그</p>
-                            :
-                            <>
-                                <Divider />
-                                {
-                                    (expectationTags.length > 0) &&
-                                    <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={2} >
-                                        <PngIcon name="expectation" />
-                                        {
-                                            expectationTags.map((tag) =>
-                                                // <p className="typography-note"># {EXPECTATION_TAGS[tag].label}</p>
-                                                <ExpectationTagChip key={tag} tagId={tag} size="small" />
-                                            )
-                                        }
-                                    </Stack>
-                                }
-                                {
-                                    (activityTags.length > 0) &&
-                                    <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={2} >
-                                        <PngIcon name="activity" />
-                                        {
-                                            activityTags.map((tag) =>
-                                                // <p className="typography-note"># {ACTIVITY_TAGS[tag].label}</p>
-                                                <ActivityTagChip key={tag} tagId={tag} size="small" />
-                                            )
-                                        }
-                                    </Stack>
-                                }
-                                {
-                                    isChemistryDefined &&
-                                    <Stack>
-                                        <PngIcon name="raiseHand" />
-                                        {
-                                            (friendsWithSelectedTag.length > 0) ?
-                                                friendsWithSelectedTag.map((id) =>
-                                                    <FriendAvatar key={id} id={id} />
+                }
+                {
+                    (selectedTag !== undefined)
+                    &&
+                    <Paper sx={{ backgroundColor: "gray.main" }} className="wrapper content">
+                        <Stack>
+                            <Icon>{TRIP_TAGS[selectedTag].icon}</Icon>
+                            <p>{TRIP_TAGS[selectedTag].label}</p>
+                        </Stack>
+                        {
+                            (Object.keys(TripTag)[selectedTag] === "DEFAULT")
+                                ? <p className="typography-note">기본 태그</p>
+                                :
+                                <>
+                                    <Divider />
+                                    {
+                                        (expectationTags.length > 0) &&
+                                        <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={2} >
+                                            <PngIcon name="expectation" />
+                                            {
+                                                expectationTags.map((tag) =>
+                                                    // <p className="typography-note"># {EXPECTATION_TAGS[tag].label}</p>
+                                                    <ExpectationTagChip key={tag} tagId={tag} size="small" />
                                                 )
-                                                :
-                                                <p className="typography-note">같은 태그의 친구가 없어요.</p>
-                                        }
-                                    </Stack>
-                                }
-                            </>
-                    }
-                </Paper>
-            }
+                                            }
+                                        </Stack>
+                                    }
+                                    {
+                                        (activityTags.length > 0) &&
+                                        <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={2} >
+                                            <PngIcon name="activity" />
+                                            {
+                                                activityTags.map((tag) =>
+                                                    // <p className="typography-note"># {ACTIVITY_TAGS[tag].label}</p>
+                                                    <ActivityTagChip key={tag} tagId={tag} size="small" />
+                                                )
+                                            }
+                                        </Stack>
+                                    }
+                                    {
+                                        isChemistryDefined &&
+                                        <Stack>
+                                            <PngIcon name="raiseHand" />
+                                            {
+                                                (friendsWithSelectedTag.length > 0) ?
+                                                    friendsWithSelectedTag.map((id) =>
+                                                        <FriendAvatar key={id} id={id} />
+                                                    )
+                                                    :
+                                                    <p className="typography-note">같은 태그의 친구가 없어요.</p>
+                                            }
+                                        </Stack>
+                                    }
+                                </>
+                        }
+                    </Paper>
+                }
+            </div>
         </div>
     );
 }

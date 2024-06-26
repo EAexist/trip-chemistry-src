@@ -4,5 +4,5 @@ import { VARIANTS_SLIDEUP } from "../props";
 
 const MotionListItemButtonComponent = m(ListItemButton, { forwardMotionProps: true });
 
-export const MotionListItemButton = (props : ListItemButtonProps & MotionProps) => 
-    <MotionListItemButtonComponent {...props} {...{variants : VARIANTS_SLIDEUP}} /> 
+export const MotionListItemButton = ({ variants = VARIANTS_SLIDEUP, ...props} : ListItemButtonProps & MotionProps) => 
+    <MotionListItemButtonComponent variants={variants} {...props}  /> 

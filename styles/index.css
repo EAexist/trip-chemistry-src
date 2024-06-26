@@ -9,7 +9,7 @@
     --margin-x--large: 32px;
 
     --margin-top--small: 0.4em;
-    --margin-top: 1em;
+    --margin-top: 1.2em;
     --margin-top--large: 1.6em;
     --margin-top--xlarge: 2em;
 
@@ -104,6 +104,7 @@ button {
 
 /* State */
 .disabled {
+
     &,
     &.MuiListItem-root {
         opacity: 0.5;
@@ -111,9 +112,12 @@ button {
 }
 
 .fill-window {
+
     &,
-    &.MuiPaper-root{
-        height: 100vh;
+    &.MuiPaper-root {
+        height: 100dvh;
+        /* height: -webkit-fill-available;
+        height: fill-available; */
         min-height: var(--min-height__window);
     }
 }
@@ -226,6 +230,7 @@ button {
 }
 
 .content--narrow {
+
     &>*,
     &>.MuiListItemButton-root {
         margin-top: var(--margin-top--small);
