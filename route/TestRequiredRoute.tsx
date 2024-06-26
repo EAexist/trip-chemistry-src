@@ -12,6 +12,7 @@ import getImgSrc from "../utils/getImgSrc";
 import useNavigateWithGuestContext from "../hooks/useNavigateWithGuestContext";
 import { useAppSelector } from "~/store";
 import MainAppBar from "~/components/AppBar/MainAppBar";
+import { LoadStatus } from "~/interfaces/enums/LoadStatus";
 
 function TestRequiredRoute() {
 
@@ -35,7 +36,7 @@ function TestRequiredRoute() {
                 <MainAppBar />
                 <NoticeBlock
                     alt={"miss"}
-                    src={getImgSrc('/info', "MISS", { size: "xlarge" })}
+                    src={getImgSrc('/info', LoadStatus.MISS, { size: "xlarge" })}
                     body={`${nickname} 님의 여행은 어떤 모습일까요?\n테스트를 완료하고 결과를 확인해보세요.`}
                     buttonText={"테스트 시작하기"}
                     onClick={handleHasNotAnsweredTest}

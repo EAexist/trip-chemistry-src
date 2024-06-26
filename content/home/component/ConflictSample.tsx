@@ -10,29 +10,29 @@ function ConflictSample() {
         8000:
             [
                 {
-                    characterId: "RACOON",
+                    characterId: "racoon",
                     nickname: "민지"
                 },
                 {
-                    characterId: "BEE",
+                    characterId: "bee",
                     nickname: "해린"
                 }
             ],
         16000:
             [
                 {
-                    characterId: "SLOTH",
+                    characterId: "sloth",
                     nickname: "혜인"
                 },
                 {
-                    characterId: "SLOTH",
+                    characterId: "sloth",
                     nickname: "다니엘"
                 }
             ],
         20000:
             [
                 {
-                    characterId: "PANDA",
+                    characterId: "panda",
                     nickname: "하니"
                 }
             ],
