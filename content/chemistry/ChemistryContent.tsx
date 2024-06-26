@@ -27,6 +27,7 @@ import getImgSrc from "../../utils/getImgSrc";
 import LoginContent from "../login/LoginContent";
 import ChemistryDetailContent from "./ChemistryDetailContent";
 import ConfirmDrawer from "~/components/ConfirmDrawer";
+import env from "~/env";
 
 const { Helmet } = ReactHelmetAsync
 
@@ -46,7 +47,7 @@ function ChemistryContent() {
     const chemistryId = params.chemistryId ? params.chemistryId : "";
 
     /* Induced */
-    const link = `http://localhost:3000/chemistry/${chemistryId}`;
+    const link = `${env.REACT_APP_API_URL}/chemistry/${chemistryId}`;
 
     /* Reducers */
     const { title, profiles, profileIds } = useAppSelector((state) => state.chemistry.data);

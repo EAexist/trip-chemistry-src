@@ -8,6 +8,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import theme from './mui/theme'
 import routes from './routes'
 
+import './common/axios'
 
 import './styles/index.css'
 
