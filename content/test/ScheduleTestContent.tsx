@@ -3,7 +3,7 @@ import { Fragment, useEffect, useState } from "react";
 
 /* Externals */
 import { Close, NavigateNext } from "@mui/icons-material";
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, FormControlLabel, Grow, IconButton, Radio, RadioGroup, Zoom } from "@mui/material";
+import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, FormControlLabel, Grow, IconButton, Radio, RadioGroup } from "@mui/material";
 
 /* App */
 import { useTestAnswer } from "~/reducers/testAnswerReducer";
@@ -310,11 +310,11 @@ function ScheduleTestContent() {
                 }
             </RadioGroup>
             <div className="google-map__container block--round" style={{ position: "relative", overflow: "hidden" }}>
-            {/* </div> */}
+                {/* </div> */}
                 <div style={{ position: "absolute", top: 0, zIndex: 1 }} className="block--with-margin--xsmall">
                     {
                         showMapTitle ?
-                            <Zoom in={showMapTitle}>
+                            <Grow in={showMapTitle}>
                                 <Card sx={{ position: "relative" }} >
                                     <IconButton onClick={() => setShowMapTitle(false)} sx={{ position: "absolute", top: 0, right: 0 }} size="small">
                                         <Close fontSize="small" />
@@ -329,47 +329,45 @@ function ScheduleTestContent() {
                                         </Button>
                                     </CardActions>
                                 </Card>
-                            </Zoom>
+                            </Grow>
                             :
                             <Button onClick={() => setShowMapTitle(true)} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext fontSize="inherit" sx={{ marginLeft: "-4px" }} />} size="small" className="typography-label" sx={{ textTransform: 'none' }}>
                                 재하 님의 후쿠오카 여행
                             </Button>
                     }
                 </div>
-                {/* <Zoom in={showMapTitle}> */}
                 {
                     selectedPlace &&
-                    // <Zoom in={selectedPlaceId !== undefined}>
-                    <div style={{ position: "absolute", bottom: 0, zIndex: 1, width: "100%" }} >
-                        <div className="block--with-margin--xsmall">
-                            <Card sx={{ position: "relative" }}>
-                                <IconButton onClick={() => setSelectedPlaceId(undefined)} sx={{ zIndex: 1, position: "absolute", top: 0, right: 0 }} >
-                                    <Close fontSize="small" />
-                                </IconButton>
-                                <CardActionArea href={selectedPlace.href} sx={{ display: "flex", alignItems: "start" }}>
-                                    {
-                                        <CardMedia
-                                            component="img"
-                                            image={getImgSrc("/test/schedule", selectedPlaceId)}
-                                            alt={selectedPlace.label}
-                                            width="96px"
-                                            sx={{ width: "96px", aspectRatio: "1/1", borderRadius: "16px", margin: "16px" }}
-                                        />
-                                    }
-                                    <CardContent sx={{ paddingLeft: 0, flexGrow: 1 }}>
-                                        <h2 className="typography-label" style={{}}>{selectedPlace.label}<span style={{ fontSize: "inherit", position: "relative" }}><NavigateNext sx={{ fontSize: "inherit", position: "absolute", top: "50%", transform: "translateY(-50%)" }} /></span></h2>
-                                        <p className="typography-note">{selectedPlace.body}</p>
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
+                    <Grow in={showMapTitle}>
+                        <div style={{ position: "absolute", bottom: 0, zIndex: 1, width: "100%" }} >
+                            <div className="block--with-margin--xsmall">
+                                <Card sx={{ position: "relative" }}>
+                                    <IconButton onClick={() => setSelectedPlaceId(undefined)} sx={{ zIndex: 1, position: "absolute", top: 0, right: 0 }} >
+                                        <Close fontSize="small" />
+                                    </IconButton>
+                                    <CardActionArea href={selectedPlace.href} sx={{ display: "flex", alignItems: "start" }}>
+                                        {
+                                            <CardMedia
+                                                component="img"
+                                                image={getImgSrc("/test/schedule", selectedPlaceId)}
+                                                alt={selectedPlace.label}
+                                                width="96px"
+                                                sx={{ width: "96px", aspectRatio: "1/1", borderRadius: "16px", margin: "16px" }}
+                                            />
+                                        }
+                                        <CardContent sx={{ paddingLeft: 0, flexGrow: 1 }}>
+                                            <h2 className="typography-label" style={{}}>{selectedPlace.label}<span style={{ fontSize: "inherit", position: "relative" }}><NavigateNext sx={{ fontSize: "inherit", position: "absolute", top: "50%", transform: "translateY(-50%)" }} /></span></h2>
+                                            <p className="typography-note">{selectedPlace.body}</p>
+                                        </CardContent>
+                                    </CardActionArea>
+                                </Card>
+                            </div>
                         </div>
-                    </div>
-                    // </Zoom>
+                    </Grow>
                 }
-                {/* </Grow> */}
                 <SelectedPlaceContext.Provider value={{ selectedPlaceId, setSelectedPlaceId }}>
                     <GoogleMapContext.Provider value={{ map: scheduleExampleMap as google.maps.Map, setMap: setScheduleExampleMap }}>
-                        <GoogleMap opts={{ ...OPTIONS_TEST_SCHEDULE}}>
+                        <GoogleMap opts={{ ...OPTIONS_TEST_SCHEDULE }}>
                             <GoogleMapMarker {...airportPlace} />
                             {
                                 (scheduleAnswer !== undefined) &&
