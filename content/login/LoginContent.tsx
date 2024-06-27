@@ -71,10 +71,9 @@ function LoginContent({ title = "테스트를 시작해볼까요?" }: LoginConte
         }}>
             <div className="fill-window flex">
                 <Toolbar />
-                <div className="flex-grow block--centered content content--sparse">
-                    <h2 className="typography-label">
-                        {title}
-                    </h2>
+                <div className="flex-grow block--centered content">
+                    <h2 className="typography-heading">로그인</h2>
+                    <p className="typography-note">{title}</p>
                     <Stack direction={"column"} spacing={2} className="wrapper">
                         <KakaoLoginButton />
                         <Button

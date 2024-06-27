@@ -9,7 +9,6 @@ export const OPTIONS_TEST_SCHEDULE: google.maps.MapOptions = {
   disableDefaultUI: true, /* Disable UI */
   disableDoubleClickZoom: true,
   draggable: false,
-  // styles: STYLE_SILVER
 };
 
 export const POLYLINE_OPTIONS = {
