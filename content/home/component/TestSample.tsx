@@ -12,7 +12,7 @@ import GoogleMapMarker from "~/components/GoogleMap/ui/GoogleMapMarker";
 import GoogleMapPolyline from "~/components/GoogleMap/ui/GoogleMapPolyline";
 import { airportPlace, googleMapOptions, places, scheduleTestOptions } from "~/content/test/ScheduleTestContent";
 import GoogleMapContext from "../../../components/GoogleMap/common/GoogleMapContext";
-import { mapId_home, OPTIONS_TEST_SCHEDULE } from "../../../components/GoogleMap/common/options";
+import { OPTIONS_TEST_SCHEDULE } from "../../../components/GoogleMap/common/options";
 import GoogleMap from "../../../components/GoogleMap/ui/GoogleMap";
 
 function TestSample() {
@@ -68,7 +68,7 @@ function TestSample() {
                     </Paper>
                 </div>
                 <GoogleMapContext.Provider value={{ map: scheduleExampleMap as google.maps.Map, setMap: setScheduleExampleMap }}>
-                    <GoogleMap opts={{ mapId: mapId_home, ...OPTIONS_TEST_SCHEDULE}}>
+                    <GoogleMap opts={{ ...OPTIONS_TEST_SCHEDULE}}>
                         <SelectedPlaceContext.Provider value={{}}>
                             <GoogleMapMarker {...airportPlace} />
                             {

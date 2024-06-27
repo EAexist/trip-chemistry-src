@@ -15,7 +15,7 @@ import SelectedPlaceContext from "~/components/GoogleMap/common/SelectedPlaceCon
 import GoogleMapMarker from "~/components/GoogleMap/ui/GoogleMapMarker";
 import GoogleMapPolyline from "~/components/GoogleMap/ui/GoogleMapPolyline";
 import GoogleMapContext from "../../components/GoogleMap/common/GoogleMapContext";
-import { mapId_scheduleTest, OPTIONS_TEST_SCHEDULE } from "../../components/GoogleMap/common/options";
+import { OPTIONS_TEST_SCHEDULE } from "../../components/GoogleMap/common/options";
 import GoogleMap from "../../components/GoogleMap/ui/GoogleMap";
 
 export const airportPlace = {
@@ -309,8 +309,9 @@ function ScheduleTestContent() {
                     ))
                 }
             </RadioGroup>
+            <div className="google-map__container block--round" style={{ position: "relative", overflow: "hidden" }}>
             {/* </div> */}
-                <div style={{ }} className="block--with-margin--xsmall">
+                <div style={{ position: "absolute", top: 0 }} className="block--with-margin--xsmall">
                     {
                         showMapTitle ?
                             <Zoom in={showMapTitle}>
@@ -339,7 +340,7 @@ function ScheduleTestContent() {
                 {
                     selectedPlace &&
                     // <Zoom in={selectedPlaceId !== undefined}>
-                    <div style={{ width: "100%" }} >
+                    <div style={{ position: "absolute", bottom: 0, width: "100%" }} >
                         <div className="block--with-margin--xsmall">
                             <Card sx={{ position: "relative" }}>
                                 <IconButton onClick={() => setSelectedPlaceId(undefined)} sx={{ zIndex: 1, position: "absolute", top: 0, right: 0 }} >
@@ -365,11 +366,10 @@ function ScheduleTestContent() {
                     </div>
                     // </Zoom>
                 }
-            <div className="google-map__container block--round" style={{ position: "relative", overflow: "hidden" }}>
                 {/* </Grow> */}
                 <SelectedPlaceContext.Provider value={{ selectedPlaceId, setSelectedPlaceId }}>
                     <GoogleMapContext.Provider value={{ map: scheduleExampleMap as google.maps.Map, setMap: setScheduleExampleMap }}>
-                        <GoogleMap opts={{ mapId: mapId_scheduleTest, ...OPTIONS_TEST_SCHEDULE}}>
+                        <GoogleMap opts={{ ...OPTIONS_TEST_SCHEDULE}}>
                             <GoogleMapMarker {...airportPlace} />
                             {
                                 (scheduleAnswer !== undefined) &&
