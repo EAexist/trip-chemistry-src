@@ -9,6 +9,7 @@ import { IUserProfile } from "../../interfaces/IUserProfile";
 import { LoadStatus } from "../../interfaces/enums/LoadStatus";
 import { disableAutoLogin, useAuthLoadStatus, useAuthorize, useUserProfile } from "../../reducers/authReducer";
 import { useAppDispatch } from "../../store";
+import { AuthLoadRequiredContent } from "../LoadRequiredContent";
 
 function KakaoAuthRedirectPage() {
 
@@ -45,7 +46,7 @@ function KakaoAuthRedirectPage() {
     }, [dispatch])
 
     return (
-        null
+        <AuthLoadRequiredContent />
     );
 }
 export default KakaoAuthRedirectPage;
