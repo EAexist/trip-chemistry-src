@@ -1,10 +1,12 @@
-import { Paper, Stack, ToggleButton } from "@mui/material";
-import { AnimatePresence, m } from "framer-motion";
 import { useEffect, useState } from "react";
+import { Stack } from "@mui/material";
+import { AnimatePresence, m } from "framer-motion";
+
 import ProfileAvatar from "~/components/Avatar/ProfileAvatar";
 import LazyImage from "~/components/LazyImage";
 import { FADEIN } from "~/motion/props";
 import getImgSrc from "~/utils/getImgSrc";
+import ToggleButton from "../../../components/Button/ToggleButton";
 
 function CharacterSample() {
 
@@ -68,36 +70,35 @@ function CharacterSample() {
     }, [])
 
     return (
-            <div className="content content--sparse">
-                <Stack spacing={0} justifyContent={'center'}>
-                    {
-                        profiles.map(({ id, character, nickname }, index) => (
-                            <ToggleButton
-                                key={id}
-                                value={id}
-                                selected={userIndex === index}
-                            >
-                                <ProfileAvatar avatarId={character.id} nickname={nickname} labelSize="large" />
-                            </ToggleButton>
-                        ))
-                    }
-                </Stack>
-                <div className="block--centered">
-                    <Paper className="wrapper wrapper--small" sx={{ backgroundColor: "gray.main", width: "fit-content", height: "fit-content", paddingTop: 0 }}>
-                        <AnimatePresence mode={"wait"}>
-                            <m.div key={userIndex} {...FADEIN}>
-                                <LazyImage
-                                    alt={profile.character.id}
-                                    src={getImgSrc('/character', profile.character.id, { size: "large" })}
-                                    width={"196px"}
-                                    height={"196px"}
-                                />
-                                <p className="typography-label">{profile.character.name}</p>
-                            </m.div>
-                        </AnimatePresence>
-                    </Paper>
-                </div>
+        <div className="content content--sparse">
+            <Stack spacing={0} justifyContent={'center'}>
+                {
+                    profiles.map(({ id, character, nickname }, index) => (
+                        <ToggleButton
+                            key={id}
+                            value={id}
+                            selected={userIndex === index}
+                            disabled={userIndex !== index}
+                        >
+                            <ProfileAvatar avatarId={character.id} nickname={nickname} labelSize="large" />
+                        </ToggleButton>
+                    ))
+                }
+            </Stack>
+            <div className="block--centered">
+                <AnimatePresence mode={"wait"}>
+                    <m.div key={userIndex} {...FADEIN}>
+                        <LazyImage
+                            alt={profile.character.id}
+                            src={getImgSrc('/character', profile.character.id, { size: "large" })}
+                            width={"196px"}
+                            height={"196px"}
+                        />
+                        <p className="typography-label">{profile.character.name}</p>
+                    </m.div>
+                </AnimatePresence>
             </div>
+        </div>
     );
 }
 export default CharacterSample;

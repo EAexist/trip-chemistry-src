@@ -314,7 +314,7 @@ function ScheduleTestContent() {
                 <div style={{ position: "absolute", top: 0, left: 0, zIndex: 1 }} className="block--with-margin--xsmall">
                     {
                         showMapTitle ?
-                            <Zoom in={showMapTitle}>
+                            // <Zoom in={showMapTitle}>
                                 <Card sx={{ position: "relative" }} >
                                     <IconButton onClick={() => setShowMapTitle(false)} sx={{ position: "absolute", top: 0, right: 0 }} size="small">
                                         <Close fontSize="small" />
@@ -329,7 +329,7 @@ function ScheduleTestContent() {
                                         </Button>
                                     </CardActions>
                                 </Card>
-                            </Zoom>
+                            // </Zoom>
                             :
                             <Button onClick={() => setShowMapTitle(true)} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext fontSize="inherit" sx={{ marginLeft: "-4px" }} />} size="small" className="typography-label" sx={{ textTransform: 'none' }}>
                                 재하 님의 후쿠오카 여행
@@ -339,7 +339,7 @@ function ScheduleTestContent() {
                 {/* <Zoom in={showMapTitle}> */}
                 {
                     selectedPlace &&
-                    <Zoom in={selectedPlaceId !== undefined}>
+                    // <Zoom in={selectedPlaceId !== undefined}>
                         <div style={{ position: "absolute", bottom: 0, zIndex: 1, width: "100%" }} >
                             <div className="block--with-margin--xsmall">
                                 <Card sx={{ position: "relative" }}>
@@ -364,7 +364,7 @@ function ScheduleTestContent() {
                                 </Card>
                             </div>
                         </div>
-                    </Zoom>
+                    // </Zoom>
                 }
                 {/* </Grow> */}
                 <GoogleMapContext.Provider value={{ map: scheduleExampleMap as google.maps.Map, setMap: setScheduleExampleMap }}>
