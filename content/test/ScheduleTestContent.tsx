@@ -15,7 +15,7 @@ import SelectedPlaceContext from "~/components/GoogleMap/common/SelectedPlaceCon
 import GoogleMapMarker from "~/components/GoogleMap/ui/GoogleMapMarker";
 import GoogleMapPolyline from "~/components/GoogleMap/ui/GoogleMapPolyline";
 import GoogleMapContext from "../../components/GoogleMap/common/GoogleMapContext";
-import { OPTIONS_TEST_SCHEDULE } from "../../components/GoogleMap/common/options";
+import { mapId_scheduleTest, OPTIONS_TEST_SCHEDULE } from "../../components/GoogleMap/common/options";
 import GoogleMap from "../../components/GoogleMap/ui/GoogleMap";
 
 export const airportPlace = {
@@ -205,7 +205,7 @@ function ScheduleTestContent() {
     /* Reducers */
     const [scheduleAnswer, setScheduleAnswer] = useTestAnswer("schedule", "schedule");
 
-    const handleAnswerChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
+    const handleAnswerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setScheduleAnswer(Number(event.target.value));
     }
     /* 구글맵 */
@@ -286,7 +286,7 @@ function ScheduleTestContent() {
                 value={(scheduleAnswer !== undefined) ? scheduleAnswer : null}
                 onChange={handleAnswerChange}
                 row={true}
-                sx={{ justifyContent: "space-between" }}                
+                sx={{ justifyContent: "space-between" }}
             >
                 {
                     scheduleTestOptions.map(({ value, label }) => (
@@ -294,14 +294,14 @@ function ScheduleTestContent() {
                             key={label}
                             value={value}
                             control={
-                            <Radio
-                                size="small" 
-                                color="default"
-                                sx={{
-                                    color: value > 0 ? "primary.main" : "inherit",
-                                    opacity: ((value > 0) && (value !== scheduleAnswer)) ? 0.25*value : 1
-                                }}
-                            />
+                                <Radio
+                                    size="small"
+                                    color="default"
+                                    sx={{
+                                        color: value > 0 ? "primary.main" : "inherit",
+                                        opacity: ((value > 0) && (value !== scheduleAnswer)) ? 0.25 * value : 1
+                                    }}
+                                />
                             }
                             label={<p className="block--centered typography-note">{label}</p>}
                             labelPlacement="bottom"
@@ -310,7 +310,7 @@ function ScheduleTestContent() {
                 }
             </RadioGroup>
             {/* </div> */}
-            <div className="google-map__container modal__container block--round" style={{ overflow: "hidden" }}>
+            <div className="google-map__container block--round" style={{ overflow: "hidden" }}>
                 <div style={{ position: "absolute", top: 0, left: 0, zIndex: 2 }} className="block--with-margin--xsmall">
                     {
                         showMapTitle ?
@@ -340,36 +340,36 @@ function ScheduleTestContent() {
                 {
                     selectedPlace &&
                     // <Zoom in={selectedPlaceId !== undefined}>
-                        <div style={{ position: "absolute", bottom: 0, zIndex: 2, width: "100%" }} >
-                            <div className="block--with-margin--xsmall">
-                                <Card sx={{ position: "relative" }}>
-                                    <IconButton onClick={() => setSelectedPlaceId(undefined)} sx={{ zIndex: 1, position: "absolute", top: 0, right: 0 }} >
-                                        <Close fontSize="small" />
-                                    </IconButton>
-                                    <CardActionArea href={selectedPlace.href} sx={{ display: "flex", alignItems: "start" }}>
-                                        {
-                                            <CardMedia
-                                                component="img"
-                                                image={getImgSrc("/test/schedule", selectedPlaceId)}
-                                                alt={selectedPlace.label}
-                                                width="96px"
-                                                sx={{ width: "96px", aspectRatio: "1/1", borderRadius: "16px", margin: "16px" }}
-                                            />
-                                        }
-                                        <CardContent sx={{ paddingLeft: 0, flexGrow: 1 }}>
-                                            <h2 className="typography-label" style={{}}>{selectedPlace.label}<span style={{ fontSize: "inherit", position: "relative" }}><NavigateNext sx={{ fontSize: "inherit", position: "absolute", top: "50%", transform: "translateY(-50%)" }} /></span></h2>
-                                            <p className="typography-note">{selectedPlace.body}</p>
-                                        </CardContent>
-                                    </CardActionArea>
-                                </Card>
-                            </div>
+                    <div style={{ position: "absolute", bottom: 0, zIndex: 1, width: "100%" }} >
+                        <div className="block--with-margin--xsmall">
+                            <Card sx={{ position: "relative" }}>
+                                <IconButton onClick={() => setSelectedPlaceId(undefined)} sx={{ zIndex: 1, position: "absolute", top: 0, right: 0 }} >
+                                    <Close fontSize="small" />
+                                </IconButton>
+                                <CardActionArea href={selectedPlace.href} sx={{ display: "flex", alignItems: "start" }}>
+                                    {
+                                        <CardMedia
+                                            component="img"
+                                            image={getImgSrc("/test/schedule", selectedPlaceId)}
+                                            alt={selectedPlace.label}
+                                            width="96px"
+                                            sx={{ width: "96px", aspectRatio: "1/1", borderRadius: "16px", margin: "16px" }}
+                                        />
+                                    }
+                                    <CardContent sx={{ paddingLeft: 0, flexGrow: 1 }}>
+                                        <h2 className="typography-label" style={{}}>{selectedPlace.label}<span style={{ fontSize: "inherit", position: "relative" }}><NavigateNext sx={{ fontSize: "inherit", position: "absolute", top: "50%", transform: "translateY(-50%)" }} /></span></h2>
+                                        <p className="typography-note">{selectedPlace.body}</p>
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
                         </div>
+                    </div>
                     // </Zoom>
                 }
                 {/* </Grow> */}
-                <GoogleMapContext.Provider value={{ map: scheduleExampleMap as google.maps.Map, setMap: setScheduleExampleMap }}>
-                    <GoogleMap opts={OPTIONS_TEST_SCHEDULE}>
-                        <SelectedPlaceContext.Provider value={{ selectedPlaceId, setSelectedPlaceId }}>
+                <SelectedPlaceContext.Provider value={{ selectedPlaceId, setSelectedPlaceId }}>
+                    <GoogleMapContext.Provider value={{ map: scheduleExampleMap as google.maps.Map, setMap: setScheduleExampleMap }}>
+                        <GoogleMap opts={{ mapId: mapId_scheduleTest, ...OPTIONS_TEST_SCHEDULE}}>
                             <GoogleMapMarker {...airportPlace} />
                             {
                                 (scheduleAnswer !== undefined) &&
@@ -387,9 +387,9 @@ function ScheduleTestContent() {
                                     </Fragment>
                                 ))
                             }
-                        </SelectedPlaceContext.Provider>
-                    </GoogleMap>
-                </GoogleMapContext.Provider>
+                        </GoogleMap>
+                    </GoogleMapContext.Provider>
+                </SelectedPlaceContext.Provider>
             </div>
         </div>
     );
