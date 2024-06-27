@@ -2,13 +2,11 @@
 import { SyntheticEvent, useEffect, useState } from "react";
 
 /* Externals */
-import { Close, Edit, Error, ExpandMore, Help, NavigateNext } from "@mui/icons-material";
-import { Accordion, AccordionDetails, AccordionSummary, Alert, Box, createTheme, FormControlLabel, IconButton, Modal, Stack, ThemeProvider, Zoom } from "@mui/material";
+import { Error, ExpandMore, NavigateNext } from "@mui/icons-material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, createTheme, Stack, ThemeProvider } from "@mui/material";
 import { TimeClock } from "@mui/x-date-pickers";
-import dayjs, { Dayjs } from "dayjs";
-import MaterialUISwitch from "~/components/MaterialUISwitch";
+import dayjs from "dayjs";
 import { useTestAnswer } from "~/reducers/testAnswerReducer";
-import e from "express";
 
 function TimeTestContent() {
 
@@ -27,7 +25,6 @@ function TimeTestContent() {
 
     /* States */
     const [expanded, setExpanded] = useState<string | false>("start");
-    const [showInstruction, setShowInstruction] = useState(true);
 
     /* Reducers */
     const [startTimeAnswer, setStartTimeAnswer] = useTestAnswer("schedule", "startTime")
@@ -38,34 +35,6 @@ function TimeTestContent() {
         start: false,
         end: false
     })
-    // const [startTimeDayJs, setStartTimeDayJs] = useState<Dayjs>(undefined)
-    // const [endTimeDayJs, setEndTimeDayJs] = useState<Dayjs>(undefined)
-
-
-    const [ dayObjects, setDayObjects ] = useState({
-        // start: dayjs('2024-06-05 00:00').set("hour", (startTimeAnswer !== undefined) ? startTimeAnswer : 8),
-        // end: dayjs('2024-06-05 00:00').set("hour", (endTimeAnswer !== undefined) ? endTimeAnswer : 8),
-        start: undefined,
-        end: undefined,
-    });
-
-    const [ isPm, setIsPm ] = useState({
-        start: false,
-        end: true,
-    });
-
-    const [openInvalidTimeAlert, setOpenInvalidTimeAlertOpen] = useState({ "start": false, "end": false });
-    const [warningState, setWarningState] = useState<"start" | "end" | false>(false)
-
-    useEffect(() => {
-        Object.entries(openInvalidTimeAlert).forEach(([ id, open ]) => {
-            if ( open ) {
-                let timer = setTimeout(() => { 
-                    setOpenInvalidTimeAlertOpen((prev) => ({ [id]: false, ...prev}))
-                }, 2000);
-            }
-        })
-    }, [ openInvalidTimeAlert ])
 
     useEffect(()=>{
         if(isAnswered.start){            
@@ -86,7 +55,6 @@ function TimeTestContent() {
                 [
                     {
                         id: "start",
-                        // answer: (startTimeAnswer === undefined) ? 8 : startTimeAnswer,
                         answer: startTimeAnswer,
                         summaryTitle: "여행 일정을 시작하는 시간",
                         detailTitle: "숙소를 나서서 일정을 시작하려고 해.\n몇시가 좋을까?",
@@ -94,7 +62,6 @@ function TimeTestContent() {
                     },
                     {
                         id: "end",
-                        // answer: (endTimeAnswer === undefined) ? 20 : endTimeAnswer,
                         answer: endTimeAnswer,
                         summaryTitle: "여행 일정이 끝나는 시간",
                         detailTitle: "일정을 마치고 숙소에 들어가 쉬려고 해.\n몇시가 좋을까?", 
@@ -224,7 +191,7 @@ function TimeTestContent() {
                             ? <p>하루에 <b>{endTimeAnswer - startTimeAnswer}</b>시간 정도를 돌아다니자!</p>
                             : <Stack>
                                 <Error sx={{ fontSize: "15px" }} />
-                                <p>일정을 마칠 시간을 정해주세요.</p>
+                                <p>일정을 끝낼 시간을 정해주세요.</p>
                             </Stack>
                         : <Stack>
                             <Error />
