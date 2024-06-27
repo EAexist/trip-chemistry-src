@@ -11,7 +11,6 @@ import SelectedPlaceContext from "~/components/GoogleMap/common/SelectedPlaceCon
 import GoogleMapMarker from "~/components/GoogleMap/ui/GoogleMapMarker";
 import GoogleMapPolyline from "~/components/GoogleMap/ui/GoogleMapPolyline";
 import { airportPlace, googleMapOptions, places, scheduleTestOptions } from "~/content/test/ScheduleTestContent";
-import { useStrings } from "~/texts";
 import GoogleMapContext from "../../../components/GoogleMap/common/GoogleMapContext";
 import { mapId_home, OPTIONS_TEST_SCHEDULE } from "../../../components/GoogleMap/common/options";
 import GoogleMap from "../../../components/GoogleMap/ui/GoogleMap";
@@ -31,8 +30,6 @@ function TestSample() {
 
     /* Side Effects */
     const scheduleAnswerSwitchInterval = 2000;
-
-    const answerStrings = useStrings().public.contents.test.test.schedule.answers;
 
     // Infinitely loop scheduleAnswer from 2 ~ 5
     useEffect(() => {

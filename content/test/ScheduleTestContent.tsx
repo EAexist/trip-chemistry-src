@@ -310,8 +310,7 @@ function ScheduleTestContent() {
                 }
             </RadioGroup>
             {/* </div> */}
-            <div className="google-map__container block--round" style={{ position: "relative", overflow: "hidden" }}>
-                <div style={{ position: "absolute", top: 0, left: 0, zIndex: 2 }} className="block--with-margin--xsmall">
+                <div style={{ }} className="block--with-margin--xsmall">
                     {
                         showMapTitle ?
                             <Zoom in={showMapTitle}>
@@ -340,7 +339,7 @@ function ScheduleTestContent() {
                 {
                     selectedPlace &&
                     // <Zoom in={selectedPlaceId !== undefined}>
-                    <div style={{ position: "absolute", bottom: 0, zIndex: 1, width: "100%" }} >
+                    <div style={{ width: "100%" }} >
                         <div className="block--with-margin--xsmall">
                             <Card sx={{ position: "relative" }}>
                                 <IconButton onClick={() => setSelectedPlaceId(undefined)} sx={{ zIndex: 1, position: "absolute", top: 0, right: 0 }} >
@@ -366,6 +365,7 @@ function ScheduleTestContent() {
                     </div>
                     // </Zoom>
                 }
+            <div className="google-map__container block--round" style={{ position: "relative", overflow: "hidden" }}>
                 {/* </Grow> */}
                 <SelectedPlaceContext.Provider value={{ selectedPlaceId, setSelectedPlaceId }}>
                     <GoogleMapContext.Provider value={{ map: scheduleExampleMap as google.maps.Map, setMap: setScheduleExampleMap }}>
