@@ -125,6 +125,8 @@ const GoogleMapMarker = ({ isActive = true, position, label, body, href, id, ico
                 marker.map = null;
             })
         }
+        
+        console.log(`[GoogleMapMarker] id=${id}`);
 
     }, [marker, map])
 

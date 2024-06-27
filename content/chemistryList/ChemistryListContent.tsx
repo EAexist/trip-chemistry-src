@@ -31,7 +31,7 @@ function ChemistryListContent() {
             <Toolbar />
                 <div className="wrapper content content--sparse">
                     <m.h2 {...FADEIN_VIEWPORT} className="typography-heading">
-                        내 여행
+                        내 여행 목록
                     </m.h2>
                     <m.ul {...STAGGER_CHILDREN} custom={0.5} className="content">
                         {

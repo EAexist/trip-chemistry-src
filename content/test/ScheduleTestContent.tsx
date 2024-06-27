@@ -3,22 +3,20 @@ import { Fragment, useEffect, useState } from "react";
 
 /* Externals */
 import { Close, NavigateNext } from "@mui/icons-material";
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, FormControlLabel, Grow, IconButton, Radio, RadioGroup, Slider, SliderProps, Stack } from "@mui/material";
+import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, FormControlLabel, Grow, IconButton, Radio, RadioGroup } from "@mui/material";
 
 /* App */
 import { useTestAnswer } from "~/reducers/testAnswerReducer";
 import Logo from "../../components/Logo";
-import { useStrings } from "../../texts";
 import getImgSrc, { FORMATSVG } from "../../utils/getImgSrc";
 
 /* GoogleMap */
-import InfoWindowContext from "~/components/GoogleMap/common/InfoWindowContext";
+import SelectedPlaceContext from "~/components/GoogleMap/common/SelectedPlaceContext";
 import GoogleMapMarker from "~/components/GoogleMap/ui/GoogleMapMarker";
+import GoogleMapPolyline from "~/components/GoogleMap/ui/GoogleMapPolyline";
 import GoogleMapContext from "../../components/GoogleMap/common/GoogleMapContext";
 import { OPTIONS_TEST_SCHEDULE } from "../../components/GoogleMap/common/options";
 import GoogleMap from "../../components/GoogleMap/ui/GoogleMap";
-import GoogleMapPolyline from "~/components/GoogleMap/ui/GoogleMapPolyline";
-import SelectedPlaceContext from "~/components/GoogleMap/common/SelectedPlaceContext";
 
 export const airportPlace = {
     position: {
@@ -26,8 +24,8 @@ export const airportPlace = {
         lng: 130.404,
     },
     id: 'fukuoka-airport',
-    label: '공항',
-    body: '후쿠오카 공항',
+    label: '후쿠오카 공항',
+    body: '후쿠오카 중심부에서 하타카를 연결하는 지하철 노선이있는 도심 공항',
     icon: 'flight',
     href: 'https://www.fukuoka-airport.jp/ko/',
     infoWindowStyle: 'simple'
@@ -204,11 +202,6 @@ export const scheduleTestOptions = [
 
 function ScheduleTestContent() {
 
-    /* Strings */
-    const answerStrings = useStrings().public.contents.test.test.schedule.answers;
-
-    /* States */
-
     /* Reducers */
     const [scheduleAnswer, setScheduleAnswer] = useTestAnswer("schedule", "schedule");
 
@@ -221,8 +214,8 @@ function ScheduleTestContent() {
     const { zoom: googleMapZoom, center: googleMapCenter } = googleMapOptions[scheduleAnswer || 0];
 
     /** 실제 오픈되어 있어야 하는 Info Window. Context 에 적용. */
-    const [selectedPlaceId, setSelectedPlaceId] = useState<string>();
-    const selectedPlace = places[selectedPlaceId]
+    const [selectedPlaceId, setSelectedPlaceId] = useState<string>()
+    const selectedPlace = (selectedPlaceId === 'fukuoka-airport') ? airportPlace : places[selectedPlaceId]
 
     const [selectedInfoWindow, setSelectedInfoWindow] = useState<google.maps.InfoWindow>();
     /**
@@ -339,8 +332,7 @@ function ScheduleTestContent() {
                             </Grow>
                             :
                             <Button onClick={() => setShowMapTitle(true)} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext fontSize="inherit" sx={{ marginLeft: "-4px" }} />} size="small" className="typography-label" sx={{ textTransform: 'none' }}>
-                                Based On 재하 님의 후쿠오카 여행
-
+                                재하 님의 후쿠오카 여행
                             </Button>
                     }
                 </div>

@@ -115,7 +115,7 @@ function SpecialRestaurantTestContent() {
                         id="panel1bh-header"
                     >
                         <Stack direction="row" justifyContent="space-between" width="100%">
-                            <h3 className="">얼마까지 쓸 수 있어?</h3>
+                            <h3 className="">식사 한 번에 얼마까지 쓸 수 있어?</h3>
                             {
                                 (expanded !== "budget") &&
                                 (

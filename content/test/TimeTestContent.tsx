@@ -131,8 +131,8 @@ function TimeTestContent() {
                                             <p className="" style={{ color: "inherit" }}>{ isPm ? "정오" : "자정" }</p>
                                         </Box>
                                         <TimeClock
-                                            maxTime={(id === "start") && (endTimeAnswer !== undefined) && endTimeDayJs.subtract(1, "hour")}
-                                            minTime={(id === "end") && (startTimeAnswer !== undefined) && startTimeDayJs.add(1, "hour")}
+                                            maxTime={(id === "start") && (endTimeAnswer !== undefined) ? endTimeDayJs.subtract(1, "hour") : undefined}
+                                            minTime={(id === "end") && (startTimeAnswer !== undefined) ? startTimeDayJs.add(1, "hour") : undefined}
                                             value={dayjsObject}
                                             onChange={(newValue) => setDayjsObject(newValue)}
                                             ampmInClock={true}

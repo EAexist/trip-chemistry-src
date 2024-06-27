@@ -487,6 +487,11 @@ button {
     height: 32px;
 }
 
+.Logo--small {
+    height: 16px;
+}
+
+
 /* flag */
 .Flag {
     &.Flag--outlined {

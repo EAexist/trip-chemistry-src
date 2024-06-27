@@ -130,7 +130,7 @@ export const TEST_SECTIONS = {
         type: 'budget',
         icon: "delicious",
         label: "맛집 예산",
-        subtitle: "유명 맛집에서의 특별한 한끼",
+        subtitle: "줄 서서 먹는 유명 맛집에서의 특별한 한끼",
         tests: [
             {
                 testKey: "restaurant",
