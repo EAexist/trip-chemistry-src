@@ -298,7 +298,7 @@ function TestContent() {
                         <Swiper speed={speed} noSwipingClass='testcontent-swiper-no-swiping' onActiveIndexChange={(swiper) => setActiveSectionIndex(swiper.activeIndex)} ref={swiperRef} style={{ height: "100%" }} {...SWIPERPROPS}>
                             {
                                 (Object.entries(TEST_SECTIONS) as [id: string, { subtitle?: string, contentComponent?: React.ReactNode }][]).map(([id, { subtitle, contentComponent }]) => (
-                                    <SwiperSlide key={id} style={{ overflowX: "scroll" }} data-hash={id}>
+                                    <SwiperSlide key={id} data-hash={id}>
                                         <div className="wrapper content">
                                             {
                                                 subtitle
