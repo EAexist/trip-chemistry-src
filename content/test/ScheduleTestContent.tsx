@@ -365,9 +365,9 @@ function ScheduleTestContent() {
                         </div>
                     </Grow>
                 }
-                {/* <SelectedPlaceContext.Provider value={{ selectedPlaceId, setSelectedPlaceId }}>
+                <SelectedPlaceContext.Provider value={{ selectedPlaceId, setSelectedPlaceId }}>
                     <GoogleMapContext.Provider value={{ map: scheduleExampleMap as google.maps.Map, setMap: setScheduleExampleMap }}>
-                        <GoogleMap opts={{ ...OPTIONS_TEST_SCHEDULE }}>
+                        {/* <GoogleMap opts={{ ...OPTIONS_TEST_SCHEDULE }}>
                             <GoogleMapMarker {...airportPlace} />
                             {
                                 (scheduleAnswer !== undefined) &&
@@ -385,9 +385,10 @@ function ScheduleTestContent() {
                                     </Fragment>
                                 ))
                             }
-                        </GoogleMap>
+                        </GoogleMap> */}
+                        <div>GI</div>
                     </GoogleMapContext.Provider>
-                </SelectedPlaceContext.Provider> */}
+                </SelectedPlaceContext.Provider>
             </div>
         </div>
     );
