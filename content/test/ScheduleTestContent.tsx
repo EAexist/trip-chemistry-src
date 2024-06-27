@@ -310,7 +310,7 @@ function ScheduleTestContent() {
                 }
             </RadioGroup>
             {/* </div> */}
-            <div className="google-map__container block--round" style={{ overflow: "hidden" }}>
+            <div className="google-map__container block--round" style={{ position: "relative", overflow: "hidden" }}>
                 <div style={{ position: "absolute", top: 0, left: 0, zIndex: 2 }} className="block--with-margin--xsmall">
                     {
                         showMapTitle ?
