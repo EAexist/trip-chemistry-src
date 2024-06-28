@@ -9,9 +9,7 @@ export const OPTIONS_TEST_SCHEDULE: google.maps.MapOptions = {
   disableDefaultUI: true, /* Disable UI */
   disableDoubleClickZoom: true,
   clickableIcons: false,
-  noClear: true,
-
-  // gestureHandling: "none"
+  gestureHandling: "none"
 };
 
 export const POLYLINE_OPTIONS = {
