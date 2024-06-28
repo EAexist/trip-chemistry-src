@@ -1,5 +1,5 @@
 /* React */
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 
 /* Externals */
 
@@ -7,26 +7,42 @@ import { Fragment, useEffect, useState } from "react";
 
 /* GoogleMap */
 import { FormControlLabel, Paper, Radio, RadioGroup } from "@mui/material";
-import SelectedPlaceContext from "~/components/GoogleMap/common/SelectedPlaceContext";
+import { APIProvider, Map, MapCameraChangedEvent, MapCameraProps } from "@vis.gl/react-google-maps";
 import GoogleMapMarker from "~/components/GoogleMap/ui/GoogleMapMarker";
+import GoogleMapPanner from "~/components/GoogleMap/ui/GoogleMapPanner";
 import GoogleMapPolyline from "~/components/GoogleMap/ui/GoogleMapPolyline";
 import { airportPlace, googleMapOptions, places, scheduleTestOptions } from "~/content/test/ScheduleTestContent";
-import GoogleMapContext from "../../../components/GoogleMap/common/GoogleMapContext";
+import env from "~/env";
 import { OPTIONS_TEST_SCHEDULE } from "../../../components/GoogleMap/common/options";
-import GoogleMap from "../../../components/GoogleMap/ui/GoogleMap";
 
 function TestSample() {
 
-    /* States */
-    const [scheduleExampleMap, setScheduleExampleMap] = useState<google.maps.Map | null>();
-
-    const [scheduleAnswer, setScheduleAnswer] = useState<number>(1);
-    const { zoom: googleMapZoom, center: googleMapCenter } = googleMapOptions[scheduleAnswer];
+    /* GoogleMap */
+    /* API load */
+    const [isLoaded, setIsLoaded] = useState(false)
 
     useEffect(() => {
-        scheduleExampleMap?.setZoom(googleMapZoom);
-        scheduleExampleMap?.panTo(googleMapCenter);
-    }, [scheduleAnswer, scheduleExampleMap]);
+        console.log(`Mounting [GoogleMap]`);
+        async function importLibrary() {
+            const libaray = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
+            setIsLoaded(true)
+        }
+        importLibrary();
+    }, []);
+
+    /* Zoom and pan */
+    const [scheduleAnswer, setScheduleAnswer] = useState<number>(1);
+    const [cameraProps, setCameraProps] = useState<MapCameraProps>(googleMapOptions[scheduleAnswer || 0]);
+    const handleCameraChange = useCallback((ev: MapCameraChangedEvent) =>
+        setCameraProps(ev.detail)
+        , []);
+
+    const [panTargetPosition, setPanTargetPosition] = useState<google.maps.LatLngLiteral>()
+
+    useEffect(() => {
+        setPanTargetPosition(googleMapOptions[scheduleAnswer || 0].center)
+    }, [scheduleAnswer]);
+
 
     /* Side Effects */
     const scheduleAnswerSwitchInterval = 2000;
@@ -39,57 +55,60 @@ function TestSample() {
     }, [])
 
     return (
-            <div className="block--round full" style={{ overflow: "hidden" }} >
-                <div style={{ position: "absolute", zIndex: 1 }} className="block--with-margin--xsmall">
-                    <Paper className="">
-                        <RadioGroup
-                            name="controlled-radio-buttons-group full"
-                            value={scheduleAnswer}
-                            row={true}
-                        >
-                            {
-                                scheduleTestOptions.map(({ value, label }, index) => (
-                                    (value > 0) &&
-                                    <FormControlLabel
-                                        key={label}
-                                        value={value}
-                                        control={
-                                            <Radio
-                                                size="small"
-                                            />
-                                        }
-                                        // label={<></>}
-                                        label={(value === scheduleAnswer) && <p className="block--centered typography-note" style={{ whiteSpace: "normal", marginRight: (index===3) && "8px" }}>{label}</p>}
-                                    // labelPlacement="top"
-                                    />
-                                ))
-                            }
-                        </RadioGroup>
-                    </Paper>
-                </div>
-                <GoogleMapContext.Provider value={{ map: scheduleExampleMap as google.maps.Map, setMap: setScheduleExampleMap }}>
-                    <GoogleMap opts={{ ...OPTIONS_TEST_SCHEDULE}}>
-                        <SelectedPlaceContext.Provider value={{}}>
-                            <GoogleMapMarker {...airportPlace} />
-                            {
-                                Object.entries(places).map(([id, place], index) => (
-                                    <Fragment key={id}>
-                                        <GoogleMapMarker id={id} {...place} isActive={place.option <= scheduleAnswer} />
-                                        <GoogleMapPolyline
-                                            coordinates={[
-                                                (index > 0) ? Object.values(places)[index - 1].position : airportPlace.position,
-                                                place.position
-                                            ]}
-                                            {...place}
-                                            isActive={place.option <= scheduleAnswer}
+        <div className="block--round full" style={{ overflow: "hidden" }} >
+            <div style={{ position: "absolute", zIndex: 1 }} className="block--with-margin--xsmall">
+                <Paper className="">
+                    <RadioGroup
+                        name="controlled-radio-buttons-group full"
+                        value={scheduleAnswer}
+                        row={true}
+                    >
+                        {
+                            scheduleTestOptions.map(({ value, label }, index) => (
+                                (value > 0) &&
+                                <FormControlLabel
+                                    key={label}
+                                    value={value}
+                                    control={
+                                        <Radio
+                                            size="small"
                                         />
-                                    </Fragment>
-                                ))
-                            }
-                        </SelectedPlaceContext.Provider>
-                    </GoogleMap>
-                </GoogleMapContext.Provider>
+                                    }
+                                    // label={<></>}
+                                    label={(value === scheduleAnswer) && <p className="block--centered typography-note" style={{ whiteSpace: "normal", marginRight: (index === 3) && "8px" }}>{label}</p>}
+                                // labelPlacement="top"
+                                />
+                            ))
+                        }
+                    </RadioGroup>
+                </Paper>
             </div>
+            {
+                isLoaded &&
+                <APIProvider libraries={["maps"]} apiKey={env.REACT_APP_GOOGLE_MAP_JS_API_KEY}>
+                    <Map {...OPTIONS_TEST_SCHEDULE} {...cameraProps} onCameraChanged={handleCameraChange}>
+                        <GoogleMapPanner zoom={googleMapOptions[scheduleAnswer || 0].zoom} center={panTargetPosition} />
+                        <GoogleMapMarker {...airportPlace} />
+                        {
+                            (scheduleAnswer !== undefined) &&
+                            Object.entries(places).map(([id, place], index) => (
+                                <Fragment key={id}>
+                                    <GoogleMapMarker id={id} {...place} isActive={(scheduleAnswer === 0) || (place.option <= scheduleAnswer)} />
+                                    <GoogleMapPolyline
+                                        coordinates={[
+                                            (index > 0) ? Object.values(places)[index - 1].position : airportPlace.position,
+                                            place.position
+                                        ]}
+                                        {...place}
+                                        isActive={place.option <= scheduleAnswer}
+                                    />
+                                </Fragment>
+                            ))
+                        }
+                    </Map>
+                </APIProvider>
+            }
+        </div>
     );
 }
 export default TestSample;

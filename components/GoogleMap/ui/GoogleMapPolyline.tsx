@@ -4,6 +4,7 @@ import { useGoogleMapContext } from "../common/GoogleMapContext";
 import { MarkerProps } from "./Marker";
 import { useTheme } from "@mui/material";
 import SelectedPlaceContext from "../common/SelectedPlaceContext";
+import { useMap } from "@vis.gl/react-google-maps";
 
 interface GoogleMapPolylineProps extends MarkerProps {
     isActive?: boolean
@@ -12,7 +13,7 @@ interface GoogleMapPolylineProps extends MarkerProps {
 
 const GoogleMapPolyline = ({ isActive = true, coordinates }: GoogleMapPolylineProps) => {
 
-    const { map } = useGoogleMapContext();
+    const map = useMap();
     const isAnyMarkerSelected = useContext(SelectedPlaceContext).selectedPlaceId !== undefined;
     const [polyline, setPolyline] = useState<google.maps.Polyline>();
     const { palette } = useTheme();

@@ -1,5 +1,5 @@
 /* React */
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 
 /* Externals */
 import { Close, NavigateNext } from "@mui/icons-material";
@@ -11,12 +11,13 @@ import Logo from "../../components/Logo";
 import getImgSrc, { FORMATSVG } from "../../utils/getImgSrc";
 
 /* GoogleMap */
+import { APIProvider, ControlPosition, Map, MapCameraChangedEvent, MapCameraProps, MapControl } from '@vis.gl/react-google-maps';
 import SelectedPlaceContext from "~/components/GoogleMap/common/SelectedPlaceContext";
 import GoogleMapMarker from "~/components/GoogleMap/ui/GoogleMapMarker";
+import GoogleMapPanner from "~/components/GoogleMap/ui/GoogleMapPanner";
 import GoogleMapPolyline from "~/components/GoogleMap/ui/GoogleMapPolyline";
-import GoogleMapContext from "../../components/GoogleMap/common/GoogleMapContext";
+import env from "~/env";
 import { OPTIONS_TEST_SCHEDULE } from "../../components/GoogleMap/common/options";
-import GoogleMap from "../../components/GoogleMap/ui/GoogleMap";
 
 export const airportPlace = {
     position: {
@@ -209,74 +210,50 @@ function ScheduleTestContent() {
         setScheduleAnswer(Number(event.target.value));
     }
     /* 구글맵 */
-    const [scheduleExampleMap, setScheduleExampleMap] = useState<google.maps.Map | null>();
+    const [isLoaded, setIsLoaded] = useState(false)
+    useEffect(() => {
+        console.log(`Mounting [GoogleMap]`);
+        async function importLibrary() {
+            const libaray = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
+            setIsLoaded(true)
+        }
+        importLibrary();
+    }, []);
 
-    const { zoom: googleMapZoom, center: googleMapCenter } = googleMapOptions[scheduleAnswer || 0];
+    const [showMapTitle, setShowMapTitle] = useState(false);
+    const googleMapRef = useRef<HTMLDivElement>(null);
 
-    /** 실제 오픈되어 있어야 하는 Info Window. Context 에 적용. */
     const [selectedPlaceId, setSelectedPlaceId] = useState<string>()
     const selectedPlace = (selectedPlaceId === 'fukuoka-airport') ? airportPlace : places[selectedPlaceId]
 
-    const [selectedInfoWindow, setSelectedInfoWindow] = useState<google.maps.InfoWindow>();
-    /**
-     * DOM 에서 오픈되어 있는 Info Window. 
-     * Active Info Window 가 변경 될 경우 기존 Active Info Window 의 close() 함수를 호출해 닫기 위해 참조. 
-     * [Deprecated] InfoWindow 및 Marker View 변화 로직은 모두 GoogleMapMarker 로 이동.
-     * 부모 컴포넌트(ScheduleTestContent)에서는 activeGoogleMarker 를 참조하는 state 하나와 activeGoogleMarker 가 없을 경우 지도 초기화 로직만 관리.   
-     * */
-    // const [prevActiveInfoWindow, setPrevActiveInfoWindow] = useState<google.maps.InfoWindow>();
 
-    const [showMapTitle, setShowMapTitle] = useState(false);
+    /* Zoom and Pan */
+    const [cameraProps, setCameraProps] = useState<MapCameraProps>(googleMapOptions[scheduleAnswer || 0]);
+    const handleCameraChange = useCallback((ev: MapCameraChangedEvent) =>
+        setCameraProps(ev.detail)
+        , []);
+
+    const [panTargetPosition, setPanTargetPosition] = useState<google.maps.LatLngLiteral>()
 
     useEffect(() => {
-        console.log(`selectedInfoWindow.content=${selectedInfoWindow?.getContent().toString()}`)
-
-        /**
-         * 새로운 Info Window 가 열릴 경우 기존의 Active Info Window를 닫음. Close 버튼을 눌러 Info Window를 닫을 경우 상태를 undefined 로 설정. Context의 Active Info Window 와 DOM 에서 오픈되어있는 Info Window 를 동기화. 
-         * [ Deprecated ] prevActiveInfoWindow 참고.       
-         *  */
-        // if ( selectedInfoWindow !== prevActiveInfoWindow ){
-        //     prevActiveInfoWindow?.close()
-        //     setPrevActiveInfoWindow( selectedInfoWindow )
-        // }
-
-        // Close 버튼을 눌러 Info Window를 닫을 경우 Info Window로 인해 이동한 지도의 center를 기본값으로 초기화.
-        if (selectedInfoWindow === undefined) {
-            scheduleExampleMap?.panTo(googleMapCenter);
-        }
-
-    }, [selectedInfoWindow, scheduleExampleMap])
-
-    useEffect(() => {
-        // console.log(`selectedInfoWindow.content=${selectedPlaceId?.getContent().toString()}`)
-
-        /**
-         * 새로운 Info Window 가 열릴 경우 기존의 Active Info Window를 닫음. Close 버튼을 눌러 Info Window를 닫을 경우 상태를 undefined 로 설정. Context의 Active Info Window 와 DOM 에서 오픈되어있는 Info Window 를 동기화. 
-         * [ Deprecated ] prevActiveInfoWindow 참고.       
-         *  */
-        // if ( selectedInfoWindow !== prevActiveInfoWindow ){
-        //     prevActiveInfoWindow?.close()
-        //     setPrevActiveInfoWindow( selectedInfoWindow )
-        // }
-
         // Close 버튼을 눌러 Info Window를 닫을 경우 Info Window로 인해 이동한 지도의 center를 기본값으로 초기화.
         if (selectedPlaceId === undefined) {
-            scheduleExampleMap?.panTo(googleMapCenter);
+            setPanTargetPosition(googleMapOptions[scheduleAnswer || 0].center)
         }
+        else {
+            setPanTargetPosition(undefined)
+        }
+    }, [selectedPlaceId === undefined, scheduleAnswer])
 
-    }, [selectedPlaceId, scheduleExampleMap])
 
-    /** Schedule 테스트 결과에 따라 
-     * 1. 구글맵 zoom 변경
+    /** Schedule 테스트 응답을 바꿀 때 
+     * 1. 장소 focus 취소
      * 2. 구글맵 center 이동
      * */
     useEffect(() => {
-        if (scheduleAnswer !== undefined) {
-            scheduleExampleMap?.setZoom(googleMapZoom);
-            setSelectedInfoWindow(undefined);
-            scheduleExampleMap?.panTo(googleMapCenter);
-        }
-    }, [scheduleAnswer, scheduleExampleMap]);
+        setSelectedPlaceId(undefined)
+        setPanTargetPosition(googleMapOptions[scheduleAnswer || 0].center)
+    }, [scheduleAnswer]);
 
     return (
         <div className="content">
@@ -309,85 +286,90 @@ function ScheduleTestContent() {
                     ))
                 }
             </RadioGroup>
-            <div className="google-map__container block--round" style={{ position: "relative", overflow: "hidden" }}>
-                {/* </div> */}
-                <div style={{ position: "absolute", top: 0, zIndex: 50 }} className="block--with-margin--xsmall">
-                    {
-                        showMapTitle ?
-                            <Grow in={showMapTitle}>
-                                <Card sx={{ position: "relative" }} >
-                                    <IconButton onClick={() => setShowMapTitle(false)} sx={{ position: "absolute", top: 0, right: 0 }} size="small">
-                                        <Close fontSize="small" />
-                                    </IconButton>
-                                    <CardContent>
-                                        <h2 className="typography-note">Based On</h2>
-                                        <p className="typography-label">{"재하 님의\n후쿠오카 여행"}</p>
-                                    </CardContent>
-                                    <CardActions>
-                                        <Button href={"https://blog.naver.com/jcjw1234"} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext />} size="small" className="typography-note">
-                                            블로그에서 더 보기
-                                        </Button>
-                                    </CardActions>
-                                </Card>
-                            </Grow>
-                            :
-                            <Button onClick={() => setShowMapTitle(true)} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext fontSize="inherit" sx={{ marginLeft: "-4px" }} />} size="small" className="typography-label" sx={{ textTransform: 'none' }}>
-                                재하 님의 후쿠오카 여행
-                            </Button>
-                    }
-                </div>
-                {
-                    selectedPlace &&
-                    <Grow in={showMapTitle}>
-                        <div style={{ position: "absolute", bottom: 0, zIndex: 50, width: "100%" }} >
-                            <div className="block--with-margin--xsmall">
-                                <Card sx={{ position: "relative" }}>
-                                    <IconButton onClick={() => setSelectedPlaceId(undefined)} sx={{ zIndex: 1, position: "absolute", top: 0, right: 0 }} >
-                                        <Close fontSize="small" />
-                                    </IconButton>
-                                    <CardActionArea href={selectedPlace.href} sx={{ display: "flex", alignItems: "start" }}>
-                                        {
-                                            <CardMedia
-                                                component="img"
-                                                image={getImgSrc("/test/schedule", selectedPlaceId)}
-                                                alt={selectedPlace.label}
-                                                width="96px"
-                                                sx={{ width: "96px", aspectRatio: "1/1", borderRadius: "16px", margin: "16px" }}
-                                            />
-                                        }
-                                        <CardContent sx={{ paddingLeft: 0, flexGrow: 1 }}>
-                                            <h2 className="typography-label" style={{}}>{selectedPlace.label}<span style={{ fontSize: "inherit", position: "relative" }}><NavigateNext sx={{ fontSize: "inherit", position: "absolute", top: "50%", transform: "translateY(-50%)" }} /></span></h2>
-                                            <p className="typography-note">{selectedPlace.body}</p>
-                                        </CardContent>
-                                    </CardActionArea>
-                                </Card>
-                            </div>
-                        </div>
-                    </Grow>
-                }
+            <div className="google-map__container block--round" style={{ overflow: "hidden" }} ref={googleMapRef}>
                 <SelectedPlaceContext.Provider value={{ selectedPlaceId, setSelectedPlaceId }}>
-                    <GoogleMapContext.Provider value={{ map: scheduleExampleMap as google.maps.Map, setMap: setScheduleExampleMap }}>
-                        {/* <GoogleMap opts={{ ...OPTIONS_TEST_SCHEDULE }}>
-                            <GoogleMapMarker {...airportPlace} />
-                            {
-                                (scheduleAnswer !== undefined) &&
-                                Object.entries(places).map(([id, place], index) => (
-                                    <Fragment key={id}>
-                                        <GoogleMapMarker id={id} {...place} isActive={(scheduleAnswer === 0) || (place.option <= scheduleAnswer)} />
-                                        <GoogleMapPolyline
-                                            coordinates={[
-                                                (index > 0) ? Object.values(places)[index - 1].position : airportPlace.position,
-                                                place.position
-                                            ]}
-                                            {...place}
-                                            isActive={place.option <= scheduleAnswer}
-                                        />
-                                    </Fragment>
-                                ))
-                            }
-                        </GoogleMap> */}
-                        <div>GI</div>
-                    </GoogleMapContext.Provider>
+                    {
+                        isLoaded &&
+                        <APIProvider libraries={["maps"]} apiKey={env.REACT_APP_GOOGLE_MAP_JS_API_KEY}>
+                            <Map {...OPTIONS_TEST_SCHEDULE} {...cameraProps} onCameraChanged={handleCameraChange}>
+                                <GoogleMapPanner zoom={googleMapOptions[scheduleAnswer || 0].zoom} center={panTargetPosition} />
+                                <GoogleMapMarker {...airportPlace} />
+                                {
+                                    (scheduleAnswer !== undefined) &&
+                                    Object.entries(places).map(([id, place], index) => (
+                                        <Fragment key={id}>
+                                            <GoogleMapMarker id={id} {...place} isActive={(scheduleAnswer === 0) || (place.option <= scheduleAnswer)} />
+                                            <GoogleMapPolyline
+                                                coordinates={[
+                                                    (index > 0) ? Object.values(places)[index - 1].position : airportPlace.position,
+                                                    place.position
+                                                ]}
+                                                {...place}
+                                                isActive={place.option <= scheduleAnswer}
+                                            />
+                                        </Fragment>
+                                    ))
+                                }
+                                <MapControl position={ControlPosition.BLOCK_START_INLINE_START} >
+                                    <div className="block--with-margin--xsmall">
+                                        {
+                                            showMapTitle
+                                                ?
+                                                <Grow in={showMapTitle}>
+                                                    <Card sx={{ position: "relative" }} >
+                                                        <IconButton onClick={() => setShowMapTitle(false)} sx={{ position: "absolute", top: 0, right: 0 }} size="small">
+                                                            <Close fontSize="small" />
+                                                        </IconButton>
+                                                        <CardContent>
+                                                            <h2 className="typography-note">Based On</h2>
+                                                            <p className="typography-label">{"재하 님의\n후쿠오카 여행"}</p>
+                                                        </CardContent>
+                                                        <CardActions>
+                                                            <Button href={"https://blog.naver.com/jcjw1234"} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext />} size="small" className="typography-note">
+                                                                블로그에서 더 보기
+                                                            </Button>
+                                                        </CardActions>
+                                                    </Card>
+                                                </Grow>
+                                                :
+                                                <Button onClick={() => setShowMapTitle(true)} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext fontSize="inherit" sx={{ marginLeft: "-4px" }} />} size="small" className="typography-label" sx={{ textTransform: 'none' }}>
+                                                    재하 님의 후쿠오카 여행
+                                                </Button>
+                                        }
+                                    </div>
+                                </MapControl>
+                                <MapControl position={ControlPosition.BOTTOM_LEFT}>
+                                    {
+                                        selectedPlace &&
+                                        // <Grow in={selectedPlaceId !== undefined}>
+                                        <div style={{ width: googleMapRef?.current?.offsetWidth, position: "absolute", bottom: 0, left: "-76px" }}>
+                                            <Card sx={{ position: "relative" }} className="block--with-margin--xsmall">
+                                                <IconButton onClick={() => setSelectedPlaceId(undefined)} sx={{ zIndex: 1, position: "absolute", top: 0, right: 0 }} >
+                                                    <Close fontSize="small" />
+                                                </IconButton>
+                                                <CardActionArea href={selectedPlace.href} sx={{ display: "flex", alignItems: "start" }}>
+                                                    {
+                                                        <CardMedia
+                                                            component="img"
+                                                            image={getImgSrc("/test/schedule", selectedPlaceId)}
+                                                            alt={selectedPlace.label}
+                                                            width="96px"
+                                                            sx={{ width: "96px", aspectRatio: "1/1", borderRadius: "16px", margin: "16px" }}
+                                                        />
+                                                    }
+                                                    <CardContent sx={{ paddingLeft: 0, flexGrow: 1 }}>
+                                                        <h2 className="typography-label" style={{}}>{selectedPlace.label}<span style={{ fontSize: "inherit", position: "relative" }}><NavigateNext sx={{ fontSize: "inherit", position: "absolute", top: "50%", transform: "translateY(-50%)" }} /></span></h2>
+                                                        <p className="typography-note">{selectedPlace.body}</p>
+                                                    </CardContent>
+                                                </CardActionArea>
+                                            </Card>
+                                        </div>
+                                        // </Grow>
+                                    }
+                                </MapControl>
+                            </Map>
+                        </APIProvider>
+                    }
                 </SelectedPlaceContext.Provider>
             </div>
         </div>

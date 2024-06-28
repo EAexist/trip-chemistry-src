@@ -8,7 +8,8 @@ export const OPTIONS_TEST_SCHEDULE: google.maps.MapOptions = {
   zoom: 12.2,
   disableDefaultUI: true, /* Disable UI */
   disableDoubleClickZoom: true,
-  draggable: false,
+  clickableIcons: false,
+  // gestureHandling: "none"
 };
 
 export const POLYLINE_OPTIONS = {
