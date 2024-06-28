@@ -59,7 +59,7 @@ function CityCarousel({ cityType }: CityCarouselProps) {
                             <CardActionArea onClick={handleClick(cityId)} className="flex-end">
                                 <CardContent>
                                     <Stack>
-                                        <h3 className="typography-label">{cityStrings[cityId].name}</h3>
+                                        <h3 className="typography-highlight">{cityStrings[cityId].name}</h3>
                                         {
                                             NATION[CITIES[cityId].nation].flag
                                             && <Flag id={CITIES[cityId].nation} />

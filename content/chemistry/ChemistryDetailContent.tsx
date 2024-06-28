@@ -42,7 +42,7 @@ function ChemistryDetailContent() {
                 <RestaurantChemistryContent />
             </SectionPaper>
             <section className="wrapper content">
-                <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">추천 여행지</m.h2>
+                <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-title">추천 여행지</m.h2>
                 {
                     recommendedCityTypeEntries.length > 0 ?
                         <ul className="content">
@@ -68,7 +68,7 @@ function ChemistryDetailContent() {
                 {
                     notRecommendedCityTypeEntries.length > 0 &&
                     <>
-                        <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">이런 곳도 있어</m.h2>
+                        <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-title">이런 곳도 있어</m.h2>
                         <ul className="content">
                             {
                                 cityTypesSortedByScore.filter(([k, v]) => v < cityTypeRecommendationScoreThreshold).map(([cityType]) => (

@@ -84,7 +84,7 @@ function SwiperAutoplayProgress({ swiper, className }: SwiperAutoplayProgressPro
                                 (
                                     isPaused
                                         ? <Icon>pause</Icon>
-                                        : <p className="typography-label" style={{ color: "inherit" }}>{`${secondsLeft}`}</p>
+                                        : <p className="typography-highlight" style={{ color: "inherit" }}>{`${secondsLeft}`}</p>
                                 )
                             )
                     )}

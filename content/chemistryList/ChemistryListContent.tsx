@@ -30,7 +30,7 @@ function ChemistryListContent() {
             <MainAppBar color="transparent"/>
             <Toolbar />
                 <div className="wrapper content content--sparse">
-                    <m.h2 {...FADEIN_VIEWPORT} className="typography-heading">
+                    <m.h2 {...FADEIN_VIEWPORT} className="section-title">
                         내 여행 목록
                     </m.h2>
                     <m.ul {...STAGGER_CHILDREN} custom={0.5} className="content">

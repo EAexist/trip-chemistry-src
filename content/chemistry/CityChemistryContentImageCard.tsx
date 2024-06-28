@@ -44,7 +44,7 @@ function CityChemistryContent({ cityType }: CityChemistryContentProps) {
             <CardActionArea onClick={handleClick} className="flex-end">
                 <CardContent>
                     <Stack justifyContent={"space-between"} >
-                        <h2 className="typography-label">{city.title}</h2>
+                        <h2 className="typography-highlight">{city.title}</h2>
                         <Stack spacing={0}>
                             <Rating value={score} readOnly precision={0.5} emptyIcon={<StarBorder fontSize="inherit" />} sx={{ fontSize: "inherit" }} />
                             <p>{Math.round(score * 10) / 10}</p>

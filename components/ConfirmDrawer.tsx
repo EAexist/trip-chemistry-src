@@ -23,7 +23,7 @@ function ConfirmDrawer({ title, body, cancelButtonLabel, onConfirm, onCancel, is
                 {...props}
             >
                 <div className='wrapper content content--sparse'>
-                    <h2 className='typography-heading'>
+                    <h2 className='section-title'>
                         {title}
                     </h2>
                     <p>
@@ -55,7 +55,7 @@ export default ConfirmDrawer;
 //     <LazyDomAnimation>
 //         <m.div {...FADEIN} className="page fill-window flex">
 //             <div className='block--with-margin content content--sparse block--centered flex-grow'>
-//                 <h3 className='typography-heading'>
+//                 <h3 className='section-title'>
 //                     { title }
 //                 </h3>
 //                 <div>

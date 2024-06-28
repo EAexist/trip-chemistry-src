@@ -87,7 +87,7 @@ const GoogleMapMarker = ({ isActive = true, position, label, body, href, id, ico
     //             //                         />
     //             //                     }
     //             //                     <CardContent sx={{ padding: "12px" }}>
-    //             //                         <h2 className="typography-label" style={{}}>{label}<span style={{ fontSize: "inherit", position: "relative" }}><NavigateNext sx={{ fontSize: "inherit", position: "absolute", top: "50%", transform: "translateY(-50%)" }} /></span></h2>
+    //             //                         <h2 className="typography-highlight" style={{}}>{label}<span style={{ fontSize: "inherit", position: "relative" }}><NavigateNext sx={{ fontSize: "inherit", position: "absolute", top: "50%", transform: "translateY(-50%)" }} /></span></h2>
     //             //                         <p className="typography-note">{body}</p>
     //             //                     </CardContent>
     //             //                 </CardActionArea>

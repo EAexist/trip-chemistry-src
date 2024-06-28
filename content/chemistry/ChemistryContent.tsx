@@ -157,7 +157,7 @@ function ChemistryContent() {
          */
         <>
             <Helmet>
-                <meta property="og:description" content={profileIds.length > 0 ? `${profiles[profileIds[0]].nickname}님의 ${title}. 참여하고 여행 계획, 일정, 예산, 여행지까지 함께 결정해보세요.` : `${title}. 참여하고 여행의 리더, 일정, 예산 그리고 여행지를 함께 결정해보세요.`} />
+                <meta property="og:description" content={profileIds.length > 0 ? `${profiles[profileIds[0]].nickname}님의 「${title}」. 참여하고 여행 계획, 일정, 예산, 여행지까지 함께 결정해보세요.` : `${title}. 참여하고 여행의 리더, 일정, 예산 그리고 여행지를 함께 결정해보세요.`} />
             </Helmet>
             {
                 (!isAuthorized && showLoginContent)
@@ -202,7 +202,7 @@ function ChemistryContent() {
                         <Toolbar />
                         <div className="content content--sparse">
                             <SectionPaper className="content">
-                                <h2 className="typography-heading">{title}</h2>
+                                <h2 className="section-title">{title}</h2>
                                 <div>
                                     <List>
                                         {
@@ -272,11 +272,11 @@ function ChemistryContent() {
                                             }
                                             isFullscreen={false}
                                         />
-                                        {
-                                            isMember && !hasAnsweredTest &&
-                                            <div className="fab-placeholder" style={{ backgroundColor: "white", visibility: "visible" }} />
-                                        }
                                     </Paper>
+                            }
+                            {
+                                !hasAnsweredTest &&
+                                <div className="fab-placeholder" style={{ backgroundColor: "white", visibility: "visible", marginTop: 0 }} />
                             }
                             <ConfirmDrawer
                                 open={openConfirmJoinDialog}

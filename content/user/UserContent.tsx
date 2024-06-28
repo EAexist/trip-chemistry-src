@@ -18,7 +18,7 @@ import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { asyncKakaoLogout, useUserProfile } from "../../reducers/authReducer";
 import { useAppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
-import { KakoLoginHelp } from "~/components/KakaoLoginHelp";
+import { KakaoLoginHelp } from "~/components/KakaoLoginHelp";
 
 function UserContent() {
 
@@ -82,7 +82,7 @@ function UserContent() {
                             >
                                 <Icon />
                             </IconButton>
-                            <p className="typography-heading ">{nickname}</p>
+                            <p className="section-title ">{nickname}</p>
                             <IconButton
                                 edge="end"
                                 aria-label="edit"
@@ -101,7 +101,7 @@ function UserContent() {
                                 {
                                     (AuthProvider[authProvider] === AuthProvider.GUEST)
                                     &&
-                                    <KakoLoginHelp/>
+                                    <KakaoLoginHelp/>
                                 }
                                 <div style={{ width: "100%" }}>
                                     <KakaoLoginButton sx={{ width: "100%" }} />

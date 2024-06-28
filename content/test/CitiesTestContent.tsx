@@ -83,7 +83,7 @@ function CitiesTestContent({ }: CitiesTestContentProps) {
                             >
                                 <CardContent>
                                     <Stack>
-                                        <h3 className="typography-label">{commonStrings.city[cityId as keyof typeof commonStrings.city].name}</h3>
+                                        <h3 className="typography-highlight">{commonStrings.city[cityId as keyof typeof commonStrings.city].name}</h3>
                                         {
                                             NATION[CITIES[cityId as keyof typeof CITIES].nation as keyof typeof NATION].flag
                                             && <Flag id={CITIES[cityId as keyof typeof CITIES].nation} />

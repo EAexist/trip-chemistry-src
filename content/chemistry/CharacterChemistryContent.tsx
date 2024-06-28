@@ -32,7 +32,7 @@ function CharacterChemistryContent() {
 
     return (
         <div className="content">
-            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">여행 타입</m.h2>
+            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-title">여행 타입</m.h2>
             <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} >
                 <ProfileToggleButtonGroup
                     activeProfileId={activeProfileId}

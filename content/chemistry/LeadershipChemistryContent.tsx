@@ -20,7 +20,7 @@ function LeadershipChemistryContent() {
 
     return (
         <div className="content">
-            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">{strings.sections.leadership.title}</m.h2>
+            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-title">{strings.sections.leadership.title}</m.h2>
             <div>
                 <List>
                     {

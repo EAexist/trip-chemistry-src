@@ -56,7 +56,7 @@
                                            
 //                                         />
 //                                         <Stack>
-//                                             <h3 className="typography-label">{commonStrings.city[cityId as keyof typeof commonStrings.city].name}</h3>
+//                                             <h3 className="typography-highlight">{commonStrings.city[cityId as keyof typeof commonStrings.city].name}</h3>
 //                                             {
 //                                                 NATION[CITIES[cityId as keyof typeof CITIES].nation as keyof typeof NATION].flag
 //                                                 && <Flag id={CITIES[cityId as keyof typeof CITIES].nation} />
@@ -71,7 +71,7 @@
 //             </div>
 //             <div className="block content content--sparse">
 //                 <div className="test__title">
-//                     <h2 className="test__title__heading typography-heading">{contentstrings.test.city.titleTextList.map((text) => (
+//                     <h2 className="test__title__heading section-title">{contentstrings.test.city.titleTextList.map((text) => (
 //                         text === "/testKey"
 //                             ? contentstrings.subTest[id as keyof typeof contentstrings.subTest].title
 //                             : (

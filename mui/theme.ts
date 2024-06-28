@@ -173,9 +173,6 @@ const theme = createTheme({
         MuiCard: {
             defaultProps: {
                 elevation: 0,
-                style: {
-                    borderRadius: "16px"
-                }
             }
         },
         MuiCardContent: {
@@ -184,6 +181,13 @@ const theme = createTheme({
                     ':last-child': {
                         paddingBottom: "1rem"
                     }
+                }
+            }
+        },
+        MuiChip: {
+            styleOverrides: {
+                root: {
+                    padding: "2.5px"
                 }
             }
         },

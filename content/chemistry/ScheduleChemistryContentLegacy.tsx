@@ -26,7 +26,7 @@ function ScheduleChemistryContent() {
     
     return (
         <>
-            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">{strings.sections.schedule.title}</m.h2>
+            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-title">{strings.sections.schedule.title}</m.h2>
             <div className="content">
                     <List>
                         {
@@ -35,7 +35,7 @@ function ScheduleChemistryContent() {
                                 <MotionListItem key={label} {...FADEIN_FROMBOTTOM_VIEWPORT} disableGutters dense >
                                     {(value === 4) && <div style={{ position: 'absolute', backgroundColor: palette.primary.light, opacity: 0.5, width: '100%', height: '100%' }} className="block--round" />}
                                     <ListItemAvatar style={{ width: "100px", zIndex: 1 }} className="block--centered">
-                                        <p className={Object.keys(scheduleAnswerToProfiles).includes(String(value)) ? "typography-label" : "disabled"}>{label}</p>
+                                        <p className={Object.keys(scheduleAnswerToProfiles).includes(String(value)) ? "typography-highlight" : "disabled"}>{label}</p>
                                     </ListItemAvatar>
                                     <ListItemText primary={
                                         <Stack>

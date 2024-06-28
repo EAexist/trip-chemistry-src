@@ -43,7 +43,7 @@ export const TEST_SECTIONS = {
     {
         type: "hashtag",
         icon: "expectation",
-        label: "# 여행 테마",
+        label: "여행 테마 #",
         subtitle: "이런 여행을 하고 싶어",
         tests: [
             {
@@ -57,7 +57,7 @@ export const TEST_SECTIONS = {
     {
         type: "hashtag",
         icon: "activity",
-        label: "# 액티비티",
+        label: "액티비티 #",
         subtitle: "여행지에서는 이런 것들을 해보고 싶어",
         tests: [
             {
@@ -290,7 +290,7 @@ function TestContent() {
                     <Toolbar />
                     <Stack className="wrapper" style={{ paddingBottom: 0, marginLeft: "-8px" }} display="flex" justifyContent={"space-between"}>
                         <Button onClick={() => setOpenSectionListModal(true)} endIcon={<ArrowDropDown />}>
-                            <h2 className="typography-heading">{Object.values(TEST_SECTIONS)[activeSectionIndex].label}</h2>
+                            <h2 className="section-title">{Object.values(TEST_SECTIONS)[activeSectionIndex].label}</h2>
                         </Button>
                         <p className="typography-note">{`${activeSectionIndex + 1} / ${Object.keys(TEST_SECTIONS).length}`}</p>
                     </Stack>
@@ -330,7 +330,7 @@ function TestContent() {
                         onClose={handleSectionListModalClose}
                         className="wrapper content"
                     >
-                        <h2 className="typography-heading">테스트</h2>
+                        <h2 className="section-title">테스트</h2>
                         <div>
                             <Grid container spacing={1}>
                                 {

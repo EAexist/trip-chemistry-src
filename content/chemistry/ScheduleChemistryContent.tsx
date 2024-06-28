@@ -49,7 +49,7 @@ function ScheduleChemistryContent() {
 
     return (
         <div className="content">
-            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">언제, 얼마나 알차게 여행할까?</m.h2>
+            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-title">언제, 얼마나 알차게 여행할까?</m.h2>
             <div>
                 <Stack justifyContent={"end"}>
                     <FormControlLabel control={

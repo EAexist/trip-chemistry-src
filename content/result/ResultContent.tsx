@@ -49,7 +49,7 @@ function ResultContent() {
             <MainAppBar />
             <Toolbar />
             <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="wrapper content">
-                <m.h2 className="typography-heading">{strings.sections.character.title}</m.h2>
+                <m.h2 className="section-title">{strings.sections.character.title}</m.h2>
                 {
                     hasAnsweredTest
                     &&

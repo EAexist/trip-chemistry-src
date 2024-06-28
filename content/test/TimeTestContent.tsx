@@ -50,7 +50,7 @@ function TimeTestContent() {
 
     return (
         <div className="content">
-            {/* <h2 className="typography-heading">시간</h2> */}
+            {/* <h2 className="section-title">시간</h2> */}
             {
                 [
                     {
@@ -114,7 +114,7 @@ function TimeTestContent() {
                                                     onChange={() => setIsPm((prev) =>({[id]: !prev[id], ...prev}))}
                                                 />
                                             }
-                                            label={<p className="typography-label">{isPm ? "오후" : "오전"}</p>}
+                                            label={<p className="typography-highlight">{isPm ? "오후" : "오전"}</p>}
                                             labelPlacement="bottom"
                                         />
                                         <p className="">{dayjsObject?.format('h시')}</p>

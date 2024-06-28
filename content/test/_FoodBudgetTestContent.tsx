@@ -96,7 +96,7 @@
 //                                                                             </ListItemAvatar>
 //                                                                             <ListItemText
 //                                                                                 primary={
-//                                                                                     <h3 className="typography-label">{commonStrings.linkType[source as keyof typeof commonStrings.linkType].name}</h3>
+//                                                                                     <h3 className="typography-highlight">{commonStrings.linkType[source as keyof typeof commonStrings.linkType].name}</h3>
 //                                                                                 }
 //                                                                                 secondary={
 //                                                                                     <p className="">{commonStrings.linkType[source as keyof typeof commonStrings.linkType].body}</p>
@@ -126,7 +126,7 @@
 //             </div>
 //             <div className="block content">
 //                 <div className="test__title">
-//                     <h2 className="test__title__heading typography-heading">{contentstrings.subTest.restaurant.title}</h2>
+//                     <h2 className="test__title__heading section-title">{contentstrings.subTest.restaurant.title}</h2>
 //                 </div>
 //                 {
 //                     restaurantAnswer !== undefined

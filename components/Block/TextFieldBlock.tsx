@@ -34,7 +34,7 @@ function TextFieldBlock({
 
     return (
         <div className={`content flex ${className}`}>
-            <h2 className="typography-heading">
+            <h2 className="section-title">
                 {title}
             </h2>
             {
@@ -65,7 +65,7 @@ function TextFieldBlock({
                             </InputAdornment>
                         ),
                         sx: { textAlign: 'center' },
-                        className: "typography-label"
+                        className: "typography-highlight"
                     }}
                     fullWidth={true}
                     helperText={

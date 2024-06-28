@@ -1,7 +1,7 @@
 
 import { Divider, Icon, Paper, Stack } from "@mui/material";
 import { useState } from "react";
-import { CHARACTERS, TRIP_TAGS } from "~/common/app-const";
+import { ACTIVITY_TAGS, CHARACTERS, EXPECTATION_TAGS, TRIP_TAGS } from "~/common/app-const";
 import { ActivityTag } from "~/interfaces/enums/ActivityTag";
 import { ExpectationTag } from "~/interfaces/enums/ExpectationTag";
 import { TripTag } from "~/interfaces/enums/TripTag";
@@ -88,7 +88,7 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                 }
             </div>
             <div className="content">
-                <h2 className="typography-heading--secondary">{`${nickname} 님의 여행 태그`}</h2>
+                <h2 className="section-title--secondary">{`${nickname} 님의 여행 태그`}</h2>
                 {
                     <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={1} >
                         {
@@ -123,8 +123,8 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                                             <PngIcon name="expectation" />
                                             {
                                                 expectationTags.map((tag) =>
-                                                    // <p className="typography-note"># {EXPECTATION_TAGS[tag].label}</p>
-                                                    <ExpectationTagChip key={tag} tagId={tag} size="small" />
+                                                    <p className="typography-label"># {EXPECTATION_TAGS[tag].label}</p>
+                                                    // <ExpectationTagChip key={tag} tagId={tag} sx={{ backgroundColor: "transparent" }} />
                                                 )
                                             }
                                         </Stack>
@@ -135,8 +135,8 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                                             <PngIcon name="activity" />
                                             {
                                                 activityTags.map((tag) =>
-                                                    // <p className="typography-note"># {ACTIVITY_TAGS[tag].label}</p>
-                                                    <ActivityTagChip key={tag} tagId={tag} size="small" />
+                                                    <p className="typography-label"># {ACTIVITY_TAGS[tag].label}</p>
+                                                    // <ActivityTagChip key={tag} tagId={tag} sx={{ backgroundColor: "transparent" }} />
                                                 )
                                             }
                                         </Stack>

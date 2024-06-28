@@ -55,7 +55,7 @@ function SpecialRestaurantTestContent() {
 
     return (
         <div className="content">
-            {/* <h2 className="test__title__heading typography-heading">유명 맛집에서의 특별한 한끼</h2> */}
+            {/* <h2 className="test__title__heading section-title">유명 맛집에서의 특별한 한끼</h2> */}
             <h3>얼마나 많이 갈까?</h3>
             <div className="content block--centered block--with-margin--large">
                 <p>3박 4일 동안</p>

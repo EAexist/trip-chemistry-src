@@ -85,7 +85,7 @@ function CityDetailContent({ cityType }: CityDetailContentProps) {
             </AppBar>
             <div className="wrapper content">
                 <Toolbar />
-                <h2 className="typography-heading">{city.title}</h2>
+                <h2 className="section-title">{city.title}</h2>
                 {
                     isChemistryDefined &&
                     <CityChemistryAccordion cityType={cityType} />
@@ -111,8 +111,8 @@ function CityDetailContent({ cityType }: CityDetailContentProps) {
                                     >
                                         <CardContent>
                                             <Stack spacing={0}>
-                                                <h2 className="typography-heading typography-white">{commonStrings.city[cityId as keyof typeof commonStrings.city].name}</h2>
-                                                <h3 className="typography-heading typography-white">{cityId}</h3>
+                                                <h2 className="section-title typography-white">{commonStrings.city[cityId as keyof typeof commonStrings.city].name}</h2>
+                                                <h3 className="section-title typography-white">{cityId}</h3>
                                                 {
                                                     NATION[CITIES[cityId as keyof typeof CITIES].nation as keyof typeof NATION].flag
                                                     && <Flag id={CITIES[cityId as keyof typeof CITIES].nation} style={{ marginLeft: 8 }} outlined={false} />
@@ -120,7 +120,7 @@ function CityDetailContent({ cityType }: CityDetailContentProps) {
                                             </Stack>
                                         </CardContent>
                                     </ImageCard>
-                                    <h4 className="typography-label" style={{ marginTop: "1rem", width: "90%" }}>{commonStrings.city[cityId as keyof typeof commonStrings.city].intro}</h4>
+                                    <h4 className="typography-highlight" style={{ marginTop: "1rem", width: "90%" }}>{commonStrings.city[cityId as keyof typeof commonStrings.city].intro}</h4>
                                     <p>{commonStrings.city[cityId as keyof typeof commonStrings.city].body}</p>
                                     <div>
                                         <a href={CITIES[cityId as keyof typeof CITIES].link} target="_blank" rel="noopener noreferrer" className="flex">

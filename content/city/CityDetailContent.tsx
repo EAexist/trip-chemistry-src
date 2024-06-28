@@ -64,8 +64,8 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
             <div className="wrapper content">
                 <Stack justifyContent={"space-between"}>
                     <Stack spacing={2}>
-                        <h2 className="typography-heading">{cityStrings.name}</h2>
-                        {/* <h3 className="typography-heading">{cityId}</h3> */}
+                        <h2 className="section-title">{cityStrings.name}</h2>
+                        {/* <h3 className="section-title">{cityId}</h3> */}
                         {
                             NATION[city.nation as keyof typeof NATION].flag
                             && <Flag id={city.nation} />
@@ -78,7 +78,7 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
                     title={cityId}
                     sx={{ height: "256px" }}
                 ></ImageCard>
-                <h4 className="typography-label">{cityStrings.intro}</h4>
+                <h4 className="typography-highlight">{cityStrings.intro}</h4>
                 <p>{cityStrings.body}</p>
                 <Stack>
                     <p className="typography-note">{commonStrings.reference}{commonStrings.linkType[city.linkType as keyof typeof commonStrings.linkType].name}</p>

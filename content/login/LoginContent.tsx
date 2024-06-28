@@ -6,7 +6,7 @@ import { Button, Stack, Toolbar } from "@mui/material";
 import { useLocation, useNavigate } from "~/router-module";
 
 /* App */
-import { KakoLoginHelp } from "~/components/KakaoLoginHelp";
+import { KakaoLoginHelp } from "~/components/KakaoLoginHelp";
 import env from "~/env";
 import { useAppSelector } from "~/store";
 import { KAKAO_AUTH_URL_BASE } from "../../common/auth";
@@ -72,8 +72,10 @@ function LoginContent({ title = "테스트를 시작해볼까요?" }: LoginConte
             <div className="fill-window flex">
                 <Toolbar />
                 <div className="flex-grow block--centered content">
-                    <h2 className="typography-heading">로그인</h2>
-                    <p className="typography-note">{title}</p>
+                    <div className="section-header">
+                        <h2 className="section-title">로그인</h2>
+                        <p>{title}</p>
+                    </div>
                     <Stack direction={"column"} spacing={2} className="wrapper">
                         <KakaoLoginButton />
                         <Button
@@ -84,7 +86,7 @@ function LoginContent({ title = "테스트를 시작해볼까요?" }: LoginConte
                             게스트 로그인
                         </Button>
                     </Stack>
-                    <KakoLoginHelp/>
+                    <KakaoLoginHelp />
                 </div>
             </div>
         </AuthLoadRequiredContent>

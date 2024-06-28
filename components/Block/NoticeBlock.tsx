@@ -41,7 +41,7 @@ function NoticeBlock({
                 <m.div {...FADEIN} className='flex-grow block--centered content content--sparse wrapper'>
                     {
                         title &&
-                        <h2 className="typography-heading">
+                        <h2 className="section-title">
                             { title }
                         </h2>
                     }

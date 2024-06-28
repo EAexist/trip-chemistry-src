@@ -263,7 +263,7 @@
 //                                                         </div>
 //                                                         <div className="block">
 //                                                             <div className="test__title">
-//                                                                 <h2 className="test__title__heading typography-heading">{contentstrings.subTest[testKey].title}</h2>
+//                                                                 <h2 className="test__title__heading section-title">{contentstrings.subTest[testKey].title}</h2>
 //                                                             </div>
 //                                                             <div className="test__input">
 //                                                             </div>
@@ -304,7 +304,7 @@
 //                                             </div>
 //                                             <div className="block content content--sparse">
 //                                                 <div className="test__title">
-//                                                     <h2 className="test__title__heading typography-heading">{contentstrings.test.leadership.title}</h2>
+//                                                     <h2 className="test__title__heading section-title">{contentstrings.test.leadership.title}</h2>
 //                                                 </div>
 //                                                 <AnswerButtonGroup testKey="leadership" />
 //                                                 <div />
@@ -325,7 +325,7 @@
 //                                                                         </IconButton>
 //                                                                         <CardContent>
 //                                                                             <h2 className="typography-note">Based On</h2>
-//                                                                             <p className="typography-label">{"재하 님의\n후쿠오카 여행"}</p>
+//                                                                             <p className="typography-highlight">{"재하 님의\n후쿠오카 여행"}</p>
 //                                                                         </CardContent>
 //                                                                         <CardActions>
 //                                                                             <Button href={"https://blog.naver.com/jcjw1234"} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext />} size="small" className="typography-note">
@@ -335,7 +335,7 @@
 //                                                                     </Card>
 //                                                                 </Grow>
 //                                                                 :
-//                                                                 <Button onClick={() => setShowMapTitle(true)} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext fontSize="inherit" sx={{ marginLeft: "-4px" }} />} size="small" className="typography-label" sx={{ textTransform: 'none' }}>
+//                                                                 <Button onClick={() => setShowMapTitle(true)} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext fontSize="inherit" sx={{ marginLeft: "-4px" }} />} size="small" className="typography-highlight" sx={{ textTransform: 'none' }}>
 //                                                                     Based On 재하 님의 후쿠오카 여행
 
 //                                                                 </Button>
@@ -360,7 +360,7 @@
 //                                             </div>
 //                                             <div className="block content content--sparse">
 //                                                 <div className="test__title">
-//                                                     <h2 className="test__title__heading typography-heading">{contentstrings.test.schedule.title}</h2>
+//                                                     <h2 className="test__title__heading section-title">{contentstrings.test.schedule.title}</h2>
 //                                                 </div>
 //                                                 <AnswerButtonGroup testKey="schedule" />
 //                                                 <div />
@@ -395,7 +395,7 @@
 //                                                                                                             </ListItemAvatar>
 //                                                                                                             <ListItemText
 //                                                                                                                 primary={
-//                                                                                                                     <h3 className="typography-label">{commonStrings.linkType[source as keyof typeof commonStrings.linkType].name}</h3>
+//                                                                                                                     <h3 className="typography-highlight">{commonStrings.linkType[source as keyof typeof commonStrings.linkType].name}</h3>
 //                                                                                                                 }
 //                                                                                                                 secondary={
 //                                                                                                                     <p className="">{commonStrings.linkType[source as keyof typeof commonStrings.linkType].body}</p>
@@ -425,7 +425,7 @@
 //                                             </div>
 //                                             <div className="block content">
 //                                                 <div className="test__title">
-//                                                     <h2 className="test__title__heading typography-heading">{contentstrings.subTest.restaurant.title}</h2>
+//                                                     <h2 className="test__title__heading section-title">{contentstrings.subTest.restaurant.title}</h2>
 //                                                 </div>
 //                                                 {
 //                                                     restaurantAnswer !== undefined
@@ -463,7 +463,7 @@
 //                                                                                    
 //                                                                                 />
 //                                                                                 <Stack>
-//                                                                                     <h3 className="typography-label">{commonStrings.city[cityId as keyof typeof commonStrings.city].name}</h3>
+//                                                                                     <h3 className="typography-highlight">{commonStrings.city[cityId as keyof typeof commonStrings.city].name}</h3>
 //                                                                                     {
 //                                                                                         NATION[CITIES[cityId as keyof typeof CITIES].nation as keyof typeof NATION].flag
 //                                                                                         && <Flag id={CITIES[cityId as keyof typeof CITIES].nation} />
@@ -478,7 +478,7 @@
 //                                                     </div>
 //                                                     <div className="block content content--sparse">
 //                                                         <div className="test__title">
-//                                                             <h2 className="test__title__heading typography-heading">{contentstrings.test.city.titleTextList.map((text) => (
+//                                                             <h2 className="test__title__heading section-title">{contentstrings.test.city.titleTextList.map((text) => (
 //                                                                 text === "/testKey"
 //                                                                     ? contentstrings.subTest[key as keyof typeof contentstrings.subTest].title
 //                                                                     : (

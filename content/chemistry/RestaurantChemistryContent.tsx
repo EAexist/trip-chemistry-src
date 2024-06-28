@@ -51,7 +51,7 @@ function RestaurantChemistryContent() {
 
     return (
         <div className="content content--sparse">
-            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="typography-heading">먹는데에는 얼마나 쓸까?</m.h2>
+            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-title">먹는데에는 얼마나 쓸까?</m.h2>
             <Tabs
                 value={section}
                 onChange={handleChange}

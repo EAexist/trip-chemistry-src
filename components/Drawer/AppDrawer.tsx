@@ -73,7 +73,7 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
                                 primary={
                                     <Stack spacing={2} alignItems={"end"}>
                                         <PngIcon name={"app"} size="large" />
-                                        <p className="typography-heading">여행 타입 테스트</p>
+                                        <p className="section-title">여행 타입 테스트</p>
                                     </Stack>
                                 }
                             />

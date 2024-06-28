@@ -58,7 +58,7 @@ function LeadershipTestContent() {
                                                 {
                                                     isActive && <Check color="primary"/>
                                                 }
-                                                <p className={ isActive ? "typography-label" : "typography-note"}><b>{ optionStrings[value].label }</b></p>
+                                                <p className={ isActive ? "typography-highlight" : "typography-note"}><b>{ optionStrings[value].label }</b></p>
                                                 {
                                                     isActive &&
                                                     <>

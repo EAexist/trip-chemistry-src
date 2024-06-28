@@ -35,9 +35,9 @@
     font-optical-sizing: auto;
     margin: 0;
     padding: 0;
-
+    letter-spacing: -.05em;
     /* Debug */
-    outline: 1px solid red;
+    /* outline: 1px solid red; */
 }
 
 /* p:after {
@@ -251,6 +251,17 @@ button {
 }
 
 /**** Typography ****/
+.section-header {
+    margin-bottom: 15px;
+
+    &>p {
+        font-size: 14px;
+        line-height: 16px;
+        margin-top: 4px;
+        color: rgb(98, 98, 98)
+    }
+}
+
 .typography-title {
     font-weight: 700;
     font-size: 26px;
@@ -258,20 +269,24 @@ button {
     color: #2e3033;
 }
 
-.typography-heading {
+.typography-label {
+    font-size: 13px;
+}
+
+.section-title {
     font-weight: 700;
     font-size: 20px;
     line-height: 26px;
-    color: #2e3033;
+    letter-spacing: -.5px;
 }
 
-.typography-heading--secondary {
+.section-title--secondary {
     font-size: 17px;
     font-weight: 700;
     color: #2e3033;
 }
 
-.typography-label {
+.typography-highlight {
 
     &,
     &>p,
@@ -288,7 +303,14 @@ button {
 .typography-note.MuiButton-text.MuiButtonBase-root,
 .typography-note>p {
     font-size: 12px;
-    line-height: 18px;
+    line-height: 15px;
+    font-weight: 500;
+}
+.tip,
+.tip.MuiButton-text.MuiButtonBase-root,
+.tip>p {
+    font-size: 11px;
+    line-height: 15px;
     font-weight: 300;
 }
 
@@ -296,8 +318,7 @@ button {
 .typography--profile-label>p {
     font-size: 12px;
     line-height: 16px;
-    font-weight: 300;
-    /* color: #858B93; */
+    font-weight: 500;
 }
 
 .typography--profile-label--active,
@@ -414,7 +435,7 @@ button {
     bottom: 0;
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1) 20%, white)
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1) 20%, white);
 }
 
 .fab__button.MuiButton-root {
@@ -422,6 +443,8 @@ button {
     margin-bottom: var(--margin-top--large);
     margin-left: var(--margin-x);
     margin-right: var(--margin-x);
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .fab-placeholder {
@@ -571,6 +594,15 @@ button {
 .google-map__container {
     width: 100%;
     height: 300px;
+}
+
+.place-card__title {
+    font-weight: 700;
+}
+
+.place-card__body {
+    font-size: 12px;
+    line-height: 160%;
 }
 
 .modal__container {

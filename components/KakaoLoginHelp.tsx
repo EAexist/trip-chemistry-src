@@ -1,6 +1,6 @@
 import { Help } from "@mui/icons-material";
 
-export const KakoLoginHelp = () => (
+export const KakaoLoginHelp = () => (
     <div className="content content--narrow">
         <Help fontSize="inherit" />
         <p className="typography-note">

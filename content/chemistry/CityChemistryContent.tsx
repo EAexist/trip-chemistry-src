@@ -30,7 +30,7 @@ function CityChemistryContent({ cityType }: CityChemistryContentProps) {
     return (
         <Paper className="wrapper content" style={{ overflow: "hidden" }}>
             <CityCarousel cityType={cityType}/>
-            <h2 className="typography-heading">{city.title}</h2>
+            <h2 className="section-title">{city.title}</h2>
             <CityChemistryAccordion cityType={cityType} />
         </Paper>
     );

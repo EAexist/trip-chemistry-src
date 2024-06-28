@@ -128,7 +128,7 @@ function HomeContent() {
                                                     : <></>
                                     }
                                 </div>
-                                <h2 className="typography-heading">{title}</h2>
+                                <h2 className="section-title">{title}</h2>
                                 <p>{body}</p>
                             </div>
                             <div className="fab-placeholder" style={{ marginTop: "48px" }} />

@@ -113,7 +113,7 @@
 //                 isConfirmModalOpen
 //                     ?
 //                     <div className='block--with-margin content content--sparse block--centered flex-grow'>
-//                         <h3 className='typography-label'>
+//                         <h3 className='typography-highlight'>
 //                             {`${flaggedProfileListLength}명을 친구로 추가할까요?`}
 //                         </h3>
 //                         <FlaggedAvatarProfileGroup />

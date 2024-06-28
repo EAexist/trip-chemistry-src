@@ -94,7 +94,7 @@ function CharacterSample() {
                             width={"196px"}
                             height={"196px"}
                         />
-                        <p className="typography-label">{profile.character.name}</p>
+                        <p className="typography-highlight">{profile.character.name}</p>
                     </m.div>
                 </AnimatePresence>
             </div>

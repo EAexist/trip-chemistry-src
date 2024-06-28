@@ -16,7 +16,7 @@ function HashTagTestContent({ testKey }: HashTagTestContentProps) {
     return (
         <div className="content content--sparse">
             {/* https://codesandbox.io/p/sandbox/6gw7p4?file=/src/App.jsx */}
-            {/* <h2 className="block--centered typography-heading">{contentstrings.subTest[testKey].title}</h2> */}
+            {/* <h2 className="block--centered section-title">{contentstrings.subTest[testKey].title}</h2> */}
             <TestInstruction testKey={"hashtag"} subKey={testKey} />
             <Stack flexWrap={"wrap"} useFlexGap rowGap={1}>
                 <TagSetTestAnswerChip testKey={testKey} />

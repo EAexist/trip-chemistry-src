@@ -19,7 +19,7 @@ const SliderValueLabel = m(forwardRef(({ testKey, value }: { testKey: ITestKey, 
     return (
         userList.length > 0
             ? <Stack className="Slider__value" ref={ref}>
-                <h2 className="typography-label">{value}</h2>
+                <h2 className="typography-highlight">{value}</h2>
                 <Stack spacing={0.5}>
                     {
                         userList.map((id) => (
@@ -105,7 +105,7 @@ export type { ChemistrySliderProps };
 //     return (
 //         <Tooltip open={true} placement={isEven ? "left" : "right"} className="Slider__value-label" title={
 //             <Stack flexDirection={isEven ? "row-reverse" : "row"}>
-//                 <h2 className="typography-label">{value}</h2>
+//                 <h2 className="typography-highlight">{value}</h2>
 //                 <Stack>
 //                     {
 //                         userList.map((id) => (

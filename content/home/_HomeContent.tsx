@@ -76,7 +76,7 @@ function HomeContent() {
                                                 </div>
                                             </div>
                                             <div className="block--with-margin-x content" style={{ justifyContent: "end" }}>
-                                                <h3 className="typography-heading">{title}</h3>
+                                                <h3 className="section-title">{title}</h3>
                                                 <p className="">{body}</p>
                                             </div>
                                         </>

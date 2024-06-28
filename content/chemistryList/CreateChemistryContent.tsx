@@ -171,7 +171,7 @@ export default withReducer(CreateChemistryContent)({ chemistry: chemistryReducer
 //             <ButtonBase sx={{ width: "100%" }}>
 //                 <div className="block--with-margin-x">
 //                     <Share fontSize={"large"} />
-//                     <h2 className="typography-heading">
+//                     <h2 className="section-title">
 //                         링크
 //                     </h2>
 //                     <p>
@@ -184,7 +184,7 @@ export default withReducer(CreateChemistryContent)({ chemistry: chemistryReducer
 //             <ButtonBase sx={{ width: "100%" }}>
 //                 <div className="block--with-margin-x">
 //                     <PersonSearch fontSize={"large"} />
-//                     <h2 className="typography-heading">
+//                     <h2 className="section-title">
 //                         친구 직접 추가하기
 //                     </h2>
 //                     <p>

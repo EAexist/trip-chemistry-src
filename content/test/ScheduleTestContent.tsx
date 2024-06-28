@@ -257,7 +257,7 @@ function ScheduleTestContent() {
 
     return (
         <div className="content">
-            {/* <h2 className="typography-heading">일정은 얼마나 알차면 좋을까?</h2> */}
+            {/* <h2 className="section-title">일정은 얼마나 알차면 좋을까?</h2> */}
             <RadioGroup
                 name="controlled-radio-buttons-group"
                 value={(scheduleAnswer !== undefined) ? scheduleAnswer : null}
@@ -322,7 +322,7 @@ function ScheduleTestContent() {
                                                         </IconButton>
                                                         <CardContent>
                                                             <h2 className="typography-note">Based On</h2>
-                                                            <p className="typography-label">{"재하 님의\n후쿠오카 여행"}</p>
+                                                            <p className="typography-highlight">{"재하 님의\n후쿠오카 여행"}</p>
                                                         </CardContent>
                                                         <CardActions>
                                                             <Button href={"https://blog.naver.com/jcjw1234"} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext />} size="small" className="typography-note">
@@ -332,7 +332,7 @@ function ScheduleTestContent() {
                                                     </Card>
                                                 </Grow>
                                                 :
-                                                <Button onClick={() => setShowMapTitle(true)} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext fontSize="inherit" sx={{ marginLeft: "-4px" }} />} size="small" className="typography-label" sx={{ textTransform: 'none' }}>
+                                                <Button onClick={() => setShowMapTitle(true)} startIcon={<Logo id={"naver-blog"} format={FORMATSVG} size="small" />} endIcon={<NavigateNext fontSize="inherit" sx={{ marginLeft: "-4px" }} />} size="small" className="typography-highlight" sx={{ textTransform: 'none' }}>
                                                     재하 님의 후쿠오카 여행
                                                 </Button>
                                         }
@@ -358,8 +358,8 @@ function ScheduleTestContent() {
                                                         />
                                                     }
                                                     <CardContent sx={{ paddingLeft: 0, flexGrow: 1 }}>
-                                                        <h2 className="typography-label" style={{}}>{selectedPlace.label}<span style={{ fontSize: "inherit", position: "relative" }}><NavigateNext sx={{ fontSize: "inherit", position: "absolute", top: "50%", transform: "translateY(-50%)" }} /></span></h2>
-                                                        <p className="typography-note">{selectedPlace.body}</p>
+                                                        <h2 className="place-card__title" style={{}}>{selectedPlace.label}<span style={{ fontSize: "inherit", position: "relative" }}><NavigateNext sx={{ fontSize: "inherit", position: "absolute", top: "50%", transform: "translateY(-50%)" }} /></span></h2>
+                                                        <p className="place-card__body">{selectedPlace.body}</p>
                                                     </CardContent>
                                                 </CardActionArea>
                                             </Card>

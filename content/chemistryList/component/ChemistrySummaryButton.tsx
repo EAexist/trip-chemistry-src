@@ -58,7 +58,7 @@ function ChemistrySummaryButton({ id }: ChemistrySummaryButtonProps) {
         <Card elevation={0}>
             <CardActionArea onClick={handleClick} className="flex-end">
                 <CardContent className="content">
-                    <h2 className="typography-label">{chemistry.title}</h2>
+                    <h2 className="typography-highlight">{chemistry.title}</h2>
                     <Stack >
                         {
                             chemistry.profileIds.map((id) => {
