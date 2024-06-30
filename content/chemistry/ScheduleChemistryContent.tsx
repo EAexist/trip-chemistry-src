@@ -48,9 +48,11 @@ function ScheduleChemistryContent() {
     const busyMemberNicknames = useTripMemberNicknames("busy")
 
     return (
-        <div className="content">
-            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-title">언제, 얼마나 알차게 여행할까?</m.h2>
-            <div>
+        <>
+            <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-header">
+                <h2 className="section-title">언제, 얼마나 알차게 여행할까?</h2>
+            </m.div>
+            <div className="content">
                 <Stack justifyContent={"end"}>
                     <FormControlLabel control={
                         <Switch
@@ -135,7 +137,7 @@ function ScheduleChemistryContent() {
                     친구들은 숙소에서 쉬는 시간을 더 갖고 싶어해요. 계획을 짤 때 친구들이 지치지 않도록 신경 써 주세요. 이른 아침 또는 늦은 밤의 일정은 친구들과 따로 다니며 즐기는 것도 고려해보세요.
                 </m.p>
             }
-        </div>
+        </>
     );
 }
 export default ScheduleChemistryContent;

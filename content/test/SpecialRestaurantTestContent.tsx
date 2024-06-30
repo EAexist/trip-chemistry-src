@@ -74,12 +74,12 @@ function SpecialRestaurantTestContent() {
                     id="panel1bh-header"
                 >
                     <Stack direction="row" justifyContent="space-between" width="100%">
-                        <h3 className="">얼마나 많이 갈까?</h3>
+                        <h3>얼마나 많이 갈까?</h3>
                         {
                             (expanded !== "count") &&
                             (
                                 (specialRestaurantCountAnswer !== undefined) ?
-                                    <p className="">3박 4일 동안 <b>{`${specialRestaurantCountAnswer}번${(specialRestaurantCountAnswer === 6) ? ' 이상' : ''}`}</b></p>
+                                    <p>3박 4일 동안 <b>{`${specialRestaurantCountAnswer}번${(specialRestaurantCountAnswer === 6) ? ' 이상' : ''}`}</b></p>
                                     :
                                     <NavigateNext />
                             )
@@ -115,7 +115,7 @@ function SpecialRestaurantTestContent() {
                         id="panel1bh-header"
                     >
                         <Stack direction="row" justifyContent="space-between" width="100%">
-                            <h3 className="">식사 한 번에 얼마까지 쓸 수 있어?</h3>
+                            <h3>식사 한 번에 얼마까지 쓸 수 있어?</h3>
                             {
                                 (expanded !== "budget") &&
                                 (

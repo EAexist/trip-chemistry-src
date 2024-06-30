@@ -1,5 +1,5 @@
 
-import { Box, Modal, ModalProps, PaperProps, Slide } from "@mui/material";
+import { Box, Container, Modal, ModalProps, Paper, PaperProps, Slide } from "@mui/material";
 import { HTMLMotionProps, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -24,6 +24,7 @@ const DraggableModal = ({ open, onClose, sx, children, className, ...props }: Pi
         >
             <Slide direction="up" in={open} mountOnEnter unmountOnExit>
                 <div className="floating--bottom">
+                    <Container className="gutter-sm column-padding-sm column-padding">
                     <motion.div
                         ref={ref}
                         drag
@@ -55,20 +56,20 @@ const DraggableModal = ({ open, onClose, sx, children, className, ...props }: Pi
                         whileDrag={{ scale: 0.99 }}
                         style={{
                             position: "relative",
-                            borderRadius: "16px",
-                            backgroundColor: "white",
                         }}
-                        className="block--with-margin--small"
                         {...props}
                     >
                         {/* <Box sx={{ position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)", width: "48px", height: "4px", backgroundColor: "gray.dark", borderRadius: "2px" }} /> */}
+                        <Paper>
                         <div className="block--centered">
                             <Box sx={{ width: "48px", height: "4px", backgroundColor: "gray.dark", borderRadius: "2px", marginTop: "12px" }} />
                         </div>
-                        <div className={className} style={{ opacity: opacity }}>
+                        <Container className={`${className} column-padding`} sx={{ opacity: opacity }}>
                             {children}
-                        </div>
+                        </Container>
+                        </Paper>
                     </motion.div>
+                    </Container>
                 </div>
             </Slide>
         </Modal>

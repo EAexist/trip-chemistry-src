@@ -14,6 +14,7 @@ import CityChemistryContent from "./CityChemistryContent";
 import LeadershipChemistryContent from "./LeadershipChemistryContent";
 import RestaurantChemistryContent from "./RestaurantChemistryContent";
 import ScheduleChemistryContent from "./ScheduleChemistryContent";
+import { Container } from "@mui/material";
 
 function ChemistryDetailContent() {
 
@@ -41,19 +42,21 @@ function ChemistryDetailContent() {
             <SectionPaper>
                 <RestaurantChemistryContent />
             </SectionPaper>
-            <section className="wrapper content">
-                <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-title">추천 여행지</m.h2>
+            <Container component={"section"} className="column-padding content">
+                <div className="section-header">
+                    <h2 className="section-title">추천 여행지</h2>
+                </div>
                 {
                     recommendedCityTypeEntries.length > 0 ?
-                        <ul className="content">
+                        <div className="content">
                             {
                                 cityTypesSortedByScore.filter(([k, v]) => v >= cityTypeRecommendationScoreThreshold).map(([cityType]) => (
-                                    <m.li key={cityType} {...FADEIN_FROMBOTTOM_VIEWPORT}>
+                                    <m.section key={cityType} {...FADEIN_FROMBOTTOM_VIEWPORT}>
                                         <CityChemistryContent cityType={cityType as keyof typeof TEST.city.subTests} />
-                                    </m.li>
+                                    </m.section>
                                 ))
                             }
-                        </ul>
+                        </div>
                         :
                         <>
                             <div className="block--centered">
@@ -63,24 +66,24 @@ function ChemistryDetailContent() {
                             <p>{"다음 <이런 곳도 있어>에서 다른 여행지들에 대한 친구들의 선호도를 확인할 수 있어요."}</p>
                         </>
                 }
-            </section>
-            <section className="wrapper content">
-                {
-                    notRecommendedCityTypeEntries.length > 0 &&
-                    <>
-                        <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-title">이런 곳도 있어</m.h2>
-                        <ul className="content">
-                            {
-                                cityTypesSortedByScore.filter(([k, v]) => v < cityTypeRecommendationScoreThreshold).map(([cityType]) => (
-                                    <m.li key={cityType} {...FADEIN_FROMBOTTOM_VIEWPORT}>
-                                        <CityChemistryContent cityType={cityType as keyof typeof TEST.city.subTests} />
-                                    </m.li>
-                                ))
-                            }
-                        </ul>
-                    </>
-                }
-            </section>
+            </Container>
+            {
+                notRecommendedCityTypeEntries.length > 0 &&
+                <Container component={"section"} className="column-padding content">
+                    <div className="section-header">
+                        <h2 className="section-title">이런 곳도 있어</h2>
+                    </div>
+                    <div className="content content--sparse">
+                        {
+                            cityTypesSortedByScore.filter(([k, v]) => v < cityTypeRecommendationScoreThreshold).map(([cityType]) => (
+                                <m.section key={cityType} {...FADEIN_FROMBOTTOM_VIEWPORT}>
+                                    <CityChemistryContent cityType={cityType as keyof typeof TEST.city.subTests} />
+                                </m.section>
+                            ))
+                        }
+                    </div>
+                </Container>
+            }
         </>
     );
 }

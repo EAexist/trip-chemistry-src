@@ -56,8 +56,8 @@ function TestSample() {
 
     return (
         <div className="block--round full" style={{ overflow: "hidden" }} >
-            <div style={{ position: "absolute", zIndex: 1 }} className="block--with-margin--xsmall">
-                <Paper className="">
+            <div style={{ position: "absolute", zIndex: 1 }}>
+                <Paper>
                     <RadioGroup
                         name="controlled-radio-buttons-group full"
                         value={scheduleAnswer}

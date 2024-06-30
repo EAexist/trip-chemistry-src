@@ -3,7 +3,7 @@ import { useCallback, useRef, useState } from "react";
 
 /* Externals */
 import { Done, NavigateNext } from "@mui/icons-material";
-import { AppBar, Button, IconButton, Toolbar } from "@mui/material";
+import { AppBar, Button, Container, IconButton, Toolbar } from "@mui/material";
 
 import SwiperType from "swiper";
 import { Swiper, SwiperRef, SwiperSlide, } from 'swiper/react';
@@ -133,13 +133,13 @@ function CreateChemistryContent() {
                     <Swiper
                         {...SWIPERPROPS_PAGE}
                         ref={swiperRef}
-                        className=""
+                       
                         onSwiper={(swiper) => setSwiper(swiper)}
                     >
                         <SwiperSlide key={"title"} className=''>
                             {
                                 ({ isActive }) => (
-                                    <div className="wrapper">
+                                    <Container>
                                         <TextFieldBlock
                                             value={title}
                                             setValue={setTItle}
@@ -148,7 +148,7 @@ function CreateChemistryContent() {
                                             title={"여행 제목을 입력해주세요."}
                                             autoFocus={isActive}
                                         />
-                                    </div>
+                                    </Container>
                                 )
                             }
                         </SwiperSlide>
@@ -163,7 +163,7 @@ export default withReducer(CreateChemistryContent)({ chemistry: chemistryReducer
 
 // <SwiperSlide key={"0"} className=''>
 // <div className="block--with-margin-x content content--sparse">
-//     <h2 className="">
+//     <h2>
 //         연결 방식을 선택해주세요.
 //     </h2>
 //     <Grid container>

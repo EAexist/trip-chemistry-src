@@ -45,7 +45,7 @@ function KakaoLoginButton({ sx, ...props }: Omit<ButtonBaseProps, "href">) {
     }, [url])
 
     return (
-        <ButtonBase href={url} sx={{ height: "45px", borderRadius: "6px", overflow: "hidden", backgroundColor: "#FEE500" , ...sx }}>
+        <ButtonBase href={url} sx={{ height: "45px", borderRadius: "6px", overflow: "hidden", backgroundColor: "#FEE500", ...sx }} className="main-action-button">
             <img src={getImgSrc("/kakao", "kakao_login_large_narrow", { size: "default" })} alt={"kakao_login"} height={"100%"}/>
         </ButtonBase>
     );

@@ -26,7 +26,7 @@ function RestaurantChemistryContent() {
 
     return (
         <div className="content">
-            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-title">여행 중 평범한 식사는 얼마나 적당할까</m.h2>
+            <h2 className="section-title">여행 중 평범한 식사는 얼마나 적당할까</h2>
             <m.h3>여행 중 평범한 식사 한끼</m.h3>
             <GroupAnswerSlider answerToProfiles={dailyBudgetAnswerToProfiles} {...dailyRestaurantSliderProps} className="block--with-padding--small" />
             <m.h3>유명 맛집에서의 특별한 한끼</m.h3>

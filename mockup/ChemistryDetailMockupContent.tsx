@@ -66,7 +66,7 @@
 //         <LazyDomAnimation>
 //             <div className="page">
 //                 <SectionPaper className="fill-window flex-end" style={{ outline: "1px solid red" }}>
-//                     {/* <m.h2 {...FADEIN_VIEWPORT} className="section-title">{strings.sections.character.title}</m.h2> */}
+//                     {/* <h2 {...FADEIN_VIEWPORT} className="section-title">{strings.sections.character.title}</h2> */}
 //                     <m.div {...FADEIN_VIEWPORT} className="content">
 //                         <Stack spacing={-0.25} justifyContent={'center'} alignItems={'start'}>
 //                             {
@@ -104,7 +104,7 @@
 //                     </m.div>
 //                 </SectionPaper>
 //                 <SectionPaper>
-//                     <m.h2 {...FADEIN_VIEWPORT} className="section-title">{strings.sections.leadership.title}</m.h2>
+//                     <h2 {...FADEIN_VIEWPORT} className="section-title">{strings.sections.leadership.title}</h2>
 //                     <m.div {...FADEIN_VIEWPORT} className="content">
 //                         <Stack display={'flex'} justifyContent={'center'}>
 //                             {
@@ -165,7 +165,7 @@
 //                     </m.div>
 //                 </SectionPaper>
 //                 <SectionPaper>
-//                     {/* <m.h2 {...FADEIN_VIEWPORT} className="section-title">{strings.sections.schedule.title}</m.h2> */}
+//                     {/* <h2 {...FADEIN_VIEWPORT} className="section-title">{strings.sections.schedule.title}</h2> */}
 //                     <div className="content">
 //                         <MotionList initial={"hidden"} whileInView={"visible"} variants={VARIANTS_STAGGER_CHILDREN} disablePadding custom={{ delayChildren: 1, staggerChildren: 0.1 }}>
 //                             {
@@ -214,7 +214,7 @@
 //                     </div>
 //                 </SectionPaper>
 //                 <SectionPaper>
-//                     {/* <m.h2 {...FADEIN_VIEWPORT} className="section-title">{strings.sections.budget.title}</m.h2> */}
+//                     {/* <h2 {...FADEIN_VIEWPORT} className="section-title">{strings.sections.budget.title}</h2> */}
 //                     <m.div className="content" initial={"hidden"} whileInView={"visible"} variants={VARIANTS_STAGGER_CHILDREN} custom={{ delayChildren: 1 }} >
 //                         <m.div className="block--centered" variants={VARIANTS_FADEIN_FROMBOTTOM} >
 //                             {/* <ChemistrySlider {...SLIDERPROPS_CHEMISTRY_BUDGET_FOOD} /> */}
@@ -242,7 +242,7 @@
 //                     </m.div>
 //                 </SectionPaper>
 //                 <SectionPaper>
-//                     <m.h2 {...FADEIN_VIEWPORT} className="section-title">{strings.sections.city.title}</m.h2>
+//                     <h2 {...FADEIN_VIEWPORT} className="section-title">{strings.sections.city.title}</h2>
 //                     <ul className="content">
 //                         {
 //                             sortedCityList && sortedCityList.map((cityType) => (

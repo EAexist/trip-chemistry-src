@@ -2,7 +2,8 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 
 /* Externals */
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Fab, Toolbar } from "@mui/material";
+import { m } from "framer-motion";
 
 /* App */
 import withAuthLoadStatus, { WithLoadStatusProps } from "../hocs/withAuthLoadStatus";
@@ -10,7 +11,7 @@ import { LoadStatus } from "../interfaces/enums/LoadStatus";
 import getImgSrc from "../utils/getImgSrc";
 // import loadable from "@loadable/component";
 
-import NoticeBlock from "../components/Block/NoticeBlock";
+import LazyImage from "~/components/LazyImage";
 
 // const NoticeBlock = loadable(() => import(/* webpackChunkName: "NoticeBlock" */ "../components/Block/NoticeBlock"));
 
@@ -51,7 +52,7 @@ function LoadRequiredContent({
     const [isPending, setIsPending] = useState<boolean>(false);
     const minimumPendingTime = 500;
 
-    const noticeBlockProps = {
+    const { body, buttonText, onClick } = {
         [LoadStatus.SUCCESS]: {
             body: pendingText
         },
@@ -73,7 +74,7 @@ function LoadRequiredContent({
                     setStatus(LoadStatus.REST);
                 }
         },
-    }
+    }[delayedStatus]
 
     /* Side Effect*/
     useEffect(() => {
@@ -118,24 +119,37 @@ function LoadRequiredContent({
     }, [status, isPending, handleSuccess, setStatus, isEnabled, handleFail, showHandleFailButton])
 
     return (
-        <>
-            {
-                isEnabled && ((delayedStatus === LoadStatus.FAIL) || (delayedStatus === LoadStatus.MISS))
-                    ? <NoticeBlock
-                        title={"여행 타입 테스트"}
-                        alt={delayedStatus}
-                        src={getImgSrc('/info', delayedStatus, { size : "xlarge" })}
-                        {...noticeBlockProps[delayedStatus]}
-                    />
-                    : children
-            }
-            {
-                isEnabled && (delayedStatus === LoadStatus.PENDING)
-                && <div className='backdrop block--centered' style={{ width: '100vw', height: '100vh' }}>
-                    <CircularProgress />
-                </div>
-            }
-        </>
+        (!isEnabled) || (delayedStatus === LoadStatus.REST) || (delayedStatus === LoadStatus.SUCCESS)
+            ?
+            children
+            :
+            <div className={`page flex fill-window`}>
+                <Toolbar />
+                <m.div className='flex-grow block--centered content content--sparse'>
+                    {
+                        (delayedStatus === LoadStatus.PENDING)
+                            ?
+                            <CircularProgress />
+                            :
+                            <LazyImage
+                                alt={delayedStatus}
+                                src={getImgSrc('/info', delayedStatus, { size: "xlarge" })}
+                                width={"256px"}
+                                height={"256px"}
+                                containerClassName="NoticeBlock__image"
+                            />
+                    }
+                    <p>{body}</p>
+                </m.div>
+                {
+                    onClick && buttonText &&
+                    <Fab
+                        onClick={onClick}
+                    >
+                        {buttonText}
+                    </Fab>
+                }
+            </div>
     );
 }
 export default LoadRequiredContent;

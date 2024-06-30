@@ -78,7 +78,7 @@ function AppDrawer({ open, onDrawerItemClick }: AppDrawerProps) {
                                 variants={VARIANTS_STAGGER_CHILDREN}
                                 className="content block--with-padding"
                             >
-                                <MotionListSubheader  className="">{`내 정보`}</MotionListSubheader>
+                                <MotionListSubheader >{`내 정보`}</MotionListSubheader>
                                 <MotionListItemButton
                                     key={"profile"}
                                     onClick={() => handleDrawerItemClick('user')}
@@ -106,7 +106,7 @@ function AppDrawer({ open, onDrawerItemClick }: AppDrawerProps) {
                                 <div>
                                 <Divider />
                                 </div>
-                                <MotionListSubheader className="">{`내 여행`}</MotionListSubheader>
+                                <MotionListSubheader>{`내 여행`}</MotionListSubheader>
                                 {
                                     Object.entries(PAGES).map(([content, { path, icon }]) =>
                                         // <MotionListItem key={content} >

@@ -33,14 +33,18 @@ function TextFieldBlock({
     }
 
     return (
-        <div className={`content flex ${className}`}>
-            <h2 className="section-title">
-                {title}
-            </h2>
-            {
-                note
-            }
-            <div>
+        <div className={className}>
+            <div className="section-header">
+                <h1 className="section-title">
+                    {title}
+                </h1>
+            </div>
+            <div className="content content--sparse">
+                <div style={{ minHeight: "16px" }}>
+                {
+                    note
+                }
+                </div>
                 <TextField
                     variant="standard"
                     value={value}

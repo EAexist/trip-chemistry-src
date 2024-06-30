@@ -1,4 +1,4 @@
-import { Avatar, Badge, IconButton, Paper, Slider, SliderProps, Stack } from "@mui/material";
+import { Avatar, Badge, Container, IconButton, Paper, Slider, SliderProps, Stack } from "@mui/material";
 
 /* App */
 import { Close, KeyboardArrowUp } from "@mui/icons-material";
@@ -67,7 +67,8 @@ function GroupAnswerSlider({ answerToProfiles, className, ...sliderProps }: Grou
                 (!!activeValue) &&
                 // <Grow in={!!activeValue} mountOnEnter unmountOnExit>
                 <Paper variant="gray">
-                    <Stack display={"flex"} flexDirection={"row-reverse"} className="wrapper wrapper--small">
+                    <Container className="gutter--sm">
+                    <Stack display={"flex"} flexDirection={"row-reverse"} >
                         <IconButton onClick={handleCloseMemberList}>
                             <Close />
                         </IconButton>
@@ -80,6 +81,7 @@ function GroupAnswerSlider({ answerToProfiles, className, ...sliderProps }: Grou
                             }
                         </Stack>
                     </Stack>
+                    </Container>
                 </Paper>
                 // </Grow>
             }

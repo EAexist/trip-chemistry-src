@@ -1,18 +1,17 @@
-import { Button, ButtonProps } from "@mui/material";
+import { Button, ButtonProps, Container } from "@mui/material";
 
 interface FabProps extends ButtonProps {
 };
 
-const Fab = (({ className, ...props }: FabProps) => {
+const Fab = (({ ...props }: FabProps) => {
 
     return (
-        <div className="fab">
+        <Container className="fab__container column-spacing">
             <Button
                 variant="contained"
-                className={`${className} fab__button`}
                 {...props}
             />
-        </div>
+        </Container>
     )
 
 });

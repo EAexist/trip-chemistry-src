@@ -1,5 +1,5 @@
 
-import { AppBar, Avatar, Divider, ListItemAvatar, ListItemButton, ListItemText, Stack, SwipeableDrawer, SwipeableDrawerProps, Toolbar } from "@mui/material";
+import { AppBar, Avatar, Container, Divider, ListItemAvatar, ListItemButton, ListItemText, Stack, SwipeableDrawer, SwipeableDrawerProps, Toolbar } from "@mui/material";
 import { m } from "framer-motion";
 import { useLocation } from "~/router-module";
 
@@ -56,11 +56,10 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
                     </Toolbar>
                 </AppBar>
                 <Toolbar />
-                <div className="wrapper">
+                <Container>
                     <MotionList
                         custom={0.5} /* delayChildren */
                         variants={VARIANTS_STAGGER_CHILDREN}
-                        className="content content--narrow"
                         disablePadding
                     >
                         <ListItemButton
@@ -78,7 +77,7 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
                                 }
                             />
                         </ListItemButton>
-                        <Divider />
+                        <Divider variant="middle" />
                         <MotionListSubheader sx={{ margin: 0 }}>{`내 정보`}</MotionListSubheader>
                         <MotionListItemButton
                             key={"profile"}
@@ -102,7 +101,6 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
                                 }
                             />
                         </MotionListItemButton>
-                        <Divider />
                         <MotionListSubheader sx={{ margin: 0 }}>{`내 여행`}</MotionListSubheader>
                         {
                             Object.entries(PAGES).map(([content, { path, icon }]) =>
@@ -127,7 +125,7 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
                             )
                         }
                     </MotionList>
-                </div>
+                </Container>
             </m.div>
             }
         </SwipeableDrawer>

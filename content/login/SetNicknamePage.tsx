@@ -3,7 +3,7 @@ import { useCallback, useContext, useState } from "react";
 
 /* Externals */
 import { Done } from "@mui/icons-material";
-import { AppBar, Button, Toolbar } from "@mui/material";
+import { AppBar, Button, Container, Toolbar } from "@mui/material";
 
 /* App */
 
@@ -62,7 +62,7 @@ function SetNicknamePage({
                         disabled={!isInputAllowed || getIsConfirmAllowed(value)}
                         onClick={() => handleConfirm(value)}
                         variant='text'
-                        className=""
+                       
                         startIcon={<Done />}
                     >
                         확인
@@ -70,7 +70,7 @@ function SetNicknamePage({
                 </Toolbar>
             </AppBar>
             <Toolbar />
-            <div className="wrapper">
+            <Container>
                 <TextFieldBlock
                     value={value}
                     setValue={setValue}
@@ -78,13 +78,13 @@ function SetNicknamePage({
                     helperText={helperText}
                     title={"사용할 이름을 입력해주세요"}
                     note={
-                        <div className="content content--narrow">
+                        <div className="content content--dense">
                             <p>- 최대 5글자까지 가능해요.</p>
                             <p>- 공백은 포함할 수 없어요.</p>
                         </div>
                     }
                 />
-            </div>
+            </Container>
         </RoutedMotionPage>
     );
 }

@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 
 /* Externals */
-import { AppBar, MobileStepper, Slide, Toolbar } from "@mui/material";
+import { AppBar, Container, MobileStepper, Slide, Toolbar } from "@mui/material";
 import { m } from "framer-motion";
 
 import { ExpandMore } from "@mui/icons-material";
@@ -78,16 +78,16 @@ function HomeContent() {
             <MobileStepper
                 steps={5}
                 position="static"
-                activeStep={page+1}
+                activeStep={page + 1}
                 nextButton={null}
                 backButton={null}
                 variant="progress"
-                sx={{ position: "fixed", bottom: "88px", left: "50%", transform: "translateX(-50%)", width: "128px", "& .MuiLinearProgress-root" : { width: "100%" } }}
+                sx={{ position: "fixed", bottom: "88px", left: "50%", transform: "translateX(-50%)", width: "128px", "& .MuiLinearProgress-root": { width: "100%" } }}
             />
             <ScrollPageContainer page={page} setPage={setPage} pages={4}>
                 <ScrollPageItem key={"home"} page={0} className={`flex`}>
                     <Toolbar />
-                    <div className="wrapper content block--centered" style={{ flexGrow: 1 }}>
+                    <div className="content block--centered" style={{ flexGrow: 1 }}>
                         <PngIcon name={"app"} size="xlarge" />
                         <h2 className="typography-title">여행 타입 테스트</h2>
                         <p>{`친구와 나의 같은 듯 다른 여행 스타일,\n여행 전 미리 알아보고 떠나자!`}</p>
@@ -109,8 +109,7 @@ function HomeContent() {
                     (sections as { id: string, title: string, body: string }[]).map(({ id, title, body }, index) => (
                         <ScrollPageItem key={id} page={index + 1} className={`flex`}>
                             <Toolbar />
-                            <div style={{ height: "24px" }}/>
-                            <div className="wrapper flex content" style={{ flexGrow: 1 }}>
+                            <Container className="content content--sparse" sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
                                 <div style={{ flexGrow: 1 }} className="block--centered">
                                     {
 
@@ -128,9 +127,13 @@ function HomeContent() {
                                                     : <></>
                                     }
                                 </div>
-                                <h2 className="section-title">{title}</h2>
-                                <p>{body}</p>
-                            </div>
+                                <div>
+                                    <div className="section-header">
+                                        <h2 className="section-title">{title}</h2>
+                                    </div>
+                                    <p>{body}</p>
+                                </div>
+                            </Container>
                             <div className="fab-placeholder" style={{ marginTop: "48px" }} />
                         </ScrollPageItem>
                     ))

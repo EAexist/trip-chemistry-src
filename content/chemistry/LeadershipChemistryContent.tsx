@@ -19,33 +19,33 @@ function LeadershipChemistryContent() {
     const leadershipAnswerToProfileList = useValueToProfileIdList("leadership");
 
     return (
-        <div className="content">
-            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-title">{strings.sections.leadership.title}</m.h2>
-            <div>
-                <List>
-                    {
-                        (Object.values(optionStrings) as { label: string, value: number }[]).map(({ label, value }) => (
-                            <MotionListItem key={label} {...FADEIN_FROMBOTTOM_VIEWPORT} >
-                                <ListItemAvatar style={{ zIndex: 1 }} className="block--centered">
-                                    <p className={Object.keys(leadershipAnswerToProfileList).includes(String(value)) ? "" : "disabled"}>{label}</p>
-                                </ListItemAvatar>
-                                <ListItemText primary={
-                                    <Stack>
-                                        <Stack spacing={0.5}>
-                                            {
-                                                (Object.keys(leadershipAnswerToProfileList).includes(String(value)) ? leadershipAnswerToProfileList[value] : []).map((id) => (
-                                                    <FriendAvatar key={id} id={id} />
-                                                ))
-                                            }
-                                        </Stack>
+        <>
+            <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-header">
+                <h2 className="section-title">{strings.sections.leadership.title}</h2>
+            </m.div>
+            <List>
+                {
+                    (Object.values(optionStrings) as { label: string, value: number }[]).map(({ label, value }) => (
+                        <MotionListItem key={label} {...FADEIN_FROMBOTTOM_VIEWPORT} >
+                            <ListItemAvatar style={{ zIndex: 1 }} className="block--centered">
+                                <p className={Object.keys(leadershipAnswerToProfileList).includes(String(value)) ? "" : "disabled"}>{label}</p>
+                            </ListItemAvatar>
+                            <ListItemText primary={
+                                <Stack>
+                                    <Stack spacing={0.5}>
+                                        {
+                                            (Object.keys(leadershipAnswerToProfileList).includes(String(value)) ? leadershipAnswerToProfileList[value] : []).map((id) => (
+                                                <FriendAvatar key={id} id={id} />
+                                            ))
+                                        }
                                     </Stack>
-                                } sx={{ marginLeft: "24px" }} />
-                            </MotionListItem>
-                        )).reverse()
-                    }
-                </List>
-            </div>
-        </div>
+                                </Stack>
+                            } sx={{ marginLeft: "24px" }} />
+                        </MotionListItem>
+                    )).reverse()
+                }
+            </List>
+        </>
     );
 }
 export default LeadershipChemistryContent;
