@@ -2,9 +2,9 @@
 import { useEffect, useRef, useState } from "react";
 
 /* Externals */
-import { Close, Error, GroupAdd, Login, NavigateBefore } from "@mui/icons-material";
+import { Add, Close, Error, GroupAdd, Login, NavigateBefore } from "@mui/icons-material";
 import { Alert, AppBar, Avatar, Box, Button, ButtonBase, Container, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Modal, Paper, Slide, Stack, Toolbar, useScrollTrigger } from "@mui/material";
-
+import { m } from "framer-motion"
 import { useParams } from "~/router-module";
 
 /* App */
@@ -28,6 +28,7 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import getImgSrc from "../../utils/getImgSrc";
 import LoginContent from "../login/LoginContent";
 import ChemistryDetailContent from "./ChemistryDetailContent";
+import { FADEIN_FROMBOTTOM_VIEWPORT } from "~/motion/props";
 
 const { Helmet } = ReactHelmetAsync
 
@@ -234,23 +235,27 @@ function ChemistryContent() {
                                             {
                                                 isMember
                                                     ?
-                                                    <ListItemButton onClick={handleStartShare}>
-                                                        <ListItemAvatar>
-                                                            <Avatar>
-                                                                <GroupAdd />
-                                                            </Avatar>
-                                                        </ListItemAvatar>
-                                                        <ListItemText primary={"친구 초대하기"} />
-                                                    </ListItemButton>
+                                                    <ListItem>
+                                                        <Button
+                                                            variant="outlined"
+                                                            className="main-action-button"
+                                                            onClick={handleStartShare}
+                                                            startIcon={<GroupAdd />}
+                                                        >
+                                                            친구 초대하기
+                                                        </Button>
+                                                    </ListItem>
                                                     :
-                                                    <ListItemButton onClick={handleJoinChemistry} >
-                                                        <ListItemAvatar>
-                                                            <Avatar>
-                                                                <Login />
-                                                            </Avatar>
-                                                        </ListItemAvatar>
-                                                        <ListItemText primary={"참여하기"} />
-                                                    </ListItemButton>
+                                                    <ListItem>
+                                                        <Button
+                                                            variant="outlined"
+                                                            className="main-action-button"
+                                                            onClick={handleJoinChemistry}
+                                                            startIcon={<Add />}
+                                                        >
+                                                            참여하기
+                                                        </Button>
+                                                    </ListItem>
                                             }
                                         </List>
                                     </div>
@@ -261,28 +266,37 @@ function ChemistryContent() {
                                         <ChemistryDetailContent />
                                         :
                                         /* 참여자를 한 명도 추가하지 않은 경우. */
-                                        <Paper square className="content content--sparse">
-                                            <LazyImage
-                                                alt={"invite"}
-                                                src={getImgSrc('/info', "invite", { size: "xlarge" })}
-                                                width={"256px"}
-                                                height={"256px"}
-                                                containerClassName="NoticeBlock__image"
-                                            />
-                                            <p>
-                                                {
-                                                    Object.keys(profiles).length < 2
-                                                        ?
-                                                        "여행을 함께할 친구를 초대하고\n케미스트리를 확인해보세요."
-                                                        :
-                                                        "두 명 이상이 테스트를 완료하면 결과를 확인할 수 있어요."
-                                                }
-                                            </p>
+                                        <Paper square className="block--centered content content--sparse">
+                                            <Container className="column-padding">
+                                                <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="block--centered">
+                                                    <LazyImage
+                                                        alt={"invite"}
+                                                        src={getImgSrc('/info', "invite", { size: "xlarge" })}
+                                                        width={"256px"}
+                                                        height={"256px"}
+                                                        containerClassName="NoticeBlock__image"
+                                                    />
+                                                    <p>
+                                                        {
+                                                            Object.keys(profiles).length < 2
+                                                                ?
+                                                                "여행을 함께할 친구를 초대하고\n케미스트리를 확인해보세요."
+                                                                :
+                                                                "두 명 이상이 테스트를 완료하면 결과를 확인할 수 있어요."
+                                                        }
+                                                    </p>
+                                                </m.div>
+                                            </Container>
+                                            {
+                                                !hasAnsweredTest &&
+                                                <div className="fab-placeholder" style={{ backgroundColor: "white", visibility: "visible", marginTop: 0 }} />
+                                            }
                                         </Paper>
                                 }
                                 {
-                                    !hasAnsweredTest &&
-                                    <div className="fab-placeholder" style={{ backgroundColor: "white", visibility: "visible", marginTop: 0 }} />
+                                    isChemistryEnabled
+                                    && !hasAnsweredTest
+                                    && <div className="fab-placeholder" style={{ backgroundColor: "white", visibility: "visible", marginTop: 0 }} />
                                 }
                                 <ConfirmDrawer
                                     open={openConfirmJoinDialog}

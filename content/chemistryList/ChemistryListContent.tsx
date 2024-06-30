@@ -1,6 +1,6 @@
 /* Externals */
 import { Add } from "@mui/icons-material";
-import { Button, Container, Toolbar, useTheme } from "@mui/material";
+import { Button, Container, ListItem, Toolbar, useTheme } from "@mui/material";
 import { m } from 'framer-motion';
 
 /* App */
@@ -8,8 +8,10 @@ import MainAppBar from "~/components/AppBar/MainAppBar";
 import { useAppSelector } from "~/store";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
-import { FADEIN_VIEWPORT, STAGGER_CHILDREN, VARIANTS_SLIDEUP } from "../../motion/props";
-import ChemistrySummaryButton from "./component/ChemistrySummaryButton";
+import { FADEIN_VIEWPORT, STAGGER_CHILDREN, VARIANTS_SLIDEUP, VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
+import ChemistryListItem from "./component/ChemistryListItem";
+import { MotionList } from "~/motion/components/MotionList";
+import { MotionListItem } from "~/motion/components/MotionListItem";
 
 function ChemistryListContent() {
 
@@ -26,34 +28,31 @@ function ChemistryListContent() {
     }
 
     return (
-        <RoutedMotionPage className="page fill-window flex" style={{ backgroundColor: palette.gray.main }}>
-            <MainAppBar color="transparent">
+        <RoutedMotionPage className="page fill-window">
+            <MainAppBar>
                 <m.h2 {...FADEIN_VIEWPORT} className="section-title">
                     내 여행 목록
                 </m.h2>
             </MainAppBar>
             <Toolbar />
             <Container>
-                <m.ul {...STAGGER_CHILDREN} custom={0.5} className="content content--sparse">
+                <MotionList variants={VARIANTS_STAGGER_CHILDREN} className="content">
                     {
                         Object.values(chemistryIdList).map((id, index) => (
-                            <m.li key={id} variants={VARIANTS_SLIDEUP}>
-                                <ChemistrySummaryButton id={id} />
-                            </m.li>
+                            <ChemistryListItem id={id} />
                         ))
                     }
-                    <m.li variants={VARIANTS_SLIDEUP}>
+                    <ListItem>
                         <Button
                             variant="outlined"
-                            className="block--large flex-row"
-                            sx={{ borderRadius: "16px", backgroundColor: "secondary.main" }}
+                            className="main-action-button"
                             onClick={handleAddChemistry}
+                            startIcon={<Add sx={{ color: "primary.main" }} />}
                         >
-                            <Add />
-                            <p>새 여행 만들기</p>
+                            새 여행 만들기
                         </Button>
-                    </m.li>
-                </m.ul>
+                    </ListItem>
+                </MotionList>
             </Container>
         </RoutedMotionPage>
     );

@@ -2,7 +2,7 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 
 /* Externals */
-import { CircularProgress, Fab, Toolbar } from "@mui/material";
+import { CircularProgress, Container, Fab, Toolbar } from "@mui/material";
 import { m } from "framer-motion";
 
 /* App */
@@ -53,7 +53,7 @@ function LoadRequiredContent({
     const minimumPendingTime = 500;
 
     const { body, buttonText, onClick } = {
-        [LoadStatus.SUCCESS]: {
+        [LoadStatus.PENDING]: {
             body: pendingText
         },
         [LoadStatus.FAIL]: {
@@ -74,6 +74,8 @@ function LoadRequiredContent({
                     setStatus(LoadStatus.REST);
                 }
         },
+        [LoadStatus.SUCCESS]: {},
+        [LoadStatus.REST]: {}
     }[delayedStatus]
 
     /* Side Effect*/
@@ -125,22 +127,24 @@ function LoadRequiredContent({
             :
             <div className={`page flex fill-window`}>
                 <Toolbar />
-                <m.div className='flex-grow block--centered content content--sparse'>
-                    {
-                        (delayedStatus === LoadStatus.PENDING)
-                            ?
-                            <CircularProgress />
-                            :
-                            <LazyImage
-                                alt={delayedStatus}
-                                src={getImgSrc('/info', delayedStatus, { size: "xlarge" })}
-                                width={"256px"}
-                                height={"256px"}
-                                containerClassName="NoticeBlock__image"
-                            />
-                    }
-                    <p>{body}</p>
-                </m.div>
+                <Container className='flex-grow'>
+                    <m.div className='flex-grow'>
+                        {
+                            (delayedStatus === LoadStatus.PENDING)
+                                ?
+                                <CircularProgress />
+                                :
+                                <LazyImage
+                                    alt={delayedStatus}
+                                    src={getImgSrc('/info', delayedStatus, { size: "xlarge" })}
+                                    width={"256px"}
+                                    height={"256px"}
+                                    containerClassName="NoticeBlock__image"
+                                />
+                        }
+                        <p>{body}</p>
+                    </m.div>
+                </Container>
                 {
                     onClick && buttonText &&
                     <Fab

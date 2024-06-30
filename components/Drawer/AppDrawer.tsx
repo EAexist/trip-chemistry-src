@@ -77,7 +77,7 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
                                 }
                             />
                         </ListItemButton>
-                        <Divider variant="middle" />
+                        <Divider variant="middle" sx={{ marginBottom: 0 }} />
                         <MotionListSubheader sx={{ margin: 0 }}>{`내 정보`}</MotionListSubheader>
                         <MotionListItemButton
                             key={"profile"}

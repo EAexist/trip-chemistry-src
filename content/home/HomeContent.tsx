@@ -17,6 +17,7 @@ import { useStrings } from "../../texts";
 import CharacterSample from "./component/CharacterSample";
 import ConflictSample from "./component/ConflictSample";
 import TestSample from "./component/TestSample";
+import StartTestFab from "~/components/Button/StartTestFab";
 
 
 const sections = [
@@ -141,9 +142,7 @@ function HomeContent() {
             </ScrollPageContainer>
             {
                 (showFloatingButton) &&
-                <Fab onClick={handleTestStart} >
-                    {strings.startButton}
-                </Fab>
+                <StartTestFab/>
             }
         </div>
     );
