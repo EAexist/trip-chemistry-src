@@ -1,11 +1,11 @@
-import { Avatar, Card, CardActionArea, CardContent, Divider, ListItemAvatar, ListItemButton, ListItemText, Paper, Skeleton, Stack } from "@mui/material";
+import { NavigateNext } from "@mui/icons-material";
+import { Avatar, Divider, ListItemAvatar, ListItemText, Paper, Skeleton, Stack } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { MotionListItemButton } from "~/motion/components/MotionListItemButton";
 import { HEADERS_AXIOS } from "../../../common/app-const";
-import ProfileAvatar from "../../../components/Avatar/ProfileAvatar";
 import useNavigateWithGuestContext from "../../../hooks/useNavigateWithGuestContext";
 import { IChemistry, defaultChemistry } from "../../../interfaces/IChemistry";
-import { MotionListItemButton } from "~/motion/components/MotionListItemButton";
 
 
 interface ChemistryListItemProps {
@@ -61,11 +61,19 @@ function ChemistryListItem({ id }: ChemistryListItemProps) {
                 <Avatar />
             </ListItemAvatar>
             <ListItemText
-                primary={<h2 className="section-title section-title--sm">{chemistry ? chemistry.title : <Skeleton />}</h2>}
+                primary={
+                    <Stack direction={'row'}>
+                        <h2 className="section-title section-title--sm">{chemistry ? chemistry.title : <Skeleton />}</h2>
+                        {
+                            chemistry.isSample &&
+                            <Paper sx={{ backgroundColor: "gray.main", padding: "2px 8px", borderRadius: "8px" }}><p className="typography-note">sample</p></Paper>
+                        }
+                    </Stack>
+                }
                 secondary={
-                    <Stack direction={'row'} className="typography-note"> 
+                    <Stack direction={'row'} className="typography-note">
                         <p>{`${chemistry.profileIds.length}명`}</p>
-                        <Divider orientation="vertical" variant="middle" flexItem/>
+                        <Divider orientation="vertical" variant="middle" flexItem />
                         {
                             chemistry.profileIds.map((id) => {
                                 const { nickname, testResult } = chemistry.profiles[id]
@@ -77,6 +85,7 @@ function ChemistryListItem({ id }: ChemistryListItemProps) {
                     </Stack>
                 }
             />
+            <NavigateNext />
         </MotionListItemButton>
         // <Card elevation={0}>
         //     <CardActionArea onClick={handleClick} className="flex-end">

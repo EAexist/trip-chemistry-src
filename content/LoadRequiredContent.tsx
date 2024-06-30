@@ -2,7 +2,7 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 
 /* Externals */
-import { CircularProgress, Container, Fab, Toolbar } from "@mui/material";
+import { CircularProgress, Container, Toolbar } from "@mui/material";
 import { m } from "framer-motion";
 
 /* App */
@@ -12,6 +12,7 @@ import getImgSrc from "../utils/getImgSrc";
 // import loadable from "@loadable/component";
 
 import LazyImage from "~/components/LazyImage";
+import Fab from "~/components/Button/Fab";
 
 // const NoticeBlock = loadable(() => import(/* webpackChunkName: "NoticeBlock" */ "../components/Block/NoticeBlock"));
 
@@ -40,9 +41,9 @@ function LoadRequiredContent({
     missText = "정보를 찾을 수 없어요. 잠시 후 다시 시도해주세요.",
     handleFailButtonText = "확인",
     handleMissButtonText = "확인",
-    handleSuccess = () => { },
-    handleFail = () => { },
-    handleMiss = () => { },
+    handleSuccess = () => {},
+    handleFail = () => {},
+    handleMiss = () => {},
     showHandleFailButton = true, /* false 일 경우 버튼 없이 FAIL을 즉시 처리. */
     isEnabled = true,
 }: PropsWithChildren<LoadRequiredContentProps>) {
@@ -127,8 +128,7 @@ function LoadRequiredContent({
             :
             <div className={`page flex fill-window`}>
                 <Toolbar />
-                <Container className='flex-grow'>
-                    <m.div className='flex-grow'>
+                <Container className='flex-grow block--centered content'>
                         {
                             (delayedStatus === LoadStatus.PENDING)
                                 ?
@@ -143,8 +143,8 @@ function LoadRequiredContent({
                                 />
                         }
                         <p>{body}</p>
-                    </m.div>
                 </Container>
+                <div className="fab-placeholder" />
                 {
                     onClick && buttonText &&
                     <Fab

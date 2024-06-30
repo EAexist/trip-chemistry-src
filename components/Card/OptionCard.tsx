@@ -10,7 +10,7 @@ const OptionCard = ({ children, isActive = false }: OptionCardProps) =>
             zIndex: isActive ? "2" : "1",
             opacity: isActive ? "1" : "0.5",
             scale: isActive ? "1" : "0.8",  
-            borderRadius: "12px",
+            borderRadius: "16px",
             transformOrigin: "bottom center",
         }}
     >

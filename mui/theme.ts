@@ -156,6 +156,13 @@ const theme = createTheme({
                         color: defaultTheme.palette.secondary.contrastText,
                     },
                 },
+                {
+                    props: { variant: 'outlined' },
+                    style: {
+                        color: defaultTheme.palette.secondary.contrastText,
+                        borderColor: defaultTheme.palette.secondary.contrastText
+                    },
+                },
             ],
             defaultProps: {
                 disableElevation: true

@@ -2,6 +2,7 @@ import { IProfile, IProfileId } from "./IProfile";
 
 export interface IChemistry {
     id: string
+    isSample: boolean
     title: string
     titleCity: string
     city: {
@@ -20,6 +21,7 @@ export interface IChemistry {
 };
 export interface IChemistryDTO {
     id: string
+    isSample: boolean
     title: string
     titleCity: string
     city: {
@@ -39,6 +41,7 @@ export interface IChemistryDTO {
 
 export const defaultChemistry : IChemistry = {
     id: "",
+    isSample: false,
     title: "",
     titleCity: "",
     city: {},

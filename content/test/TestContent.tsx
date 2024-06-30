@@ -44,7 +44,7 @@ export const TEST_SECTIONS = {
     {
         type: "hashtag",
         icon: "expectation",
-        label: "여행 테마 #",
+        label: "여행 테마",
         subtitle: "이런 여행을 하고 싶어",
         tests: [
             {
@@ -58,7 +58,7 @@ export const TEST_SECTIONS = {
     {
         type: "hashtag",
         icon: "activity",
-        label: "액티비티 #",
+        label: "액티비티",
         subtitle: "여행지에서는 이런 것들을 해보고 싶어",
         tests: [
             {
