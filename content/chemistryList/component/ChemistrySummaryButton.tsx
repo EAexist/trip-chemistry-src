@@ -1,4 +1,4 @@
-import { Card, CardActionArea, CardContent, Paper, Stack } from "@mui/material";
+import { Card, CardActionArea, CardContent, Paper, Skeleton, Stack } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { HEADERS_AXIOS } from "../../../common/app-const";
@@ -57,9 +57,11 @@ function ChemistrySummaryButton({ id }: ChemistrySummaryButtonProps) {
     return (
         <Card elevation={0}>
             <CardActionArea onClick={handleClick} className="flex-end">
-                <CardContent className="content">
-                    <h2 className="typography-highlight">{chemistry.title}</h2>
-                    <Stack >
+                <CardContent>
+                    <div className="section-header section-header--sm">
+                        <h2 className="section-title section-title--sm">{chemistry ? chemistry.title : <Skeleton/>}</h2>
+                    </div>
+                    <Stack>
                         {
                             chemistry.profileIds.map((id) => {
                                 const { nickname, testResult } = chemistry.profiles[id]

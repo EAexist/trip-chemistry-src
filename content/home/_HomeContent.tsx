@@ -77,7 +77,7 @@ function HomeContent() {
                                             </div>
                                             <div className="block--with-margin-x content" style={{ justifyContent: "end" }}>
                                                 <h3 className="section-title">{title}</h3>
-                                                <p className="">{body}</p>
+                                                <p>{body}</p>
                                             </div>
                                         </>
                                         // <div style={{ position: "absolute", width: "100%" }} className="fill-window">

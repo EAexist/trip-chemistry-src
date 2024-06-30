@@ -1,18 +1,17 @@
 
 import { AppBar, AppBarProps, Toolbar } from "@mui/material";
+import { PropsWithChildren } from "react";
 import MainMenuButton from "../Button/MenuButton";
-import AppTitleButton from "../Button/AppTitleButton";
 
-interface MainAppBarProps extends AppBarProps {
+interface MainAppBarProps extends PropsWithChildren<AppBarProps> {}
 
-}
-function MainAppBar(props : MainAppBarProps) {
+function MainAppBar({ children, ...props} : MainAppBarProps) {
 
     return (
         <AppBar {...props}>
             {/* <Toolbar sx={{ justifyContent: "end" }}> */}
-            <Toolbar>
-                <AppTitleButton/>
+            <Toolbar sx={(children === undefined) && { justifyContent: "end" }}>
+                {children}
                 <MainMenuButton />
             </Toolbar>
         </AppBar>

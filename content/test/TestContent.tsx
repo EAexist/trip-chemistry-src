@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 /* Externals */
 import { ArrowDropDown } from "@mui/icons-material";
-import { AppBar, Button, Grid, Stack, Toolbar } from "@mui/material";
+import { AppBar, Button, Container, Grid, Stack, Toolbar } from "@mui/material";
 
 
 /* Swiper */
@@ -37,6 +37,7 @@ import testAnswerReducer, { useSubmitAnswer, useTestAnswerStatus } from "../../r
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import ScheduleTestContent from "./ScheduleTestContent";
 import { createSelector } from "@reduxjs/toolkit";
+import MainAppBar from "~/components/AppBar/MainAppBar";
 
 export const TEST_SECTIONS = {
     expectation:
@@ -282,31 +283,31 @@ function TestContent() {
                 isEnabled: isAnswerSubmitted,
             }}>
                 <div className="page fill-window flex">
-                    <AppBar >
-                        <Toolbar sx={{ justifyContent: "end" }}>
-                            <MainMenuButton />
-                        </Toolbar>
-                    </AppBar>
+                    <MainAppBar />
                     <Toolbar />
-                    <Stack className="wrapper" style={{ paddingBottom: 0, marginLeft: "-8px" }} display="flex" justifyContent={"space-between"}>
-                        <Button onClick={() => setOpenSectionListModal(true)} endIcon={<ArrowDropDown />}>
-                            <h2 className="section-title">{Object.values(TEST_SECTIONS)[activeSectionIndex].label}</h2>
-                        </Button>
-                        <p className="typography-note">{`${activeSectionIndex + 1} / ${Object.keys(TEST_SECTIONS).length}`}</p>
-                    </Stack>
+                    <Container>
+                        <div className="section-header">
+                            <Stack display="flex" justifyContent={"space-between"}>
+                                <Button onClick={() => setOpenSectionListModal(true)} endIcon={<ArrowDropDown />} sx={{ paddingLeft: 0 }}>
+                                    <h2 className="section-title">{Object.values(TEST_SECTIONS)[activeSectionIndex].label}</h2>
+                                </Button>
+                                <p className="typography-note">{`${activeSectionIndex + 1} / ${Object.keys(TEST_SECTIONS).length}`}</p>
+                            </Stack>
+                        </div>
+                    </Container>
                     <div style={{ flexShrink: 1, flexGrow: 1, overflow: "hidden" }}>
                         <Swiper speed={speed} noSwipingClass='testcontent-swiper-no-swiping' onActiveIndexChange={(swiper) => setActiveSectionIndex(swiper.activeIndex)} ref={swiperRef} style={{ height: "100%" }} {...SWIPERPROPS}>
                             {
                                 (Object.entries(TEST_SECTIONS) as [id: string, { subtitle?: string, contentComponent?: React.ReactNode }][]).map(([id, { subtitle, contentComponent }]) => (
                                     <SwiperSlide key={id} style={{ overflowX: "scroll" }} data-hash={id}>
-                                        <div className="wrapper content">
+                                        <Container className="content">
                                             {
                                                 subtitle
                                                 &&
                                                 <p>{subtitle}</p>
                                             }
                                             {contentComponent}
-                                        </div>
+                                        </Container>
                                         <div className="fab-placeholder" />
                                     </SwiperSlide>
                                 ))
@@ -318,7 +319,7 @@ function TestContent() {
                     </Fab>
                     <ConfirmDrawer
                         open={openConfirmDrawer}
-                        onOpen={()=>setOpenConfirmDrawer(true)}
+                        onOpen={() => setOpenConfirmDrawer(true)}
                         onClose={handleCloseConfirmDrawer}
                         onCancel={handleCloseConfirmDrawer}
                         onConfirm={handleConfirmSubmit}
@@ -328,26 +329,26 @@ function TestContent() {
                     <DraggableModal
                         open={opensectionlistmodal}
                         onClose={handleSectionListModalClose}
-                        className="wrapper content"
-                    >
-                        <h2 className="section-title">테스트</h2>
-                        <div>
-                            <Grid container spacing={1}>
-                                {
-                                    IsTestSectionAnsweredList.map((isAnswered, index) => {
-                                        const isActive = (index === activeSectionIndex)
-                                        return (
-                                            <Grid key={index} item xs={6}>
-                                                <Button onClick={handleSectionButtonClick(index)} startIcon={<PngIcon name={Object.values(TEST_SECTIONS)[index]?.icon} />} variant={"contained"} color={isActive ? "gray" : "secondary"} sx={{ ...!isAnswered && { '& > *': { opacity: 0.5 } }, paddingLeft: '12px' }}>
-                                                    <p>{Object.values(TEST_SECTIONS)[index]?.label}</p>
-                                                </Button>
-                                            </Grid>
 
-                                        )
-                                    })
-                                }
-                            </Grid>
+                    >
+                        <div className="section-header">
+                            <h2 className="section-title">테스트</h2>
                         </div>
+                        <Grid container spacing={1}>
+                            {
+                                IsTestSectionAnsweredList.map((isAnswered, index) => {
+                                    const isActive = (index === activeSectionIndex)
+                                    return (
+                                        <Grid key={index} item xs={6}>
+                                            <Button onClick={handleSectionButtonClick(index)} startIcon={<PngIcon name={Object.values(TEST_SECTIONS)[index]?.icon} />} variant={"contained"} color={isActive ? "gray" : "secondary"} sx={{ ...!isAnswered && { '& > *': { opacity: 0.5 } }, paddingLeft: '12px' }}>
+                                                <p>{Object.values(TEST_SECTIONS)[index]?.label}</p>
+                                            </Button>
+                                        </Grid>
+
+                                    )
+                                })
+                            }
+                        </Grid>
                         <Stack justifyContent={"end"} spacing={0}>
                             <Button onClick={highlightAnsweredSections} className="typography-note" style={{ fontWeight: 600 }}>{`답변한 질문 : ${IsTestSectionAnsweredList.filter((isAnswered) => isAnswered).length}`}</Button>
                             <Button onClick={highlightUnAnsweredSections} className="typography-note disabled">{`남은 질문 : ${IsTestSectionAnsweredList.filter((isAnswered) => !isAnswered).length}`}</Button>

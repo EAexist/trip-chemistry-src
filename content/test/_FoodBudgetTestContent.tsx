@@ -99,7 +99,7 @@
 //                                                                                     <h3 className="typography-highlight">{commonStrings.linkType[source as keyof typeof commonStrings.linkType].name}</h3>
 //                                                                                 }
 //                                                                                 secondary={
-//                                                                                     <p className="">{commonStrings.linkType[source as keyof typeof commonStrings.linkType].body}</p>
+//                                                                                     <p>{commonStrings.linkType[source as keyof typeof commonStrings.linkType].body}</p>
 //                                                                                 }
 //                                                                             />
 //                                                                         </ListItemButton>

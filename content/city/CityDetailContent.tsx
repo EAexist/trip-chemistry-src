@@ -2,7 +2,7 @@
 
 /* Externals */
 import { ArrowRight } from "@mui/icons-material";
-import { AppBar, Fade, Stack, Toolbar, useScrollTrigger } from "@mui/material";
+import { AppBar, Container, Fade, Stack, Toolbar, useScrollTrigger } from "@mui/material";
 
 /* App */
 import { CITIES, CITY_TYPES, NATION } from "../../common/app-const";
@@ -61,7 +61,7 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
                 </Toolbar>
             </AppBar>
             <Toolbar />
-            <div className="wrapper content">
+            <Container className="content">
                 <Stack justifyContent={"space-between"}>
                     <Stack spacing={2}>
                         <h2 className="section-title">{cityStrings.name}</h2>
@@ -84,9 +84,9 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
                     <p className="typography-note">{commonStrings.reference}{commonStrings.linkType[city.linkType as keyof typeof commonStrings.linkType].name}</p>
                     <Logo id={city.linkType} />
                 </Stack>
-            </div>
+            </Container>
             <div className="fab-placeholder" />
-            <Fab endIcon={<ArrowRight />} href={city.link}>
+            <Fab endIcon={<ArrowRight />} href={city.link} variant="outlined">
                 {
                     commonStrings.linkTextList.map((text) => (
                         text === "/link" ? commonStrings.linkType[city.linkType as keyof typeof commonStrings.linkType].name

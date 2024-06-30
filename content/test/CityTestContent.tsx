@@ -24,7 +24,7 @@ function CityTestContent({ cityType, expanded, onChange }: CityTestContentProps)
                 id="panel1bh-header"
             >
                 <Stack direction="row" justifyContent="space-between" width="100%">
-                    <h3 className="">{title}{expanded && " 여행은 어때?"}</h3>
+                    <h3>{title}{expanded && " 여행은 어때?"}</h3>
                     {
                         (!expanded) &&
                         (

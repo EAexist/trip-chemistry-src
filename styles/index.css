@@ -3,6 +3,17 @@
 
 :root {
     /* Margins */
+    --column-padding: 24px;
+    --column-padding-sm: 16px;
+
+    --gap: 16px;
+    --gap-sm: 8px;
+    --gap-lg: 24px;
+
+    --gutter-sm: 16px;
+    --gutter-xl: 30px;
+    --gutter-2xl: 48px;
+    
     --margin-x: 24px;
     --margin-x--small: 16px;
     --margin-x--xsmall: 8px;
@@ -30,15 +41,47 @@
     --theme-color-gray-main: #F2F4F6;
 }
 
-* {
+#root {
+    position: relative;
+    z-index: 0;
+}
+
+html, body, #root {
+    height: 100%;
+    width: 100%;
+}
+
+* {    
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
     font-family: "Pretendard Variable", Pretendard, sans-serif;
     font-optical-sizing: auto;
-    margin: 0;
+    margin: 0;    
     padding: 0;
-    letter-spacing: -.05em;
+    word-break: keep-all;
+    letter-spacing: -.05em;    
     /* Debug */
     /* outline: 1px solid red; */
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+section,
+main {
+    white-space: pre-line;
+    word-break: keep-all;
+}
+
+p {
+    color: rgb(98, 98, 98)
+}
+
 
 /* p:after {
     content: "";
@@ -59,24 +102,6 @@ img {
     object-fit: 'contain';
     width: '100%';
     height: '100%';
-}
-
-/* ( https://homepage.skcarrental.com/ ) */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-button {
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 1.6;
-    word-break: keep-all;
-    white-space: pre-line;
-    margin: 0;
-    color: #50555c;
 }
 
 /* flex */
@@ -112,17 +137,41 @@ button {
 }
 
 .fill-window {
-
     &,
     &.MuiPaper-root {
         height: 100dvh;
+        min-height: var(--min-height__window);
         /* height: -webkit-fill-available;
         height: fill-available; */
-        min-height: var(--min-height__window);
     }
 }
 
 /**** Block ****/
+
+/* Container */
+.MuiContainer-root {
+    &.gutter-sm {
+        padding-left: var(--gutter-sm);
+        padding-right: var(--gutter-sm);         
+    }
+    &.gutter-xl {
+        padding-left: var(--gutter-xl);
+        padding-right: var(--gutter-xl);         
+    }
+    &.gutter-2xl {
+        padding-left: var(--gutter-2xl);
+        padding-right: var(--gutter-2xl);         
+    }
+    &.column-padding {
+        padding-top: var(--column-padding);
+        padding-bottom: var(--column-padding);       
+    }
+    &.column-padding-sm {
+        padding-top: var(--column-padding-sm);
+        padding-bottom: var(--column-padding-sm);       
+    }
+}
+
 .page {
     width: 100vw;
     max-width: 100%;
@@ -141,61 +190,11 @@ button {
     max-width: 220px;
 }
 
-.wrapper {
-    padding-top: var(--margin-top--large);
-    padding-bottom: var(--margin-top--large);
-    padding-left: var(--margin-x);
-    padding-right: var(--margin-x);
-}
-
-.wrapper--small {
-    padding-top: var(--margin-top);
-    padding-bottom: var(--margin-top);
-    padding-left: var(--margin-x--small);
-    padding-right: var(--margin-x--small);
-}
-
-.block--with-margin,
-.block--with-margin.MuiButton-root {
-    margin-top: var(--margin-top);
-    margin-bottom: var(--margin-top);
-    margin-left: var(--margin-x);
-    margin-right: var(--margin-x);
-}
-
-.block--with-margin--small {
-    margin: var(--margin-x--small);
-}
-
-.block--with-margin--xsmall {
-    margin: var(--margin-x--xsmall);
-}
-
-.block--with-margin--large,
-.block--with-margin--large.MuiButton-root {
-    margin-top: var(--margin-top--xlarge);
-    margin-bottom: var(--margin-top--xlarge);
-}
-
-.block--with-margin-x,
-.block--with-margin-x.MuiButton-root,
-.block--with-margin-x.swiper {
-    margin-left: var(--margin-x);
-    margin-right: var(--margin-x);
-}
-
 .block--centered {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-}
-
-.block--centered-row {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     text-align: center;
 }
 
@@ -205,35 +204,32 @@ button {
 }
 
 .content {
-
-    &>:first-child,
-    &>.MuiListItemButton-root:first-child,
-    &>.MuiStack-root:first-child {
-        margin-top: 0;
-    }
-
-    &>*,
-    &>.MuiListItemButton-root,
-    &>.MuiStack-root {
-        margin-top: var(--margin-top);
-    }
-
-    &>.MuiButton-root {
-        margin-top: var(--margin-top--large);
+    &,
+    &.MuiListItemButton-root,
+    &.MuiStack-root,
+    &.MuiContainer-root {
+        margin-top: var(--gap);
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap);        
     }
 }
 
 .content--sparse {
-    &>* {
-        margin-top: var(--margin-top--xlarge);
+    &,
+    &.MuiListItemButton-root,
+    &.MuiStack-root,
+    &.MuiContainer-root {
+        gap: var(--gap-lg);        
     }
 }
 
-.content--narrow {
-
-    &>*,
-    &>.MuiListItemButton-root {
-        margin-top: var(--margin-top--small);
+.content--dense {
+    &,
+    &.MuiListItemButton-root,
+    &.MuiStack-root,
+    &.MuiContainer-root  {
+        gap: var(--gap-sm);  
     }
 }
 
@@ -250,7 +246,7 @@ button {
     height: 192px;
 }
 
-/**** Typography ****/
+/* Section */
 .section-header {
     margin-bottom: 15px;
 
@@ -261,6 +257,27 @@ button {
         color: rgb(98, 98, 98)
     }
 }
+.section-header--sm {
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 26px;
+    letter-spacing: -.5px;
+}
+
+.section-title--sm {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 26px;
+}
+
+.article {
+    font-size: 16px;
+    line-height: 160%;
+}
 
 .typography-title {
     font-weight: 700;
@@ -269,25 +286,7 @@ button {
     color: #2e3033;
 }
 
-.typography-label {
-    font-size: 13px;
-}
-
-.section-title {
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 26px;
-    letter-spacing: -.5px;
-}
-
-.section-title--secondary {
-    font-size: 17px;
-    font-weight: 700;
-    color: #2e3033;
-}
-
 .typography-highlight {
-
     &,
     &>p,
     .MuiTextField-root>& {
@@ -303,15 +302,9 @@ button {
 .typography-note.MuiButton-text.MuiButtonBase-root,
 .typography-note>p {
     font-size: 12px;
-    line-height: 15px;
-    font-weight: 500;
-}
-.tip,
-.tip.MuiButton-text.MuiButtonBase-root,
-.tip>p {
-    font-size: 11px;
-    line-height: 15px;
-    font-weight: 300;
+    line-height: 1.6;
+    font-weight: 400;
+    color: #666
 }
 
 .typography--profile-label,
@@ -335,7 +328,6 @@ button {
     &::before {
         opacity: 0;
     }
-
     &,
     &:first-of-type,
     &:last-of-type {
@@ -358,12 +350,7 @@ button {
     }
 }
 
-.MuiButtonBase-root {
-    display: block;
-}
-
 .MuiButton-root {
-
     & .MuiButtonBase-root {
         &:hover {
             background-color: inherit;
@@ -428,23 +415,12 @@ button {
 }
 
 /*** Trip Chemistry ***/
-.fab {
+.fab__container.MuiContainer-root {
     position: fixed;
+    bottom: 0;
     z-index: 100;
     width: 100vw;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 1) 20%, white);
-}
-
-.fab__button.MuiButton-root {
-    margin-top: var(--margin-top--large);
-    margin-bottom: var(--margin-top--large);
-    margin-left: var(--margin-x);
-    margin-right: var(--margin-x);
-    font-size: 16px;
-    font-weight: 500;
 }
 
 .fab-placeholder {
@@ -452,8 +428,11 @@ button {
     height: 72px;
 }
 
-.main-action-button.MuiButton-root {
-    width: 100%;
+.main-action-button {
+    &.MuiButton-root,
+    &.MuiButtonBase-root{
+        width: 100%;
+    }
 }
 
 /* ImageCard */
@@ -502,8 +481,6 @@ button {
 
 /* Logo */
 .Logo {
-    /* width: auto; */
-    /* object-fit: contain; */
 }
 
 .Logo--medium {
@@ -513,7 +490,6 @@ button {
 .Logo--small {
     height: 16px;
 }
-
 
 /* flag */
 .Flag {
@@ -558,15 +534,6 @@ button {
     align-items: center;
 }
 
-.Label__label {
-    /* background-color: antiquewhite; */
-    /* position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: fit-content */
-}
-
 .Label__label--medium {
     width: var(--width__profile);
     margin-top: 4px;
@@ -586,8 +553,7 @@ button {
 /* TestContent */
 .typography-test-answer {
     text-align: center;
-    font-size: x-large;
-    color: rgb(107, 118, 132);
+    font-size: 16px;
 }
 
 /* Google Map */

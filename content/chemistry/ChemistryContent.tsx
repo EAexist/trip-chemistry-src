@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 /* Externals */
 import { Close, Error, GroupAdd, Login, NavigateBefore } from "@mui/icons-material";
-import { Alert, AppBar, Avatar, Box, Button, ButtonBase, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Modal, Paper, Slide, Stack, Toolbar, useScrollTrigger } from "@mui/material";
+import { Alert, AppBar, Avatar, Box, Button, ButtonBase, Container, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Modal, Paper, Slide, Stack, Toolbar, useScrollTrigger } from "@mui/material";
 
 import { useParams } from "~/router-module";
 
@@ -13,11 +13,13 @@ import AppTitleButton from "~/components/Button/AppTitleButton";
 import MainMenuButton from "~/components/Button/MenuButton";
 import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
 import StartTestFab from "~/components/Button/StartTestFab";
+import ConfirmDrawer from "~/components/ConfirmDrawer";
+import LazyImage from "~/components/LazyImage";
 import DraggableModal from "~/components/Paper/DraggableModal";
 import PngIcon from "~/components/PngIcon";
+import env from "~/env";
 import MotionPage, { motionProp_page_slideIn } from "~/motion/components/MotionPage";
 import FriendAvatar from "../../components/Avatar/FriendAvatar";
-import NoticeBlock from "../../components/Block/NoticeBlock";
 import SectionPaper from "../../components/Paper/SectionPaper";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import { useHasAnsweredTest, useIsAuthorized, useUserId } from "../../reducers/authReducer";
@@ -26,8 +28,6 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import getImgSrc from "../../utils/getImgSrc";
 import LoginContent from "../login/LoginContent";
 import ChemistryDetailContent from "./ChemistryDetailContent";
-import ConfirmDrawer from "~/components/ConfirmDrawer";
-import env from "~/env";
 
 const { Helmet } = ReactHelmetAsync
 
@@ -172,235 +172,243 @@ function ChemistryContent() {
                                 >
                                     <NavigateBefore />
                                 </IconButton>
-                                <MainMenuButton/>
+                                <MainMenuButton />
                             </Toolbar>
                         </AppBar>
                         <LoginContent title={`${profiles[profileIds[0]].nickname}님의 ${title}에\n 참여해보세요.`} />
                     </MotionPage>
                     :
                     (
-                    ( profileIds.length > 0 ) &&                        
-                    <Box key="main" className="page flex" sx={{ backgroundColor: "gray.main" }}>
-                        <AppBar>
-                            <Toolbar ref={containerRef}>
-                                {
-                                    isMember ?
-                                        <>
-                                            <NavigateBeforeButton onClick={handleClickNavigateBefore} />
-                                            <Box sx={{ flexGrow: 1 }}>
-                                                <Slide direction="up" in={hiddenTitleTrigger} container={containerRef.current}>
-                                                    <h2 >{title}</h2>
-                                                </Slide>
-                                            </Box>
-                                        </>
-                                        :
-                                        <AppTitleButton />
-                                }
-                                <MainMenuButton />
-                            </Toolbar>
-                        </AppBar>
-                        <Toolbar />
-                        <div className="content content--sparse">
-                            <SectionPaper className="content">
-                                <h2 className="section-title">{title}</h2>
-                                <div>
-                                    <List>
-                                        {
-                                            profileIds.map((id) => {
-                                                const { testAnswer, nickname } = profiles[id]
-                                                return (
-                                                    <ListItem
-                                                        key={id}
-                                                        className={`${(testAnswer === null) && 'disabled'}`}
-                                                        secondaryAction={
-                                                            (testAnswer === null) &&
-                                                            <Stack >
-                                                                <Error sx={{ fontSize: 18 }} />
-                                                                <p className='typography-note'>테스트 기다리는 중</p>
-                                                            </Stack>
-                                                        }
-                                                    >
-                                                        <ListItemAvatar>
-                                                            <FriendAvatar id={id} renderLabel={false} />
-                                                        </ListItemAvatar>
-                                                        <ListItemText primary={nickname} />
-                                                    </ListItem>
+                        (profileIds.length > 0) &&
+                        <Box key="main" className="page flex" sx={{ backgroundColor: "gray.main" }}>
+                            <AppBar>
+                                <Toolbar ref={containerRef}>
+                                    {
+                                        isMember ?
+                                            <>
+                                                <NavigateBeforeButton onClick={handleClickNavigateBefore} />
+                                                <Box sx={{ flexGrow: 1 }}>
+                                                    <Slide direction="up" in={hiddenTitleTrigger} container={containerRef.current}>
+                                                        <h2 >{title}</h2>
+                                                    </Slide>
+                                                </Box>
+                                            </>
+                                            :
+                                            <AppTitleButton />
+                                    }
+                                    <MainMenuButton />
+                                </Toolbar>
+                            </AppBar>
+                            <Toolbar />
+                            <div className="content content--sparse" style={{ marginTop: 0 }}>
+                                <SectionPaper>
+                                    <div className="section-header">
+                                        <h2 className="section-title">{title}</h2>
+                                    </div>
+                                    <div className="content">
+                                        <List>
+                                            {
+                                                profileIds.map((id) => {
+                                                    const { testAnswer, nickname } = profiles[id]
+                                                    return (
+                                                        <ListItem
+                                                            key={id}
+                                                            className={`${(testAnswer === null) && 'disabled'}`}
+                                                            secondaryAction={
+                                                                (testAnswer === null) &&
+                                                                <Stack >
+                                                                    <Error sx={{ fontSize: 18 }} />
+                                                                    <p className='typography-note'>테스트 기다리는 중</p>
+                                                                </Stack>
+                                                            }
+                                                        >
+                                                            <ListItemAvatar>
+                                                                <FriendAvatar id={id} renderLabel={false} />
+                                                            </ListItemAvatar>
+                                                            <ListItemText primary={nickname} />
+                                                        </ListItem>
+                                                    )
+                                                }
                                                 )
                                             }
-                                            )
-                                        }
-                                        {
-                                            isMember
-                                                ?
-                                                <ListItemButton onClick={handleStartShare}>
-                                                    <ListItemAvatar>
-                                                        <Avatar>
-                                                            <GroupAdd />
-                                                        </Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText primary={"친구 초대하기"} />
-                                                </ListItemButton>
-                                                :
-                                                <ListItemButton onClick={handleJoinChemistry} >
-                                                    <ListItemAvatar>
-                                                        <Avatar>
-                                                            <Login/>
-                                                        </Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText primary={"참여하기"} />
-                                                </ListItemButton>
-                                        }
-                                    </List>
-                                </div>
-                            </SectionPaper>
-                            {
-                                isChemistryEnabled
-                                    ?
-                                    <ChemistryDetailContent />
-                                    :
-                                    /* 참여자를 한 명도 추가하지 않은 경우. */
-                                    <Paper square className="content">
-                                        <NoticeBlock
-                                            alt={"invite"}
-                                            src={getImgSrc('/info', "invite", { size: "xlarge" })}
                                             {
-                                            ...Object.keys(profiles).length < 2
-                                                ?
-                                                { body: "여행을 함께할 친구를 초대하고\n케미스트리를 확인해보세요." }
-                                                :
-                                                { body: "두 명 이상이 테스트를 완료하면 결과를 확인할 수 있어요." }
+                                                isMember
+                                                    ?
+                                                    <ListItemButton onClick={handleStartShare}>
+                                                        <ListItemAvatar>
+                                                            <Avatar>
+                                                                <GroupAdd />
+                                                            </Avatar>
+                                                        </ListItemAvatar>
+                                                        <ListItemText primary={"친구 초대하기"} />
+                                                    </ListItemButton>
+                                                    :
+                                                    <ListItemButton onClick={handleJoinChemistry} >
+                                                        <ListItemAvatar>
+                                                            <Avatar>
+                                                                <Login />
+                                                            </Avatar>
+                                                        </ListItemAvatar>
+                                                        <ListItemText primary={"참여하기"} />
+                                                    </ListItemButton>
                                             }
-                                            isFullscreen={false}
-                                        />
-                                    </Paper>
-                            }
-                            {
-                                !hasAnsweredTest &&
-                                <div className="fab-placeholder" style={{ backgroundColor: "white", visibility: "visible", marginTop: 0 }} />
-                            }
-                            <ConfirmDrawer
-                                open={openConfirmJoinDialog}
-                                onOpen={()=>setOpenConfirmJoinDialog(true)}
-                                onClose={handleCloseConfirmJoinDialog}
-                                onCancel={handleCloseConfirmJoinDialog}
-                                onConfirm={handleConfirmJoin}
-                                title={`여행에 참여할까요?`}
-                                body={`${profiles[profileIds[0]].nickname}님의 ${title}`}
-                                cancelButtonLabel={'취소'}
-                            />
-                            {/* 링크 공유 모달 */}
-                            <DraggableModal
-                                open={openShareModal}
-                                onClose={handleCloseShareModal}
-                                className="wrapper content flex"
-                            >
-                                <Grid container>
-                                    {
-                                        [
-                                            {
-                                                onClick: handleCopyLink,
-                                                icon: 'content_copy',
-                                                label: '링크 복사'
-                                            },
-                                            {
-                                                onClick: handleSnsShare,
-                                                pngIcon: 'kakaotalk',
-                                                label: '카카오톡',
-                                                isUnsupoorted: true
-                                            },
-                                            {
-                                                onClick: handleSnsShare,
-                                                pngIcon: 'instagram',
-                                                label: '인스타그램',
-                                                isUnsupoorted: true
-                                            },
-                                        ].map(({ onClick, icon, pngIcon, label, isUnsupoorted }) => (
-                                            <Grid key={label} item xs={3} display={"flex"} flexDirection={"column"} alignItems={"center"} >
-                                                <ButtonBase onClick={onClick} className={isUnsupoorted && "disabled"}>
-                                                    <Stack direction={"column"}>
-                                                        <Avatar>
-                                                            {
-                                                                icon
-                                                                    ?
-                                                                    <Icon>{icon}</Icon>
-                                                                    :
-                                                                    <PngIcon name={pngIcon} size="large" />
-                                                            }
-                                                        </Avatar>
-                                                        <p className="typography-note">{label}</p>
-                                                    </Stack>
-                                                </ButtonBase>
-                                            </Grid>
+                                        </List>
+                                    </div>
+                                </SectionPaper>
+                                {
+                                    isChemistryEnabled
+                                        ?
+                                        <ChemistryDetailContent />
+                                        :
+                                        /* 참여자를 한 명도 추가하지 않은 경우. */
+                                        <Paper square className="content content--sparse">
+                                            <LazyImage
+                                                alt={"invite"}
+                                                src={getImgSrc('/info', "invite", { size: "xlarge" })}
+                                                width={"256px"}
+                                                height={"256px"}
+                                                containerClassName="NoticeBlock__image"
+                                            />
+                                            <p>
+                                                {
+                                                    Object.keys(profiles).length < 2
+                                                        ?
+                                                        "여행을 함께할 친구를 초대하고\n케미스트리를 확인해보세요."
+                                                        :
+                                                        "두 명 이상이 테스트를 완료하면 결과를 확인할 수 있어요."
+                                                }
+                                            </p>
+                                        </Paper>
+                                }
+                                {
+                                    !hasAnsweredTest &&
+                                    <div className="fab-placeholder" style={{ backgroundColor: "white", visibility: "visible", marginTop: 0 }} />
+                                }
+                                <ConfirmDrawer
+                                    open={openConfirmJoinDialog}
+                                    onOpen={() => setOpenConfirmJoinDialog(true)}
+                                    onClose={handleCloseConfirmJoinDialog}
+                                    onCancel={handleCloseConfirmJoinDialog}
+                                    onConfirm={handleConfirmJoin}
+                                    title={`여행에 참여할까요?`}
+                                    body={`${profiles[profileIds[0]].nickname}님의 ${title}`}
+                                    cancelButtonLabel={'취소'}
+                                />
+                                {/* 링크 공유 모달 */}
+                                <DraggableModal
+                                    open={openShareModal}
+                                    onClose={handleCloseShareModal}
+                                    className="content flex"
+                                >
+                                    <Grid container>
+                                        {
+                                            [
+                                                {
+                                                    onClick: handleCopyLink,
+                                                    icon: 'content_copy',
+                                                    label: '링크 복사'
+                                                },
+                                                {
+                                                    onClick: handleSnsShare,
+                                                    pngIcon: 'kakaotalk',
+                                                    label: '카카오톡',
+                                                    isUnsupoorted: true
+                                                },
+                                                {
+                                                    onClick: handleSnsShare,
+                                                    pngIcon: 'instagram',
+                                                    label: '인스타그램',
+                                                    isUnsupoorted: true
+                                                },
+                                            ].map(({ onClick, icon, pngIcon, label, isUnsupoorted }) => (
+                                                <Grid key={label} item xs={3} display={"flex"} flexDirection={"column"} alignItems={"center"} >
+                                                    <ButtonBase onClick={onClick} className={isUnsupoorted && "disabled"}>
+                                                        <Stack direction={"column"}>
+                                                            <Avatar>
+                                                                {
+                                                                    icon
+                                                                        ?
+                                                                        <Icon>{icon}</Icon>
+                                                                        :
+                                                                        <PngIcon name={pngIcon} size="large" />
+                                                                }
+                                                            </Avatar>
+                                                            <p className="typography-note">{label}</p>
+                                                        </Stack>
+                                                    </ButtonBase>
+                                                </Grid>
 
-                                        ))
-                                    }
-                                </Grid>
-                                <Button
-                                    onClick={handleCloseShareModal}
-                                    variant="contained"
-                                    color="gray"
+                                            ))
+                                        }
+                                    </Grid>
+                                    <Button
+                                        onClick={handleCloseShareModal}
+                                        variant="contained"
+                                        color="gray"
+                                    >
+                                        닫기
+                                    </Button>
+                                </DraggableModal>
+                                <Modal
+                                    open={openLinkCopiedAlert}
+                                    onClose={handleCloseLinkCopiedAlert}
+                                    hideBackdrop={true}
+                                    disableScrollLock
                                 >
-                                    닫기
-                                </Button>
-                            </DraggableModal>
-                            <Modal
-                                open={openLinkCopiedAlert}
-                                onClose={handleCloseLinkCopiedAlert}
-                                hideBackdrop={true}
-                                disableScrollLock
-                            >
-                                <Alert
-                                    action={
-                                        <IconButton
-                                            aria-label="close"
-                                            color="inherit"
-                                            size="small"
-                                            onClick={() => {
-                                                setOpenLinkCopiedAlertOpen(false);
-                                            }}
+                                    <Container className="column-padding gutter-sm column-padding-sm">
+                                        <Alert
+                                            action={
+                                                <IconButton
+                                                    aria-label="close"
+                                                    color="inherit"
+                                                    size="small"
+                                                    onClick={() => {
+                                                        setOpenLinkCopiedAlertOpen(false);
+                                                    }}
+                                                >
+                                                    <Close fontSize="inherit" />
+                                                </IconButton>
+                                            }
+                                            severity="success"
                                         >
-                                            <Close fontSize="inherit" />
-                                        </IconButton>
-                                    }
-                                    severity="success"
-                                    className="block--with-margin block--with-margin--small"
+                                            <>링크를 복사했어요.</>
+                                        </Alert>
+                                    </Container>
+                                </Modal>
+                                <Modal
+                                    open={openSnsShareUnsupportedAlert}
+                                    onClose={() => setOpenSnsShareUnsupportedAlert(false)}
+                                    hideBackdrop={true}
+                                    disableScrollLock
                                 >
-                                    <>링크를 복사했어요.</>
-                                </Alert>
-                            </Modal>
-                            <Modal
-                                open={openSnsShareUnsupportedAlert}
-                                onClose={() => setOpenSnsShareUnsupportedAlert(false)}
-                                hideBackdrop={true}
-                                disableScrollLock
-                            >
-                                <Alert
-                                    action={
-                                        <IconButton
-                                            aria-label="close"
-                                            color="inherit"
-                                            size="small"
-                                            onClick={() => {
-                                                setOpenSnsShareUnsupportedAlert(false);
-                                            }}
+                                    <Container className="column-padding gutter-sm column-padding-sm">
+                                        <Alert
+                                            action={
+                                                <IconButton
+                                                    aria-label="close"
+                                                    color="inherit"
+                                                    size="small"
+                                                    onClick={() => {
+                                                        setOpenSnsShareUnsupportedAlert(false);
+                                                    }}
+                                                >
+                                                    <Close fontSize="inherit" />
+                                                </IconButton>
+                                            }
+                                            severity="warning"
                                         >
-                                            <Close fontSize="inherit" />
-                                        </IconButton>
-                                    }
-                                    severity="warning"
-                                    className="block--with-margin block--with-margin--small"
-                                >
-                                    <>{"SNS 공유 기능은 아직 추가되지 않았어요.\n링크 복사를 이용해주세요."}</>
-                                </Alert>
-                            </Modal>
-                            {
-                                (isMember && !hasAnsweredTest)
-                                &&
-                                <StartTestFab />
-                            }
-                        </div>
-                    </Box>
-                )
+                                            <>{"SNS 공유 기능은 아직 추가되지 않았어요.\n링크 복사를 이용해주세요."}</>
+                                        </Alert>
+                                    </Container>
+                                </Modal>
+                                {
+                                    (isMember && !hasAnsweredTest)
+                                    &&
+                                    <StartTestFab />
+                                }
+                            </div>
+                        </Box>
+                    )
             }
         </>
     );

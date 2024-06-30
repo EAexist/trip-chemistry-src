@@ -46,8 +46,8 @@ function CitiesTestContent({ }: CitiesTestContentProps) {
                                         (
                                             (answer !== undefined) ?
                                                 <Stack>
-                                                    <p className="">{answerStrings[answer].value}</p>
-                                                    <p className="" style={{ color: "inherit" }}>{answerStrings[answer].icon}</p>
+                                                    <p>{answerStrings[answer].value}</p>
+                                                    <p style={{ color: "inherit" }}>{answerStrings[answer].icon}</p>
                                                 </Stack>
                                                 :
                                                 <></>

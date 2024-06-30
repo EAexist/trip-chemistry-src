@@ -2,8 +2,8 @@
 
 /* Externals */
 import { Edit, Help } from "@mui/icons-material";
-import { Button, ButtonBase, Icon, IconButton, Toolbar } from "@mui/material";
-
+import { Button, ButtonBase, Container, Icon, IconButton, Stack, Toolbar } from "@mui/material";
+import { m } from "framer-motion"
 
 /* App */
 import { useState } from "react";
@@ -19,6 +19,7 @@ import { asyncKakaoLogout, useUserProfile } from "../../reducers/authReducer";
 import { useAppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import { KakaoLoginHelp } from "~/components/KakaoLoginHelp";
+import { FADEIN_VIEWPORT } from "~/motion/props";
 
 function UserContent() {
 
@@ -47,7 +48,7 @@ function UserContent() {
     const handleLogout = () => {
         setOpenConfirmDrawer(true);
     }
-    
+
     const handleCancelLogout = () => {
         setOpenConfirmDrawer(false);
     }
@@ -65,15 +66,18 @@ function UserContent() {
             handleSuccess={handleLogoutSuccess}
         >
             <RoutedMotionPage className="flex fill-window">
-                <MainAppBar />
+                <MainAppBar>
+                    <m.h1 {...FADEIN_VIEWPORT} className="section-title">
+                        내 프로필
+                    </m.h1>
+                </MainAppBar>
                 <Toolbar />
-                <div className='flex-grow block--centered content'>
-                    <div>
+                <Container className="flex-grow gutter-xl column-padding" sx={{ display: "flex", flexDirection: "column" }}>
+                    <div className='flex-grow content content--sparse block--centered'>
+                        <div>
                         <ButtonBase onClick={handleClickAvatar}>
                             <UserAvatar sx={{ height: "128px", width: "128px" }} renderLabel={false} />
                         </ButtonBase>
-                    </div>
-                    <div>
                         <Toolbar>
                             <IconButton
                                 edge="start"
@@ -91,31 +95,26 @@ function UserContent() {
                                 <Edit />
                             </IconButton>
                         </Toolbar>
+                        </div>
+                        {
+                            (AuthProvider[authProvider] === AuthProvider.GUEST)
+                                ?
+                                <KakaoLoginButton />
+                                :
+                                <Button onClick={handleLogout} color="gray" variant="contained" className="main-action-button">
+                                    로그아웃
+                                </Button>
+                        }
                     </div>
-                </div>
-                <div className="wrapper content block--centered">
                     {
                         (AuthProvider[authProvider] === AuthProvider.GUEST)
-                            ?
-                            <>
-                                {
-                                    (AuthProvider[authProvider] === AuthProvider.GUEST)
-                                    &&
-                                    <KakaoLoginHelp/>
-                                }
-                                <div style={{ width: "100%" }}>
-                                    <KakaoLoginButton sx={{ width: "100%" }} />
-                                </div>
-                            </>
-                            :
-                            <Button onClick={handleLogout} color="gray" variant="contained" className="main-action-button">
-                                로그아웃
-                            </Button>
+                        &&
+                        <KakaoLoginHelp />
                     }
-                </div>
+                </Container>
                 <ConfirmDrawer
                     open={openConfirmDrawer}
-                    onOpen={()=>setOpenConfirmDrawer(true)}
+                    onOpen={() => setOpenConfirmDrawer(true)}
                     onClose={handleCancelLogout}
                     onCancel={handleCancelLogout}
                     onConfirm={handleConfirmLogout}

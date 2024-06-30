@@ -161,6 +161,9 @@ const theme = createTheme({
                 disableElevation: true
             },
             styleOverrides: {
+                root: {
+                    fontSize: "14px"
+                },
                 contained: {
                     paddingTop: "0.8rem",
                     paddingBottom: "0.8rem",
@@ -168,6 +171,16 @@ const theme = createTheme({
                     paddingRight: "24px",
                     fontWeight: 600
                 },
+                outlined: {
+                    paddingTop: "0.8rem",
+                    paddingBottom: "0.8rem",
+                    paddingLeft: "24px",
+                    paddingRight: "24px",
+                    fontWeight: 600
+                },
+                text: {
+                    borderRadius: 0
+                }
             }
         },
         MuiCard: {
@@ -184,6 +197,14 @@ const theme = createTheme({
                 }
             }
         },
+        MuiContainer: {
+            styleOverrides: {
+                root: {
+                    paddingLeft: "20px",
+                    paddingRight: "20px"
+                }
+            }
+        },
         MuiChip: {
             styleOverrides: {
                 root: {
@@ -194,7 +215,8 @@ const theme = createTheme({
         MuiDivider: {
             styleOverrides: {
                 root: {
-                    marginTop: "0.8rem"
+                    marginTop: "16px",
+                    marginBottom: "16px"
                 }
             }
         },

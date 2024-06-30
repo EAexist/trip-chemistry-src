@@ -26,13 +26,15 @@ function CharacterChemistryContent() {
         state.chemistry.data.profiles[activeProfileId]?.testAnswer !== null
     );
 
-    const nickname= useAppSelector((state) => (
+    const nickname = useAppSelector((state) => (
         state.chemistry.data.profiles[activeProfileId]?.nickname
     ));
 
     return (
-        <div className="content">
-            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-title">여행 타입</m.h2>
+        <>
+            <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-header">
+                <h2 className="section-title">여행 타입</h2>
+            </m.div>
             <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} >
                 <ProfileToggleButtonGroup
                     activeProfileId={activeProfileId}
@@ -48,7 +50,7 @@ function CharacterChemistryContent() {
                                 <FriendTestResultBlock id={activeProfileId} />
                                 :
                                 <div className="content">
-                                    <div className="">
+                                    <div>
                                         <QuestionMark sx={{ fontSize: "24px" }} />
                                     </div>
                                     <p><b>{nickname}</b> 님은 어떤 타입일까요?</p>
@@ -58,7 +60,7 @@ function CharacterChemistryContent() {
                     </m.div>
                 </AnimatePresence>
             </m.div>
-        </div>
+        </>
     );
 }
 export default CharacterChemistryContent;

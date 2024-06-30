@@ -50,13 +50,15 @@ function RestaurantChemistryContent() {
     }, [dailyBudgetAnswerToProfiles]);
 
     return (
-        <div className="content content--sparse">
-            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-title">먹는데에는 얼마나 쓸까?</m.h2>
+        <>
+            <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-header">
+                <h2 className="section-title">먹는데에는 얼마나 쓸까?</h2>
+            </m.div>
             <Tabs
                 value={section}
                 onChange={handleChange}
                 variant="fullWidth"
-                aria-label="restaurant chemistry wrapper"
+                aria-label="restaurant chemistry section"
             >
                 <Tab label="식사 예산" value={"daily"} />
                 <Tab label="특별한 맛집 예산" value={"special"} />
@@ -127,7 +129,7 @@ function RestaurantChemistryContent() {
                                             {...FADEIN_FROMBOTTOM_VIEWPORT}
                                         >
                                             <ListItemAvatar className="block--centered">
-                                                <p className="">{nickname}</p>
+                                                <p>{nickname}</p>
                                             </ListItemAvatar>
                                             <ListItemText primary={
                                                 <Grid container>
@@ -174,7 +176,7 @@ function RestaurantChemistryContent() {
                     </m.div>
                 }
             </AnimatePresence>
-        </div>
+        </>
     );
 }
 export default RestaurantChemistryContent;

@@ -33,7 +33,7 @@ function AnswerButtonGroup({ testKey, answer, setAnswer, options }: AnswerButton
                                 size={"medium"}
                                 labelSize={"large"}
                             >
-                                <p className="" style={{ color: "inherit" }}>{icon}</p>
+                                <p style={{ color: "inherit" }}>{icon}</p>
                             </ToggleLabeledButton>
                         </Grid>
                     ))

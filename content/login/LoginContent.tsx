@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 /* Externals */
-import { Button, Stack, Toolbar } from "@mui/material";
+import { Button, Container, Divider, Stack, Toolbar } from "@mui/material";
 import { useLocation, useNavigate } from "~/router-module";
 
 /* App */
@@ -19,7 +19,7 @@ interface LoginContentProps {
     title?: string;
 }
 
-function LoginContent({ title = "테스트를 시작해볼까요?" }: LoginContentProps) {
+function LoginContent({ title = "테스트를 시작해보세요" }: LoginContentProps) {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -69,15 +69,16 @@ function LoginContent({ title = "테스트를 시작해볼까요?" }: LoginConte
             handleSuccess: handleAuthSuccess,
             handleFail: () => { }
         }}>
-            <div className="fill-window flex">
+            <div className="fill-window">
                 <Toolbar />
-                <div className="flex-grow block--centered content">
-                    <div className="section-header">
-                        <h2 className="section-title">로그인</h2>
-                        <p>{title}</p>
-                    </div>
-                    <Stack direction={"column"} spacing={2} className="wrapper">
+                <div style={{ paddingTop: "24px" }}>
+                    <Container className="gutter-xl" style={{ marginTop: "48px" }}>
+                        <div className="section-header" style={{ marginBottom: "48px" }}>
+                            <h2 className="section-title">로그인</h2>
+                            <p>{title}</p>
+                        </div>
                         <KakaoLoginButton />
+                        <Divider>또는</Divider>
                         <Button
                             onClick={handleGuestSignIn}
                             variant="contained"
@@ -85,8 +86,10 @@ function LoginContent({ title = "테스트를 시작해볼까요?" }: LoginConte
                         >
                             게스트 로그인
                         </Button>
-                    </Stack>
-                    <KakaoLoginHelp />
+                        <div style={{ marginTop: "64px" }}>
+                            <KakaoLoginHelp />
+                        </div>
+                    </Container>
                 </div>
             </div>
         </AuthLoadRequiredContent>

@@ -3,7 +3,7 @@ import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 
 /* Externals */
 import { Close, NavigateNext } from "@mui/icons-material";
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, FormControlLabel, Grow, IconButton, Radio, RadioGroup } from "@mui/material";
+import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, FormControlLabel, Grow, IconButton, Radio, RadioGroup } from "@mui/material";
 
 /* App */
 import { useTestAnswer } from "~/reducers/testAnswerReducer";
@@ -311,7 +311,7 @@ function ScheduleTestContent() {
                                     ))
                                 }
                                 <MapControl position={ControlPosition.BLOCK_START_INLINE_START} >
-                                    <div className="block--with-margin--xsmall">
+                                    <Container className="column-padding gutter-sm column-padding-sm">
                                         {
                                             showMapTitle
                                                 ?
@@ -336,14 +336,14 @@ function ScheduleTestContent() {
                                                     재하 님의 후쿠오카 여행
                                                 </Button>
                                         }
-                                    </div>
+                                        </Container>
                                 </MapControl>
                                 <MapControl position={ControlPosition.BOTTOM_LEFT}>
                                     {
                                         selectedPlace &&
                                         // <Grow in={selectedPlaceId !== undefined}>
-                                        <div style={{ width: googleMapRef?.current?.offsetWidth, position: "absolute", bottom: 0, left: "-76px" }}>
-                                            <Card sx={{ position: "relative" }} className="block--with-margin--xsmall">
+                                        <Container sx={{ width: googleMapRef?.current?.offsetWidth, position: "absolute", bottom: 0, left: "-76px" }} className="column-padding gutter-sm column-padding-sm">
+                                            <Card sx={{ position: "relative" }}>
                                                 <IconButton onClick={() => setSelectedPlaceId(undefined)} sx={{ zIndex: 1, position: "absolute", top: 0, right: 0 }} >
                                                     <Close fontSize="small" />
                                                 </IconButton>
@@ -363,7 +363,7 @@ function ScheduleTestContent() {
                                                     </CardContent>
                                                 </CardActionArea>
                                             </Card>
-                                        </div>
+                                        </Container>
                                         // </Grow>
                                     }
                                 </MapControl>

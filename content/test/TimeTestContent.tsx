@@ -117,7 +117,7 @@ function TimeTestContent() {
                                             label={<p className="typography-highlight">{isPm ? "오후" : "오전"}</p>}
                                             labelPlacement="bottom"
                                         />
-                                        <p className="">{dayjsObject?.format('h시')}</p>
+                                        <p>{dayjsObject?.format('h시')}</p>
                                     </Stack> */}
                                     <ThemeProvider
                                         theme={(createTheme({
@@ -128,7 +128,7 @@ function TimeTestContent() {
                                             }
                                         }))}>
                                         <Box sx={{ position: "absolute", top: "32px", left: "50%", transform: "translateX(-50%)", ...(hour % 12 === 0) && { color: "primary.contrastText", zIndex: 1 } }}>
-                                            <p className="" style={{ color: "inherit" }}>{ isPm ? "정오" : "자정" }</p>
+                                            <p style={{ color: "inherit" }}>{ isPm ? "정오" : "자정" }</p>
                                         </Box>
                                         <TimeClock
                                             maxTime={(id === "start") && (endTimeAnswer !== undefined) ? endTimeDayJs.subtract(1, "hour") : undefined}
@@ -165,7 +165,7 @@ function TimeTestContent() {
                                                 </IconButton>
                                             }
                                             severity="warning"
-                                            className=""
+                                           
                                             // sx={{
                                             //     whiteSpace: "pre-line"
                                             // }}

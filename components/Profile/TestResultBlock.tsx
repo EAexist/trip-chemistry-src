@@ -1,5 +1,5 @@
 
-import { Divider, Icon, Paper, Stack } from "@mui/material";
+import { Container, Divider, Icon, Paper, Stack } from "@mui/material";
 import { useState } from "react";
 import { ACTIVITY_TAGS, CHARACTERS, EXPECTATION_TAGS, TRIP_TAGS } from "~/common/app-const";
 import { ActivityTag } from "~/interfaces/enums/ActivityTag";
@@ -78,7 +78,7 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
         <div className="content content--sparse">
             <div className="content">
                 <div>
-                    <p className="">{character.prefix}</p>
+                    <p>{character.prefix}</p>
                     <h2 className="typography-title">{character.name}</h2>
                 </div>
                 {
@@ -88,7 +88,7 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                 }
             </div>
             <div className="content">
-                <h2 className="section-title--secondary">{`${nickname} 님의 여행 태그`}</h2>
+                <h2 className="section-title--sm">{`${nickname} 님의 여행 태그`}</h2>
                 {
                     <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={1} >
                         {
@@ -106,7 +106,8 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                 {
                     (selectedTag !== undefined)
                     &&
-                    <Paper sx={{ backgroundColor: "gray.main" }} className="wrapper content">
+                    <Paper sx={{ backgroundColor: "gray.main" }} >
+                        <Container className="content">
                         <Stack>
                             <Icon>{TRIP_TAGS[selectedTag].icon}</Icon>
                             <p>{TRIP_TAGS[selectedTag].label}</p>
@@ -123,7 +124,7 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                                             <PngIcon name="expectation" />
                                             {
                                                 expectationTags.map((tag) =>
-                                                    <p className="typography-label"># {EXPECTATION_TAGS[tag].label}</p>
+                                                    <p># {EXPECTATION_TAGS[tag].label}</p>
                                                     // <ExpectationTagChip key={tag} tagId={tag} sx={{ backgroundColor: "transparent" }} />
                                                 )
                                             }
@@ -135,7 +136,7 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                                             <PngIcon name="activity" />
                                             {
                                                 activityTags.map((tag) =>
-                                                    <p className="typography-label"># {ACTIVITY_TAGS[tag].label}</p>
+                                                    <p># {ACTIVITY_TAGS[tag].label}</p>
                                                     // <ActivityTagChip key={tag} tagId={tag} sx={{ backgroundColor: "transparent" }} />
                                                 )
                                             }
@@ -157,6 +158,7 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                                     }
                                 </>
                         }
+                        </Container>
                     </Paper>
                 }
             </div>

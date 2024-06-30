@@ -1,7 +1,7 @@
 /* React */
 
 /* Externals */
-import { Button, Stack, SwipeableDrawer, SwipeableDrawerProps } from "@mui/material";
+import { Button, Container, Stack, SwipeableDrawer, SwipeableDrawerProps } from "@mui/material";
 import { Close, Done } from "@mui/icons-material";
 
 interface ConfirmDrawerProps extends Pick<SwipeableDrawerProps, "open" | "onOpen" | "onClose"> {
@@ -15,32 +15,30 @@ interface ConfirmDrawerProps extends Pick<SwipeableDrawerProps, "open" | "onOpen
 
 function ConfirmDrawer({ title, body, cancelButtonLabel, onConfirm, onCancel, isConfirmDefault = true, ...props }: ConfirmDrawerProps) {
     return (
-            <SwipeableDrawer
-                anchor="bottom"
-                sx={{
-                    borderRadius: "16px"
-                }}
-                {...props}
-            >
-                <div className='wrapper content content--sparse'>
-                    <h2 className='section-title'>
-                        {title}
-                    </h2>
-                    <p>
-                        {body}
-                    </p>
-                    <div>
-                        <Stack display={"flex"}>
-                            <Button onClick={onCancel} startIcon={<Close />} variant="contained" color={isConfirmDefault ? "gray" : "primary"} sx={{ flexGrow: 1 }}>
-                                {cancelButtonLabel}
-                            </Button>
-                            <Button onClick={onConfirm} startIcon={<Done />} variant="contained" color={isConfirmDefault ? "primary" : "gray"} sx={{ flexGrow: 1 }}>
-                                확인
-                            </Button>
-                        </Stack>
-                    </div>
-                </div>
-            </SwipeableDrawer>
+        <SwipeableDrawer
+            anchor="bottom"
+            sx={{
+                borderRadius: "16px"
+            }}
+            {...props}
+        >
+            <Container className='column-padding content content--sparse'>
+                <h2 className='section-title'>
+                    {title}
+                </h2>
+                <p>
+                    {body}
+                </p>
+                <Stack display={"flex"}>
+                    <Button onClick={onCancel} startIcon={<Close />} variant="contained" color={isConfirmDefault ? "gray" : "primary"} sx={{ flexGrow: 1 }}>
+                        {cancelButtonLabel}
+                    </Button>
+                    <Button onClick={onConfirm} startIcon={<Done />} variant="contained" color={isConfirmDefault ? "primary" : "gray"} sx={{ flexGrow: 1 }}>
+                        확인
+                    </Button>
+                </Stack>
+            </Container>
+        </SwipeableDrawer>
     );
 }
 export default ConfirmDrawer;

@@ -26,7 +26,7 @@ function ScheduleChemistryContent() {
     
     return (
         <>
-            <m.h2 {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-title">{strings.sections.schedule.title}</m.h2>
+            <h2 className="section-title">{strings.sections.schedule.title}</h2>
             <div className="content">
                     <List>
                         {

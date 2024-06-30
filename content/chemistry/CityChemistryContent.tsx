@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 
 /* Externals */
-import { Paper } from "@mui/material";
+import { Container, Paper } from "@mui/material";
 
 /* Swiper */
 import 'swiper/css';
@@ -28,10 +28,12 @@ function CityChemistryContent({ cityType }: CityChemistryContentProps) {
     }, [cityType])
 
     return (
-        <Paper className="wrapper content" style={{ overflow: "hidden" }}>
-            <CityCarousel cityType={cityType}/>
-            <h2 className="section-title">{city.title}</h2>
-            <CityChemistryAccordion cityType={cityType} />
+        <Paper style={{ overflow: "hidden" }}>
+            <Container className="column-padding content">
+                <CityCarousel cityType={cityType} />
+                <h2 className="section-title">{city.title}</h2>
+                <CityChemistryAccordion cityType={cityType} />
+            </Container>
         </Paper>
     );
 }
