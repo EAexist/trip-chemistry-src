@@ -8,7 +8,7 @@ import TagSetTestAnswerChip from "./component/TagSetTestAnswerChip";
 import TestInstruction from "./component/TestInstruction";
 
 interface HashTagTestContentProps {
-    testKey: "activity" | "expectation"
+    testKey: "activity" | "expectation" | "city"
 }
 
 function HashTagTestContent({ testKey }: HashTagTestContentProps) {

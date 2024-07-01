@@ -294,6 +294,17 @@ const theme = createTheme({
                 spacing: 1,
             }
         },
+        MuiStepLabel: {
+            styleOverrides: {
+                root: {
+                    width: "100%",
+                },
+                label: {
+                    display: "flex",
+                    justifyContent: "space-between"
+                }
+            }
+        },
         MuiTooltip: {
             defaultProps: {
                 enterTouchDelay: 0,

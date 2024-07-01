@@ -1,6 +1,5 @@
 import { Chip, ChipProps, Icon } from "@mui/material";
-import { ACTIVITY_TAGS, EXPECTATION_TAGS, TRIP_TAGS } from "~/common/app-const";
-import { ExpectationTag } from "~/interfaces/enums/ExpectationTag";
+import { HASHTAGS, TRIP_TAGS } from "~/common/app-const";
 
 interface Tags {
     [k: number]: {
@@ -39,9 +38,10 @@ const TagChipWithTags = ( tags: Tags ) =>
     }
 
 const TripTagChip = TagChipWithTags(TRIP_TAGS)
-const ExpectationTagChip = TagChipWithTags(EXPECTATION_TAGS)
-const ActivityTagChip = TagChipWithTags(ACTIVITY_TAGS)
+const ExpectationTagChip = TagChipWithTags(HASHTAGS.expectation)
+const ActivityTagChip = TagChipWithTags(HASHTAGS.activity)
 
 export default TagChip
-export { TripTagChip, ExpectationTagChip, ActivityTagChip };
+export { ActivityTagChip, ExpectationTagChip, TripTagChip };
 export type { TagChipProps };
+

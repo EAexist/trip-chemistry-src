@@ -14,17 +14,15 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 /* App */
 
 /* Contents */
-import CitiesTestContent from "./CitiesTestContent";
 import DailyRestaurantTestContent from "./DailyRestaurantTestContent";
 import HashTagTestContent from "./HashTagTestContent";
 import LeadershipTestContent from "./LeadershipTestContent";
 import SpecialRestaurantTestContent from "./SpecialRestaurantTestContent";
 import TimeTestContent from "./TimeTestContent";
 
-
 import { createSelector } from "@reduxjs/toolkit";
 import { SwiperOptions } from "swiper/types";
-import { CITY_TYPE_KEYS, TEST_TYPE } from "~/common/app-const";
+import { TEST_TYPE } from "~/common/app-const";
 import MainAppBar from "~/components/AppBar/MainAppBar";
 import Fab from "~/components/Button/Fab";
 import ConfirmDrawer from "~/components/ConfirmDrawer";
@@ -36,14 +34,13 @@ import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext
 import { useGetProfile } from "../../reducers/authReducer";
 import testAnswerReducer, { useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
-import ScheduleTestContent from "./ScheduleTestContent";
 
 export const TEST_SECTIONS = {
     expectation:
     {
         type: "hashtag",
         icon: "expectation",
-        label: "여행 테마 #",
+        label: "여행 테마",
         subtitle: "이런 여행을 하고 싶어",
         tests: [
             {
@@ -53,11 +50,25 @@ export const TEST_SECTIONS = {
         ],
         contentComponent: <HashTagTestContent testKey={"expectation"} />
     },
+    city:
+    {
+        type: "hashtag",
+        icon: "city",
+        label: "여행지",
+        subtitle: "여행지는 이런 곳이 좋아",
+        tests: [
+            {
+                testKey: "hashtag",
+                subKey: "city"
+            }
+        ],
+        contentComponent: <HashTagTestContent testKey={"city"} />
+    },
     activity:
     {
         type: "hashtag",
         icon: "activity",
-        label: "액티비티 #",
+        label: "액티비티",
         subtitle: "여행지에서는 이런 것들을 해보고 싶어",
         tests: [
             {
@@ -84,7 +95,7 @@ export const TEST_SECTIONS = {
     {
         type: 'time',
         icon: "clock",
-        label: "여행 시간",
+        label: "일정 짜기",
         tests: [
             {
                 testKey: "schedule",
@@ -93,23 +104,17 @@ export const TEST_SECTIONS = {
             {
                 testKey: "schedule",
                 subKey: "endTime"
-            }
-        ],
-        contentComponent: <TimeTestContent />
-    },
-    schedule:
-    {
-        type: 'schedule',
-        icon: "path",
-        label: "일정",
-        tests: [
+            },
+            {
+                testKey: "schedule",
+                subKey: "schedule"
+            },
             {
                 testKey: "schedule",
                 subKey: "schedule"
             }
         ],
-        subtitle: "일정은 얼마나 알차게 짤까?",
-        contentComponent: <ScheduleTestContent />
+        contentComponent: <TimeTestContent />
     },
     dailyRestaurantBudget:
     {
@@ -143,17 +148,17 @@ export const TEST_SECTIONS = {
         ],
         contentComponent: <SpecialRestaurantTestContent />
     },
-    city:
-    {
-        type: "city",
-        icon: "location",
-        label: "여행지",
-        tests: CITY_TYPE_KEYS.map(key => ({
-            testKey: "city",
-            subKey: key
-        })),
-        contentComponent: <CitiesTestContent />
-    },
+    // city:
+    // {
+    //     type: "city",
+    //     icon: "location",
+    //     label: "여행지",
+    //     tests: CITY_TYPE_KEYS.map(key => ({
+    //         testKey: "city",
+    //         subKey: key
+    //     })),
+    //     contentComponent: <CitiesTestContent />
+    // },
 };
 
 function TestContent() {
@@ -298,8 +303,8 @@ function TestContent() {
                         <Swiper speed={speed} noSwipingClass='testcontent-swiper-no-swiping' onActiveIndexChange={(swiper) => setActiveSectionIndex(swiper.activeIndex)} ref={swiperRef} style={{ height: "100%" }} {...SWIPERPROPS}>
                             {
                                 (Object.entries(TEST_SECTIONS) as [id: string, { subtitle?: string, contentComponent?: React.ReactNode }][]).map(([id, { subtitle, contentComponent }]) => (
-                                    <SwiperSlide key={id} style={{ overflowX: "scroll" }} data-hash={id}>
-                                        <Container className="content">
+                                    <SwiperSlide key={id} data-hash={id}>
+                                        <Container className="content" sx={{ width: "100%" }}>
                                             {
                                                 subtitle
                                                 &&

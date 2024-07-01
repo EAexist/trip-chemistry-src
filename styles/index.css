@@ -10,6 +10,7 @@
     --gap-sm: 8px;
     --gap-lg: 24px;
 
+    --gutter-xs: 8px;
     --gutter-sm: 16px;
     --gutter-xl: 30px;
     --gutter-2xl: 48px;
@@ -150,6 +151,10 @@ img {
 
 /* Container */
 .MuiContainer-root {
+    &.gutter-xs {
+        padding-left: var(--gutter-xs);
+        padding-right: var(--gutter-xs);         
+    }
     &.gutter-sm {
         padding-left: var(--gutter-sm);
         padding-right: var(--gutter-sm);         

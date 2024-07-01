@@ -1,205 +1,222 @@
 /* React */
-import { SyntheticEvent, useEffect, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
 
 /* Externals */
-import { Error, ExpandMore, NavigateNext } from "@mui/icons-material";
-import { Accordion, AccordionDetails, AccordionSummary, Box, createTheme, Stack, ThemeProvider } from "@mui/material";
-import { TimeClock } from "@mui/x-date-pickers";
+import { Check, Close, Error, ExpandMore, NavigateNext, Start } from "@mui/icons-material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, ButtonBase, Container, createTheme, FormControlLabel, Grid, Paper, Radio, RadioGroup, Stack, Step, StepButton, StepButtonProps, StepContent, StepLabel, Stepper, ThemeProvider } from "@mui/material";
+import { MobileTimePicker, TimeClock } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import { useTestAnswer } from "~/reducers/testAnswerReducer";
+import PngIcon from "~/components/PngIcon";
+
+export const scheduleTestOptions = [
+    {
+        value: 1,
+        label: "아주\n널널하게"
+    },
+    {
+        value: 2,
+        label: "널널하게"
+    },
+    {
+        value: 3,
+        label: "알차게"
+    },
+    {
+        value: 4,
+        label: "매우\n알차게"
+    },
+    {
+        value: 0,
+        label: "아무래도\n상관없어"
+    },
+]
+
+export const nightPlanTestOptions = [
+    {
+        value: 0,
+        label: "숙소에서 푹 쉬기",
+        icon: "rest"
+    },
+    {
+        value: 1,
+        label: "야식이나 술 먹으러 나가기",
+        icon: "bar"
+    },
+    {
+        value: 2,
+        label: "밤에도 새로운 곳 돌아다니기",
+        icon: "travel"
+    },
+]
+
+const amPalette = [
+    "rgb(37, 49, 109)",
+    "rgb(95, 111, 148)",
+    "rgb(151, 210, 236)",
+    "rgb(254, 245, 172)",
+]
+const pmPalette = [
+    "rgb(255, 218, 120)",
+    "rgb(255, 127, 62)",
+    "rgb(42, 98, 154)",
+    "rgb(0, 50, 133)",
+]
+
+const CheckStepButton = ({ isChecked = false, isActive = false, children, ...props }: StepButtonProps & { isChecked?: boolean, isActive?: boolean }) => (
+    <StepButton {...props}>
+        {children}
+        {
+            isChecked
+            && <Check sx={isActive ? { color: "primary.main" } : {}} />
+        }
+    </StepButton>
+)
+
+const TimeAnswerStepLabel = (({ testKey, index, summaryTitle, handleStep, label = "몇시가 좋을까?", isActive }) => {
+
+    const [timeAnswer, setTimeAnswer] = useTestAnswer("schedule", testKey)
+    const [theOtherTimeAnswer] = useTestAnswer("schedule", testKey === "startTime" ? "endTime" : "startTime")
+    const [timeDayJs, setTimeDayJs] = useState((timeAnswer !== undefined) ? dayjs('2024-06-05 00:00').set("hour", timeAnswer) : undefined)
+    const [theOtherTimeDayJs] = useState(dayjs('2024-06-05 00:00').set("hour", (theOtherTimeAnswer !== undefined) ? theOtherTimeAnswer : 20))
+    const hour = timeDayJs?.get("hour");
+    const isPm = hour > 11
+
+    useEffect(() => {
+        if (timeDayJs)
+            setTimeAnswer(timeDayJs.get("hour"))
+    }, [timeDayJs])
+
+    return (
+        <Step key={0} index={index}>
+            <CheckStepButton
+                onClick={handleStep(index)}
+                isChecked={timeAnswer !== undefined}
+                isActive={isActive}
+                optional={
+                    !isActive &&
+                    (timeAnswer !== undefined) &&
+                    <p><b>{hour === 0 ? "자정" : `${isPm ? "오후" : "오전"} ${timeDayJs?.format('h시')}`}</b></p>
+                }
+            >
+                {summaryTitle}
+            </CheckStepButton>
+            <StepContent>
+                <MobileTimePicker
+                    value={timeDayJs}
+                    maxTime={(testKey === "start") && (theOtherTimeAnswer !== undefined) ? theOtherTimeDayJs.subtract(1, "hour") : undefined}
+                    minTime={(testKey === "end") && (theOtherTimeAnswer !== undefined) ? theOtherTimeDayJs.add(1, "hour") : undefined}
+                    onChange={(newValue) => setTimeDayJs(newValue)}
+                    label={label}
+                    views={['hours']}
+                />
+            </StepContent>
+        </Step>
+    )
+})
 
 function TimeTestContent() {
 
-    const amPalette = [
-        "rgb(37, 49, 109)",
-        "rgb(95, 111, 148)",
-        "rgb(151, 210, 236)",
-        "rgb(254, 245, 172)",
-    ]
-    const pmPalette = [
-        "rgb(255, 218, 120)",
-        "rgb(255, 127, 62)",
-        "rgb(42, 98, 154)",
-        "rgb(0, 50, 133)",
-    ]
-
     /* States */
-    const [expanded, setExpanded] = useState<string | false>("start");
+    const [activeStep, setActiveStep] = useState(0);
+    const handleStep = (step: number) => () => {
+        setActiveStep((activeStep === step) ? -2: step);
+    };
+    const [scheduleAnswer, setScheduleAnswer] = useTestAnswer("schedule", "schedule");
+    const [nightPlanAnswer, setNightPlanAnswer] = useTestAnswer("schedule", "nightPlan");
 
-    /* Reducers */
-    const [startTimeAnswer, setStartTimeAnswer] = useTestAnswer("schedule", "startTime")
-    const [endTimeAnswer, setEndTimeAnswer] = useTestAnswer("schedule", "endTime")
-    const [startTimeDayJs, setStartTimeDayJs] = useState(dayjs('2024-06-05 00:00').set("hour", (startTimeAnswer !== undefined) ? startTimeAnswer : 8))
-    const [endTimeDayJs, setEndTimeDayJs] = useState(dayjs('2024-06-05 00:00').set("hour", (endTimeAnswer !== undefined) ? endTimeAnswer : 20))
-    const [isAnswered, setIsAnswerd] = useState({
-        start: false,
-        end: false
-    })
-
-    useEffect(()=>{
-        if(isAnswered.start){            
-            setStartTimeAnswer( startTimeDayJs.get("hour") )
-        }
-    }, [ startTimeDayJs, isAnswered ])
-
-    useEffect(()=>{
-        if(isAnswered.end){            
-            setEndTimeAnswer( endTimeDayJs.get("hour") )
-        }
-    }, [ endTimeDayJs, isAnswered ])
-
+    const handleScheduleAnswerChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setScheduleAnswer(Number(event.target.value));
+    }
+    const handleNightPlanAnswerChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setNightPlanAnswer(Number(event.target.value));
+    }
     return (
         <div className="content">
             {/* <h2 className="section-title">시간</h2> */}
-            {
-                [
-                    {
-                        id: "start",
-                        answer: startTimeAnswer,
-                        summaryTitle: "여행 일정을 시작하는 시간",
-                        detailTitle: "숙소를 나서서 일정을 시작하려고 해.\n몇시가 좋을까?",
-                        defaultAnswer: 8
-                    },
-                    {
-                        id: "end",
-                        answer: endTimeAnswer,
-                        summaryTitle: "여행 일정이 끝나는 시간",
-                        detailTitle: "일정을 마치고 숙소에 들어가 쉬려고 해.\n몇시가 좋을까?", 
-                        defaultAnswer: 20
-                    }
-                ].map(({ id, answer, summaryTitle, detailTitle, defaultAnswer }) => {
-                    const isExpanded = expanded === id
-                    const dayjsObject = id === "start" ? startTimeDayJs : endTimeDayJs
-                    const setDayjsObject = id === "start" ? setStartTimeDayJs : setEndTimeDayJs
-                    const hour = dayjsObject.get("hour");
-                    const isPm = hour > 11
-                    const color = hour > 11 ? pmPalette[Math.floor((hour-12) / 3)] : amPalette[Math.floor(hour / 3)]
-
-                    return (
-                        <Accordion key={id} expanded={isExpanded} onChange={(event: SyntheticEvent, isExpanded: boolean) => {
-                            setIsAnswerd((prev) => ({ ...prev, [id] : true }))
-                            setExpanded(isExpanded ? id : false)
-                        }}>
-                            <AccordionSummary
-                                expandIcon={(isExpanded) && <ExpandMore />}
-                                aria-controls="panel1bh-content"
-                                id="panel1bh-header"
+            <Stepper nonLinear activeStep={activeStep} orientation="vertical">
+                <TimeAnswerStepLabel testKey={"startTime"} index={0} summaryTitle={"숙소를 나서서 일정 시작"} handleStep={handleStep} isActive={activeStep === 0} />
+                <Step key={0} index={1}>
+                    <CheckStepButton
+                        onClick={handleStep(1)}
+                        optional={
+                            (activeStep !== 1) && (scheduleAnswer !== undefined) && scheduleTestOptions[scheduleAnswer].label
+                        }
+                        isChecked={scheduleAnswer !== undefined}
+                        isActive={activeStep === 1}
+                    >
+                        여행지 돌아다니기
+                    </CheckStepButton>
+                    <StepContent>
+                        <Container className="column-padding content">
+                            <p>얼마나 알차게 돌아다닐까?</p>
+                            <RadioGroup
+                                name="controlled-radio-buttons-group"
+                                value={(scheduleAnswer !== undefined) ? scheduleAnswer : null}
+                                onChange={handleScheduleAnswerChange}
+                                row={true}
+                                sx={{ justifyContent: "space-between" }}
                             >
-                                <Stack direction="row" justifyContent="space-between" width="100%">
-                                    {
-                                        (isExpanded) ?
-                                            <p>{detailTitle}</p>
-                                            :
-                                            <p>{summaryTitle}</p>
-                                    }
-                                    {
-                                        (!isExpanded) &&
-                                        (
-                                            (answer !== undefined) ?
-                                                <p><b>{ hour === 0 ? "자정" : `${isPm ? "오후" : "오전"} ${dayjsObject?.format('h시')}` }</b></p>
-                                                :
-                                                <NavigateNext />
-                                        )
-                                    }
-                                </Stack>
-                            </AccordionSummary>
-                            <AccordionDetails sx={{ overflowX: "visible", display: "flex", position: "relative"}} >
-                                    {/* <Stack direction={"column"}>
+                                {
+                                    scheduleTestOptions.map(({ value, label }) => (
                                         <FormControlLabel
+                                            key={label}
+                                            value={value}
                                             control={
-                                                <MaterialUISwitch
-                                                    checked={isPm}
-                                                    color="primary"
-                                                    // onChange={() => setAnswer((((answer !== undefined) ? answer : displayAnswer) + 12) % 24)}
-                                                    onChange={() => setIsPm((prev) =>({[id]: !prev[id], ...prev}))}
+                                                <Radio
+                                                    size="small"
+                                                    color="default"
+                                                    sx={{
+                                                        color: (scheduleAnswer === value) ? "primary.main" : "gray.dark"
+                                                    }}
                                                 />
                                             }
-                                            label={<p className="typography-highlight">{isPm ? "오후" : "오전"}</p>}
+                                            label={<p className="block--centered typography-note" style={(scheduleAnswer === value) ? { fontWeight: 700 } : {}}>{label}</p>}
                                             labelPlacement="bottom"
                                         />
-                                        <p>{dayjsObject?.format('h시')}</p>
-                                    </Stack> */}
-                                    <ThemeProvider
-                                        theme={(createTheme({
-                                            palette: {
-                                                primary: {
-                                                    main: color
-                                                }
-                                            }
-                                        }))}>
-                                        <Box sx={{ position: "absolute", top: "32px", left: "50%", transform: "translateX(-50%)", ...(hour % 12 === 0) && { color: "primary.contrastText", zIndex: 1 } }}>
-                                            <p style={{ color: "inherit" }}>{ isPm ? "정오" : "자정" }</p>
-                                        </Box>
-                                        <TimeClock
-                                            maxTime={(id === "start") && (endTimeAnswer !== undefined) ? endTimeDayJs.subtract(1, "hour") : undefined}
-                                            minTime={(id === "end") && (startTimeAnswer !== undefined) ? startTimeDayJs.add(1, "hour") : undefined}
-                                            value={dayjsObject}
-                                            onChange={(newValue) => setDayjsObject(newValue)}
-                                            ampmInClock={true}
-                                            views={['hours']}
-                                            timezone="system"
-                                            sx={{
-                                                '& .MuiClock-clock': {
-                                                    backgroundColor: "transparent",
-                                                },
-                                                '& .MuiClockNumber-root:last-child': {
-                                                    display: "none"
-                                                }
-                                            }}
-                                            className="testcontent-swiper-no-swiping"
-                                        />
-                                    </ThemeProvider>
-                                {/* {
-                                    <Zoom in={openInvalidTimeAlert[id]} mountOnEnter unmountOnExit>
-                                        <Alert
-                                            action={
-                                                <IconButton
-                                                    aria-label="close"
-                                                    color="inherit"
-                                                    size="small"
-                                                    onClick={() => {
-                                                        setWarningState(false);
-                                                    }}
-                                                >
-                                                    <Close fontSize="inherit" />
-                                                </IconButton>
-                                            }
-                                            severity="warning"
-                                           
-                                            // sx={{
-                                            //     whiteSpace: "pre-line"
-                                            // }}
-                                        >
-                                            {
-                                                (warningState === "start") ?
-                                                    `일정을 마치는 시간( ${endTimeAnswer < 12 ? "오전" : "오후"} ${endTimeAnswer % 12}시 )보다 빨라야 해요.`
-                                                    :
-                                                    `일정을 시작하는 시간( ${startTimeAnswer < 12 ? "오전" : "오후"} ${startTimeAnswer % 12}시 )보다 늦어야 해요.`
-                                            }
-                                        </Alert>
-                                    </Zoom>
-                                } */}
-                            </AccordionDetails>
-                        </Accordion>
-                    )
-                })
-            }
-            <Accordion sx={{ backgroundColor: "transparent" }}>
-                <AccordionSummary expandIcon={
-                    (startTimeAnswer !== undefined)
-                        ? (endTimeAnswer !== undefined)
-                            ? <p>하루에 <b>{endTimeAnswer - startTimeAnswer}</b>시간 정도를 돌아다니자!</p>
-                            : <Stack>
-                                <Error sx={{ fontSize: "15px" }} />
-                                <p>일정을 끝낼 시간을 정해주세요.</p>
-                            </Stack>
-                        : <Stack>
-                            <Error />
-                            <p>일정을 시작할 시간을 정해주세요.</p>
-                        </Stack>
-                }>
-                </AccordionSummary>
-            </Accordion>
+                                    ))
+                                }
+                            </RadioGroup>
+                        </Container>
+                    </StepContent>
+                </Step>
+                <TimeAnswerStepLabel testKey={"endTime"} index={2} summaryTitle={"숙소로 돌아와 쉬기"} handleStep={handleStep} isActive={activeStep === 2} />
+                <Step key={0} index={3}>
+                    <CheckStepButton
+                        onClick={handleStep(3)}
+                        isChecked={nightPlanAnswer !== undefined}
+                        isActive={activeStep === 3}
+                        optional={
+                            (activeStep !== 3) && (nightPlanAnswer !== undefined) && nightPlanTestOptions[nightPlanAnswer].label
+                        }
+                    >
+                        밤에는 뭘 할까
+                    </CheckStepButton>
+                    <StepContent>
+                        <Grid container>
+                            {
+                                nightPlanTestOptions.map(({ value, label, icon }) => (
+                                    <Grid item xs={4} sx={{ padding: "4px", display: "flex" }}>
+                                        <Paper elevation={(nightPlanAnswer === value) ? 2: 0} sx={{ backgroundColor: (nightPlanAnswer === value) ? "white" : "gray.main" }}>
+                                            <ButtonBase onClick={() => setNightPlanAnswer(value)}>
+                                                <Container className="column-padding-sm gutter-xs">
+                                                    <PngIcon name={icon} size="large" />
+                                                    <p className="typography-note" style={(nightPlanAnswer === value) ? { fontWeight: 700 } : {}}>{label}</p>
+                                                </Container>
+                                            </ButtonBase>
+                                        </Paper>
+                                    </Grid>
+                                ))
+                            }
+                        </Grid>
+                    </StepContent>
+                </Step>
+                <Step key={0} index={-1}>
+                    <StepLabel>
+                        일정 끝
+                    </StepLabel>
+                </Step>
+            </Stepper>
         </div >
     );
 }

@@ -1,6 +1,7 @@
 import { ICityType } from "~/common/app-const";
 import { ActivityTag, IActivityTag } from "./enums/ActivityTag";
 import { ExpectationTag, IExpectationTag } from "./enums/ExpectationTag";
+import { CityTag, ICityTag } from "./enums/CityTag";
 
 export interface ITestAnswer {
     hashtag: {
@@ -11,6 +12,10 @@ export interface ITestAnswer {
         activity: {
             selected: IActivityTag[]
             unSelected: IActivityTag[]
+        },
+        city: {
+            selected: ICityTag[]
+            unSelected: ICityTag[]
         }
     }
     leadership: undefined | number
@@ -18,6 +23,7 @@ export interface ITestAnswer {
         startTime: undefined | number
         endTime: undefined | number
         schedule: undefined | number
+        nightPlan: undefined | number
     }
     restaurant: {
         dailyBudget: undefined | number
@@ -31,6 +37,7 @@ export interface ITestAnswerDTO extends Omit<ITestAnswer, 'hashtag'> {
     hashtag:{
         expectation: IExpectationTag[],
         activity: IActivityTag[],
+        city: ICityTag[],
     }
 };
 
@@ -44,12 +51,17 @@ export const defaultTestAnswer: ITestAnswer = {
             selected: [],
             unSelected: Object.values(ActivityTag)
         },
+        city: {
+            selected: [],
+            unSelected: Object.values(CityTag)
+        },
     },
     leadership: undefined,
     schedule: {
         startTime: undefined,
         endTime: undefined,
         schedule: undefined,
+        nightPlan: undefined
     },
     restaurant:{
         dailyBudget: undefined,
@@ -70,6 +82,7 @@ export const testAnswerToDTO: (testAnswer: ITestAnswer) => ITestAnswerDTO = ( te
         hashtag: {
             expectation: testAnswer.hashtag.expectation.selected,
             activity: testAnswer.hashtag.activity.selected,
+            city: testAnswer.hashtag.city.selected,
         }
     } as ITestAnswerDTO
 );

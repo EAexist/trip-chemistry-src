@@ -14,6 +14,7 @@ import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
 import { IHashTagTestKey, INumericTestKey, ITestAnswer, ITestAnswerDTO, ITestKey, testAnswerToDTO } from "../interfaces/ITestAnswer";
 import { useAppDispatch, useAppSelector } from "../store";
 import { useUserId } from "./authReducer";
+import { CityTag } from "~/interfaces/enums/CityTag";
 
 type ITestAnswerState = IWithLoadStatus<ITestAnswer>
 
@@ -43,12 +44,17 @@ export const sampleTestAnswer_: ITestAnswer = {
             selected: Object.values(ActivityTag).slice(0, 4),
             unSelected: Object.values(ActivityTag).slice(4)
         },
+        city: {
+            selected: Object.values(CityTag).slice(0, 4),
+            unSelected: Object.values(CityTag).slice(4)
+        },
     },
     leadership: 1,
     schedule: {
         startTime: 6,
         endTime: 18,
         schedule: 4,
+        nightPlan: 4,
     },
     restaurant: {
         dailyBudget: 12000, /* 식사 평균 */
@@ -75,12 +81,17 @@ export const sampleTestAnswer: ITestAnswer = {
             selected: Object.values(ActivityTag).slice(0, 1),
             unSelected: Object.values(ActivityTag).slice(1)
         },
+        city: {
+            selected: Object.values(CityTag).slice(0, 1),
+            unSelected: Object.values(CityTag).slice(1)
+        },
     },
     leadership: undefined,
     schedule: {
         startTime: undefined,
         endTime: undefined,
         schedule: undefined,
+        nightPlan: undefined,
     },
     restaurant: {
         dailyBudget: undefined, /* 식사 평균 */

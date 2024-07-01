@@ -1,7 +1,7 @@
 
 import { Container, Divider, Icon, Paper, Stack } from "@mui/material";
 import { useState } from "react";
-import { ACTIVITY_TAGS, CHARACTERS, EXPECTATION_TAGS, TRIP_TAGS } from "~/common/app-const";
+import { CHARACTERS, HASHTAGS, TRIP_TAGS } from "~/common/app-const";
 import { ActivityTag } from "~/interfaces/enums/ActivityTag";
 import { ExpectationTag } from "~/interfaces/enums/ExpectationTag";
 import { TripTag } from "~/interfaces/enums/TripTag";
@@ -124,7 +124,7 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                                             <PngIcon name="expectation" />
                                             {
                                                 expectationTags.map((tag) =>
-                                                    <p># {EXPECTATION_TAGS[tag].label}</p>
+                                                    <p># {HASHTAGS.activity[tag].label}</p>
                                                     // <ExpectationTagChip key={tag} tagId={tag} sx={{ backgroundColor: "transparent" }} />
                                                 )
                                             }
@@ -136,7 +136,7 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                                             <PngIcon name="activity" />
                                             {
                                                 activityTags.map((tag) =>
-                                                    <p># {ACTIVITY_TAGS[tag].label}</p>
+                                                    <p># {HASHTAGS.activity[tag].label}</p>
                                                     // <ActivityTagChip key={tag} tagId={tag} sx={{ backgroundColor: "transparent" }} />
                                                 )
                                             }

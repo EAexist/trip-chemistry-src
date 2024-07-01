@@ -3,10 +3,10 @@ import { useEffect } from "react";
 
 import { Chip, Zoom } from "@mui/material";
 
+import { HASHTAGS } from "~/common/app-const";
 import { IHashTagTestKey } from "~/interfaces/ITestAnswer";
 import { useAppDispatch } from "~/store";
 import { addHashTagAnswer, deleteHashTagAnswer, useTagSetAnswer } from "../../../reducers/testAnswerReducer";
-import { useStrings } from "../../../texts";
 
 interface TagSetTestAnswerChipProps {
     testKey: IHashTagTestKey;
@@ -17,7 +17,7 @@ const TagSetTestAnswerChip = ({ testKey, selected = true }: TagSetTestAnswerChip
 
     const dispatch = useAppDispatch();
 
-    const tagToLabel = useStrings().public.test[testKey].hashtag;
+    const tagToLabel = HASHTAGS[testKey];
 
     const hashtag = useTagSetAnswer(testKey, selected);
 
@@ -38,7 +38,7 @@ const TagSetTestAnswerChip = ({ testKey, selected = true }: TagSetTestAnswerChip
                 hashtag.map((tag) => (
                     <Zoom key={tag} in={true} appear={selected}>
                         <Chip
-                            label={`${selected ? '# ' : ''}${tagToLabel[tag]}`}
+                            label={`${selected ? '# ' : ''}${tagToLabel[tag].label}`}
                             onClick={selected ? () => handleDelete(tag) : () => handleClick(tag)}
                             variant={selected ? "filled" : "outlined"}
                             color={"primary"}

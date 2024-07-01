@@ -10,7 +10,7 @@ function MainAppBar({ children, ...props} : MainAppBarProps) {
     return (
         <AppBar {...props}>
             {/* <Toolbar sx={{ justifyContent: "end" }}> */}
-            <Toolbar sx={(children === undefined) && { justifyContent: "end" }}>
+            <Toolbar sx={(children === undefined) ? { justifyContent: "end" } : {}}>
                 {children}
                 <MainMenuButton />
             </Toolbar>
