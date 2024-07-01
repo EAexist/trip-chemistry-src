@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 /* Externals */
 import { ArrowDropDown } from "@mui/icons-material";
-import { AppBar, Button, Container, Grid, Stack, Toolbar } from "@mui/material";
+import { Button, Container, Grid, Stack, Toolbar } from "@mui/material";
 
 
 /* Swiper */
@@ -22,10 +22,11 @@ import SpecialRestaurantTestContent from "./SpecialRestaurantTestContent";
 import TimeTestContent from "./TimeTestContent";
 
 
+import { createSelector } from "@reduxjs/toolkit";
 import { SwiperOptions } from "swiper/types";
 import { CITY_TYPE_KEYS, TEST_TYPE } from "~/common/app-const";
+import MainAppBar from "~/components/AppBar/MainAppBar";
 import Fab from "~/components/Button/Fab";
-import MainMenuButton from "~/components/Button/MenuButton";
 import ConfirmDrawer from "~/components/ConfirmDrawer";
 import DraggableModal from "~/components/Paper/DraggableModal";
 import { useAppSelector } from "~/store";
@@ -36,15 +37,13 @@ import { useGetProfile } from "../../reducers/authReducer";
 import testAnswerReducer, { useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import ScheduleTestContent from "./ScheduleTestContent";
-import { createSelector } from "@reduxjs/toolkit";
-import MainAppBar from "~/components/AppBar/MainAppBar";
 
 export const TEST_SECTIONS = {
     expectation:
     {
         type: "hashtag",
         icon: "expectation",
-        label: "여행 테마",
+        label: "여행 테마 #",
         subtitle: "이런 여행을 하고 싶어",
         tests: [
             {
@@ -58,7 +57,7 @@ export const TEST_SECTIONS = {
     {
         type: "hashtag",
         icon: "activity",
-        label: "액티비티",
+        label: "액티비티 #",
         subtitle: "여행지에서는 이런 것들을 해보고 싶어",
         tests: [
             {
