@@ -232,7 +232,8 @@ function TestContent() {
         modules: [HashNavigation],
         hashNavigation: {
             watchState: true,
-        }
+        },
+        allowTouchMove: false
     }
 
     const [speed, setSpeed] = useState(0)
