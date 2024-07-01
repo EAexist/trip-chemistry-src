@@ -1,4 +1,4 @@
-import { Slider, SliderOwnProps } from "@mui/material";
+import { Container, Slider, SliderOwnProps } from "@mui/material";
 import withTestAnswer, { WithTestAnswerProps } from "../../../hocs/withTestAnswer";
 import { priceText } from "../../../utils/priceText";
 
@@ -19,18 +19,17 @@ function AnswerSlider({ testKey, answer, setAnswer, disabled, ...sliderOwnProps 
 
     return (
         <div className={`testcontent-swiper-no-swiping ${disabled && "disabled"}`}>
-            <p className='typography-test-answer'>
-                {
-                    (answer !== undefined) && (answer > 0 )
-                        ?
-                            `${answer / 1000},000원${(answer === sliderOwnProps.max) ? ' 이상' : ''}`
-                        : "?"
-                }
-            </p>
-            <div style={{ padding: "1rem 16px" }}>
+            <Container className="gutter-xl column-padding">
                 <Slider
                     size="small"
-                    valueLabelDisplay="off"
+                    valueLabelDisplay="on"
+                    valueLabelFormat={(value, index) =>
+                    (
+                        (answer !== undefined) && (answer > 0)
+                            ?
+                            `${answer / 10000}만원${(answer === sliderOwnProps.max) ? ' 이상' : ''}`
+                            : "?"
+                    )}
                     getAriaValueText={priceText}
                     value={answer || (sliderOwnProps.max + sliderOwnProps.min) / 2}
                     onChange={handleAnswerChange}
@@ -39,7 +38,7 @@ function AnswerSlider({ testKey, answer, setAnswer, disabled, ...sliderOwnProps 
                     disabled={disabled}
                     {...sliderOwnProps}
                 />
-            </div>
+            </Container>
         </div>
     );
 }
