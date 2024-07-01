@@ -14,10 +14,9 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 /* App */
 
 /* Contents */
-import DailyRestaurantTestContent from "./DailyRestaurantTestContent";
 import HashTagTestContent from "./HashTagTestContent";
 import LeadershipTestContent from "./LeadershipTestContent";
-import SpecialRestaurantTestContent from "./SpecialRestaurantTestContent";
+import RestaurantTestContent from "./RestaurantTestContent";
 import TimeTestContent from "./TimeTestContent";
 
 import { createSelector } from "@reduxjs/toolkit";
@@ -34,6 +33,7 @@ import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext
 import { useGetProfile } from "../../reducers/authReducer";
 import testAnswerReducer, { useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
+import RestaurantBudgetTestContent from "./RestaurantBudgetTestContent";
 
 export const TEST_SECTIONS = {
     expectation:
@@ -69,7 +69,7 @@ export const TEST_SECTIONS = {
         type: "hashtag",
         icon: "activity",
         label: "액티비티",
-        subtitle: "여행지에서는 이런 것들을 해보고 싶어",
+        subtitle: "이런 것들을 해보고 싶어",
         tests: [
             {
                 testKey: "hashtag",
@@ -111,42 +111,64 @@ export const TEST_SECTIONS = {
             },
             {
                 testKey: "schedule",
-                subKey: "schedule"
+                subKey: "nightPlan"
             }
         ],
         contentComponent: <TimeTestContent />
     },
-    dailyRestaurantBudget:
+    // dailyRestaurantBudget:
+    // {
+    //     type: 'budget',
+    //     icon: "restaurant",
+    //     label: "식사 예산",
+    //     tests: [
+    //         {
+    //             testKey: "restaurant",
+    //             subKey: "dailyBudget"
+    //         }
+    //     ],
+    //     subtitle: "여행 중 평범한 식사 한끼에는 평균적으로 얼마나 쓸까?",
+    //     contentComponent: <DailyRestaurantTestContent />
+    // },
+    restaurant:
     {
         type: 'budget',
         icon: "restaurant",
-        label: "식사 예산",
+        label: "식당 선택",
+        subtitle: "함께 갈 식당을 골라보자. 어떤 것들이 중요할까?",
         tests: [
             {
                 testKey: "restaurant",
-                subKey: "dailyBudget"
+                subKey: "price"
+            },
+            {
+                testKey: "restaurant",
+                subKey: "uniqueness"
+            },
+            {
+                testKey: "restaurant",
+                subKey: "taste"
+            },
+            {
+                testKey: "restaurant",
+                subKey: "popularity"
             }
         ],
-        subtitle: "여행 중 평범한 식사 한끼에는 평균적으로 얼마나 쓸까?",
-        contentComponent: <DailyRestaurantTestContent />
+        contentComponent: <RestaurantTestContent />
     },
-    specialRestaurantBudget:
+    restaurantBudget:
     {
         type: 'budget',
         icon: "delicious",
         label: "맛집 예산",
-        subtitle: "줄 서서 먹는 유명 맛집에서의 특별한 한끼",
+        subtitle: "맛집에서의 특별한 한끼를 위해서라면\n최대 얼마까지 쓸 수 있어?",
         tests: [
             {
                 testKey: "restaurant",
                 subKey: "specialBudget"
             },
-            {
-                testKey: "restaurant",
-                subKey: "specialCount"
-            }
         ],
-        contentComponent: <SpecialRestaurantTestContent />
+        contentComponent: <RestaurantBudgetTestContent />
     },
     // city:
     // {

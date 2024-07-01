@@ -29,6 +29,10 @@ export interface ITestAnswer {
         dailyBudget: undefined | number
         specialBudget: undefined | number
         specialCount: undefined | number
+        price?: number
+        taste?: number
+        uniqueness?: number
+        popularity?: number
     }
     city: Record<ICityType, ( undefined | number )>
 };
