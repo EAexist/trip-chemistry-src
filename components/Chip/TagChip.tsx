@@ -40,8 +40,9 @@ const TagChipWithTags = ( tags: Tags ) =>
 const TripTagChip = TagChipWithTags(TRIP_TAGS)
 const ExpectationTagChip = TagChipWithTags(HASHTAGS.expectation)
 const ActivityTagChip = TagChipWithTags(HASHTAGS.activity)
+const CityTagChip = TagChipWithTags(HASHTAGS.city)
 
 export default TagChip
-export { ActivityTagChip, ExpectationTagChip, TripTagChip };
+export { ActivityTagChip, ExpectationTagChip, TripTagChip, CityTagChip };
 export type { TagChipProps };
 

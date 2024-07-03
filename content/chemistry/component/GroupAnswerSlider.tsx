@@ -67,25 +67,25 @@ function GroupAnswerSlider({ answerToProfiles, className, ...sliderProps }: Grou
                 (!!activeValue) &&
                 // <Grow in={!!activeValue} mountOnEnter unmountOnExit>
                 <Paper variant="gray">
-                    <Container className="gutter--sm">
-                    <Stack display={"flex"} flexDirection={"row-reverse"} >
-                        <IconButton onClick={handleCloseMemberList}>
-                            <Close />
-                        </IconButton>
-                        <Stack sx={{ flexGrow: 1 }}>
-                            {
-                                activeValue &&
-                                answerToProfiles[activeValue].map((profileId) => (
-                                    <FriendAvatar key={profileId} id={profileId} />
-                                ))
-                            }
+                    <Container className="gutter-sm column-padding-sm">
+                        <Stack display={"flex"} flexDirection={"row-reverse"} >
+                            <IconButton onClick={handleCloseMemberList}>
+                                <Close />
+                            </IconButton>
+                            <Stack sx={{ flexGrow: 1 }}>
+                                {
+                                    activeValue &&
+                                    answerToProfiles[activeValue].map((profileId) => (
+                                        <FriendAvatar key={profileId} id={profileId} />
+                                    ))
+                                }
+                            </Stack>
                         </Stack>
-                    </Stack>
                     </Container>
                 </Paper>
                 // </Grow>
             }
-            <div style={{ padding: "1rem 16px" }}>
+            <div style={{ padding: "8px 24px" }}>
                 <Slider
                     {...sliderProps}
                     size="small"

@@ -36,17 +36,20 @@ export const nightPlanTestOptions = [
     {
         value: 0,
         label: "숙소에서 푹 쉬기",
-        icon: "rest"
+        icon: "rest",
+        materialIcon: "hotel"
     },
     {
         value: 1,
         label: "야식이나 술 먹으러 나가기",
-        icon: "bar"
+        icon: "bar",
+        materialIcon: "tapas"
     },
     {
         value: 2,
         label: "밤에도 새로운 곳 돌아다니기",
-        icon: "travel"
+        icon: "travel",
+        materialIcon: "tour"
     },
 ]
 
@@ -136,7 +139,7 @@ function TimeTestContent() {
             {/* <h2 className="section-title">시간</h2> */}
             <Stepper nonLinear activeStep={activeStep} orientation="vertical">
                 <TimeAnswerStepLabel testKey={"startTime"} index={0} summaryTitle={"숙소를 나서서 일정 시작"} handleStep={handleStep} isActive={activeStep === 0} />
-                <Step key={0} index={1}>
+                <Step index={1}>
                     <CheckStepButton
                         onClick={handleStep(1)}
                         optional={
@@ -181,7 +184,7 @@ function TimeTestContent() {
                     </StepContent>
                 </Step>
                 <TimeAnswerStepLabel testKey={"endTime"} index={2} summaryTitle={"숙소로 돌아와 쉬기"} handleStep={handleStep} isActive={activeStep === 2} />
-                <Step key={0} index={3}>
+                <Step index={3}>
                     <CheckStepButton
                         onClick={handleStep(3)}
                         isChecked={nightPlanAnswer !== undefined}
@@ -196,10 +199,13 @@ function TimeTestContent() {
                         <Grid container>
                             {
                                 nightPlanTestOptions.map(({ value, label, icon }) => (
-                                    <Grid item xs={4} sx={{ padding: "4px", display: "flex" }}>
+                                    <Grid key={icon} item xs={4} sx={{ padding: "4px", display: "flex" }}>
                                         <Paper elevation={(nightPlanAnswer === value) ? 2: 0} sx={{ backgroundColor: (nightPlanAnswer === value) ? "white" : "gray.main" }}>
                                             <ButtonBase onClick={() => setNightPlanAnswer(value)}>
-                                                <Container className="column-padding-sm gutter-xs">
+                                                <Container className="column-padding-sm gutter-xs" >
+                                                    <div>
+                                                        <Check color="primary" sx={(nightPlanAnswer === value) ? {} : { visibility: "hidden" }}/>
+                                                    </div>                                                    
                                                     <PngIcon name={icon} size="large" />
                                                     <p className="typography-note" style={(nightPlanAnswer === value) ? { fontWeight: 700 } : {}}>{label}</p>
                                                 </Container>
@@ -211,7 +217,7 @@ function TimeTestContent() {
                         </Grid>
                     </StepContent>
                 </Step>
-                <Step key={0} index={-1}>
+                <Step index={-1}>
                     <StepLabel>
                         일정 끝
                     </StepLabel>

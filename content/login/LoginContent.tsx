@@ -72,7 +72,7 @@ function LoginContent({ title = "테스트를 시작해보세요" }: LoginConten
             <div className="fill-window">
                 <Toolbar />
                 <div style={{ paddingTop: "24px" }}>
-                    <Container className="gutter-xl" style={{ marginTop: "48px" }}>
+                    <Container className="gutter-xl content" style={{ marginTop: "48px" }}>
                         <div className="section-header" style={{ marginBottom: "48px" }}>
                             <h2 className="section-title">로그인</h2>
                             <p>{title}</p>

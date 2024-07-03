@@ -2,7 +2,7 @@
 
 /* Externals */
 import { m } from "framer-motion";
-import { List, ListItemAvatar, ListItemText, Stack } from "@mui/material";
+import { Avatar, Chip, List, ListItemAvatar, ListItemText, Stack } from "@mui/material";
 
 /* App */
 import { useStrings } from "../../texts";
@@ -10,6 +10,10 @@ import useValueToProfileIdList from "../../hooks/useValueToProfileIdList";
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import FriendAvatar from "~/components/Avatar/FriendAvatar";
 import { MotionListItem } from "~/motion/components/MotionListItem";
+import { IProfile } from "~/interfaces/IProfile";
+import { useAppSelector } from "~/store";
+import { createSelector } from "@reduxjs/toolkit";
+import getImgSrc from "~/utils/getImgSrc";
 
 function LeadershipChemistryContent() {
 
@@ -17,6 +21,16 @@ function LeadershipChemistryContent() {
     const optionStrings = Object(useStrings().public.contents.test.test.leadership.options);
 
     const leadershipAnswerToProfileList = useValueToProfileIdList("leadership");
+
+    const nicknames = useAppSelector(
+        createSelector(
+            state => state.chemistry.data.profiles,
+            (profiles: {[k: string] : IProfile }) =>
+                Object.fromEntries(
+                    Object.values(profiles).map(({ id, nickname }) => [id, nickname])
+                )
+        )
+    )
 
     return (
         <>
@@ -26,11 +40,27 @@ function LeadershipChemistryContent() {
             <List>
                 {
                     (Object.values(optionStrings) as { label: string, value: number }[]).map(({ label, value }) => (
+                        Object.keys(leadershipAnswerToProfileList).includes(String(value)) &&
                         <MotionListItem key={label} {...FADEIN_FROMBOTTOM_VIEWPORT} >
-                            <ListItemAvatar style={{ zIndex: 1 }} className="block--centered">
-                                <p className={Object.keys(leadershipAnswerToProfileList).includes(String(value)) ? "" : "disabled"}>{label}</p>
+                            <ListItemAvatar className="block--centered" sx={{ paddingRight: "16px" }}>
+                                <Avatar srcSet={`${getImgSrc("/test", `leadership_${value}`)} 64w`} alt={label} sx={{ width: "48px", height: "48px"}}/>
                             </ListItemAvatar>
-                            <ListItemText primary={
+                                <div>
+                                    <ListItemText
+                                        primary={<h3 className="list-item-title">{label}</h3>}
+                                    />
+                                    <Stack>
+                                        {
+                                            (Object.keys(leadershipAnswerToProfileList).includes(String(value)) ? leadershipAnswerToProfileList[value] : []).map((id) => (
+                                                <Chip
+                                                    size="small"
+                                                    label={nicknames[id]}
+                                                />
+                                            ))
+                                        }
+                                    </Stack>
+                                </div>
+                            {/* <ListItemText primary={
                                 <Stack>
                                     <Stack spacing={0.5}>
                                         {
@@ -40,7 +70,7 @@ function LeadershipChemistryContent() {
                                         }
                                     </Stack>
                                 </Stack>
-                            } sx={{ marginLeft: "24px" }} />
+                            } sx={{ marginLeft: "24px" }} /> */}
                         </MotionListItem>
                     )).reverse()
                 }

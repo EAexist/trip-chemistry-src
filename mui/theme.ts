@@ -221,9 +221,8 @@ const theme = createTheme({
         },
         MuiDivider: {
             styleOverrides: {
-                root: {
-                    marginTop: "16px",
-                    marginBottom: "16px"
+                wrapper: {
+                    fontSize: '12px'
                 }
             }
         },
@@ -303,6 +302,23 @@ const theme = createTheme({
                     display: "flex",
                     justifyContent: "space-between"
                 }
+            }
+        },
+        MuiTabs: {
+            defaultProps: {
+                textColor: "inherit",
+            },
+            styleOverrides: {
+                indicator: {
+                    backgroundColor: "black"
+                },
+            }
+        },
+        MuiTab: {
+            styleOverrides: {
+                root: {
+                    fontSize: "15px"
+                },
             }
         },
         MuiTooltip: {

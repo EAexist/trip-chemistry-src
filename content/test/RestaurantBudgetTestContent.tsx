@@ -10,7 +10,7 @@ import 'swiper/css/effect-coverflow'; /* Food Carousel */
 /* App */
 import AnswerSlider from "./component/AnswerSlider";
 
-export const specialFoodBudgetSliderProps: SliderProps = {
+export const specialRestaurantBudgetSliderProps: SliderProps = {
     step: 20000,
     min: 20000,
     max: 120000,
@@ -50,7 +50,7 @@ function RestaurantBudgetTestContent() {
             <AnswerSlider
                 testKey="restaurant"
                 subKey="specialBudget"
-                {...specialFoodBudgetSliderProps}
+                {...specialRestaurantBudgetSliderProps}
             />
         </div>
     );

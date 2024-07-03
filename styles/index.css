@@ -6,14 +6,16 @@
     --column-padding: 24px;
     --column-padding-sm: 16px;
 
-    --gap: 16px;
+    --gap: 24px;
     --gap-sm: 8px;
-    --gap-lg: 24px;
+    --gap-lg: 32px;
 
     --gutter-xs: 8px;
     --gutter-sm: 16px;
     --gutter-xl: 30px;
     --gutter-2xl: 48px;
+
+    --fab-height: 88px;
     
     --margin-x: 24px;
     --margin-x--small: 16px;
@@ -147,6 +149,10 @@ img {
     }
 }
 
+.fill-body {
+    min-height: calc(100dvh - var(--appbar-height) - var(--fab-height))
+}
+
 /**** Block ****/
 
 /* Container */
@@ -213,7 +219,7 @@ img {
     &.MuiListItemButton-root,
     &.MuiStack-root,
     &.MuiContainer-root {
-        margin-top: var(--gap);
+        /* margin-top: var(--gap); */
         display: flex;
         flex-direction: column;
         gap: var(--gap);        
@@ -275,13 +281,24 @@ img {
 
 .section-title--sm {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
+    line-height: 26px;
+    color: #666;
+}
+
+.list-item-title {
+    font-size: 16px;
+    font-weight: 700;
     line-height: 26px;
 }
 
 .article {
     font-size: 16px;
     line-height: 160%;
+}
+
+.color-gray {
+    color: #666;
 }
 
 .typography-title {
@@ -311,6 +328,11 @@ img {
     font-weight: 400;
     color: #666
 }
+
+.typography-note--small {
+    font-size: 11px;
+}
+
 
 .typography--profile-label,
 .typography--profile-label>p {
@@ -430,6 +452,10 @@ img {
 
 .fab-placeholder {
     visibility: hidden;
+    height: var(--fab-height);
+}
+
+.fab-placeholder--no-margin {
     height: 72px;
 }
 

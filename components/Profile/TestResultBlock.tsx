@@ -1,16 +1,22 @@
 
-import { Container, Divider, Icon, Paper, Stack } from "@mui/material";
+import { NavigateNext } from "@mui/icons-material";
+import { Container, Divider, Icon, ListItemAvatar, Paper, Stack } from "@mui/material";
+import { createSelector } from "@reduxjs/toolkit";
 import { useState } from "react";
 import { CHARACTERS, HASHTAGS, TRIP_TAGS } from "~/common/app-const";
+import useNavigateWithGuestContext from "~/hooks/useNavigateWithGuestContext";
 import { ActivityTag } from "~/interfaces/enums/ActivityTag";
 import { ExpectationTag } from "~/interfaces/enums/ExpectationTag";
 import { TripTag } from "~/interfaces/enums/TripTag";
+import { MotionList } from "~/motion/components/MotionList";
+import { MotionListItemButton } from "~/motion/components/MotionListItemButton";
+import { VARIANTS_STAGGER_CHILDREN } from "~/motion/props";
 import { useAppSelector } from "~/store";
+import { useStrings } from "~/texts";
 import { WithProfileProps } from "../../hocs/withUserProfile";
 import FriendAvatar from "../Avatar/FriendAvatar";
-import { ActivityTagChip, ExpectationTagChip, TripTagChip } from "../Chip/TagChip";
+import { TripTagChip } from "../Chip/TagChip";
 import PngIcon from "../PngIcon";
-import { createSelector } from "@reduxjs/toolkit";
 
 const expectationToTripTagMap = {
     HEAL: [TripTag.REST],
@@ -38,7 +44,7 @@ const activityToTripTagMap = {
     MARKET: [TripTag.ADVENTURE],
     HOTEL: [TripTag.REST],
     VLOG: [TripTag.INFLUENCER],
-    WAITING: [TripTag.EAT],
+    EAT: [TripTag.EAT],
     BAR: [TripTag.EAT],
     CAFE: [TripTag.EAT, TripTag.COFFEE],
     SHOPPING: [],
@@ -56,10 +62,14 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
         setSelectedTag((selectedTag === tag) ? undefined : tag)
     }
 
+    const activityTags = useAppSelector((state)=>state.chemistry?.data.profiles[id].testAnswer.hashtag.activity)
+    const cityTags = useAppSelector((state)=>state.chemistry?.data.profiles[id].testAnswer.hashtag.city)
+
+
     const getHashTags = (toTripTagMap: { [k: string]: number[] }, tags: { [k: string]: number }) => Object.entries(toTripTagMap).filter(([k, v]) => v.includes(selectedTag)).map(([k, v]) => tags[k])
 
-    const expectationTags = getHashTags(expectationToTripTagMap, ExpectationTag)
-    const activityTags = getHashTags(activityToTripTagMap, ActivityTag)
+    const sourceExpectationTags = getHashTags(expectationToTripTagMap, ExpectationTag)
+    const sourceActivityTags = getHashTags(activityToTripTagMap, ActivityTag)
 
     const isChemistryDefined = useAppSelector((state) => state.chemistry !== undefined)
 
@@ -73,6 +83,16 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
             )
         )
     )
+
+    /* City */
+    const cityStrings = useStrings().public.common.city;
+
+    const navigate = useNavigateWithGuestContext();
+
+    const handleClickCityListItem = (city: string) => () => {
+        navigate(`city/${city}`, { state: { navigateDirection: 'next' } });
+    }
+
 
     return (
         <div className="content content--sparse">
@@ -108,59 +128,103 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                     &&
                     <Paper sx={{ backgroundColor: "gray.main" }} >
                         <Container className="content">
-                        <Stack>
-                            <Icon>{TRIP_TAGS[selectedTag].icon}</Icon>
-                            <p>{TRIP_TAGS[selectedTag].label}</p>
-                        </Stack>
-                        {
-                            (Object.keys(TripTag)[selectedTag] === "DEFAULT")
-                                ? <p className="typography-note">기본 태그</p>
-                                :
-                                <>
-                                    <Divider />
-                                    {
-                                        (expectationTags.length > 0) &&
-                                        <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={2} >
-                                            <PngIcon name="expectation" />
-                                            {
-                                                expectationTags.map((tag) =>
-                                                    <p># {HASHTAGS.activity[tag].label}</p>
-                                                    // <ExpectationTagChip key={tag} tagId={tag} sx={{ backgroundColor: "transparent" }} />
-                                                )
-                                            }
-                                        </Stack>
-                                    }
-                                    {
-                                        (activityTags.length > 0) &&
-                                        <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={2} >
-                                            <PngIcon name="activity" />
-                                            {
-                                                activityTags.map((tag) =>
-                                                    <p># {HASHTAGS.activity[tag].label}</p>
-                                                    // <ActivityTagChip key={tag} tagId={tag} sx={{ backgroundColor: "transparent" }} />
-                                                )
-                                            }
-                                        </Stack>
-                                    }
-                                    {
-                                        isChemistryDefined &&
-                                        <Stack>
-                                            <PngIcon name="raiseHand" />
-                                            {
-                                                (friendsWithSelectedTag.length > 0) ?
-                                                    friendsWithSelectedTag.map((id) =>
-                                                        <FriendAvatar key={id} id={id} />
+                            <Stack>
+                                <Icon>{TRIP_TAGS[selectedTag].icon}</Icon>
+                                <p>{TRIP_TAGS[selectedTag].label}</p>
+                            </Stack>
+                            {
+                                (Object.keys(TripTag)[selectedTag] === "DEFAULT")
+                                    ? <p className="typography-note">기본 태그</p>
+                                    :
+                                    <>
+                                        <Divider />
+                                        {
+                                            (sourceExpectationTags.length > 0) &&
+                                            <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={2} >
+                                                <PngIcon name="expectation" />
+                                                {
+                                                    sourceExpectationTags.map((tag) =>
+                                                        <p># {HASHTAGS.activity[tag].label}</p>
+                                                        // <ExpectationTagChip key={tag} tagId={tag} sx={{ backgroundColor: "transparent" }} />
                                                     )
-                                                    :
-                                                    <p className="typography-note">같은 태그의 친구가 없어요.</p>
-                                            }
-                                        </Stack>
-                                    }
-                                </>
-                        }
+                                                }
+                                            </Stack>
+                                        }
+                                        {
+                                            (sourceActivityTags.length > 0) &&
+                                            <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={2} >
+                                                <PngIcon name="activity" />
+                                                {
+                                                    sourceActivityTags.map((tag) =>
+                                                        <p># {HASHTAGS.activity[tag].label}</p>
+                                                        // <ActivityTagChip key={tag} tagId={tag} sx={{ backgroundColor: "transparent" }} />
+                                                    )
+                                                }
+                                            </Stack>
+                                        }
+                                        {
+                                            isChemistryDefined &&
+                                            <Stack>
+                                                <PngIcon name="raiseHand" />
+                                                {
+                                                    (friendsWithSelectedTag.length > 0) ?
+                                                        friendsWithSelectedTag.map((id) =>
+                                                            <FriendAvatar key={id} id={id} />
+                                                        )
+                                                        :
+                                                        <p className="typography-note">같은 태그의 친구가 없어요.</p>
+                                                }
+                                            </Stack>
+                                        }
+                                    </>
+                            }
                         </Container>
                     </Paper>
                 }
+            </div>
+            <div className="content">
+                <h2 className="section-title--sm">{`${nickname} 님의 추천 여행지`}</h2>
+                <MotionList variants={VARIANTS_STAGGER_CHILDREN}>
+                    {
+                        Object.entries(testResult.city).map(([city, score]) => (
+                            <MotionListItemButton onClick={handleClickCityListItem(city)}>
+                                <ListItemAvatar>
+                                    {/* <Avatar /> */}
+                                </ListItemAvatar>
+                                {/* <ListItemText
+                                    primary={
+                                        // <Stack direction={'row'}>
+                                        <h2 className="section-title section-title--sm">{cityStrings[city].name}</h2>
+                                        // </Stack>
+                                    }
+                                    secondary={
+                                        <div>
+                                            <Stack direction={'row'} className="typography-note">                                                
+                                                    {
+                                                        CITIES[city].cityTags.filter((cityTag) => cityTags.includes(cityTag))
+                                                            .map((tag) =>
+                                                                <p>{HASHTAGS.city[tag].label}</p>
+                                                            )
+                                                    }                                              
+                                                    {
+                                                        CITIES[city].activityTags.filter((activityTag) => activityTags.includes(activityTag))
+                                                            .map((tag) =>
+                                                                <p>{HASHTAGS.activity[tag].label}</p>
+                                                            )
+                                                    }                                               
+                                            </Stack>
+                                            <Stack>
+                                                <p>{Math.round(score * 10) / 10}</p>
+                                            </Stack>
+                                        </div>
+                                    }
+                                /> */}
+                                <NavigateNext />
+                            </MotionListItemButton>
+                        ))
+                    }
+
+                </MotionList>
             </div>
         </div>
     );

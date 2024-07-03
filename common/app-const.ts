@@ -152,8 +152,8 @@ export const HASHTAGS = {
         [ActivityTag.VLOG]: {
             label: "브이로그",
         },
-        [ActivityTag.WAITING]: {
-            label: "맛집 웨이팅",
+        [ActivityTag.EAT]: {
+            label: "맛집탐방",
         },
         [ActivityTag.BAR]: {
             label: "근사한 바에서 술",
@@ -167,7 +167,7 @@ export const HASHTAGS = {
         [ActivityTag.SHOW]: {
             label: "공연",
         },
-        [ActivityTag.MUESEUM]: {
+        [ActivityTag.MUSEUM]: {
             label: "미술관",
         },
     },
@@ -182,7 +182,7 @@ export const HASHTAGS = {
             label: "활기찬",
         },
         [CityTag.HISTORY]: {
-            label: "유서 깊은",
+            label: "유서깊은",
         },
         [CityTag.MODERN]: {
             label: "현대적인",
@@ -1058,6 +1058,8 @@ export const CITIES = {
         nation: "jp",
         link: "https://www.japan.travel/ko/",
         linkType: "travel-japan",
+        cityTags: [],
+        activityTags: [],
         type: ""
     },
     osaka:
@@ -1065,6 +1067,8 @@ export const CITIES = {
         nation: "jp",
         link: "https://www.japan.travel/ko/destinations/kansai/osaka/",
         linkType: "travel-japan",
+        cityTags: [CityTag.LOUD, CityTag.ACTIVE, CityTag.MODERN, CityTag.FAMOUS],
+        activityTags: [ActivityTag.SHOPPING, ActivityTag.EAT, ActivityTag.THEMEPARK],
         type: "metropolis"
     },
     yokohama:
@@ -1072,6 +1076,8 @@ export const CITIES = {
         nation: "jp",
         link: "https://www.japan.travel/ko/destinations/kanto/kanagawa/yokohama-and-around/",
         linkType: "travel-japan",
+        cityTags: [CityTag.QUIET, CityTag.MODERN],
+        activityTags: [],
         type: "metropolis"
     },
     tokyo:
@@ -1079,6 +1085,8 @@ export const CITIES = {
         nation: "jp",
         link: "https://www.japan.travel/ko/destinations/kanto/tokyo/",
         linkType: "travel-japan",
+        cityTags: [CityTag.LOUD, CityTag.ACTIVE, CityTag.MODERN, CityTag.FAMOUS, CityTag.INTERNATIONAL],
+        activityTags: [ActivityTag.SHOPPING, ActivityTag.EAT, ActivityTag.THEMEPARK],
         type: "metropolis"
     },
     // 삿포로
@@ -1087,6 +1095,8 @@ export const CITIES = {
         nation: "jp",
         link: "https://www.japan.travel/ko/destinations/kansai/kyoto/",
         linkType: "travel-japan",
+        cityTags: [CityTag.HISTORY, CityTag.FAMOUS, CityTag.INTERNATIONAL],
+        activityTags: [ActivityTag.WALK, ActivityTag.MARKET, ActivityTag.WALK, ActivityTag.PHOTO],
         type: "history"
     },
     nara:
@@ -1094,6 +1104,8 @@ export const CITIES = {
         nation: "jp",
         link: "https://www.japan.travel/ko/destinations/kansai/nara/",
         linkType: "travel-japan",
+        cityTags: [CityTag.HISTORY, CityTag.INTERNATIONAL, CityTag.NATURE],
+        activityTags: [],
         type: "history"
     },
     kamakura:
@@ -1101,6 +1113,8 @@ export const CITIES = {
         nation: "jp",
         link: "https://www.japan.travel/ko/destinations/kanto/kanagawa/kamakura-and-around/",
         linkType: "travel-japan",
+        cityTags: [CityTag.ACTIVE, CityTag.HISTORY],
+        activityTags: [ActivityTag.WALK],
         type: "history"
     },
     // 가와고에 가나자와
@@ -1109,6 +1123,8 @@ export const CITIES = {
         nation: "jp",
         link: "https://www.japan.travel/ko/spot/2143/",
         linkType: "travel-japan",
+        cityTags: [CityTag.QUIET, CityTag.NATURE, CityTag.HIDDEN],
+        activityTags: [ActivityTag.WALK],
         type: "nature"
     },
     yakushima:
@@ -1116,6 +1132,8 @@ export const CITIES = {
         nation: "jp",
         link: "https://www.japan.travel/ko/destinations/kyushu/kagoshima/yakushima/",
         linkType: "travel-japan",
+        cityTags: [CityTag.QUIET, CityTag.NATURE, CityTag.HIDDEN],
+        activityTags: [ActivityTag.WALK],
         type: "nature"
     },
     biei:
@@ -1123,6 +1141,8 @@ export const CITIES = {
         nation: "jp",
         link: "https://www.japan.travel/ko/spot/1890/",
         linkType: "travel-japan",
+        cityTags: [CityTag.QUIET, CityTag.NATURE, CityTag.HIDDEN],
+        activityTags: [ActivityTag.WALK],
         type: "nature"
     },
     takamatsu:
@@ -1130,6 +1150,8 @@ export const CITIES = {
         nation: "jp",
         link: "https://www.japan.travel/ko/destinations/shikoku/kagawa/takamatsu-area/",
         linkType: "travel-japan",
+        cityTags: [CityTag.QUIET],
+        activityTags: [ActivityTag.WALK, ActivityTag.EAT, ActivityTag.MUSEUM],
         type: "small"
     },
     onomichi:
@@ -1137,6 +1159,8 @@ export const CITIES = {
         nation: "jp",
         link: "https://www.japan.travel/ko/destinations/chugoku/hiroshima/onomichi-and-fukuyama/",
         linkType: "travel-japan",
+        cityTags: [CityTag.QUIET, CityTag.HIDDEN],
+        activityTags: [ActivityTag.WALK, ActivityTag.PHOTO],
         type: "small"
     },
     sapporo:
@@ -1144,6 +1168,8 @@ export const CITIES = {
         nation: "jp",
         link: "",
         linkType: "",
+        cityTags: [CityTag.QUIET],
+        activityTags: [ActivityTag.WALK],
         type: ""
     },
     hongkong:
@@ -1151,6 +1177,8 @@ export const CITIES = {
         nation: "hk",
         link: "https://www.discoverhongkong.com/us/index.html",
         linkType: "hongkong-tourism-board",
+        cityTags: [CityTag.LOUD, CityTag.ACTIVE, CityTag.MODERN, CityTag.FAMOUS, CityTag.INTERNATIONAL],
+        activityTags: [ActivityTag.SHOPPING, ActivityTag.EAT],
         type: "metropolis"
     },
 }

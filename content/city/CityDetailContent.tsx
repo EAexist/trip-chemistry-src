@@ -78,7 +78,7 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
                     title={cityId}
                     sx={{ height: "256px" }}
                 ></ImageCard>
-                <h4 className="typography-highlight">{cityStrings.intro}</h4>
+                <p className="section-title--sm" style={{ maxWidth: "90%" }}>{cityStrings.intro}</p>
                 <p>{cityStrings.body}</p>
                 <Stack>
                     <p className="typography-note">{commonStrings.reference}{commonStrings.linkType[city.linkType as keyof typeof commonStrings.linkType].name}</p>

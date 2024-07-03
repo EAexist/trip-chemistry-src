@@ -1,11 +1,11 @@
-import { ITestAnswer, defaultTestAnswer } from "./ITestAnswer";
+import { ITestAnswer, ITestAnswerDTO, defaultTestAnswer, testAnswerToDTO } from "./ITestAnswer";
 import { ITestResult, defaultTestResult } from "./ITestResult";
 
 export interface IProfile {
     id: string;
     nickname: string;
     discriminator: string;
-    testAnswer: ITestAnswer;
+    testAnswer: ITestAnswerDTO;
     testResult: ITestResult;
 };
 
@@ -13,7 +13,7 @@ export const defaultProfile = {
     id: "",
     nickname: "",
     discriminator: "",
-    testAnswer: defaultTestAnswer,
+    testAnswer: testAnswerToDTO(defaultTestAnswer),
     testResult: defaultTestResult,
 };
 

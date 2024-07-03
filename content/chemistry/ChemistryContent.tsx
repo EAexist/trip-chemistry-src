@@ -2,9 +2,9 @@
 import { useEffect, useRef, useState } from "react";
 
 /* Externals */
-import { Add, Close, Error, GroupAdd, Login, NavigateBefore } from "@mui/icons-material";
-import { Alert, AppBar, Avatar, Box, Button, ButtonBase, Container, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemButton, ListItemText, Modal, Paper, Slide, Stack, Toolbar, useScrollTrigger } from "@mui/material";
-import { m } from "framer-motion"
+import { Add, Close, Error, GroupAdd, NavigateBefore } from "@mui/icons-material";
+import { Alert, AppBar, Avatar, Box, Button, ButtonBase, Container, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemText, Modal, Paper, Slide, Stack, Toolbar, useScrollTrigger } from "@mui/material";
+import { m } from "framer-motion";
 import { useParams } from "~/router-module";
 
 /* App */
@@ -19,6 +19,7 @@ import DraggableModal from "~/components/Paper/DraggableModal";
 import PngIcon from "~/components/PngIcon";
 import env from "~/env";
 import MotionPage, { motionProp_page_slideIn } from "~/motion/components/MotionPage";
+import { FADEIN_FROMBOTTOM_VIEWPORT } from "~/motion/props";
 import FriendAvatar from "../../components/Avatar/FriendAvatar";
 import SectionPaper from "../../components/Paper/SectionPaper";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
@@ -28,7 +29,6 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import getImgSrc from "../../utils/getImgSrc";
 import LoginContent from "../login/LoginContent";
 import ChemistryDetailContent from "./ChemistryDetailContent";
-import { FADEIN_FROMBOTTOM_VIEWPORT } from "~/motion/props";
 
 const { Helmet } = ReactHelmetAsync
 
@@ -181,7 +181,7 @@ function ChemistryContent() {
                     :
                     (
                         (profileIds.length > 0) &&
-                        <Box key="main" className="page flex" sx={{ backgroundColor: "gray.main" }}>
+                        <Box key="main" className="page flex">
                             <AppBar>
                                 <Toolbar ref={containerRef}>
                                     {
@@ -201,7 +201,7 @@ function ChemistryContent() {
                                 </Toolbar>
                             </AppBar>
                             <Toolbar />
-                            <div className="content content--sparse" style={{ marginTop: 0 }}>
+                            <div>
                                 <SectionPaper>
                                     <div className="section-header">
                                         <h2 className="section-title">{title}</h2>
@@ -289,14 +289,14 @@ function ChemistryContent() {
                                             </Container>
                                             {
                                                 !hasAnsweredTest &&
-                                                <div className="fab-placeholder" style={{ backgroundColor: "white", visibility: "visible", marginTop: 0 }} />
+                                                <div className="fab-placeholder" style={{ backgroundColor: "white", visibility: "visible" }} />
                                             }
                                         </Paper>
                                 }
                                 {
                                     isChemistryEnabled
                                     && !hasAnsweredTest
-                                    && <div className="fab-placeholder" style={{ backgroundColor: "white", visibility: "visible", marginTop: 0 }} />
+                                    && <div className="fab-placeholder" style={{ backgroundColor: "white", visibility: "visible" }} />
                                 }
                                 <ConfirmDrawer
                                     open={openConfirmJoinDialog}

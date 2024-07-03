@@ -53,7 +53,7 @@ export const TEST_SECTIONS = {
     city:
     {
         type: "hashtag",
-        icon: "city",
+        icon: "location",
         label: "여행지",
         subtitle: "여행지는 이런 곳이 좋아",
         tests: [
@@ -159,7 +159,7 @@ export const TEST_SECTIONS = {
     restaurantBudget:
     {
         type: 'budget',
-        icon: "delicious",
+        icon: "delicious-colored",
         label: "맛집 예산",
         subtitle: "맛집에서의 특별한 한끼를 위해서라면\n최대 얼마까지 쓸 수 있어?",
         tests: [
@@ -335,7 +335,7 @@ function TestContent() {
                                             }
                                             {contentComponent}
                                         </Container>
-                                        <div className="fab-placeholder" />
+                                        <div className="fab-placeholder fab-placeholder--no-margin" />
                                     </SwiperSlide>
                                 ))
                             }

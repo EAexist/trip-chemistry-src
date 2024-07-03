@@ -38,7 +38,7 @@ const TagSetTestAnswerChip = ({ testKey, selected = true }: TagSetTestAnswerChip
                 hashtag.map((tag) => (
                     <Zoom key={tag} in={true} appear={selected}>
                         <Chip
-                            label={`${selected ? '# ' : ''}${tagToLabel[tag].label}`}
+                            label={`${selected ? '# ' : ''}${HASHTAGS[testKey][tag].label}`}
                             onClick={selected ? () => handleDelete(tag) : () => handleClick(tag)}
                             variant={selected ? "filled" : "outlined"}
                             color={"primary"}

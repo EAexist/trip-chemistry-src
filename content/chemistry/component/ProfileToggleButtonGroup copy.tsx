@@ -20,7 +20,7 @@ function ProfileToggleButtonGroup({ activeProfileId, setActiveProfileId }: Profi
     const profileIdList = useProfileIdList( false );
 
     return (
-        <Stack spacing={0}>
+        <Stack spacing={0} alignItems={'end'}>
             {
                 profileIdList.map((id) => (
                     <ToggleButton
@@ -28,9 +28,8 @@ function ProfileToggleButtonGroup({ activeProfileId, setActiveProfileId }: Profi
                         value={id}
                         onChange={(_, value) => setActiveProfileId(id)}
                         selected={(id === activeProfileId)}
-                        // selected={true}
                     >
-                        <FriendAvatar key={id} id={id} labelSize="large" sx={(id === activeProfileId) ? { outline: "1px solid black" } : {}} />
+                        <FriendAvatar key={id} id={id} labelSize="large" sx={(id === activeProfileId) ? { width: 64, height: 64 } : {}} />
                     </ToggleButton>
                 ))
             }

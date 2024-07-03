@@ -65,7 +65,7 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
                         <ListItemButton
                             key={"home"}
                             onClick={() => handleDrawerItemClick('home')}
-                            sx={{ paddingTop: 0, paddingBottom: 0 }}
+                            sx={{ paddingTop: 0 }}
                             disableGutters={false}
                         >
                             <ListItemText
@@ -77,7 +77,7 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
                                 }
                             />
                         </ListItemButton>
-                        <Divider variant="middle" sx={{ marginBottom: 0 }} />
+                        <Divider variant="middle" />
                         <MotionListSubheader sx={{ margin: 0 }}>{`내 정보`}</MotionListSubheader>
                         <MotionListItemButton
                             key={"profile"}

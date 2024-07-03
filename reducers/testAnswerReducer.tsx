@@ -34,7 +34,7 @@ export interface ITestIndex {
     subKey?: string
 }
 
-export const sampleTestAnswer_: ITestAnswer = {
+export const sampleTestAnswer: ITestAnswer = {
     hashtag: {
         expectation: {
             selected: Object.values(ExpectationTag).slice(0, 4),
@@ -54,24 +54,26 @@ export const sampleTestAnswer_: ITestAnswer = {
         startTime: 6,
         endTime: 18,
         schedule: 4,
-        nightPlan: 4,
+        nightPlan: 2,
     },
     restaurant: {
-        dailyBudget: 12000, /* 식사 평균 */
         specialBudget: 80000, /* 특별한 식사 */
-        specialCount: 2, /* 특별한 식사 */
+        price: 2,
+        taste: 2,
+        uniqueness: 2,
+        popularity: 2
     },
-    city: {
-        metropolis: 1,
-        history: 2,
-        nature: 4,
-        small: undefined,
-    }
+    // city: {
+    //     metropolis: 1,
+    //     history: 2,
+    //     nature: 4,
+    //     small: undefined,
+    // }
     // accomodate: undefined, /* 숙소 평균 */
     // accomodateSpecial: undefined, /* 특별한 숙소 */
 };
 
-export const sampleTestAnswer: ITestAnswer = {
+export const sampleTestAnswer_: ITestAnswer = {
     hashtag: {
         expectation: {
             selected: Object.values(ExpectationTag).slice(0, 1),
@@ -88,22 +90,22 @@ export const sampleTestAnswer: ITestAnswer = {
     },
     leadership: undefined,
     schedule: {
-        startTime: undefined,
-        endTime: undefined,
-        schedule: undefined,
-        nightPlan: undefined,
+        // startTime: undefined,
+        // endTime: undefined,
+        // schedule: undefined,
+        // nightPlan: undefined,
     },
     restaurant: {
-        dailyBudget: undefined, /* 식사 평균 */
-        specialBudget: undefined, /* 특별한 식사 */
-        specialCount: undefined, /* 특별한 식사 */
+        // dailyBudget: undefined, /* 식사 평균 */
+        // specialBudget: undefined, /* 특별한 식사 */
+        // specialCount: undefined, /* 특별한 식사 */
     },
-    city: {
-        metropolis: undefined,
-        history: undefined,
-        nature: undefined,
-        small: undefined,
-    }
+    // city: {
+    //     metropolis: undefined,
+    //     history: undefined,
+    //     nature: undefined,
+    //     small: undefined,
+    // }
 };
 
 const initialState: ITestAnswerState = {

@@ -424,7 +424,7 @@ const stringTable_kr = {
                     [ActivityTag.MARKET]: "시장 구경",
                     [ActivityTag.HOTEL]: "호캉스",
                     [ActivityTag.VLOG]: "브이로그",
-                    [ActivityTag.WAITING]: "맛집 웨이팅",
+                    [ActivityTag.EAT]: "맛집 탐방",
                     [ActivityTag.BAR]: "근사한 바에서 술",
                     [ActivityTag.CAFE]: "카페 탐방",
                     [ActivityTag.SHOPPING]: "쇼핑",
@@ -1048,7 +1048,7 @@ const stringTable_kr = {
                     "leadership": {
                         label: "리더",
                         icon: "groups",
-                        title: "이번 여행의 대장님은 누구?",
+                        title: "여행 준비는 어떻게 할까?",
                         "leaderTitle": "듬직한 대장",
                         "idPostfix": "님",
                         "and": ",",

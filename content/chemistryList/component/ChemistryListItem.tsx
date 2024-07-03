@@ -56,35 +56,36 @@ function ChemistryListItem({ id }: ChemistryListItemProps) {
 
 
     return (
-        <MotionListItemButton onClick={handleClick}>
+        <MotionListItemButton onClick={handleClick} sx={{ display: "flex" }}>
             <ListItemAvatar>
                 <Avatar />
             </ListItemAvatar>
-            <ListItemText
-                primary={
-                    <Stack direction={'row'}>
-                        <h2 className="section-title section-title--sm">{chemistry ? chemistry.title : <Skeleton />}</h2>
-                        {
-                            chemistry.isSample &&
-                            <Paper sx={{ backgroundColor: "gray.main", padding: "2px 8px", borderRadius: "8px" }}><p className="typography-note">sample</p></Paper>
-                        }
-                    </Stack>
-                }
-                secondary={
-                    <Stack direction={'row'} className="typography-note">
-                        <p>{`${chemistry.profileIds.length}명`}</p>
-                        <Divider orientation="vertical" variant="middle" flexItem />
-                        {
-                            chemistry.profileIds.map((id) => {
-                                const { nickname, testResult } = chemistry.profiles[id]
-                                return (
-                                    <p>{nickname}</p>
-                                )
-                            })
-                        }
-                    </Stack>
-                }
-            />
+            <div style={{ flex: "1 1 auto"  }}>
+                <ListItemText
+                    primary={
+                        <Stack direction={'row'}>
+                            <h2 className="list-item-title">{chemistry ? chemistry.title : <Skeleton />}</h2>
+                            {
+                                chemistry.isSample &&
+                                <Paper sx={{ backgroundColor: "gray.main", padding: "2px 8px", borderRadius: "8px" }}><p className="typography-note">sample</p></Paper>
+                            }
+                        </Stack>
+                    }
+                    sx={{ margin: 0 }}
+                />
+                <Stack direction={'row'} className="typography-note" spacing={0.5}>
+                    <p>{`${chemistry.profileIds.length}명`}</p>
+                    <Divider orientation="vertical" variant="middle" flexItem />
+                    {
+                        chemistry.profileIds.map((id) => {
+                            const { nickname, testResult } = chemistry.profiles[id]
+                            return (
+                                <p key={id}>{nickname}</p>
+                            )
+                        })
+                    }
+                </Stack>
+            </div>
             <NavigateNext />
         </MotionListItemButton>
         // <Card elevation={0}>

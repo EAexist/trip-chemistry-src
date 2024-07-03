@@ -18,23 +18,23 @@ export interface ITestAnswer {
             unSelected: ICityTag[]
         }
     }
-    leadership: undefined | number
+    leadership?: number
     schedule: {
-        startTime: undefined | number
-        endTime: undefined | number
-        schedule: undefined | number
-        nightPlan: undefined | number
+        startTime?: number
+        endTime?: number
+        schedule?: number
+        nightPlan?: number
     }
     restaurant: {
-        dailyBudget: undefined | number
-        specialBudget: undefined | number
-        specialCount: undefined | number
+        dailyBudget?: number
+        specialBudget?: number
+        specialCount?: number
         price?: number
         taste?: number
         uniqueness?: number
         popularity?: number
     }
-    city: Record<ICityType, ( undefined | number )>
+    city?: Record<ICityType, ( undefined | number )>
 };
 
 export interface ITestAnswerDTO extends Omit<ITestAnswer, 'hashtag'> {
@@ -72,12 +72,12 @@ export const defaultTestAnswer: ITestAnswer = {
         specialBudget: undefined,
         specialCount: undefined,
     },
-    city:{
-        metropolis: undefined,
-        history: undefined,
-        nature: undefined,
-        small: undefined,
-    }
+    // city:{
+    //     metropolis: undefined,
+    //     history: undefined,
+    //     nature: undefined,
+    //     small: undefined,
+    // }
 };
 
 export const testAnswerToDTO: (testAnswer: ITestAnswer) => ITestAnswerDTO = ( testAnswer ) => (

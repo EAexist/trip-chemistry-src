@@ -104,7 +104,7 @@ function HomeContent() {
                             <ExpandMore sx={{ fontSize: "40px", color: "gray.dark" }} />
                         </m.div>
                     </div>
-                    <div className="fab-placeholder" />
+                    <div className="fab-placeholder fab-placeholder--no-margin" />
                 </ScrollPageItem>
                 {
                     (sections as { id: string, title: string, body: string }[]).map(({ id, title, body }, index) => (
@@ -135,7 +135,7 @@ function HomeContent() {
                                     <p>{body}</p>
                                 </div>
                             </Container>
-                            <div className="fab-placeholder" style={{ marginTop: "48px" }} />
+                            <div className="fab-placeholder fab-placeholder--no-margin" style={{ marginTop: "48px" }} />
                         </ScrollPageItem>
                     ))
                 }

@@ -12,11 +12,12 @@ const ActivityTagList = [
     "MARKET",
     "HOTEL",
     "VLOG",
-    "WAITING",
+    "EAT",
     "BAR",
     "CAFE",
     "SHOPPING",
     "SHOW",
+    "MUSEUM",
 ]
 export const ActivityTag = enumFromList(ActivityTagList);
 export type IActivityTag = typeof ActivityTag[keyof typeof ActivityTag]; 
