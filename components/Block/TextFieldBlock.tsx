@@ -78,6 +78,11 @@ function TextFieldBlock({
                             : helperText(value)
                     }
                     FormHelperTextProps={{ sx: { textAlign: 'center' } }}
+                    /**
+                     * iOS 브라우저에서 input autoFoucs 및 키보드 오픈
+                     * 수빈. (2022.03.16.) <input/> autoFocus 이벤트. stnqls3938.log.
+                     * https://velog.io/@stnqls3938/input-autoFocus-%EC%9D%B4%EB%B2%A4%ED%8A%B8
+                     */
                     ref={(ref) => {
                         ref?.focus();
                     }
