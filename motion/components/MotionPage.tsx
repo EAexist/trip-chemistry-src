@@ -1,8 +1,8 @@
-import { m, MotionProps } from "framer-motion";
+import { HTMLMotionProps, m, MotionProps } from "framer-motion";
 import { PropsWithChildren } from "react";
 import { VARIANTS_SLIDEINLEFT } from "../props";
 
-export interface MotionPageProps extends MotionProps {
+export interface MotionPageProps extends HTMLMotionProps<"div"> {
     direction?: "left" | "right"
     on?: boolean
     className?: string;

@@ -1,5 +1,5 @@
 /* React */
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
 /* Externals */
 import { Done } from "@mui/icons-material";
@@ -15,6 +15,7 @@ import { useUserProfile } from "../../reducers/authReducer";
 import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
 import { useAppSelector } from "~/store";
 import TextFieldBlock from "../../components/Block/TextFieldBlock";
+import Fab from "~/components/Button/Fab";
 
 interface SetNicknamePageProps {
     handleClose: () => void;
@@ -53,20 +54,40 @@ function SetNicknamePage({
         `${value.length}/${USER.maxNicknameLength}`
     ), [USER.maxNicknameLength]);
 
+
+    /** iOS 키보드 오픈 이벤트 처리 
+     * https://velog.io/@gene028/ios-keyboard
+    */
+
+    const divRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        const handleVisualViewPortResize = () => {
+            const currentVisualViewport = Number(window.visualViewport?.height)
+            divRef.current!.style.height = `${currentVisualViewport - 30}px`
+            // window.scrollTo(0, 40)
+        }
+        if (window.visualViewport) {
+            window.visualViewport.onresize = handleVisualViewPortResize;
+        }
+    }, [ window.visualViewport, divRef ])
+
+
     return (
-        <RoutedMotionPage >
+        <RoutedMotionPage>
+            <div ref={divRef} style={{ backgroundColor: "bisque" }} className="fill-window">
             <AppBar>
                 <Toolbar>
                     <NavigateBeforeButton onClick={handleClose} />
-                    <Button
+                    {/* <Button
                         disabled={!isInputAllowed || getIsConfirmAllowed(value)}
                         onClick={() => handleConfirm(value)}
                         variant='text'
-                       
+
                         startIcon={<Done />}
                     >
                         확인
-                    </Button>
+                    </Button> */}
                 </Toolbar>
             </AppBar>
             <Toolbar />
@@ -83,8 +104,20 @@ function SetNicknamePage({
                             <p>- 공백은 포함할 수 없어요.</p>
                         </div>
                     }
+                    autoFocus={true}
                 />
             </Container>
+            <Container sx={{ position: "absolute", bottom: 0 }} className={"column-padding"}>
+                <Button
+                    variant="contained"
+                    disabled={!isInputAllowed || getIsConfirmAllowed(value)}
+                    onClick={() => handleConfirm(value)}
+                    className="main-action-button"                    
+                >
+                    확인
+                </Button>
+            </Container>
+            </div>
         </RoutedMotionPage>
     );
 }

@@ -50,7 +50,8 @@ function CreateChemistryContent() {
     const getProfile = useGetProfile();
 
     /* States */
-    const [title, setTItle] = useState("친구들과의 일본 우정 여행");
+    const [title, setTItle] = useState("");
+    // const [title, setTItle] = useState("친구들과의 일본 우정 여행");
     const [swiper, setSwiper] = useState<SwiperType>();
     const isInputAllowed = title.length > 0
     const swiperRef = useRef<SwiperRef>(null);
@@ -146,7 +147,7 @@ function CreateChemistryContent() {
                                             getIsValueAllowed={getIsValueAllowed}
                                             helperText={helperText}
                                             title={"여행 제목을 입력해주세요."}
-                                            autoFocus={isActive}
+                                            autoFocus={true}
                                         />
                                     </Container>
                                 )
