@@ -65,7 +65,7 @@ html, body, #root {
     word-break: keep-all;
     letter-spacing: -.05em;    
     /* Debug */
-    outline: 1px solid red;
+    /* outline: 1px solid red; */
 }
 
 h1,

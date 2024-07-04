@@ -94,7 +94,7 @@ function SetNicknamePage({
                     </Toolbar>
                 </AppBar>
                 <Toolbar />
-                <Container>
+                <Container className="column-padding">
                     <TextFieldBlock
                         value={value}
                         setValue={setValue}
