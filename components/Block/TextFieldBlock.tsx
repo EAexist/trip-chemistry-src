@@ -41,9 +41,9 @@ function TextFieldBlock({
             </div>
             <div className="content content--sparse">
                 <div style={{ minHeight: "16px" }}>
-                {
-                    note
-                }
+                    {
+                        note
+                    }
                 </div>
                 <TextField
                     variant="standard"
@@ -78,6 +78,10 @@ function TextFieldBlock({
                             : helperText(value)
                     }
                     FormHelperTextProps={{ sx: { textAlign: 'center' } }}
+                    ref={(ref) => {
+                        ref?.focus();
+                    }
+                    }
                 />
             </div>
         </div>

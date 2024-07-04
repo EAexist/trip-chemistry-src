@@ -64,22 +64,25 @@ function SetNicknamePage({
     useEffect(() => {
         const handleVisualViewPortResize = () => {
             const currentVisualViewport = Number(window.visualViewport?.height)
-            divRef.current!.style.height = `${currentVisualViewport - 30}px`
+            if(divRef.current)(
+                divRef.current!.style.height = `${currentVisualViewport - 30}px`
+            )
             // window.scrollTo(0, 40)
         }
+        handleVisualViewPortResize();
         if (window.visualViewport) {
             window.visualViewport.onresize = handleVisualViewPortResize;
         }
-    }, [ window.visualViewport, divRef ])
+    }, [ window.visualViewport , divRef])
 
 
     return (
         <RoutedMotionPage>
             <div ref={divRef} style={{ backgroundColor: "bisque" }} className="fill-window">
-            <AppBar>
-                <Toolbar>
-                    <NavigateBeforeButton onClick={handleClose} />
-                    {/* <Button
+                <AppBar>
+                    <Toolbar>
+                        <NavigateBeforeButton onClick={handleClose} />
+                        {/* <Button
                         disabled={!isInputAllowed || getIsConfirmAllowed(value)}
                         onClick={() => handleConfirm(value)}
                         variant='text'
@@ -88,35 +91,35 @@ function SetNicknamePage({
                     >
                         확인
                     </Button> */}
-                </Toolbar>
-            </AppBar>
-            <Toolbar />
-            <Container>
-                <TextFieldBlock
-                    value={value}
-                    setValue={setValue}
-                    getIsValueAllowed={getIsValueAllowed}
-                    helperText={helperText}
-                    title={"사용할 이름을 입력해주세요"}
-                    note={
-                        <div className="content content--dense">
-                            <p>- 최대 5글자까지 가능해요.</p>
-                            <p>- 공백은 포함할 수 없어요.</p>
-                        </div>
-                    }
-                    autoFocus={true}
-                />
-            </Container>
-            <Container sx={{ position: "absolute", bottom: 0 }} className={"column-padding"}>
-                <Button
-                    variant="contained"
-                    disabled={!isInputAllowed || getIsConfirmAllowed(value)}
-                    onClick={() => handleConfirm(value)}
-                    className="main-action-button"                    
-                >
-                    확인
-                </Button>
-            </Container>
+                    </Toolbar>
+                </AppBar>
+                <Toolbar />
+                <Container>
+                    <TextFieldBlock
+                        value={value}
+                        setValue={setValue}
+                        getIsValueAllowed={getIsValueAllowed}
+                        helperText={helperText}
+                        title={"사용할 이름을 입력해주세요"}
+                        note={
+                            <div className="content content--dense">
+                                <p>- 최대 5글자까지 가능해요.</p>
+                                <p>- 공백은 포함할 수 없어요.</p>
+                            </div>
+                        }
+                        autoFocus={true}
+                    />
+                </Container>
+                <Container sx={{ position: "absolute", bottom: 0 }} className={"column-padding"}>
+                    <Button
+                        variant="contained"
+                        disabled={!isInputAllowed || getIsConfirmAllowed(value)}
+                        onClick={() => handleConfirm(value)}
+                        className="main-action-button"
+                    >
+                        확인
+                    </Button>
+                </Container>
             </div>
         </RoutedMotionPage>
     );
