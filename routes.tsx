@@ -93,6 +93,9 @@ const routes = createRoutesFromElements(
                 <Route key={'initializeNickname'} path={'initializeNickname'} element={<InitializeNicknameContent />} />
                 <Route key={'redirectURI'} path={'kakaoAuthRedirect'} element={<KakaoAuthRedirectPage />} />
             </Route>
+
+            {/* Debug */}
+            <Route key={'initializeNickname'} index path={'initializeNickname'} element={<InitializeNicknameContent />} />
         </Route>
 
 

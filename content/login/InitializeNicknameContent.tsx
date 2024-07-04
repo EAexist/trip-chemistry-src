@@ -55,7 +55,8 @@ function InitializeNicknameContent() {
         /**Allow access by navigate( path, { state: {loginRedirectPath} }) only.
          *  Redirect access by URL to Homepage.
         */
-        (state && state.loginRedirectPath)
+        // (state && state.loginRedirectPath)
+        true
             ?
             <AuthLoadRequiredContent
                 handleSuccess={handleSuccess}
