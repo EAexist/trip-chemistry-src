@@ -14,51 +14,51 @@ import { defaultProfile, IProfile } from "~/interfaces/IProfile";
 import { LoadStatus } from "~/reducers";
 import LoadRequiredContent from "../LoadRequiredContent";
 import ResultContent from "./ResultContent";
+import { useAppDispatch, useAppSelector } from "~/store";
+import { asyncGetPublicProfile, useResultLoadStatus } from "~/reducers/resultReducer";
 
 function PublicResultPage() {
 
     /* State */
     const params = useParams();
     const profileId = params.profileId ? params.profileId : "";
-    const [loadStatus, setLoadStatus] = useState(LoadStatus.PENDING)
-    const [profile, setProfile] = useState<IProfile>(defaultProfile);
+    
+    const profile = useAppSelector((state) => state.result.data)
 
-    /* Side Effect */
     useEffect(() => {
-        console.log(`[PublicResultPage] profileId=${profileId}`)
+        console.log("scrollY", window.scrollY)
+    }, [])
 
-        /* API 요청 */
-        if (profileId){
-            console.log(`[PublicResultPage] profileId=${profileId}`)
-            axios.get(`/profile`,
-                {
-                    method: "GET",
-                    headers: HEADERS_AXIOS,
-                    params: {
-                        id: profileId
-                    }
-                })
-                .then((response) => {
-                    setLoadStatus(LoadStatus.SUCCESS)
-                    setProfile({
-                        ...response.data as IProfile
-                    });
-                });
+    const dispatch = useAppDispatch()
+    const [resultLoadStatus, setResultLoadStatus] = useResultLoadStatus();
+
+    useEffect(() => {
+        if (profileId && ( profileId !== profile.id )) {
+            dispatch(asyncGetPublicProfile(profileId));
         }
     }, [ profileId ])
 
+    useEffect(() => {
+        if (resultLoadStatus === LoadStatus.SUCCESS) {
+            setResultLoadStatus(LoadStatus.REST);
+        }
+    }, [resultLoadStatus]);
+
+
     return (
-        <LoadRequiredContent status={loadStatus} setStatus={setLoadStatus}>
-            <div className="page fill-window">
-                <MainAppBar >
-                    <AppTitleButton />
-                    {/* <m.h1 {...FADEIN_VIEWPORT} className="section-title">{strings.sections.character.title}</m.h1> */}
-                </MainAppBar>
-                <Toolbar />
-                <ResultContent {...profile} />
-                <div className="fab-placeholder fab-placeholder--no-margin"/>
-                <StartTestFab label="내 여행 타입 알아보기" />
-            </div >
+        <LoadRequiredContent status={resultLoadStatus} setStatus={setResultLoadStatus}>
+            {
+                <div className="page fill-window">
+                    <MainAppBar >
+                        <AppTitleButton />
+                        {/* <m.h1 {...FADEIN_VIEWPORT} className="section-title">{strings.sections.character.title}</m.h1> */}
+                    </MainAppBar>
+                    <Toolbar />
+                    <ResultContent {...profile} />
+                    <div className="fab-placeholder fab-placeholder--no-margin" />
+                    <StartTestFab label="내 여행 타입 알아보기" />
+                </div >
+            }
         </LoadRequiredContent>
     );
 }

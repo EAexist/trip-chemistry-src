@@ -41,7 +41,11 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
     /* Event Handlers */
     const handleNavigateBefore = () => {
         console.log(`[CityDetailContent] handleNavigateBefore /${redirectPath ? redirectPath : 'home'}`)
-        navigate(`${redirectPath ? redirectPath : '/home'}`, {}, pathname.includes("test") ? "city" : undefined );
+        navigate(
+            `${redirectPath ? redirectPath : '/home'}`, 
+            { state: { activeProfileId : searchParams.get('activeProfileId'), activeSection: 'city', isRedirected: redirectPath ? true : undefined } }, 
+            pathname.includes("test") ? "city" : undefined
+        );
         // navigate('../..', {}, pathname.includes("test") ? "city" : undefined );
     };
     const hiddenTitleTrigger = useScrollTrigger({

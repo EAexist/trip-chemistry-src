@@ -4,7 +4,7 @@ import withReducer from "../hocs/withReducer";
 import LoadRequiredContent from "../content/LoadRequiredContent";
 import { useEffect } from "react";
 
-import { useAppDispatch } from "../store";
+import { useAppDispatch, useAppSelector } from "../store";
 import { LoadStatus } from "../reducers";
 import useNavigateWithGuestContext from "../hooks/useNavigateWithGuestContext";
 import { useGetProfile } from "../reducers/authReducer";
@@ -22,17 +22,18 @@ const ChemistryRoute = () => {
     const getProfile = useGetProfile();
 
     /* Event Handlers */
-    const handleChemistrySuccess = () => {
-        getProfile();
-    }
-    const handleFail = () => {
-        navigate('/home');
-    }
+    // const handleChemistrySuccess = () => {
+    //     getProfile();
+    // }
+    // const handleFail = () => {
+    //     navigate('/home');
+    // }
 
     /* 케미스트리 데이터 불러오기 */
+    const id = useAppSelector((state) => state.chemistry.data.id)
     useEffect(() => {
         console.log(`[ChemistryRoute] chemistryId=${chemistryId}`);
-        if (chemistryId) {
+        if (chemistryId && ( chemistryId !== id )) {
             dispatch(asyncGetChemistry(chemistryId));
         }
     }, [chemistryId, dispatch])
@@ -47,14 +48,14 @@ const ChemistryRoute = () => {
     }, [chemistryLoadStatus, dispatch, setChemistryLoadStatus]);
 
     return (
-        <LoadRequiredContent
-            status={chemistryLoadStatus}
-            setStatus={setChemistryLoadStatus}
-            handleSuccess={handleChemistrySuccess}
-            handleFail={handleFail}
-        >
+        // <LoadRequiredContent
+        //     status={chemistryLoadStatus}
+        //     setStatus={setChemistryLoadStatus}
+        //     handleSuccess={handleChemistrySuccess}
+        //     handleFail={handleFail}
+        // >
             <Outlet />
-        </LoadRequiredContent>
+        // </LoadRequiredContent>
     )
 }
 

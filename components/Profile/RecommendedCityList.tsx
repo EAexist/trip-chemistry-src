@@ -1,12 +1,12 @@
 
 import { CITIES } from "~/common/app-const";
 import { WithProfileProps } from "~/hocs/withUserProfile";
-import CityList from "./CityList";
+import CityList, { CityListProps } from "./CityList";
 
-interface RecommendedCityListProps extends WithProfileProps {
+interface RecommendedCityListProps extends WithProfileProps, Omit<CityListProps, "cities"> {
 };
 
-function RecommendedCityList({ testAnswer }: RecommendedCityListProps) {
+function RecommendedCityList({ testAnswer, ...props }: RecommendedCityListProps) {
 
     // const recommendedCities = useAppSelector(
     //     createSelector(
@@ -48,7 +48,7 @@ function RecommendedCityList({ testAnswer }: RecommendedCityListProps) {
         )
 
     return (
-        <CityList cities={recommendedCities} />
+        <CityList cities={recommendedCities} {...props as Partial<CityListProps>} />
     );
 }
 

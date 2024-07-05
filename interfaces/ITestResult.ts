@@ -12,6 +12,6 @@ export interface ITestResult{
 }
 export const defaultTestResult : ITestResult = {
     tripTagList: [],
-    characterId: undefined,
+    characterId: "none",
     city: {}
 }

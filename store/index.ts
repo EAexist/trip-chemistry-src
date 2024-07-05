@@ -5,15 +5,18 @@ import env from "~/env";
 import authReducer, { IAuthState } from "../reducers/authReducer";
 import { IChemistryState } from "../reducers/chemistryReducer";
 import { ITestAnswerState } from "../reducers/testAnswerReducer";
+import resultReducer, { IResultState } from "~/reducers/resultReducer";
 
 export const store: EnhancedStore<{
     auth: IAuthState;
+    result?: IResultState;  
     testAnswer?: ITestAnswerState;
     chemistry?: IChemistryState;
     // profileSearch?: IProfileSearchState;
 }, UnknownAction, Tuple<[StoreEnhancer<{
     dispatch: ThunkDispatch<{
         auth: IAuthState;
+        result?: IResultState;  
         testAnswer?: ITestAnswerState;
         chemistry?: IChemistryState;
         // profileSearch?: IProfileSearchState;
@@ -21,7 +24,7 @@ export const store: EnhancedStore<{
 }>, StoreEnhancer]>> = configureStore({
     reducer: {
         auth: authReducer,
-        // testAnswer: testAnswerReducer,
+        result: resultReducer,
         // chemistry: chemistryReducer,
         // profileSearch: profileSearchReducer,
     },

@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Add, Close, ContentCopy, Error, GroupAdd, NavigateBefore } from "@mui/icons-material";
 import { Alert, AppBar, Avatar, Box, Button, ButtonBase, Container, Grid, Icon, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemText, Modal, Paper, Slide, Stack, TextField, Toolbar, useScrollTrigger } from "@mui/material";
 import { m } from "framer-motion";
-import { useParams } from "~/router-module";
+import { Outlet, useParams } from "~/router-module";
 
 /* App */
 import * as ReactHelmetAsync from 'react-helmet-async';
@@ -100,36 +100,9 @@ function ChemistryContent() {
         setOpenShareDialog(true);
     }
 
-    /* Deprecated */
-    // const handleStartSearch = () => {
-    //     navigate('searchAndInviteFriend', { state: { navigateDirection: 'next' } });
-    // }
-
     const handleCloseShareDialog = () => {
         setOpenShareDialog(false);
     };
-
-    const handleCloseLinkCopiedAlert = () => {
-        setOpenLinkCopiedAlertOpen(false);
-    };
-
-    const handleCopyLink = async () => {
-        /* https://sisiblog.tistory.com/301 */
-        try {
-            await navigator.clipboard.writeText(link);
-            console.log('Content copied to clipboard');
-            /* Resolved - 클립보드에 복사 성공 */
-        } catch (err) {
-            console.error('Failed to copy: ', err);
-            /* Rejected - 클립보드에 복사 실패 */
-        }
-        setOpenShareDialog(false);
-        setOpenLinkCopiedAlertOpen(true);
-    }
-
-    const handleSnsShare = () => {
-        setOpenSnsShareUnsupportedAlert(true);
-    }
 
     useEffect(() => {
         if (openLinkCopiedAlert) {
@@ -141,26 +114,6 @@ function ChemistryContent() {
             let timer = setTimeout(() => { setOpenSnsShareUnsupportedAlert(false) }, 2000);
         }
     }, [openSnsShareUnsupportedAlert])
-
-    const linkInputRef = useRef<HTMLInputElement>(null)
-    const [isShareDialogDraggable, setIsShareDialogDraggable] = useState(true)
-
-    useEffect(() => {
-        const handleFocusIn = (e) => {
-            if (document.activeElement === linkInputRef.current) {
-                setIsShareDialogDraggable(false)
-            }
-        }
-        const handleFocusOut = (e) => {
-            setIsShareDialogDraggable(true)
-        }
-        document.addEventListener('focusin', handleFocusIn)
-        document.addEventListener('focusout', handleFocusOut)
-        return () => {
-            document.removeEventListener('focusin', handleFocusIn)
-            document.removeEventListener('focusout', handleFocusOut)
-        };
-    }, [])
 
     /* 여행 참여 Dialog */
     const [openConfirmJoinDialog, setOpenConfirmJoinDialog] = useState(false);
@@ -174,6 +127,10 @@ function ChemistryContent() {
         dispatch(asyncJoinChemistry({ userId, chemistryId }));
     }
 
+    useEffect(()=>{
+        console.log(`[ChemistryPage] scrollY=${window.scrollY}`)
+    }, [])
+    
     return (
         /** MetaData
          *  Not Crawled.
@@ -343,6 +300,8 @@ function ChemistryContent() {
                                     <StartTestFab />
                                 }
                             </div>
+                            {/* <div style={{ position: "fixed", top: 0 }}>
+                            </div> */}
                         </Box>
                     )
             }

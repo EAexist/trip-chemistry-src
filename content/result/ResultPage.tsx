@@ -8,7 +8,7 @@ import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext
 import { FADEIN_VIEWPORT } from "../../motion/props";
 
 import { Share } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MainAppBar from "~/components/AppBar/MainAppBar";
 import Fab from "~/components/Button/Fab";
 import StartTestFab from "~/components/Button/StartTestFab";
@@ -21,6 +21,7 @@ import getImgSrc from "~/utils/getImgSrc";
 import { useStrings } from "../../texts";
 import ShareLinkDialog from "../chemistry/ShareLinkDialog";
 import ResultContent from "./ResultContent";
+import { useLocation } from "react-router-dom";
 
 const UserResultContent = withUserProfile(ResultContent)
 
@@ -61,7 +62,7 @@ function ResultPage() {
                 hasAnsweredTest
                     ?
                     <>
-                        <UserResultContent />
+                        <UserResultContent/>
                         <div className="fab-placeholder fab-placeholder--no-margin"/>
                         <Fab
                             onClick={handleChemistryButtonClick}

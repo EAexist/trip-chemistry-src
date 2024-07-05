@@ -11,15 +11,16 @@ import { VARIANTS_STAGGER_CHILDREN } from "~/motion/props";
 import { useStrings } from "~/texts";
 import getImgSrc from "~/utils/getImgSrc";
 
-interface CityListProps {
+export interface CityListProps {
     cities: {
         [k: string]: {
             score?: number
         }
-    }
+    },
+    navigateState?: any
 };
 
-function CityList({ cities }: CityListProps) {
+function CityList({ cities, navigateState = {} }: CityListProps) {
 
     // const activityTags = useAppSelector((state) => state.chemistry?.data.profiles[id].testAnswer.hashtag.activity)
     // const cityTags = useAppSelector((state) => state.chemistry?.data.profiles[id].testAnswer.hashtag.city)
@@ -33,7 +34,11 @@ function CityList({ cities }: CityListProps) {
     const { pathname } = useLocation();
 
     const handleClickCityListItem = (city: string) => () => {
-        navigate({ pathname: `/city/${city}`, search: `?redirectPath=${pathname}` }, { state: { navigateDirection: 'next' } });
+        navigate({ 
+            pathname: `/city/${city}`, 
+            search: `?redirectPath=${pathname}&${Object.entries(navigateState).map(([k, v])=>`${k}=${v}`).join('&')}` 
+        }, 
+            { state: { navigateDirection: 'next', ...navigateState } });
     }
 
     return (

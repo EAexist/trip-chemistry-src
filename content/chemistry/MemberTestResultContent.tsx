@@ -72,16 +72,7 @@ function MemberTestResultContent() {
                                     variant={(activeSection === id) ? "filled" : "outlined"}
                                     onClick={() => setActiveSection(id)}
                                     disabled={!isAnswered}
-                                // color={(activeSection === id) ? "primary" : "default"}
                                 />
-                                // <Button
-                                //     startIcon={<Icon>{icon}</Icon>}
-                                //     variant={(activeSection === id) ? "contained" : "outlined"}
-                                //     onClick={() => setActiveSection(id)}
-                                //     sx={{ opacity: (activeSection === id) ? 1: 0.5, padding: "4px 12px" }}
-                                // >
-                                //     {label}
-                                // </Button>
                             ))
                         }
                     </Stack>

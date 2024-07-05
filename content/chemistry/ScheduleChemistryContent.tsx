@@ -14,7 +14,7 @@ import { MotionList } from "~/motion/components/MotionList";
 import { MotionListItem } from "~/motion/components/MotionListItem";
 import { useUserProfile } from "~/reducers/authReducer";
 import { useAppSelector } from "~/store";
-import { FADEIN_FROMBOTTOM_VIEWPORT, SLIDEUP_VIEWPORT, VARIANTS_SLIDEUP, VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
+import { FADEIN_FROMBOTTOM_VIEWPORT, VARIANTS_SLIDEUP, VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
 import { nightPlanTestOptions, scheduleTestOptions } from "../test/TimeTestContent";
 
 function ScheduleChemistryContent() {
@@ -154,14 +154,14 @@ function ScheduleChemistryContent() {
             </div>
             {
                 (relaxingMemberNicknames.includes(id)) &&
-                <m.p className="typography-article" {...SLIDEUP_VIEWPORT}>
+                <m.p className="typography-article" {...FADEIN_FROMBOTTOM_VIEWPORT}>
                     {`${nickname} 님, `}
                     친구들은 숙소 밖에서 더 많은 시간을 보내고 싶어해요. 친구들을 따라 여행지 곳곳을 돌아다니는 데에 시간을 더 투자해보세요.
                 </m.p>
             }
             {
                 (busyMemberNicknames.includes(id)) &&
-                <m.p className="typography-article" {...SLIDEUP_VIEWPORT}>
+                <m.p className="typography-article" {...FADEIN_FROMBOTTOM_VIEWPORT}>
                     {`${nickname} 님, `}
                     친구들은 숙소에서 쉬는 시간을 더 갖고 싶어해요. 계획을 짤 때 친구들이 지치지 않도록 신경 써 주세요. 이른 아침 또는 늦은 밤의 일정은 친구들과 따로 다니며 즐기는 것도 고려해보세요.
                 </m.p>

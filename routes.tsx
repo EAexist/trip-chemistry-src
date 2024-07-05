@@ -54,22 +54,23 @@ const routes = createRoutesFromElements(
         <Provider store={store}>
             <ScrollRestoration
                 getKey={(location, matches) => {
-                    console.log(`[ScrollRestoration pathname=${location.pathname}`)
+                    console.log(`[ScrollRestoration path=${location.pathname.split('/')[1]}`)
                     const path = location.pathname.split('/')[1];
-                    const restorePath = ['test', 'chemistry']
+                    const restorePath = ['result', 'chemistry']
                     return restorePath.includes(path) ? location.pathname : location.key;
                 }}
             />
             <Page />
         </Provider>} >
         <Route key={'index'} element={<Outlet />} >
-            {/* <Route path="*" element={<Navigate to="home" />} /> */}
+            <Route path="*" element={<Navigate to="home" />} />
             <Route key={'home'} index path={'home'} element={<HomeContent />} />
             <Route key={'result'} path={'result/:profileId'} element={<PublicResultPage />} />
             <Route key={'chemistry'} path={'chemistry/:chemistryId'} element={<ChemistryRoute />} >
                 <Route path="*" element={<Navigate to=".." />} />
-                <Route key={'index'} index element={<ChemistryContent />} />
+                <Route key={'index'} path={""} element={<ChemistryContent />} >
                 {cityDetailRoute}
+                </Route>
                 {/** @TODO 닉네임을 통한 사용자 검색 및 친구 초대 */}
                 {/* <Route key={'searchAndInviteFriend'} path={'searchAndInviteFriend'} element={<SearchAndInviteFriendContent />} /> */}
             </Route>

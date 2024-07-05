@@ -255,6 +255,12 @@ export interface ICharacter {
 }
 
 export const CHARACTERS = {
+    none:
+    {
+        name: "",
+        prefix: "",
+        body: ""
+    },
     bee:
     {
         name: "부지런한 꿀벌",
