@@ -1,5 +1,5 @@
 /* React */
-import { ChangeEvent, ReactNode } from "react";
+import { ChangeEvent, ForwardedRef, forwardRef, ReactNode } from "react";
 
 /* Externals */
 import { Close } from "@mui/icons-material";
@@ -14,9 +14,10 @@ interface TextFieldBlockProps {
     note?: ReactNode;
     autoFocus?: boolean;
     className?: string;
+
 };
 
-function TextFieldBlock({
+const TextFieldBlock = forwardRef(({
     value,
     setValue,
     getIsValueAllowed,
@@ -25,7 +26,7 @@ function TextFieldBlock({
     note,
     autoFocus,
     className
-}: TextFieldBlockProps) {
+}: TextFieldBlockProps, ref: ForwardedRef<HTMLInputElement>) => {
 
     /* Event Handlers */
     const handleClickDeleteAll = () => {
@@ -46,7 +47,7 @@ function TextFieldBlock({
                     }
                 </div>
                 <TextField
-                    variant="standard"
+                    // variant="standard"
                     value={value}
                     autoFocus={autoFocus}
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +59,7 @@ function TextFieldBlock({
                     InputProps={{
                         endAdornment: (
                             value.length > 0 &&
-                            <InputAdornment position="end" sx={{ position: "absolute", right: 0 }}>
+                            <InputAdornment position="end" sx={{ position: "absolute", right: "16px" }}>
                                 <IconButton
                                     aria-label="delete all input"
                                     onClick={handleClickDeleteAll}
@@ -68,17 +69,19 @@ function TextFieldBlock({
                                 </IconButton>
                             </InputAdornment>
                         ),
-                        sx: { textAlign: 'center' },
-                        className: "typography-highlight",
-                        /**
-                         * iOS 브라우저에서 input autoFoucs 및 키보드 오픈
-                         * 수빈. (2022.03.16.) <input/> autoFocus 이벤트. stnqls3938.log.
-                         * https://velog.io/@stnqls3938/input-autoFocus-%EC%9D%B4%EB%B2%A4%ED%8A%B8
-                         */
-                        inputRef: (ref) => {
-                            ref?.focus();
-                        }
+                        sx: { '& .MuiInputBase-input' : { textAlign: "center" } },
+                        className: "section-title--sm",
                     }}
+                    /**
+                     * iOS 브라우저에서 input autoFoucs 및 키보드 오픈
+                     * 수빈. (2022.03.16.) <input/> autoFocus 이벤트. stnqls3938.log.
+                     * https://velog.io/@stnqls3938/input-autoFocus-%EC%9D%B4%EB%B2%A4%ED%8A%B8
+                     */
+                    // inputRef={(ref)=>{
+                    //     if(ref !== null) {
+                    //      ref.focus()
+                    //  }
+                    // }}
                     fullWidth={true}
                     helperText={
                         typeof (helperText) === 'string'
@@ -90,5 +93,5 @@ function TextFieldBlock({
             </div>
         </div>
     );
-}
+})
 export default TextFieldBlock;

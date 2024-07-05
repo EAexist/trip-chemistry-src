@@ -118,7 +118,7 @@ const theme = createTheme({
                     paddingRight: "24px",
                     alignItems: "center"
                 },
-                action:{
+                action: {
                     padding: 0
                 }
             }
@@ -136,6 +136,22 @@ const theme = createTheme({
                 sx: {
                     backgroundColor: defaultTheme.palette.gray.main,
                     color: defaultTheme.palette.gray.contrastText
+                }
+            }
+        },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                notchedOutline: {
+                    top: "-8px"
+                }
+            }
+
+        },
+        MuiInputBase: {
+            styleOverrides: {
+                root: {
+                    fontSize: "16px",
+                    fontWeight: 500 
                 }
             }
         },
@@ -228,12 +244,12 @@ const theme = createTheme({
         },
         MuiDrawer: {
             styleOverrides: {
-                    paper: ({ ownerState }) => ({
-                        ...(ownerState.anchor === 'bottom' && {
-                            borderTopRightRadius: "16px",
-                            borderTopLeftRadius: "16px",
-                        }),
-                    }),          
+                paper: ({ ownerState }) => ({
+                    ...(ownerState.anchor === 'bottom' && {
+                        borderTopRightRadius: "16px",
+                        borderTopLeftRadius: "16px",
+                    }),
+                }),
             }
         },
         MuiFormControlLabel: {

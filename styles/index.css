@@ -45,7 +45,7 @@
 }
 
 #root {
-    position: relative;
+    /* position: relative; */
     z-index: 0;
 }
 
@@ -157,6 +157,10 @@ img {
 
 /* Container */
 .MuiContainer-root {
+    &.no-gutter {
+        padding-left: 0;
+        padding-right: 0;         
+    }
     &.gutter-xs {
         padding-left: var(--gutter-xs);
         padding-right: var(--gutter-xs);         

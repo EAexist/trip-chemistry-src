@@ -1,12 +1,8 @@
 /* React */
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 
 /* Externals */
-import { Done, NavigateNext } from "@mui/icons-material";
-import { AppBar, Button, Container, IconButton, Toolbar } from "@mui/material";
-
-import SwiperType from "swiper";
-import { Swiper, SwiperRef, SwiperSlide, } from 'swiper/react';
+import { AppBar, Container, Toolbar } from "@mui/material";
 
 /* App */
 import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
@@ -17,8 +13,8 @@ import withReducer from "../../hocs/withReducer";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import { useGetProfile, useUserId } from "../../reducers/authReducer";
 import chemistryReducer, { asyncCreateChemistry, useChemistryLoadStatus } from "../../reducers/chemistryReducer";
-import { SWIPERPROPS_PAGE } from "../../swiper/props";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
+import IOSResponsiveFab from "../login/IOSResponsiveFab";
 
 const useCreateChemistry = () => {
 
@@ -52,14 +48,14 @@ function CreateChemistryContent() {
     /* States */
     const [title, setTItle] = useState("");
     // const [title, setTItle] = useState("친구들과의 일본 우정 여행");
-    const [swiper, setSwiper] = useState<SwiperType>();
+    // const [swiper, setSwiper] = useState<SwiperType>();
     const isInputAllowed = title.length > 0
-    const swiperRef = useRef<SwiperRef>(null);
+    // const swiperRef = useRef<SwiperRef>(null);
 
     /* Event Handlers */
     /* Swiper Navigation */
-    const handleNavigatePrev = () => swiper?.slidePrev();
-    const handleNavigateNext = () => swiper?.slideNext();
+    // const handleNavigatePrev = () => swiper?.slidePrev();
+    // const handleNavigateNext = () => swiper?.slideNext();
 
     /* Close & Confirm */
     const handleClose = () => {
@@ -103,57 +99,30 @@ function CreateChemistryContent() {
             <AuthLoadRequiredContent
                 handleSuccess={handleGetProfileSuccess}
             >
-                <RoutedMotionPage  className="fill-window">
+                <RoutedMotionPage className="fill-window">
                     <AppBar>
                         <Toolbar>
-                        <NavigateBeforeButton onClick={swiper?.isBeginning ? handleClose : handleNavigatePrev}/>
-                            {
-                                swiper?.isEnd
-                                    ? <Button
-                                        disabled={!isInputAllowed || !isConfirmAllowed}
-                                        onClick={handleConfirm}
-                                        variant='text'
-                                        aria-label="next"
-                                        startIcon={<Done />}
-                                    >
-                                        확인
-                                    </Button>
-                                    :
-                                    <IconButton
-                                        edge="end"
-                                        aria-label="next"
-                                        onClick={handleNavigateNext}
-                                    >
-                                        <NavigateNext />
-                                    </IconButton>
-
-                            }
+                            {/* <NavigateBeforeButton onClick={swiper?.isBeginning ? handleClose : handleNavigatePrev} /> */}
+                            <NavigateBeforeButton onClick={handleClose} />
                         </Toolbar>
                     </AppBar>
-                    <Toolbar/>
-                    <Swiper
-                        {...SWIPERPROPS_PAGE}
-                        ref={swiperRef}
-                       
-                        onSwiper={(swiper) => setSwiper(swiper)}
+                    <Toolbar />
+                    <Container className="column-padding-sm">
+                        <TextFieldBlock
+                            value={title}
+                            setValue={setTItle}
+                            getIsValueAllowed={getIsValueAllowed}
+                            helperText={helperText}
+                            title={"여행 제목을 입력해주세요."}
+                            autoFocus={true}
+                        />
+                    </Container>
+                    <IOSResponsiveFab
+                        disabled={!isInputAllowed || !isConfirmAllowed}
+                        onClick={handleConfirm}
                     >
-                        <SwiperSlide key={"title"} className=''>
-                            {
-                                ({ isActive }) => (
-                                    <Container>
-                                        <TextFieldBlock
-                                            value={title}
-                                            setValue={setTItle}
-                                            getIsValueAllowed={getIsValueAllowed}
-                                            helperText={helperText}
-                                            title={"여행 제목을 입력해주세요."}
-                                            autoFocus={true}
-                                        />
-                                    </Container>
-                                )
-                            }
-                        </SwiperSlide>
-                    </Swiper>
+                        확인
+                    </IOSResponsiveFab>
                 </RoutedMotionPage>
             </AuthLoadRequiredContent>
         </LoadRequiredContent>
