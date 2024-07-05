@@ -30,7 +30,8 @@ const InitializeNicknameContent = loadable(() => import( /* webpackChunkName: "I
 const KakaoAuthRedirectPage = loadable(() => import( /* webpackChunkName: "KakaoAuthRedirectPage" */'./content/login/KakaoAuthRedirectPage'));
 const UserContent = loadable(() => import( /* webpackChunkName: "UserContent" */'./content/user/UserContent'));
 const EditNicknameContent = loadable(() => import( /* webpackChunkName: "EditNicknameContent" */'./content/login/EditNicknameContent'));
-const ResultContent = loadable(() => import( /* webpackChunkName: "ResultContent" */'./content/result/ResultContent'));
+const ResultPage = loadable(() => import( /* webpackChunkName: "ResultPage" */'./content/result/ResultPage'));
+const PublicResultPage = loadable(() => import( /* webpackChunkName: "PublicResultPage" */'./content/result/PublicResultPage'));
 const ChemistryListContent = loadable(() => import( /* webpackChunkName: "ChemistryListContent" */'./content/chemistryList/ChemistryListContent'));
 const CreateChemistryContent = loadable(() => import( /* webpackChunkName: "CreateChemistryContent" */'./content/chemistryList/CreateChemistryContent'));
 
@@ -62,26 +63,27 @@ const routes = createRoutesFromElements(
             <Page />
         </Provider>} >
         <Route key={'index'} element={<Outlet />} >
-            <Route path="*" element={<Navigate to="home" />} />
+            {/* <Route path="*" element={<Navigate to="home" />} /> */}
             <Route key={'home'} index path={'home'} element={<HomeContent />} />
+            <Route key={'result'} path={'result/:profileId'} element={<PublicResultPage />} />
             <Route key={'chemistry'} path={'chemistry/:chemistryId'} element={<ChemistryRoute />} >
                 <Route path="*" element={<Navigate to=".." />} />
                 <Route key={'index'} index element={<ChemistryContent />} />
+                {cityDetailRoute}
                 {/** @TODO 닉네임을 통한 사용자 검색 및 친구 초대 */}
                 {/* <Route key={'searchAndInviteFriend'} path={'searchAndInviteFriend'} element={<SearchAndInviteFriendContent />} /> */}
-                {cityDetailRoute}
             </Route>
+            {cityDetailRoute}
             {/* [SEO, Authorization] Routes are excluded in robots.txt. URL Accesses are redirected to login page. */}
             <Route key={'authRequired'} element={<AuthRequiredRoute />}>
                 <Route key={'test'} path={'test'} element={<Outlet />} >
                     <Route key={'index'} index element={<TestContent />} />
-                    {cityDetailRoute}
                 </Route>
                 <Route key={'user'} path={'user'} element={<Outlet />} >
                     <Route key={'index'} index element={<UserContent />} />
                     <Route key={'setNickname'} path={'setNickname'} element={<EditNicknameContent />} />
                 </Route>
-                <Route key={'result'} path={'result'} element={<ResultContent />} />
+                <Route key={'result'} path={'result'} element={<ResultPage />} />
                 <Route key={'myChemistry'} path={'myChemistry'} element={<Outlet />} >
                     <Route key={'myChemistry'} index element={<ChemistryListContent />} />
                     <Route key={'new'} path={'new'} element={<CreateChemistryContent />} />

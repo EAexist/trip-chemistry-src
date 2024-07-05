@@ -17,7 +17,7 @@ import getImgSrc from "../../utils/getImgSrc";
 
 import Fab from "~/components/Button/Fab";
 import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 
 interface CityDetailContentProps {
     cityId: string;
@@ -29,6 +29,8 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
     const navigate = useNavigateWithGuestContext();
 
     const { pathname } = useLocation()
+    const [ searchParams ] = useSearchParams();
+    const redirectPath = searchParams.get('redirectPath');
 
     /* Constants */
     const city = CITIES[cityId] as typeof CITIES[keyof typeof CITIES]
@@ -38,8 +40,9 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
 
     /* Event Handlers */
     const handleNavigateBefore = () => {
-        console.log(`[CityDetailContent] handleNavigateBefore`)
-        navigate('../..', {}, pathname.includes("test") ? "city" : undefined );
+        console.log(`[CityDetailContent] handleNavigateBefore /${redirectPath ? redirectPath : 'home'}`)
+        navigate(`${redirectPath ? redirectPath : '/home'}`, {}, pathname.includes("test") ? "city" : undefined );
+        // navigate('../..', {}, pathname.includes("test") ? "city" : undefined );
     };
     const hiddenTitleTrigger = useScrollTrigger({
         disableHysteresis: true,

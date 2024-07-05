@@ -1,14 +1,14 @@
 
 import { NavigateNext, Star } from "@mui/icons-material";
-import { Box, ListItemAvatar, ListItemText, Paper, Stack } from "@mui/material";
+import { ListItemAvatar, ListItemText, Paper, Stack } from "@mui/material";
+import { useLocation } from "react-router-dom";
+import { Fragment } from "react/jsx-runtime";
 import { CITIES, HASHTAGS } from "~/common/app-const";
 import useNavigateWithGuestContext from "~/hooks/useNavigateWithGuestContext";
 import { MotionList } from "~/motion/components/MotionList";
 import { MotionListItemButton } from "~/motion/components/MotionListItemButton";
 import { VARIANTS_STAGGER_CHILDREN } from "~/motion/props";
 import { useStrings } from "~/texts";
-import { WithProfileProps } from "../../hocs/withUserProfile";
-import { Fragment } from "react/jsx-runtime";
 import getImgSrc from "~/utils/getImgSrc";
 
 interface CityListProps {
@@ -25,12 +25,15 @@ function CityList({ cities }: CityListProps) {
     // const cityTags = useAppSelector((state) => state.chemistry?.data.profiles[id].testAnswer.hashtag.city)
 
     /* City */
+    
     const cityStrings = useStrings().public.common.city;
 
     const navigate = useNavigateWithGuestContext();
 
+    const { pathname } = useLocation();
+
     const handleClickCityListItem = (city: string) => () => {
-        navigate(`city/${city}`, { state: { navigateDirection: 'next' } });
+        navigate({ pathname: `/city/${city}`, search: `?redirectPath=${pathname}` }, { state: { navigateDirection: 'next' } });
     }
 
     return (

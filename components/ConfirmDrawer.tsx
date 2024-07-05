@@ -26,9 +26,12 @@ function ConfirmDrawer({ title, body, cancelButtonLabel, onConfirm, onCancel, is
                 <h2 className='section-title'>
                     {title}
                 </h2>
-                <p>
-                    {body}
-                </p>
+                {
+                    body &&
+                    <p>
+                        {body}
+                    </p>
+                }
                 <Stack display={"flex"}>
                     <Button onClick={onCancel} startIcon={<Close />} variant="contained" color={isConfirmDefault ? "gray" : "primary"} sx={{ flexGrow: 1 }}>
                         {cancelButtonLabel}

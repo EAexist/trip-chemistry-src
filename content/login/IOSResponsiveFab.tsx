@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 /* Externals */
-import { ButtonProps, Container } from "@mui/material";
+import { Button, ButtonProps, Container } from "@mui/material";
 import { m } from "framer-motion";
 
 /* App */
@@ -85,14 +85,14 @@ function IOSResponsiveFab({
     return (
         <m.div animate={{ top: currentVisualViewportHeight + scrollYAtkeyboardOpen }} style={{ position: "fixed", top: window.innerHeight, transform: "translateY(-100%)", width: "100%" }} >
             <Container className={isIOSKeyboardOpened ? "no-gutter" : "column-padding"}>
-                <MotionButton
-                    // {...props}
+                <Button
+                    {...props}
                     variant="contained"
                     className="main-action-button"
                     sx={{  ...isIOSKeyboardOpened ? { borderRadius: 0 } : {}}}
                 >
                     확인
-                </MotionButton>
+                </Button>
             </Container>
         </m.div>
     );

@@ -2,9 +2,10 @@ import useNavigateWithGuestContext from "~/hooks/useNavigateWithGuestContext";
 import Fab, { FabProps } from "./Fab";
 
 interface StartTestFabProps extends FabProps {
+    label?: string
 };
 
-const StartTestFab = ((props: StartTestFabProps) => {
+const StartTestFab = (({ label = "테스트 시작하기", ...props}: StartTestFabProps ) => {
 
     const navigate = useNavigateWithGuestContext();
 
@@ -13,7 +14,7 @@ const StartTestFab = ((props: StartTestFabProps) => {
     }
     return (
         <Fab onClick={handleStartTest} {...props}>
-            테스트 시작하기
+            {label}
         </Fab>
     )
 });

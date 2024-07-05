@@ -145,7 +145,7 @@ export const SLIDEUP_VIEWPORT: MotionProps = {
     variants: VARIANTS_SLIDEUP,
     viewport: {
         once: true,
-        amount: 'all'
+        amount: 0.2
     }
 };
 

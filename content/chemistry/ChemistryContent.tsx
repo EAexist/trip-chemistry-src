@@ -29,6 +29,7 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import getImgSrc from "../../utils/getImgSrc";
 import LoginContent from "../login/LoginContent";
 import ChemistryDetailContent from "./ChemistryDetailContent";
+import ShareLinkDialog from "./ShareLinkDialog";
 
 const { Helmet } = ReactHelmetAsync
 
@@ -61,7 +62,6 @@ function ChemistryContent() {
     const isMember = (profileIds.length > 0) && profileIds.includes(userId);
 
     /* States */
-    const [openShareDialog, setOpenShareDialog] = useState(false);
     const [openLinkCopiedAlert, setOpenLinkCopiedAlertOpen] = useState(false);
     const [openSnsShareUnsupportedAlert, setOpenSnsShareUnsupportedAlert] = useState(false);
     const [showLoginContent, setShowLoginContent] = useState(false);
@@ -94,6 +94,7 @@ function ChemistryContent() {
     }
 
     /* 초대 링크 전송 Dialog */
+    const [openShareDialog, setOpenShareDialog] = useState(false);
 
     const handleStartShare = () => {
         setOpenShareDialog(true);
@@ -129,7 +130,6 @@ function ChemistryContent() {
     const handleSnsShare = () => {
         setOpenSnsShareUnsupportedAlert(true);
     }
-
 
     useEffect(() => {
         if (openLinkCopiedAlert) {
@@ -331,138 +331,12 @@ function ChemistryContent() {
                                     body={`${profiles[profileIds[0]].nickname}님의 ${title}`}
                                     cancelButtonLabel={'취소'}
                                 />
-                                {/* 링크 공유 모달 */}
-                                <DraggableDialog
+                                <ShareLinkDialog
+                                    title={"초대 링크 전송하기"}
+                                    link={link}
                                     open={openShareDialog}
                                     onClose={handleCloseShareDialog}
-                                    isDraggable={isShareDialogDraggable}
-                                    className="content flex"
-                                >
-                                    <h3 className="section-title--sm">
-                                        초대 링크 전송하기
-                                    </h3>
-                                    <Grid container>
-                                        {
-                                            [
-                                                // {
-                                                //     onClick: handleCopyLink,
-                                                //     icon: 'content_copy',
-                                                //     label: '링크 복사'
-                                                // },
-                                                {
-                                                    onClick: handleSnsShare,
-                                                    pngIcon: 'kakaotalk',
-                                                    label: '카카오톡',
-                                                    isUnsupoorted: true,
-                                                    icon: undefined
-                                                },
-                                                {
-                                                    onClick: handleSnsShare,
-                                                    pngIcon: 'instagram',
-                                                    label: '인스타그램',
-                                                    isUnsupoorted: true,
-                                                    icon: undefined
-                                                },
-                                            ].map(({ onClick, icon, pngIcon, label, isUnsupoorted }) => (
-                                                <Grid key={label} item xs={3} display={"flex"} flexDirection={"column"} alignItems={"center"} >
-                                                    <ButtonBase onClick={onClick} className={isUnsupoorted && "disabled"}>
-                                                        <Stack direction={"column"}>
-                                                            <Avatar>
-                                                                {
-                                                                    icon
-                                                                        ?
-                                                                        <Icon>{icon}</Icon>
-                                                                        :
-                                                                        <PngIcon name={pngIcon} size="large" />
-                                                                }
-                                                            </Avatar>
-                                                            <p className="typography-note">{label}</p>
-                                                        </Stack>
-                                                    </ButtonBase>
-                                                </Grid>
-
-                                            ))
-                                        }
-                                    </Grid>
-                                    <TextField
-                                        value={link}
-                                        onChange={() => { }}
-                                        InputProps={{
-                                            endAdornment: (
-                                                <InputAdornment position="end">
-                                                    <IconButton
-                                                        aria-label="copy invitation link"
-                                                        onClick={handleCopyLink}
-                                                        edge="end"
-                                                    >
-                                                        <ContentCopy />
-                                                    </IconButton>
-                                                </InputAdornment>
-                                            ),
-                                        }}
-                                        inputRef={linkInputRef}
-                                        sx={{ '& .MuiInputBase-root': { fontSize: "12px", fontWeight: 400 } }}
-                                    />
-                                    <Button
-                                        onClick={handleCloseShareDialog}
-                                        variant="contained"
-                                        color="gray"
-                                    >
-                                        닫기
-                                    </Button>
-                                </DraggableDialog>
-                                <Modal
-                                    open={openLinkCopiedAlert}
-                                    onClose={handleCloseLinkCopiedAlert}
-                                    hideBackdrop={true}
-                                    disableScrollLock
-                                >
-                                    <Container className="column-padding gutter-sm column-padding-sm">
-                                        <Alert
-                                            action={
-                                                <IconButton
-                                                    aria-label="close"
-                                                    color="inherit"
-                                                    size="small"
-                                                    onClick={() => {
-                                                        setOpenLinkCopiedAlertOpen(false);
-                                                    }}
-                                                >
-                                                    <Close fontSize="inherit" />
-                                                </IconButton>
-                                            }
-                                            severity="success"
-                                        >
-                                            <>링크를 복사했어요.</>
-                                        </Alert>
-                                    </Container>
-                                </Modal>
-                                <Modal
-                                    open={openSnsShareUnsupportedAlert}
-                                    onClose={() => setOpenSnsShareUnsupportedAlert(false)}
-                                    hideBackdrop={true}
-                                    disableScrollLock
-                                >
-                                    <Container className="column-padding gutter-sm column-padding-sm">
-                                        <Alert
-                                            action={
-                                                <IconButton
-                                                    aria-label="close"
-                                                    color="inherit"
-                                                    size="small"
-                                                    onClick={() => {
-                                                        setOpenSnsShareUnsupportedAlert(false);
-                                                    }}
-                                                >
-                                                    <Close fontSize="inherit" />
-                                                </IconButton>
-                                            }
-                                            severity="warning"
-                                        >
-                                            <>{"SNS 공유 기능은 아직 추가되지 않았어요.\n아래의 링크를 직접 복사해 공유해주세요."}</>
-                                        </Alert>
-                                    </Container>
-                                </Modal>
+                                />
                                 {
                                     (isMember && !hasAnsweredTest)
                                     &&

@@ -1,17 +1,25 @@
 import { useCallback } from "react";
-import { NavigateOptions, To, useNavigate, useSearchParams } from "~/router-module";
+import { NavigateOptions, Path, To, useNavigate, useSearchParams } from "~/router-module";
 
 const useNavigateWithGuestContext = () => {
 
     /* Hooks */
     const navigate = useNavigate();
 
-    const [ searchParams ] = useSearchParams();
+    const [ searchParams, setSearchParams ] = useSearchParams();
+    
     const guestId = searchParams.get('guestId');
 
     /* Try login when access code is generated. */
     return useCallback(( to: To, options?: NavigateOptions, hash?: string, )=>{
-        navigate( `${to}${ guestId ? `?guestId=${guestId}` : ''}${( hash !== undefined ) && ( hash !== "" ) ? `#${hash}` : ''}`, options)
+        if( typeof(to) === "string" ){
+            console.log(`useNavigateWithGuestContext to=${to}`)
+            navigate( `${to}${ guestId ? `?guestId=${guestId}` : ''}${( hash !== undefined ) && ( hash !== "" ) ? `#${hash}` : ''}`, options)
+        }
+        else{
+            console.log(`useNavigateWithGuestContext to=${JSON.stringify(to)}`)
+            navigate({ pathname: to.pathname, search: `?${to.search ? `${to.search.split('?')[1]}&` : ''}${guestId ? `guestId=${guestId}` : ''}`, hash: to.hash }, options)
+        }
     }, [ guestId ])
 }
 
