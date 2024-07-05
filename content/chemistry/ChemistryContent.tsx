@@ -1,9 +1,9 @@
 /* React */
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /* Externals */
-import { Add, Close, Error, GroupAdd, NavigateBefore } from "@mui/icons-material";
-import { Alert, AppBar, Avatar, Box, Button, ButtonBase, Container, Grid, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemText, Modal, Paper, Slide, Stack, Toolbar, useScrollTrigger } from "@mui/material";
+import { Add, Close, ContentCopy, Error, GroupAdd, NavigateBefore } from "@mui/icons-material";
+import { Alert, AppBar, Avatar, Box, Button, ButtonBase, Container, Grid, Icon, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemText, Modal, Paper, Slide, Stack, TextField, Toolbar, useScrollTrigger } from "@mui/material";
 import { m } from "framer-motion";
 import { useParams } from "~/router-module";
 
@@ -15,7 +15,7 @@ import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
 import StartTestFab from "~/components/Button/StartTestFab";
 import ConfirmDrawer from "~/components/ConfirmDrawer";
 import LazyImage from "~/components/LazyImage";
-import DraggableModal from "~/components/Paper/DraggableModal";
+import DraggableDialog from "~/components/Paper/DraggableDialog";
 import PngIcon from "~/components/PngIcon";
 import env from "~/env";
 import MotionPage, { motionProp_page_slideIn } from "~/motion/components/MotionPage";
@@ -61,7 +61,7 @@ function ChemistryContent() {
     const isMember = (profileIds.length > 0) && profileIds.includes(userId);
 
     /* States */
-    const [openShareModal, setOpenShareModal] = useState(false);
+    const [openShareDialog, setOpenShareDialog] = useState(false);
     const [openLinkCopiedAlert, setOpenLinkCopiedAlertOpen] = useState(false);
     const [openSnsShareUnsupportedAlert, setOpenSnsShareUnsupportedAlert] = useState(false);
     const [showLoginContent, setShowLoginContent] = useState(false);
@@ -78,8 +78,25 @@ function ChemistryContent() {
         navigate('../test');
     }
 
+    const handleJoinChemistry = isAuthorized
+        ?
+        () => {
+            setOpenConfirmJoinDialog(true);
+        }
+        :
+        () => {
+            setShowLoginContent(true)
+        }
+
+    const handleCloseLoginModal = () => {
+        // set
+        setShowLoginContent(false);
+    }
+
+    /* 초대 링크 전송 Dialog */
+
     const handleStartShare = () => {
-        setOpenShareModal(true);
+        setOpenShareDialog(true);
     }
 
     /* Deprecated */
@@ -87,8 +104,8 @@ function ChemistryContent() {
     //     navigate('searchAndInviteFriend', { state: { navigateDirection: 'next' } });
     // }
 
-    const handleCloseShareModal = () => {
-        setOpenShareModal(false);
+    const handleCloseShareDialog = () => {
+        setOpenShareDialog(false);
     };
 
     const handleCloseLinkCopiedAlert = () => {
@@ -105,7 +122,7 @@ function ChemistryContent() {
             console.error('Failed to copy: ', err);
             /* Rejected - 클립보드에 복사 실패 */
         }
-        setOpenShareModal(false);
+        setOpenShareDialog(false);
         setOpenLinkCopiedAlertOpen(true);
     }
 
@@ -113,21 +130,7 @@ function ChemistryContent() {
         setOpenSnsShareUnsupportedAlert(true);
     }
 
-    const handleJoinChemistry = isAuthorized
-        ?
-        () => {
-            setOpenConfirmJoinDialog(true);
-        }
-        :
-        () => {
-            setShowLoginContent(true)
-        }
-    const handleCloseLoginModal = () => {
-        // set
-        setShowLoginContent(false);
-    }
 
-    /* Side Effects */
     useEffect(() => {
         if (openLinkCopiedAlert) {
             let timer = setTimeout(() => { setOpenLinkCopiedAlertOpen(false) }, 2000);
@@ -139,7 +142,27 @@ function ChemistryContent() {
         }
     }, [openSnsShareUnsupportedAlert])
 
-    /* Confirm Dialog */
+    const linkInputRef = useRef<HTMLInputElement>(null)
+    const [isShareDialogDraggable, setIsShareDialogDraggable] = useState(true)
+
+    useEffect(() => {
+        const handleFocusIn = (e) => {
+            if (document.activeElement === linkInputRef.current) {
+                setIsShareDialogDraggable(false)
+            }
+        }
+        const handleFocusOut = (e) => {
+            setIsShareDialogDraggable(true)
+        }
+        document.addEventListener('focusin', handleFocusIn)
+        document.addEventListener('focusout', handleFocusOut)
+        return () => {
+            document.removeEventListener('focusin', handleFocusIn)
+            document.removeEventListener('focusout', handleFocusOut)
+        };
+    }, [])
+
+    /* 여행 참여 Dialog */
     const [openConfirmJoinDialog, setOpenConfirmJoinDialog] = useState(false);
 
     const handleCloseConfirmJoinDialog = () => {
@@ -309,30 +332,36 @@ function ChemistryContent() {
                                     cancelButtonLabel={'취소'}
                                 />
                                 {/* 링크 공유 모달 */}
-                                <DraggableModal
-                                    open={openShareModal}
-                                    onClose={handleCloseShareModal}
+                                <DraggableDialog
+                                    open={openShareDialog}
+                                    onClose={handleCloseShareDialog}
+                                    isDraggable={isShareDialogDraggable}
                                     className="content flex"
                                 >
+                                    <h3 className="section-title--sm">
+                                        초대 링크 전송하기
+                                    </h3>
                                     <Grid container>
                                         {
                                             [
-                                                {
-                                                    onClick: handleCopyLink,
-                                                    icon: 'content_copy',
-                                                    label: '링크 복사'
-                                                },
+                                                // {
+                                                //     onClick: handleCopyLink,
+                                                //     icon: 'content_copy',
+                                                //     label: '링크 복사'
+                                                // },
                                                 {
                                                     onClick: handleSnsShare,
                                                     pngIcon: 'kakaotalk',
                                                     label: '카카오톡',
-                                                    isUnsupoorted: true
+                                                    isUnsupoorted: true,
+                                                    icon: undefined
                                                 },
                                                 {
                                                     onClick: handleSnsShare,
                                                     pngIcon: 'instagram',
                                                     label: '인스타그램',
-                                                    isUnsupoorted: true
+                                                    isUnsupoorted: true,
+                                                    icon: undefined
                                                 },
                                             ].map(({ onClick, icon, pngIcon, label, isUnsupoorted }) => (
                                                 <Grid key={label} item xs={3} display={"flex"} flexDirection={"column"} alignItems={"center"} >
@@ -355,14 +384,33 @@ function ChemistryContent() {
                                             ))
                                         }
                                     </Grid>
+                                    <TextField
+                                        value={link}
+                                        onChange={() => { }}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="copy invitation link"
+                                                        onClick={handleCopyLink}
+                                                        edge="end"
+                                                    >
+                                                        <ContentCopy />
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        inputRef={linkInputRef}
+                                        sx={{ '& .MuiInputBase-root': { fontSize: "12px", fontWeight: 400 } }}
+                                    />
                                     <Button
-                                        onClick={handleCloseShareModal}
+                                        onClick={handleCloseShareDialog}
                                         variant="contained"
                                         color="gray"
                                     >
                                         닫기
                                     </Button>
-                                </DraggableModal>
+                                </DraggableDialog>
                                 <Modal
                                     open={openLinkCopiedAlert}
                                     onClose={handleCloseLinkCopiedAlert}
@@ -411,7 +459,7 @@ function ChemistryContent() {
                                             }
                                             severity="warning"
                                         >
-                                            <>{"SNS 공유 기능은 아직 추가되지 않았어요.\n링크 복사를 이용해주세요."}</>
+                                            <>{"SNS 공유 기능은 아직 추가되지 않았어요.\n아래의 링크를 직접 복사해 공유해주세요."}</>
                                         </Alert>
                                     </Container>
                                 </Modal>

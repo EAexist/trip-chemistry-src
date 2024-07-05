@@ -25,7 +25,7 @@ import { TEST_TYPE } from "~/common/app-const";
 import MainAppBar from "~/components/AppBar/MainAppBar";
 import Fab from "~/components/Button/Fab";
 import ConfirmDrawer from "~/components/ConfirmDrawer";
-import DraggableModal from "~/components/Paper/DraggableModal";
+import DraggableDialog from "~/components/Paper/DraggableDialog";
 import { useAppSelector } from "~/store";
 import PngIcon from "../../components/PngIcon";
 import withReducer from "../../hocs/withReducer";
@@ -353,7 +353,7 @@ function TestContent() {
                         title={"답변을 제출할까요?"}
                         cancelButtonLabel={'답변 한 번 더 확인하기'}
                     />
-                    <DraggableModal
+                    <DraggableDialog
                         open={opensectionlistmodal}
                         onClose={handleSectionListModalClose}
 
@@ -380,7 +380,7 @@ function TestContent() {
                             <Button onClick={highlightAnsweredSections} className="typography-note" style={{ fontWeight: 600 }}>{`답변한 질문 : ${IsTestSectionAnsweredList.filter((isAnswered) => isAnswered).length}`}</Button>
                             <Button onClick={highlightUnAnsweredSections} className="typography-note disabled">{`남은 질문 : ${IsTestSectionAnsweredList.filter((isAnswered) => !isAnswered).length}`}</Button>
                         </Stack>
-                    </DraggableModal>
+                    </DraggableDialog>
                 </div >
             </AuthLoadRequiredContent>
         </LoadRequiredContent >

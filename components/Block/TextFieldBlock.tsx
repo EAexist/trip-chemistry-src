@@ -70,7 +70,6 @@ const TextFieldBlock = forwardRef(({
                             </InputAdornment>
                         ),
                         sx: { '& .MuiInputBase-input' : { textAlign: "center" } },
-                        className: "section-title--sm",
                     }}
                     /**
                      * iOS 브라우저에서 input autoFoucs 및 키보드 오픈
