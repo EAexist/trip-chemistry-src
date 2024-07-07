@@ -5,18 +5,23 @@ import { CityTag, ICityTag } from "./enums/CityTag";
 
 export interface ITestAnswer {
     hashtag: {
-        expectation: {
-            selected: IExpectationTag[]
-            unSelected: IExpectationTag[]
-        },
-        activity: {
-            selected: IActivityTag[]
-            unSelected: IActivityTag[]
-        },
-        city: {
-            selected: ICityTag[]
-            unSelected: ICityTag[]
-        }
+        expectation: IExpectationTag[],
+        // {
+        //     selected: IExpectationTag[]
+        //     unSelected: IExpectationTag[]
+        // },
+        activity: 
+        IActivityTag[],
+        // {
+        //     selected: IActivityTag[]
+        //     unSelected: IActivityTag[]
+        // },
+        city: 
+        ICityTag[],
+        // {
+        //     selected: ICityTag[]
+        //     unSelected: ICityTag[]
+        // }
     }
     leadership?: number
     schedule: {
@@ -37,28 +42,36 @@ export interface ITestAnswer {
     city?: Record<ICityType, ( undefined | number )>
 };
 
-export interface ITestAnswerDTO extends Omit<ITestAnswer, 'hashtag'> {
-    hashtag:{
-        expectation: IExpectationTag[],
-        activity: IActivityTag[],
-        city: ICityTag[],
-    }
-};
+export interface ITestAnswerDTO extends ITestAnswer {}
+
+// extends Omit<ITestAnswer, 'hashtag'> {
+//     hashtag:{
+//         expectation: IExpectationTag[],
+//         activity: IActivityTag[],
+//         city: ICityTag[],
+//     }
+// };
 
 export const defaultTestAnswer: ITestAnswer = {
     hashtag:{
-        expectation: {
-            selected: [],
-            unSelected: Object.values(ExpectationTag)
-        },
-        activity: {
-            selected: [],
-            unSelected: Object.values(ActivityTag)
-        },
-        city: {
-            selected: [],
-            unSelected: Object.values(CityTag)
-        },
+        expectation: 
+    [],
+    // {
+    //         selected: [],
+    //         unSelected: Object.values(ExpectationTag)
+    //     },
+        activity: 
+    [],
+    // {
+    //         selected: [],
+    //         unSelected: Object.values(ActivityTag)
+    //     },
+        city: 
+    [],
+    // {
+    //         selected: [],
+    //         unSelected: Object.values(CityTag)
+    //     },
     },
     leadership: undefined,
     schedule: {
@@ -72,24 +85,7 @@ export const defaultTestAnswer: ITestAnswer = {
         specialBudget: undefined,
         specialCount: undefined,
     },
-    // city:{
-    //     metropolis: undefined,
-    //     history: undefined,
-    //     nature: undefined,
-    //     small: undefined,
-    // }
 };
-
-export const testAnswerToDTO: (testAnswer: ITestAnswer) => ITestAnswerDTO = ( testAnswer ) => (
-    {
-        ...testAnswer,
-        hashtag: {
-            expectation: testAnswer.hashtag.expectation.selected,
-            activity: testAnswer.hashtag.activity.selected,
-            city: testAnswer.hashtag.city.selected,
-        }
-    } as ITestAnswerDTO
-);
 
 export type ITestKey = keyof ITestAnswer;
 export type INumericTestKey = keyof Omit<ITestAnswer, "hashtag">;

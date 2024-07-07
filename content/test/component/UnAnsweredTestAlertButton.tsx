@@ -14,7 +14,7 @@ function UnAnsweredTestAlertButton( {} : UnAnsweredTestAlertButtonProps ){
         Object.values(state.testAnswer.data).map((answer) =>
             (typeof answer !== "object")
                 ? answer !== undefined
-                : answer.selected.length >= TEST_TYPE.hashtag.selectedMinLength
+                : answer.length >= TEST_TYPE.hashtag.selectedMinLength
         ).indexOf(false)
     ))
     

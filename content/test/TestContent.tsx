@@ -26,12 +26,12 @@ import MainAppBar from "~/components/AppBar/MainAppBar";
 import Fab from "~/components/Button/Fab";
 import ConfirmDrawer from "~/components/ConfirmDrawer";
 import DraggableDialog from "~/components/Paper/DraggableDialog";
-import { useAppSelector } from "~/store";
+import { useAppDispatch, useAppSelector } from "~/store";
 import PngIcon from "../../components/PngIcon";
 import withReducer from "../../hocs/withReducer";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
-import { useGetProfile } from "../../reducers/authReducer";
-import testAnswerReducer, { useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
+import { useGetProfile, useUserId } from "../../reducers/authReducer";
+import testAnswerReducer, { asyncGetAnswer, asyncSetAnswer, asyncSubmitAnswer, useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import RestaurantBudgetTestContent from "./RestaurantBudgetTestContent";
 
@@ -204,7 +204,7 @@ function TestContent() {
                     const answer = subKey ? testAnswer[testKey][subKey] : testAnswer[testKey]
                     return (
                         (testKey === "hashtag")
-                            ? answer.selected.length >= TEST_TYPE.hashtag.selectedMinLength
+                            ? answer.length >= TEST_TYPE.hashtag.selectedMinLength
                             : answer !== undefined
                     )
                 }).every(v => v)
@@ -272,17 +272,39 @@ function TestContent() {
         setOpenConfirmDrawer(false);
     }
 
-    const handleConfirmSubmit = () => {
-        submitAnswer();
-    }
+    // const handleConfirmSubmit = () => {
+    //     submitAnswer();
+    // }
+
+    const id = useUserId()
+    const { data } = useAppSelector((state) => state.testAnswer);
+    const handleConfirmSubmit = async () => {
+        try {
+          const originalPromiseResult = await dispatch(asyncSubmitAnswer({ id, answer: data })).unwrap()
+          navigate('../result');          
+          // handle result here
+        } catch (rejectedValueOrSerializedError) {
+          // handle error here
+        }
+      }
 
     /* Main Action Button */
     const handleFinishTest = () => {
         setOpenConfirmDrawer(true);
     }
 
+    /* Fetch Test Answers */
+    const userId = useUserId()
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        if (userId)
+            dispatch(asyncGetAnswer(userId))
+    }, [userId])
+
+
     const handleNextButtonClick = () => {
         console.log(`[handleNextButtonClick] ${JSON.stringify(IsTestSectionAnsweredList.map((isTestAnswered, index) => ({ isTestAnswered, index })).filter(({ isTestAnswered, index }) => !isTestAnswered))}`)
+        dispatch( asyncSetAnswer(userId) )
         setActiveSectionIndex((prev) => {
             const nextUnAnsweredTestIndex = IsTestSectionAnsweredList.map((isTestAnswered, index) => ({ isTestAnswered, index })).slice(activeSectionIndex).filter(({ isTestAnswered, index }) => !isTestAnswered)[0]
             if (nextUnAnsweredTestIndex !== undefined) {
@@ -298,15 +320,19 @@ function TestContent() {
             }
         })
     }
-
+    
+    useEffect(()=>{
+        if ( userId )
+            dispatch( asyncSetAnswer(userId) )
+    }, [ userId, activeSectionIndex ])
+    
     return (
         <LoadRequiredContent {...{
             status: submitStatus,
             setStatus: setSubmitStatus,
-            handleSuccess: handleSubmitSuccess,
+            showOnPending: true
         }}>
             <AuthLoadRequiredContent {...{
-                handleSuccess: handleLoadSuccess,
                 isEnabled: isAnswerSubmitted,
             }}>
                 <div className="page fill-window flex">

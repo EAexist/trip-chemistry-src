@@ -82,7 +82,7 @@ function ResultPage() {
                         />
                     </>
                     :
-                    <>
+                    <div className="flex" style={{ height: "100%" }}>
                         <Container className='flex-grow block--centered content'>
                             <LazyImage
                                 alt={"miss"}
@@ -95,7 +95,7 @@ function ResultPage() {
                         </Container>
                         <div className="fab-placeholder" />
                         <StartTestFab />
-                    </>
+                    </div>
             }
         </div>
     );

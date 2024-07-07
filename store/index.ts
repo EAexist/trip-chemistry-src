@@ -42,7 +42,7 @@ declare module 'react-redux' {
     interface DefaultRootState extends ReturnType<typeof store.getState> { }
 }
 
-// export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 /*  Dan Abramov and the Redux documentation authors. Jan 28, 2024. usage-with-typescript#define-typed-hooks. React Redux.  

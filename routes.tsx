@@ -64,17 +64,16 @@ const routes = createRoutesFromElements(
         </Provider>} >
         <Route key={'index'} element={<Outlet />} >
             <Route path="*" element={<Navigate to="home" />} />
+            {cityDetailRoute}
             <Route key={'home'} index path={'home'} element={<HomeContent />} />
             <Route key={'result'} path={'result/:profileId'} element={<PublicResultPage />} />
             <Route key={'chemistry'} path={'chemistry/:chemistryId'} element={<ChemistryRoute />} >
                 <Route path="*" element={<Navigate to=".." />} />
                 <Route key={'index'} path={""} element={<ChemistryContent />} >
-                {cityDetailRoute}
                 </Route>
                 {/** @TODO 닉네임을 통한 사용자 검색 및 친구 초대 */}
                 {/* <Route key={'searchAndInviteFriend'} path={'searchAndInviteFriend'} element={<SearchAndInviteFriendContent />} /> */}
             </Route>
-            {cityDetailRoute}
             {/* [SEO, Authorization] Routes are excluded in robots.txt. URL Accesses are redirected to login page. */}
             <Route key={'authRequired'} element={<AuthRequiredRoute />}>
                 <Route key={'test'} path={'test'} element={<Outlet />} >
@@ -85,6 +84,7 @@ const routes = createRoutesFromElements(
                     <Route key={'setNickname'} path={'setNickname'} element={<EditNicknameContent />} />
                 </Route>
                 <Route key={'result'} path={'result'} element={<ResultPage />} />
+                
                 <Route key={'myChemistry'} path={'myChemistry'} element={<Outlet />} >
                     <Route key={'myChemistry'} index element={<ChemistryListContent />} />
                     <Route key={'new'} path={'new'} element={<CreateChemistryContent />} />
