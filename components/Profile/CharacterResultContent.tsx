@@ -1,23 +1,9 @@
 
-import { Container, Divider, Icon, ListItemAvatar, ListItemText, Paper, Stack } from "@mui/material";
-import { useState } from "react";
-import { CHARACTERS, CITIES, HASHTAGS, TRIP_TAGS } from "~/common/app-const";
-import { ActivityTag } from "~/interfaces/enums/ActivityTag";
-import { ExpectationTag } from "~/interfaces/enums/ExpectationTag";
+import { Stack } from "@mui/material";
+import { CHARACTERS } from "~/common/app-const";
 import { TripTag } from "~/interfaces/enums/TripTag";
-import { useAppSelector } from "~/store";
-import { WithProfileProps } from "../../hocs/withUserProfile";
-import FriendAvatar from "../Avatar/FriendAvatar";
-import { ActivityTagChip, ExpectationTagChip, TripTagChip } from "../Chip/TagChip";
-import PngIcon from "../PngIcon";
-import { createSelector } from "@reduxjs/toolkit";
-import { MotionList } from "~/motion/components/MotionList";
-import { VARIANTS_STAGGER_CHILDREN } from "~/motion/props";
-import { MotionListItemButton } from "~/motion/components/MotionListItemButton";
-import { NavigateNext } from "@mui/icons-material";
-import { useStrings } from "~/texts";
-import useNavigateWithGuestContext from "~/hooks/useNavigateWithGuestContext";
 import getImgSrc from "~/utils/getImgSrc";
+import { WithProfileProps } from "../../hocs/withUserProfile";
 
 const expectationToTripTagMap = {
     HEAL: [TripTag.REST],
@@ -56,7 +42,7 @@ interface CharacterResultContentProps extends WithProfileProps { };
 
 function CharacterResultContent({ testResult }: CharacterResultContentProps) {
 
-    const character = CHARACTERS[testResult.characterId]
+    const character = CHARACTERS[testResult?.characterId || "none"]
 
     /* City */
     return (
@@ -64,8 +50,8 @@ function CharacterResultContent({ testResult }: CharacterResultContentProps) {
             <Stack>
             <div className="block--centered">
                 <img
-                    src={getImgSrc('/character', testResult.characterId, { size: "large" })}
-                    alt={testResult.characterId}
+                    src={getImgSrc('/character', testResult?.characterId, { size: "large" })}
+                    alt={character.name}
                     className="title-image"
                     style={{ margin: "0px -16px" }}
                 />

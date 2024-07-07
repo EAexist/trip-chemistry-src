@@ -1,11 +1,11 @@
 /* React */
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /* Externals */
-import { Add, Close, ContentCopy, Error, GroupAdd, NavigateBefore } from "@mui/icons-material";
-import { Alert, AppBar, Avatar, Box, Button, ButtonBase, Container, Grid, Icon, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemText, Modal, Paper, Slide, Stack, TextField, Toolbar, useScrollTrigger } from "@mui/material";
+import { Add, Error, GroupAdd, NavigateBefore } from "@mui/icons-material";
+import { AppBar, Box, Button, Container, IconButton, List, ListItem, ListItemAvatar, ListItemText, Paper, Slide, Stack, Toolbar, useScrollTrigger } from "@mui/material";
 import { m } from "framer-motion";
-import { Outlet, useParams } from "~/router-module";
+import { useParams } from "~/router-module";
 
 /* App */
 import * as ReactHelmetAsync from 'react-helmet-async';
@@ -15,8 +15,6 @@ import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
 import StartTestFab from "~/components/Button/StartTestFab";
 import ConfirmDrawer from "~/components/ConfirmDrawer";
 import LazyImage from "~/components/LazyImage";
-import DraggableDialog from "~/components/Paper/DraggableDialog";
-import PngIcon from "~/components/PngIcon";
 import env from "~/env";
 import MotionPage, { motionProp_page_slideIn } from "~/motion/components/MotionPage";
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "~/motion/props";
@@ -73,9 +71,6 @@ function ChemistryContent() {
     /* Event Handlers */
     const handleClickNavigateBefore = () => {
         navigate('../myChemistry', { state: { navigateDirection: 'prev' } })
-    }
-    const handleStartTest = () => {
-        navigate('../test');
     }
 
     const handleJoinChemistry = isAuthorized
@@ -169,7 +164,7 @@ function ChemistryContent() {
                                             <>
                                                 <NavigateBeforeButton onClick={handleClickNavigateBefore} />
                                                 <Box sx={{ flexGrow: 1 }}>
-                                                    <Slide direction="up" in={hiddenTitleTrigger} container={containerRef.current}>
+                                                    <Slide direction="up" appear={false} in={hiddenTitleTrigger} container={containerRef.current}>
                                                         <h2 >{title}</h2>
                                                     </Slide>
                                                 </Box>

@@ -2,26 +2,25 @@
 import { SyntheticEvent, useState } from "react";
 
 /* Externals */
-import { Box, Container, Tab, Tabs, Chip,Icon, Stack } from "@mui/material";
+import { Box, Chip, Container, Icon, Stack, Tab, Tabs } from "@mui/material";
 import { AnimatePresence, m } from "framer-motion";
 
 /* App */
-import { useAppSelector } from "~/store";
-import SectionPaper from "../../components/Paper/SectionPaper";
-import LeadershipChemistryContent from "./LeadershipChemistryContent";
-import MemberTestResultContent from "./MemberTestResultContent";
-import RestaurantChemistryContent from "./RestaurantChemistryContent";
-import ScheduleChemistryContent from "./ScheduleChemistryContent";
+import { QuestionMark } from "@mui/icons-material";
+import { useLocation } from "react-router-dom";
 import CharacterResultContent from "~/components/Profile/CharacterResultContent";
 import HashTagResultContent from "~/components/Profile/HashTagResultContent";
 import RecommendedCityList from "~/components/Profile/RecommendedCityList";
 import withFriendProfile from "~/hocs/withFriendProfile";
 import { IProfileId } from "~/interfaces/IProfile";
+import { useAppSelector } from "~/store";
+import SectionPaper from "../../components/Paper/SectionPaper";
 import { FADEIN, FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import { useProfileIdList } from "../../reducers/chemistryReducer";
 import ProfileToggleButtonGroup from "./component/ProfileToggleButtonGroup";
-import { QuestionMark } from "@mui/icons-material";
-import { useLocation } from "react-router-dom";
+import LeadershipChemistryContent from "./LeadershipChemistryContent";
+import RestaurantChemistryContent from "./RestaurantChemistryContent";
+import ScheduleChemistryContent from "./ScheduleChemistryContent";
 
 const FriendCharacterResultContent = withFriendProfile(CharacterResultContent);
 const FriendHashTagResultContent = withFriendProfile(HashTagResultContent);
@@ -42,7 +41,7 @@ function ChemistryDetailContent() {
     const [activeProfileId, setActiveProfileId] = useState<IProfileId | undefined>( state?.activeProfileId || profileIds[0]);
 
     const isAnswered = useAppSelector((state) =>
-        state.chemistry.data.profiles[activeProfileId]?.testAnswer !== null
+        state.chemistry.data.profiles[activeProfileId]?.testResult !== null
     );
 
     const nickname = useAppSelector((state) => (

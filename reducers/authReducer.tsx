@@ -10,6 +10,7 @@ import { IProfileId } from "../interfaces/IProfile";
 import { IUserProfile, defaultUserProfile } from "../interfaces/IUserProfile";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
 import { useAppDispatch, useAppSelector } from "../store";
+import { defaultTestResult } from "~/interfaces/ITestResult";
 
 /* Interface */
 
@@ -325,7 +326,7 @@ const authSlice = createSlice({
             console.log(`[asyncGetProfile] fulfilled\n\tpayload=${JSON.stringify(action.payload as IUserProfile)}`);
             state.data.profile = {
                 ...state.data.profile,
-                ...action.payload
+                ...action.payload,
             };
             state.loadStatus = LoadStatus.SUCCESS;
         });
@@ -362,7 +363,7 @@ const useUserProfile = () => {
 
 const useHasAnsweredTest = () => {
     return (
-        useAppSelector((state) => !(state.auth.data.profile.testAnswer === null))
+        useAppSelector((state) => !(state.auth.data.profile.testResult === null))
     )
 }
 

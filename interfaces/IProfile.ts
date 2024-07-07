@@ -1,11 +1,11 @@
-import { ITestAnswer, ITestAnswerDTO, defaultTestAnswer } from "./ITestAnswer";
+import { ITestAnswer, defaultTestAnswer } from "./ITestAnswer";
 import { ITestResult, defaultTestResult } from "./ITestResult";
 
 export interface IProfile {
     id: string;
     nickname: string;
     discriminator: string;
-    testAnswer: ITestAnswerDTO;
+    testAnswer: ITestAnswer;
     testResult: ITestResult;
 };
 

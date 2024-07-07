@@ -23,7 +23,7 @@ function CharacterChemistryContent() {
     const [activeProfileId, setActiveProfileId] = useState<IProfileId | undefined>(profileIds[0]);
 
     const isAnswered = useAppSelector((state) =>
-        state.chemistry.data.profiles[activeProfileId]?.testAnswer !== null
+        state.chemistry.data.profiles[activeProfileId]?.testResult !== null
     );
 
     const nickname = useAppSelector((state) => (
