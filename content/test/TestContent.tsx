@@ -193,10 +193,9 @@ function TestContent() {
     const navigate = useNavigateWithGuestContext();
 
     const getProfile = useGetProfile();
-    const submitAnswer = useSubmitAnswer();
     const [submitStatus, setSubmitStatus] = useTestAnswerStatus();
 
-    const selectIsTestSectionAnsweredList = createSelector(
+    const IsTestSectionAnsweredList = useAppSelector(createSelector(
         state => state.testAnswer.data,
         testAnswer =>
             Object.values(TEST_SECTIONS).map(({ tests }) => (
@@ -205,13 +204,11 @@ function TestContent() {
                     return (
                         (testKey === "hashtag")
                             ? answer.length >= TEST_TYPE.hashtag.selectedMinLength
-                            : answer !== undefined
+                            : (answer !== undefined) && (answer > 0)
                     )
                 }).every(v => v)
             ))
-    )
-
-    const IsTestSectionAnsweredList = useAppSelector(selectIsTestSectionAnsweredList)
+    ))
 
     const isAllTestAnswered = IsTestSectionAnsweredList.every(v => v)
     const isActiveTestAnswered = IsTestSectionAnsweredList[activeSectionIndex]

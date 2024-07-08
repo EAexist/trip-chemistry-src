@@ -1,7 +1,7 @@
 import { ICityType } from "~/common/app-const";
-import { ActivityTag, IActivityTag } from "./enums/ActivityTag";
-import { ExpectationTag, IExpectationTag } from "./enums/ExpectationTag";
-import { CityTag, ICityTag } from "./enums/CityTag";
+import { IActivityTag } from "./enums/ActivityTag";
+import { ICityTag } from "./enums/CityTag";
+import { IExpectationTag } from "./enums/ExpectationTag";
 
 export interface ITestAnswer {
     hashtag: {
@@ -43,6 +43,11 @@ export interface ITestAnswer {
 };
 
 export interface ITestAnswerDTO extends ITestAnswer {}
+
+export const testAnswerToDTO = (testAnswer: ITestAnswer) => ({
+    ...testAnswer,
+    leadership: (testAnswer.leadership !== undefined) ? testAnswer.leadership : -1 
+})
 
 // extends Omit<ITestAnswer, 'hashtag'> {
 //     hashtag:{

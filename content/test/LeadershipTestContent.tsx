@@ -1,17 +1,13 @@
 /* React */
 
 /* Externals */
-import { Card, CardActionArea, CardContent, CardMedia, Stack, useTheme } from "@mui/material";
-
-/* Swiper */
-import 'swiper/css';
-import 'swiper/css/effect-coverflow'; /* Food Carousel */
+import { Card, CardActionArea, CardContent, CardMedia, Fade, Stack, useTheme } from "@mui/material";
+import { AnimatePresence, m } from "framer-motion";
 
 /* App */
 
 /* GoogleMap */
 import { Check } from "@mui/icons-material";
-import { TEST_SECTIONS } from "~/common/app-const";
 import { useTestAnswer } from "~/reducers/testAnswerReducer";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import { useStrings } from "../../texts";
@@ -33,38 +29,43 @@ function LeadershipTestContent() {
     return (
             <div className="content">
                 <div className="modal__container flex-grow">
-                    <Stack display={'flex'} width={"100%"}>
+                    <Stack display={'flex'} width={"100%"} alignItems={"end"}>
                         {
                             Object.entries(contentstrings.subTest.leadership.options).map(([value, { detail }]) => {
 
                                 const isActive = Number(value) === answer
 
                                 return (
-                                    <Card
-                                        key={value}
-                                        elevation={isActive ? 3 : 1}                                
-                                        // elevation={1}
-                                        sx={{
-                                            backgroundColor: isActive ? "white" : theme.palette.secondary.dark,
-                                            borderRadius: "12px",
-                                            // flexBasis: isActive ? "50%" : "25%",
-                                            flexBasis: "144px",
-                                            // flexGrow: isActive ? 1 : 0
-                                            flexShrink: isActive ? 0 : 1
+                                    <m.div
+                                        layoutId={value}
+                                        animate={{ flexShrink: isActive ? 0 : 1 }}
+                                        layout
+                                        transition={{
+                                            duration: 0.25
+                                        }}
+                                        style={{
+                                            flexBasis: "128px",
                                         }}
                                     >
-                                        <CardActionArea onClick={() => setAnswer(Number(value))} className="flex-end">
-                                            <CardContent className="content content--full" sx={{ textAlign: 'center' }}>
+                                    <Card
+                                        key={value}
+                                        elevation={isActive ? 3 : 1}     
+                                        sx={{
+                                            backgroundColor: isActive ? "white" : theme.palette.secondary.dark,
+                                        }}
+                                    >
+                                        <CardActionArea onClick={() => setAnswer(isActive ? undefined : Number(value))} className="flex-end">
+                                            <CardContent className="content content--full block--centered">
                                                 {
                                                     isActive && <Check color="primary"/>
                                                 }
-                                                <p className={ isActive ? "typography-highlight" : "typography-note"}><b>{ optionStrings[value].label }</b></p>
-                                                {
+                                                <h3 className={ isActive ? "typography-highlight" : "typography-note"}>{ optionStrings[value].label }</h3>
+                                                {/* {
                                                     isActive &&
-                                                    <>
+                                                    <Fade in={isActive} style={{ transitionDelay: isActive ? '500ms' : '0ms' }} >
                                                         <p>{detail}</p>
-                                                    </>
-                                                }
+                                                    </Fade>
+                                                } */}
                                             </CardContent>
                                             <CardMedia
                                                 component="img"
@@ -76,10 +77,16 @@ function LeadershipTestContent() {
                                             />
                                         </CardActionArea>
                                     </Card>
+                                    </m.div>
                                 )
                             })
                         }
                     </Stack>
+                    <AnimatePresence>
+                    <m.p>
+
+                    </m.p>
+                    </AnimatePresence>
                 </div>
                 <div />
             </div >

@@ -11,7 +11,7 @@ import { HASHTAGS, HEADERS_AXIOS, TEST_TYPE } from "../common/app-const";
 import { ActivityTag } from "../interfaces/enums/ActivityTag";
 import { ExpectationTag } from "../interfaces/enums/ExpectationTag";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
-import { IHashTagTestKey, INumericTestKey, ITestAnswer, ITestAnswerDTO, ITestKey } from "../interfaces/ITestAnswer";
+import { IHashTagTestKey, INumericTestKey, ITestAnswer, ITestAnswerDTO, ITestKey, testAnswerToDTO } from "../interfaces/ITestAnswer";
 import { RootState, useAppDispatch, useAppSelector } from "../store";
 import { useUserId } from "./authReducer";
 import { CityTag } from "~/interfaces/enums/CityTag";
@@ -75,12 +75,7 @@ export const sampleTestAnswer: ITestAnswer = {
         activity: Object.values(ActivityTag).slice(0, 1),
         city: Object.values(CityTag).slice(0, 1),
     },
-    leadership: undefined,
     schedule: {
-        // startTime: undefined,
-        // endTime: undefined,
-        // schedule: undefined,
-        // nightPlan: undefined,
     },
     restaurant: {
         // dailyBudget: undefined, /* 식사 평균 */
@@ -125,7 +120,7 @@ export const asyncSetAnswer = createAsyncThunk<any, IProfileId, {
         console.log(`[asyncSetAnswer] PUT /profile/answer?\n\tid=${id}`);
         try {
             const response = await axios.put(`/profile/answer`,
-                getState().testAnswer.data,
+                testAnswerToDTO(getState().testAnswer.data),
                 {
                     method: "PUT",
                     headers: HEADERS_AXIOS,
