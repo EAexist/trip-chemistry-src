@@ -45,7 +45,7 @@
 }
 
 #root {
-    /* position: relative; */
+    position: relative;
     z-index: 0;
 }
 

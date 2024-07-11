@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 /* Externals */
 import { Button, ButtonProps, Container } from "@mui/material";
-import { m } from "framer-motion";
+import { m, useMotionValueEvent, useScroll } from "framer-motion";
 
 /* App */
 import { MotionButton, MotionButtonProps } from "~/motion/components/MotionButton";
@@ -81,10 +81,17 @@ function IOSResponsiveFab({
     //         body.style.removeProperty('overflow');
     //     };
     // }, []);
+    const { scrollY } = useScroll()
+    const [ a, setA ] = useState(0)
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        console.log(`[IOSResponsiveFab] scrollY=${latest} `)
+        setA(latest)
+    })
+
 
     return (
-        <m.div animate={{ top: currentVisualViewportHeight + scrollYAtkeyboardOpen }} style={{ position: "fixed", top: window.innerHeight, transform: "translateY(-100%)", width: "100%" }} >
-            <Container className={isIOSKeyboardOpened ? "no-gutter" : "column-padding"}>
+        <m.div animate={{ top: currentVisualViewportHeight + scrollYAtkeyboardOpen }} style={{ position: "fixed", width: "100%" , top: currentVisualViewportHeight, y: scrollY }} >
+            <Container className={isIOSKeyboardOpened ? "no-gutter" : "column-padding"} sx={{ transform: "translateY(-100%)" }}>
                 <Button
                     {...props}
                     variant="contained"
