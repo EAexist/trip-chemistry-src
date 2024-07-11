@@ -2,10 +2,10 @@
 
 /* Externals */
 import { ArrowRight } from "@mui/icons-material";
-import { AppBar, Container, Fade, Stack, Toolbar, useScrollTrigger } from "@mui/material";
+import { AppBar, Container, Divider, Fade, Stack, Toolbar, useScrollTrigger } from "@mui/material";
 
 /* App */
-import { CITIES, CITY_TYPES, NATION } from "../../common/app-const";
+import { CITIES, CITY_TYPES, HASHTAGS, NATION } from "../../common/app-const";
 import ImageCard from "../../components/Card/ImageCard";
 import Flag from "../../components/Flag";
 import Logo from "../../components/Logo";
@@ -18,6 +18,7 @@ import getImgSrc from "../../utils/getImgSrc";
 import Fab from "~/components/Button/Fab";
 import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { Fragment } from "react/jsx-runtime";
 
 interface CityDetailContentProps {
     cityId: string;
@@ -29,12 +30,11 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
     const navigate = useNavigateWithGuestContext();
 
     const { pathname } = useLocation()
-    const [ searchParams ] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const redirectPath = searchParams.get('redirectPath');
 
     /* Constants */
-    const city = CITIES[cityId] as typeof CITIES[keyof typeof CITIES]
-    const cityType = CITY_TYPES[city.type]
+    const city = CITIES[cityId]
     const commonStrings = useStrings().public.common;
     const cityStrings = commonStrings.city[cityId]
 
@@ -42,8 +42,8 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
     const handleNavigateBefore = () => {
         console.log(`[CityDetailContent] handleNavigateBefore /${redirectPath ? redirectPath : 'home'}`)
         navigate(
-            `${redirectPath ? redirectPath : '/home'}`, 
-            { state: { activeProfileId : searchParams.get('activeProfileId'), activeSection: 'city', isRedirected: redirectPath ? true : undefined } }, 
+            `${redirectPath ? redirectPath : '/home'}`,
+            { state: { activeProfileId: searchParams.get('activeProfileId'), activeSection: 'city', isRedirected: redirectPath ? true : undefined } },
             pathname.includes("test") ? "city" : undefined
         );
         // navigate('../..', {}, pathname.includes("test") ? "city" : undefined );
@@ -60,16 +60,16 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
                 <Toolbar>
                     <NavigateBeforeButton onClick={handleNavigateBefore} />
                     <Fade in={hiddenTitleTrigger}>
-                        <Stack>
+                        <Stack divider={<Divider orientation="vertical" flexItem />}>
+                            <p className="typography-note">여행지 알아보기</p>
                             <h2>{cityStrings.name}</h2>
-                            <p className="typography-note">{`# ${cityType.title}`}</p>
                         </Stack>
                     </Fade>
                 </Toolbar>
             </AppBar>
             <Toolbar />
             <Container className="content">
-                <Stack justifyContent={"space-between"}>
+                <div className="content content--dense">
                     <Stack spacing={2}>
                         <h2 className="section-title">{cityStrings.name}</h2>
                         {/* <h3 className="section-title">{cityId}</h3> */}
@@ -78,8 +78,14 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
                             && <Flag id={city.nation} />
                         }
                     </Stack>
-                    <p className="typography-note">{`# ${cityType.title}`}</p>
-                </Stack>
+                    <p className="typography-note" style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                        {
+                            city.cityTags.map((tag) =>
+                                <Fragment key={tag}>#{HASHTAGS.city[tag].label}{"\xa0\xa0"}</Fragment>
+                            )
+                        }
+                    </p>
+                </div>
                 <ImageCard
                     src={getImgSrc("/city", cityId, { size: 'large' })}
                     title={cityId}
@@ -87,7 +93,7 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
                 ></ImageCard>
                 <p className="section-title--sm" style={{ maxWidth: "90%" }}>{cityStrings.intro}</p>
                 <p>{cityStrings.body}</p>
-                <Stack>
+                <Stack justifyContent={"end"}>
                     <p className="typography-note">{commonStrings.reference}{commonStrings.linkType[city.linkType as keyof typeof commonStrings.linkType].name}</p>
                     <Logo id={city.linkType} />
                 </Stack>

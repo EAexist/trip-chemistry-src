@@ -98,7 +98,7 @@ function ChemistryDetailContent() {
                                 key={id}
                                 icon={<Icon>{icon}</Icon>}
                                 label={label}
-                                variant={(activeSection === id) ? "filled" : "outlined"}
+                                variant={isAnswered && (activeSection === id) ? "filled" : "outlined"}
                                 onClick={() => setActiveSection(id)}
                                 disabled={!isAnswered}
                             />

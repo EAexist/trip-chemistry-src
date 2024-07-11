@@ -74,7 +74,7 @@ function ChemistryListItem({ id }: ChemistryListItemProps) {
                     sx={{ margin: 0 }}
                 />
                 <Stack direction={'row'} className="typography-note" spacing={0.5}>
-                    <p>{`${chemistry.profileIds.length}명`}</p>
+                    <p>{chemistry ? `${chemistry.profileIds.length}명` : <Skeleton />}</p>
                     <Divider orientation="vertical" variant="middle" flexItem />
                     {
                         chemistry.profileIds.map((id) => {
