@@ -18,7 +18,7 @@ function ChemistryListItem({ id }: ChemistryListItemProps) {
     const navigate = useNavigateWithGuestContext();
 
     /* State */
-    const [chemistry, setChemistry] = useState<IChemistry>(defaultChemistry);
+    const [chemistry, setChemistry] = useState<IChemistry>();
 
     /* Event Handler */
     const handleClick = () => {
@@ -66,7 +66,7 @@ function ChemistryListItem({ id }: ChemistryListItemProps) {
                         <Stack direction={'row'}>
                             <h2 className="list-item-title">{chemistry ? chemistry.title : <Skeleton />}</h2>
                             {
-                                chemistry.isSample &&
+                                chemistry?.isSample &&
                                 <Paper sx={{ backgroundColor: "gray.main", padding: "2px 8px", borderRadius: "8px" }}><p className="typography-note">sample</p></Paper>
                             }
                         </Stack>
@@ -74,10 +74,10 @@ function ChemistryListItem({ id }: ChemistryListItemProps) {
                     sx={{ margin: 0 }}
                 />
                 <Stack direction={'row'} className="typography-note" spacing={0.5}>
-                    <p>{chemistry ? `${chemistry.profileIds.length}명` : <Skeleton />}</p>
+                    <p>{chemistry ? `${chemistry?.profileIds.length}명` : <Skeleton />}</p>
                     <Divider orientation="vertical" variant="middle" flexItem />
                     {
-                        chemistry.profileIds.map((id) => {
+                        chemistry?.profileIds.map((id) => {
                             const { nickname, testResult } = chemistry.profiles[id]
                             return (
                                 <p key={id}>{nickname}</p>

@@ -185,13 +185,14 @@ function ChemistryContent() {
                                         <List>
                                             {
                                                 profileIds.map((id) => {
-                                                    const { testAnswer, nickname } = profiles[id]
+                                                    const { testResult, nickname } = profiles[id]
+                                                    const hasAnswered = testResult !== null
                                                     return (
                                                         <ListItem
                                                             key={id}
-                                                            className={`${(testAnswer === null) && 'disabled'}`}
+                                                            className={`${!hasAnswered && 'disabled'}`}
                                                             secondaryAction={
-                                                                (testAnswer === null) &&
+                                                                !hasAnswered &&
                                                                 <Stack >
                                                                     <Error sx={{ fontSize: 18 }} />
                                                                     <p className='typography-note'>테스트 기다리는 중</p>

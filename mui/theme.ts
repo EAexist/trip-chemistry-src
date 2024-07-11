@@ -161,7 +161,8 @@ const theme = createTheme({
                     ...(ownerState.color === 'warning' && {
                         backgroundColor: defaultTheme.palette.warning.light
                     }),
-                }),
+                    textTransform: "none",
+                }),                
             }
         },
         MuiButton: {

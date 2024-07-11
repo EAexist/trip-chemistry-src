@@ -118,7 +118,7 @@ function RestaurantChemistryContent() {
                     </Stack>
                 </m.div>
                 <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="content">
-                    <h3 className="section-title section-title--sm">어느 정도 가격대로 찾아볼까?</h3>
+                    <h3 className="section-title section-title--sm">어느 가격대에서 찾아볼까?</h3>
                     <GroupAnswerSlider answerToProfiles={specialBudgetAnswerToProfiles} {...specialRestaurantBudgetSliderProps} />
                     <div className="content">
                         {

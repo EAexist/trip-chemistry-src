@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { IProfile, IProfileId } from "../../interfaces/IProfile";
 import { useProfile } from "../../reducers/chemistryReducer";
 import ProfileAvatar, { ProfileAvatarProps } from "./ProfileAvatar";
+import { Badge } from "@mui/material";
+import { useUserId } from "~/reducers/authReducer";
 
 interface FriendAvatarProps extends ProfileAvatarProps {
     id : IProfileId;
@@ -16,8 +18,12 @@ function FriendAvatar({ id, ...props }: FriendAvatarProps) {
         console.log(`[FriendAvatar] characterId=${characterId}`)
     }, [])
 
+    const userId = useUserId()
+
     return (
-        <ProfileAvatar nickname={ nickname } {...props}/>
+        <Badge badgeContent={"Me"} color="primary" invisible={id !== userId}>
+            <ProfileAvatar nickname={ nickname } {...props}/>
+        </Badge>
     );
 }
 export default FriendAvatar;

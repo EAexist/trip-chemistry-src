@@ -28,7 +28,7 @@ function ScheduleChemistryContent() {
                 Object.values(profiles).map((profile) =>
                 ({
                     nickname: profile.nickname,
-                    ...profile.testAnswer ? profile.testAnswer.schedule : { startTime: -1, endTime: -1, schedule: -1, nightPlan: undefined }
+                    ...profile.testResult ? profile.testAnswer.schedule : { startTime: -1, endTime: -1, schedule: -1, nightPlan: undefined }
                 })
                 ).sort((a, b) => (((b.endTime - b.startTime) - (a.endTime - a.startTime)) === 0) ? (b.schedule - a.schedule) : (b.endTime - b.startTime) - (a.endTime - a.startTime))
         )

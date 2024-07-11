@@ -101,6 +101,7 @@ const chemistrySlice = createSlice({
         },
     },
     extraReducers: (builder) => {
+
         /* asyncCreateChemistry */
         builder.addCase(asyncCreateChemistry.fulfilled, (state, action: PayloadAction<IChemistryDTO>) => {
             console.log(`asyncCreateChemistry.fulfilled: action.payload=${JSON.stringify(action.payload)}`);
@@ -112,7 +113,7 @@ const chemistrySlice = createSlice({
                         action.payload.profiles.map((profile) => (
                             [profile.id, profile]))
                     ),
-                    profileIds: action.payload.profiles.map((profile) => profile.id)
+                    profileIds: action.payload.profiles.sort((a, b)=>(( a.testResult === null ) ? 1 : -1 )).map((profile) => profile.id)
                 },
             }
             state.loadStatus = LoadStatus.SUCCESS;
@@ -159,7 +160,7 @@ const chemistrySlice = createSlice({
                     action.payload.profiles.map((profile) => (
                         [profile.id, profile]))
                 ),
-                profileIds: action.payload.profiles.map((profile) => profile.id),
+                profileIds: action.payload.profiles.sort((a, b)=>(( a.testResult === null ) ? -1 : 1 )).map((profile) => profile.id)
             };
             state.loadStatus = LoadStatus.SUCCESS;
         });
@@ -225,8 +226,8 @@ const useProfile = (id: string, key?: keyof IProfile) => {
 const useProfileIdList = (answeredProfileOnly: boolean = true) => {
     return (
         useAppSelector((state) => Object.values(state.chemistry.data.profiles)
-            .filter(profile => answeredProfileOnly ? (profile.testAnswer !== null) : true)
-            .sort((a, b) => ((b.testAnswer === null) ? -1 : 1))
+            .filter(profile => answeredProfileOnly ? (profile.testResult !== null) : true)
+            .sort((a, b) => ((b.testResult === null) ? -1 : 1))
             .map(profile => profile.id)
             , shallowEqual)
     );
