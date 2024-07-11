@@ -15,7 +15,7 @@ function UserAvatar({ ...props }: UserAvatarProps) {
     }, [])
 
     return (
-        <ProfileAvatar avatarId={characterId} {...props}/>
+        <ProfileAvatar {...props}/>
     );
 }
 export default UserAvatar;

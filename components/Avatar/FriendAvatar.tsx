@@ -17,7 +17,7 @@ function FriendAvatar({ id, ...props }: FriendAvatarProps) {
     }, [])
 
     return (
-        <ProfileAvatar avatarId={characterId} nickname={ nickname } {...props}/>
+        <ProfileAvatar nickname={ nickname } {...props}/>
     );
 }
 export default FriendAvatar;

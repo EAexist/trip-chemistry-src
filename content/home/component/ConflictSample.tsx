@@ -53,11 +53,11 @@ function ConflictSample() {
         setShow((prev) => ({ ...prev, avatar0: latest }))
     )
 
-    const showAvatar2 = useTransform(() => scrollYProgress.get() > 0.3).on("change", (latest) =>
+    const showAvatar2 = useTransform(() => scrollYProgress.get() > 0.4).on("change", (latest) =>
         setShow((prev) => ({ ...prev, avatar1: latest }))
     )
 
-    const showAvatar3 = useTransform(() => scrollYProgress.get() > 0.4).on("change", (latest) =>
+    const showAvatar3 = useTransform(() => scrollYProgress.get() > 0.6).on("change", (latest) =>
         setShow((prev) => ({ ...prev, avatar2: latest }))
     )
 
