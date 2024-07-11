@@ -4,9 +4,7 @@ import Label, { LabelProps } from "../Label";
 interface LabeledAvatarProps extends AvatarProps, LabelProps {
 };
 
-function LabeledAvatar({ label, isActive, labelSize, renderLabel, showLabel, className, sx, ...props }: LabeledAvatarProps) {
-
-    const defaultSx = useTheme().components.MuiAvatar.defaultProps.sx
+function LabeledAvatar({ label, isActive, labelSize, renderLabel, showLabel, ...props }: LabeledAvatarProps) {
 
     return (
         <Label
@@ -17,8 +15,6 @@ function LabeledAvatar({ label, isActive, labelSize, renderLabel, showLabel, cla
             isActive={ isActive }
         >
             <Avatar
-                className={ `${ className }` }
-                sx={{...defaultSx, ...sx} as SxProps<Theme>}
                 { ...props}
             />
         </Label>

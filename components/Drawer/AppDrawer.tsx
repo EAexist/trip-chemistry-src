@@ -107,12 +107,12 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
                                 <MotionListItemButton
                                     key={content}
                                     onClick={() => handleDrawerItemClick(path)}
-                                    selected={pathname.includes(path)}
+                                    // selected={pathname.includes(path)}
                                     disableGutters={false}
 
                                 >
                                     <ListItemAvatar>
-                                        <Avatar variant="rounded">
+                                        <Avatar variant="rounded" sx={pathname.includes(path) ? { backgroundColor: "primary.light" } : {}}>
                                             <PngIcon name={icon} />
                                         </Avatar>
                                     </ListItemAvatar>
@@ -120,6 +120,7 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
                                         primary={
                                             strings.public.contents[content as keyof typeof strings.public.contents].label
                                         }
+                                        sx={pathname.includes(path) ? { '& .MuiListItemText-primary' : {fontWeight: 700 } } : {}}
                                     />
                                 </MotionListItemButton>
                             )

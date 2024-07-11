@@ -42,6 +42,11 @@ const TagSetTestAnswerChip = ({ testKey, selected = true }: TagSetTestAnswerChip
                             onClick={selected ? () => handleDelete(tag) : () => handleClick(tag)}
                             variant={selected ? "filled" : "outlined"}
                             color={"primary"}
+                            sx={selected ? {
+                                '& .MuiChip-label': {
+                                    fontWeight: 600
+                                }
+                            } : {}}
                         />
                     </Zoom>
                 ))

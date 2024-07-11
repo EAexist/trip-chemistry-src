@@ -132,8 +132,8 @@ const theme = createTheme({
                     },
                 },
             ],
-            defaultProps: {
-                sx: {
+            styleOverrides: {
+                root: {
                     backgroundColor: defaultTheme.palette.gray.main,
                     color: defaultTheme.palette.gray.contrastText
                 }

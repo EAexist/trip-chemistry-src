@@ -74,7 +74,7 @@ function RestaurantTestContent() {
     const [popularityAnswer, setFameAnswer] = useTestAnswer("restaurant", "popularity");
 
     return (
-        <div className="content">
+        <div className="content content--dense">
             {/* <h2 className="test__title__heading section-title">유명 맛집에서의 특별한 한끼</h2> */}
             {
                 [
@@ -111,7 +111,7 @@ function RestaurantTestContent() {
                         >
                             <Stack direction="row" justifyContent="space-between" width="100%">
                                 <div>
-                                    <h3 className="section-title section-title--sm">{label}</h3>
+                                    <h3 className={(expanded === label) ? "section-title section-title--sm" : "" }>{label}</h3>
                                     {
                                         (expanded === label) &&
                                         <p className="typography-note">{body}</p>

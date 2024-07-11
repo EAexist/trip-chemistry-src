@@ -17,7 +17,7 @@ import TitleContent from "./component/TitleContent";
 const sections = [
     {
         "id": "conflict",
-        title: "여행가서 다툴 걱정은 끝!",
+        title: "여행가서 다투지 말고",
         "body": "일행과 나의 여행 타입을 미리 비교하고\n코멘트를 따라 서로를 배려하며 계획을 짜보자.",
         element: <ConflictSample />
     },

@@ -143,7 +143,7 @@ function TimeTestContent() {
                     <CheckStepButton
                         onClick={handleStep(1)}
                         optional={
-                            (activeStep !== 1) && (scheduleAnswer !== undefined) && scheduleTestOptions[scheduleAnswer].label
+                            (activeStep !== 1) && (scheduleAnswer !== undefined) && scheduleTestOptions[scheduleAnswer-1].label
                         }
                         isChecked={scheduleAnswer !== undefined}
                         isActive={activeStep === 1}
