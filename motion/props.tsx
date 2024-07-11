@@ -27,20 +27,22 @@ export const STAGGER_CHILDREN: MotionProps = {
 
 /* FADE */
 export const VARIANTS_FADEIN_FROMBOTTOM: Variants = {
-    visible: {
+    visible: (delay = 0) => ({
         y: 0,
         opacity: 1,
         transition: {
-            duration: 0.6
+            duration: 0.6,
+            delay: delay
         }
-    },
-    hidden: {
+    }),
+    hidden: (delay = 0) => ({
         y: 20,
         opacity: 0,
         transition: {
-            duration: 0.6
+            duration: 0.6,
+            delay: delay
         }
-    }
+    })
 };
 
 export const VARIANTS_FADEIN: Variants = {
@@ -106,8 +108,8 @@ export const FADEIN_FROMBOTTOM_VIEWPORT = {
     whileInView: "visible",
     variants: VARIANTS_FADEIN_FROMBOTTOM,
     viewport: {
-        // once: true
-        once: false,
+        once: true
+        // once: false,
     }
 };
 

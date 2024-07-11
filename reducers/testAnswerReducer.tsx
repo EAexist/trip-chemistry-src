@@ -71,9 +71,12 @@ export const _sampleTestAnswer: ITestAnswer = {
 
 export const sampleTestAnswer: ITestAnswer = {
     hashtag: {
-        expectation: Object.values(ExpectationTag).slice(0, 1),
-        activity: Object.values(ActivityTag).slice(0, 1),
-        city: Object.values(CityTag).slice(0, 1),
+        // expectation: Object.values(ExpectationTag).slice(0, 1),
+        // activity: Object.values(ActivityTag).slice(0, 1),
+        // city: Object.values(CityTag).slice(0, 1),
+        expectation: [],
+        activity: [],
+        city: [],
     },
     schedule: {
     },

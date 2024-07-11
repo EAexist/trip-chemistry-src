@@ -57,11 +57,11 @@ function ResultPage() {
             <MainAppBar >
                 <m.h1 {...FADEIN_VIEWPORT} className="section-title">{strings.sections.character.title}</m.h1>
             </MainAppBar>
-            <Toolbar />
             {
                 hasAnsweredTest
                     ?
                     <>
+                        <Toolbar />
                         <UserResultContent/>
                         <div className="fab-placeholder fab-placeholder--no-margin"/>
                         <Fab
@@ -82,7 +82,7 @@ function ResultPage() {
                         />
                     </>
                     :
-                    <div className="flex" style={{ height: "100%" }}>
+                    <div className="flex fill-window">
                         <Container className='flex-grow block--centered content'>
                             <LazyImage
                                 alt={"miss"}
