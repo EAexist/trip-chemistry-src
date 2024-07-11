@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { ThemeProvider } from '@mui/material'
 import { LocalizationProvider } from '@mui/x-date-pickers'
+import { koKR } from '@mui/x-date-pickers/locales'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { HelmetProvider, Helmet } from 'react-helmet-async'
 
@@ -37,7 +38,10 @@ export default function App() {
                 <link rel="canonical" href={env.REACT_APP_PUBLIC_URL} />
             </Helmet>
             <ThemeProvider theme={theme}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <LocalizationProvider 
+                    dateAdapter={AdapterDayjs}
+                    localeText={koKR.components.MuiLocalizationProvider.defaultProps.localeText}
+                >
                     <RouterProvider router={router} />
                 </LocalizationProvider>
             </ThemeProvider>
