@@ -22,16 +22,20 @@ function ConfirmDrawer({ title, body, cancelButtonLabel, onConfirm, onCancel, is
             }}
             {...props}
         >
-            <Container className='column-padding content content--sparse'>
-                <h2 className='section-title'>
-                    {title}
-                </h2>
-                {
-                    body &&
-                    <p>
-                        {body}
-                    </p>
-                }
+            <Container className='column-padding content'>
+                <div>
+                    <div className="section-header">
+                        <h2 className='section-title'>
+                            {title}
+                        </h2>
+                    </div>
+                    {
+                        body &&
+                        <p>
+                            {body}
+                        </p>
+                    }
+                </div>
                 <Stack display={"flex"}>
                     <Button onClick={onCancel} startIcon={<Close />} variant="contained" color={isConfirmDefault ? "gray" : "primary"} sx={{ flexGrow: 1 }}>
                         {cancelButtonLabel}
