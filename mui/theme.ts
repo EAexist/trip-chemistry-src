@@ -7,6 +7,11 @@ declare module '@mui/material/Button' {
     }
 }
 
+declare module '@mui/material/Avatar' {
+    interface AvatarPropsVariantOverrides {
+        outlined: true;
+    }
+}
 declare module '@mui/material/ToggleButton' {
     interface ToggleButtonPropsVariantOverrides {
         contained: true;
@@ -129,6 +134,13 @@ const theme = createTheme({
                     props: { variant: 'rounded' },
                     style: {
                         borderRadius: "8px"
+                    },
+                },
+                {
+                    props: { variant: 'outlined' },
+                    style: {
+                        outline: "2px solid white",
+                        borderRadius: "50%"
                     },
                 },
             ],

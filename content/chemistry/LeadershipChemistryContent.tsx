@@ -47,14 +47,19 @@ function LeadershipChemistryContent() {
                             </ListItemAvatar>
                                 <div>
                                     <ListItemText
-                                        primary={<h3 className="list-item-title">{label}</h3>}
+                                        primary={<h3>{label}</h3>}
                                     />
                                     <Stack>
                                         {
                                             (Object.keys(leadershipAnswerToProfileList).includes(String(value)) ? leadershipAnswerToProfileList[value] : []).map((id) => (
                                                 <Chip
-                                                    size="small"
                                                     label={nicknames[id]}
+                                                    icon={<Avatar sx={{ height: "28px", width: '28px', outlineWidth: 0 }}/>}
+                                                    sx={{ 
+                                                        '& .MuiChip-icon' : {
+                                                            marginLeft: '0px'
+                                                        }
+                                                    }}
                                                 />
                                             ))
                                         }

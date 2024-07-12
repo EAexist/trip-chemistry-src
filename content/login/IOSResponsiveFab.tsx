@@ -8,7 +8,7 @@ import { m, useMotionValueEvent, useScroll } from "framer-motion";
 /* App */
 import { MotionButton, MotionButtonProps } from "~/motion/components/MotionButton";
 
-interface IOSResponsiveFabProps extends ButtonProps {};
+interface IOSResponsiveFabProps extends ButtonProps { };
 
 function IOSResponsiveFab({
     ...props
@@ -21,15 +21,26 @@ function IOSResponsiveFab({
     const [scrollYAtkeyboardOpen, setScrollYAtkeyboardOpen] = useState(window.scrollY)
     const [currentVisualViewportHeight, setcurrentVisualViewportHeight] = useState<number>(window.innerHeight)
     const [isIOSKeyboardOpened, setIsIOSKeyboardOpened] = useState(false)
+    const body = document.querySelector('body') as HTMLElement;
 
     useEffect(() => {
         const handleVisualViewPortResize = () => {
             if (window.visualViewport) {
-                const currentVisualViewportHeight = Number(window.visualViewport?.height)
+                const currentVisualViewportHeight = window.visualViewport?.height
                 setcurrentVisualViewportHeight(currentVisualViewportHeight)
                 setIsIOSKeyboardOpened(currentVisualViewportHeight < window.innerHeight)
                 window.scrollTo(0, 1)
                 setScrollYAtkeyboardOpen(window.scrollY)
+                // if (currentVisualViewportHeight < window.innerHeight) {
+                //     body.style.backgroundColor = "chocolate"
+                //     body.style.height = window.visualViewport?.height.toString()
+                //     console.log(`[body.style.height] ${body.style.height}`)
+                // }
+                // else {
+                //     body.style.backgroundColor = "transparent"
+                //     body.style.height = window.visualViewport?.height.toString()
+                //     console.log(`[body.style.height] ${body.style.height}`)
+                // }
             }
         }
         if (window.visualViewport) {
@@ -82,7 +93,7 @@ function IOSResponsiveFab({
     //     };
     // }, []);
     const { scrollY } = useScroll()
-    const [ a, setA ] = useState(0)
+    const [a, setA] = useState(0)
     useMotionValueEvent(scrollY, "change", (latest) => {
         console.log(`[IOSResponsiveFab] scrollY=${latest} `)
         setA(latest)
@@ -90,13 +101,13 @@ function IOSResponsiveFab({
 
 
     return (
-        <m.div animate={{ top: currentVisualViewportHeight + scrollYAtkeyboardOpen }} style={{ position: "fixed", width: "100%" , top: currentVisualViewportHeight, y: scrollY }} >
+        <m.div animate={{ top: currentVisualViewportHeight + scrollYAtkeyboardOpen }} style={{ position: "fixed", width: "100%", top: currentVisualViewportHeight, y: scrollY }} >
             <Container className={isIOSKeyboardOpened ? "no-gutter" : "column-padding"} sx={{ transform: "translateY(-100%)" }}>
                 <Button
                     {...props}
                     variant="contained"
                     className="main-action-button"
-                    sx={{  ...isIOSKeyboardOpened ? { borderRadius: 0 } : {}}}
+                    sx={{ ...isIOSKeyboardOpened ? { borderRadius: 0 } : {} }}
                 >
                     확인
                 </Button>

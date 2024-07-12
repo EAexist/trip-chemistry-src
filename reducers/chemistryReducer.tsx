@@ -137,7 +137,7 @@ const chemistrySlice = createSlice({
                     action.payload.profiles.map((profile) => (
                         [profile.id, profile]))
                 ),
-                profileIds: action.payload.profiles.map((profile) => profile.id),
+                profileIds: action.payload.profiles.sort((a, b)=>(( a.testResult === null ) ? 1 : -1 )).map((profile) => profile.id)
             };
             state.loadStatus = LoadStatus.SUCCESS;
         });
@@ -160,7 +160,7 @@ const chemistrySlice = createSlice({
                     action.payload.profiles.map((profile) => (
                         [profile.id, profile]))
                 ),
-                profileIds: action.payload.profiles.sort((a, b)=>(( a.testResult === null ) ? -1 : 1 )).map((profile) => profile.id)
+                profileIds: action.payload.profiles.sort((a, b)=>(( a.testResult === null ) ? 1 : -1 )).map((profile) => profile.id)
             };
             state.loadStatus = LoadStatus.SUCCESS;
         });

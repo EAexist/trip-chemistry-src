@@ -33,9 +33,9 @@ function GroupAnswerSliderValueLabel({ profileIds, isActive, onClick }: GroupAns
             :
             <Badge badgeContent={length} >
                 <Stack onClick={onClick} direction={"row-reverse"} spacing={-5} alignItems={"start"}>
-                    <Avatar />
-                    <LabeledAvatar label={`${label} ···`} labelSize="large" />
-                    <FriendAvatar id={profileIds[0]} renderLabel={false} />
+                    <Avatar variant="outlined"/>
+                    <LabeledAvatar label={`${label} ···`} labelSize="large" variant="outlined"/>
+                    <FriendAvatar id={profileIds[0]} renderLabel={false} variant="outlined" />
                 </Stack>
             </Badge>
     )

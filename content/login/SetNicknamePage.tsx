@@ -1,5 +1,5 @@
 /* React */
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 /* Externals */
 import { AppBar, Container, Toolbar } from "@mui/material";
@@ -51,6 +51,25 @@ function SetNicknamePage({
     const helperText = useCallback((value: string) => (
         `${value.length}/${USER.maxNicknameLength}`
     ), [USER.maxNicknameLength]);
+
+    const [scrollYAtkeyboardOpen, setScrollYAtkeyboardOpen] = useState(window.scrollY)
+    const [currentVisualViewportHeight, setcurrentVisualViewportHeight] = useState<number>(window.innerHeight)
+    const [isIOSKeyboardOpened, setIsIOSKeyboardOpened] = useState(false)
+
+    useEffect(() => {
+        const handleVisualViewPortResize = () => {
+            if (window.visualViewport) {
+                const currentVisualViewportHeight = Number(window.visualViewport?.height)
+                setcurrentVisualViewportHeight(currentVisualViewportHeight)
+                setIsIOSKeyboardOpened(currentVisualViewportHeight < window.innerHeight)
+                window.scrollTo(0, 1)
+                setScrollYAtkeyboardOpen(window.scrollY)
+            }
+        }
+        if (window.visualViewport) {
+            window.visualViewport.onresize = handleVisualViewPortResize;
+        }
+    }, [])
 
     return (
         <RoutedMotionPage>
