@@ -29,7 +29,7 @@ function IOSResponsiveFab({
                 const currentVisualViewportHeight = window.visualViewport?.height
                 setcurrentVisualViewportHeight(currentVisualViewportHeight)
                 setIsIOSKeyboardOpened(currentVisualViewportHeight < window.innerHeight)
-                window.scrollTo(0, 1)
+                window.scrollTo({ top: 1, left: 0, behavior: "instant" })
                 setScrollYAtkeyboardOpen(window.scrollY)
                 // if (currentVisualViewportHeight < window.innerHeight) {
                 //     body.style.backgroundColor = "chocolate"
