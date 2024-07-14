@@ -20,19 +20,13 @@ const HomePageItem = ({
     content?: ReactNode
 }>) => {
     const ref = useRef(null);
-    const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-    const y = useParallax(scrollYProgress, 400);
-
-    // useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    //     console.log(`[scrollYProgress] ${title} ${latest}`)
-    // })
 
     return (
         <section>
-            <div ref={ref} className="fill-window flex" style={{ height: "100dvh" }}>
+            <div ref={ref} className="flex" style={{ height: "100vh" }}>
                 <Toolbar />
                 <Container className="content content--sparse" sx={{ display: "flex", flexDirection: "column", flexGrow: 1, justifyContent: "center" }}>
-                    <div className="block--centered">
+                    <div className="block--centered" >
                         {
                             children
                         }

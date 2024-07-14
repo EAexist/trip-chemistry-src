@@ -33,8 +33,8 @@ const TitleContent = () => {
     })
     return (
         <section>
-            <div ref={ref} style={{ position: "relative", height: "250dvh" }}>
-                <m.div style={{ position: "sticky", top: "50dvh", translateY: height, opacity, transform: "translateY(-100%)" }}>
+            <div ref={ref} style={{ position: "relative", height: "250vh" }}>
+                <m.div style={{ position: "sticky", top: "50vh", translateY: height, opacity, transform: "translateY(-100%)" }}>
                     <m.div style={{ y }} className="section-header block--centered"
                         ref={(ref) => {
                             if (ref) setTitleHeight(ref.offsetHeight)

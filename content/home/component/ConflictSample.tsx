@@ -67,6 +67,23 @@ function ConflictSample() {
 
     return (
         <Container className="gutter-2xl block--centered column-padding" ref={ref} >
+            <m.div style={{ y }}>
+                <Paper sx={{ backgroundColor: "gray.main" }}>
+                    <Container className="column-padding">
+                        <p>
+                            {
+                                lowDailyBudgetMemberNicknames.map((nickname, index) =>
+                                    <Fragment key={nickname}>
+                                        <b>{nickname}</b>
+                                        {" 님, "}
+                                    </Fragment>
+                                )
+                            }
+                            {"여행지의 맛집들에 대해 친구들의 이야기를 듣고, 예산을 조정해 함께해보세요."}
+                        </p>
+                    </Container>
+                </Paper>
+            </m.div>
             <Slider
                 {...dailyRestaurantSliderProps}
                 size="small"
@@ -111,25 +128,6 @@ function ConflictSample() {
                 min={8000}
                 max={20000}
             />
-            {/* <Grow in={show.comment} timeout={ 1000 }> */}
-            <m.div style={{ y }}>
-                <Paper sx={{ backgroundColor: "gray.main" }}>
-                    <Container className="column-padding">
-                        <p>
-                            {
-                                lowDailyBudgetMemberNicknames.map((nickname, index) =>
-                                    <Fragment key={nickname}>
-                                        <b>{nickname}</b>
-                                        {" 님, "}
-                                    </Fragment>
-                                )
-                            }
-                            {"여행지의 맛집들에 대해 친구들의 이야기를 듣고, 예산을 조정해 함께해보세요."}
-                        </p>
-                    </Container>
-                </Paper>
-                </m.div>
-            {/* </Grow> */}
         </Container>
     );
 }

@@ -17,14 +17,14 @@ import TitleContent from "./component/TitleContent";
 const sections = [
     {
         "id": "conflict",
-        title: "여행가서 다투지 말고",
-        "body": "일행과 나의 여행 타입을 미리 비교하고\n코멘트를 따라 서로를 배려하며 계획을 짜보자.",
+        title: "여행가서 다투지 않도록",
+        "body": "서로의 여행 타입 미리 비교하고\n배려하며 시작하는 여행 계획",
         element: <ConflictSample />
     },
     {
         "id": "character",
         title: "나는 어떤 여행 타입일까?",
-        "body": "귀여운 캐릭터와 함께 나의 여행 스타일을 알아보자",
+        "body": "귀여운 캐릭터와 함께 알아보는 나의 여행 스타일",
         element: <CharacterSample />
     },
     // {
