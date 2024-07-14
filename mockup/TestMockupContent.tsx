@@ -31,7 +31,7 @@
 // import { EffectCoverflow } from "swiper/modules";
 // import { SwiperOptions } from "swiper/types";
 // import Logo from "../components/Logo";
-// import PngIcon from "../components/PngIcon";
+// import ImageIcon from "../components/ImageIcon";
 // import ScrollPageContainer from "../components/ScrollPage/ScrollPageContainer";
 // import ScrollPageItem from "../components/ScrollPage/ScrollPageItem";
 // import StepCheckpointContext, { IdToIndex } from "../components/Step/StepCheckpointContext";
@@ -235,7 +235,7 @@
 //                                                             elevation={0}
 //                                                         >
 //                                                             <TestAnswerBadge testKey={testKey as ITestKey} sx={{ height: 'fit-content', padding: "4px" }}>
-//                                                                 <PngIcon name={testKey} size={"large"} />
+//                                                                 <ImageIcon name={testKey} size={"large"} />
 //                                                             </TestAnswerBadge>
 //                                                         </SectionButton>
 //                                                     </SwiperSlide>

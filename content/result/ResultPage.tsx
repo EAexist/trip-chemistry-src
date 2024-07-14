@@ -8,27 +8,24 @@ import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext
 import { FADEIN_VIEWPORT } from "../../motion/props";
 
 import { Share } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import AnimatedIcon from "~/components/AnimatedIcon";
 import MainAppBar from "~/components/AppBar/MainAppBar";
 import Fab from "~/components/Button/Fab";
 import StartTestFab from "~/components/Button/StartTestFab";
-import LazyImage from "~/components/LazyImage";
 import env from "~/env";
 import withUserProfile from "~/hocs/withUserProfile";
 import { useHasAnsweredTest, useUserId } from "~/reducers/authReducer";
 import { useAppSelector } from "~/store";
-import getImgSrc from "~/utils/getImgSrc";
 import { useStrings } from "../../texts";
 import ShareLinkDialog from "../chemistry/ShareLinkDialog";
 import ResultContent from "./ResultContent";
-import { useLocation } from "react-router-dom";
 
 const UserResultContent = withUserProfile(ResultContent)
 
 function ResultPage() {
 
     /* Require Test Answer */
-
     const nickname = useAppSelector((state) => state.auth.data.profile.nickname)
     const hasAnsweredTest = useHasAnsweredTest();
 
@@ -84,12 +81,10 @@ function ResultPage() {
                     :
                     <div className="flex fill-window">
                         <Container className='flex-grow block--centered content'>
-                            <LazyImage
-                                alt={"miss"}
-                                src={getImgSrc('/info', "MISS", { size: "xlarge" })}
-                                width={"256px"}
-                                height={"256px"}
-                                containerClassName="NoticeBlock__image"
+                            <AnimatedIcon
+                                name="groundhog-day"   
+                                width="96px"    
+                                height="96px"                             
                             />
                             <p>{`${nickname} 님은 어떤 여행 타입일까요?\n테스트를 완료하고 결과를 확인해보세요.`}</p>
                         </Container>

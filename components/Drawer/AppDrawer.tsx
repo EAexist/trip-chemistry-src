@@ -13,7 +13,7 @@ import { useIsAuthorized, useUserProfile } from "../../reducers/authReducer";
 import { useStrings } from "../../texts";
 import UserAvatar from "../Avatar/UserAvatar";
 import NavigateBeforeButton from "../Button/NavigateBeforeButton";
-import PngIcon from "../PngIcon";
+import ImageIcon from "../ImageIcon";
 
 interface AppDrawerProps extends SwipeableDrawerProps {
     onDrawerItemClick: () => void
@@ -71,7 +71,7 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
                             <ListItemText
                                 primary={
                                     <Stack spacing={2} alignItems={"end"}>
-                                        <PngIcon name={"app"} size="large" />
+                                        <ImageIcon name={"app"} size="large" />
                                         <p className="section-title">여행 타입 테스트</p>
                                     </Stack>
                                 }
@@ -107,13 +107,13 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
                                 <MotionListItemButton
                                     key={content}
                                     onClick={() => handleDrawerItemClick(path)}
-                                    // selected={pathname.includes(path)}
+                                    selected={pathname.includes(path)}
                                     disableGutters={false}
 
                                 >
                                     <ListItemAvatar>
-                                        <Avatar variant="rounded" sx={pathname.includes(path) ? { backgroundColor: "primary.light" } : {}}>
-                                            <PngIcon name={icon} />
+                                        <Avatar variant="rounded">
+                                            <ImageIcon name={icon} />
                                         </Avatar>
                                     </ListItemAvatar>
                                     <ListItemText

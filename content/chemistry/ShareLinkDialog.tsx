@@ -7,7 +7,7 @@ import { Alert, Avatar, Button, ButtonBase, Container, Grid, Icon, IconButton, I
 
 /* App */
 import DraggableDialog from "~/components/Paper/DraggableDialog";
-import PngIcon from "~/components/PngIcon";
+import ImageIcon from "~/components/ImageIcon";
 
 interface ShareLinkDialogProps {
     title: string
@@ -127,7 +127,7 @@ function ShareLinkDialog({
                                                     ?
                                                     <Icon>{icon}</Icon>
                                                     :
-                                                    <PngIcon name={pngIcon} size="large" />
+                                                    <ImageIcon name={pngIcon} size="large" />
                                             }
                                         </Avatar>
                                         <p className="typography-note">{label}</p>

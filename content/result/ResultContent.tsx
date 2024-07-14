@@ -28,7 +28,7 @@ function ResultContent({ ...props }: ResultContentProps) {
                 {
                     [
                         {
-                            title: `${props.nickname}님의 여행 타입은`,
+                            title: `${props.nickname}님의 여행 타입`,
                             element: <CharacterResultContent {...props} />
                         },
                         {

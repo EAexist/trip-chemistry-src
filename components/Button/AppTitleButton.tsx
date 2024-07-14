@@ -2,7 +2,7 @@ import { Button, ButtonProps, IconButtonProps } from "@mui/material";
 import useNavigateWithGuestContext from "~/hooks/useNavigateWithGuestContext";
 import { useStrings } from "~/texts";
 import Logo from "../Logo";
-import PngIcon from "../PngIcon";
+import ImageIcon from "../ImageIcon";
 
 interface AppTitleButtonProps extends ButtonProps {
 };
@@ -18,7 +18,7 @@ const AppTitleButton = (( props: AppTitleButtonProps) => {
     }
 
     return (
-        <Button onClick={handleClick} startIcon={<PngIcon name={"app"} />} {...props} >
+        <Button onClick={handleClick} startIcon={<ImageIcon name={"app"} />} {...props} >
             {title}
         </Button>
     )

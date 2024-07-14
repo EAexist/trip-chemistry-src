@@ -1,14 +1,14 @@
 import { DetailedHTMLProps } from 'react';
-import '../styles/PngIcon.css';
+import '../styles/ImageIcon.css';
 
 import getImgSrc from "../utils/getImgSrc";
 
-interface PngIconProps extends DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>{
+interface ImageIconProps extends DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>{
     name: string;
     size?: "small" | "medium" | "large" | "xlarge";
 };
 
-function PngIcon({ name, size = "medium", ...props } : PngIconProps ){
+function ImageIcon({ name, size = "medium", ...props } : ImageIconProps ){
     const basePath = '/icon'
     const src = getImgSrc( basePath, `${name}`, { size } );
     // const src = getImgSrc( basePath, `${name}-${size}`, FORMATWEBP );
@@ -18,7 +18,7 @@ function PngIcon({ name, size = "medium", ...props } : PngIconProps ){
             alt={ name }
             width={ "24px" }
             height={ "24px" }
-            className={`PngIcon PngIcon--${size}`}
+            className={`ImageIcon ImageIcon--${size}`}
             srcSet={ `${src.replace(size, `medium`)} 24w` }
             sizes={ '24w' }
             {...props}
@@ -26,4 +26,4 @@ function PngIcon({ name, size = "medium", ...props } : PngIconProps ){
         />
     );
 }
-export default PngIcon;
+export default ImageIcon;

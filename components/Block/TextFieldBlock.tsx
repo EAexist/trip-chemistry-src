@@ -41,11 +41,12 @@ const TextFieldBlock = forwardRef(({
                 </h1>
             </div>
             <div className="content content--sparse">
-                <div style={{ minHeight: "16px" }}>
-                    {
-                        note
-                    }
-                </div>
+                {
+                    note &&
+                    <div style={{ minHeight: "16px" }}>
+                        { note }
+                    </div>
+                }
                 <TextField
                     // variant="standard"
                     value={value}

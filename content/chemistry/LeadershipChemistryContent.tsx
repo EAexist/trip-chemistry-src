@@ -1,24 +1,23 @@
 /* React */
 
 /* Externals */
-import { m } from "framer-motion";
 import { Avatar, Chip, List, ListItemAvatar, ListItemText, Stack } from "@mui/material";
+import { m } from "framer-motion";
 
 /* App */
-import { useStrings } from "../../texts";
+import { createSelector } from "@reduxjs/toolkit";
+import { IProfile } from "~/interfaces/IProfile";
+import { MotionListItem } from "~/motion/components/MotionListItem";
+import { useAppSelector } from "~/store";
+import getImgSrc from "~/utils/getImgSrc";
 import useValueToProfileIdList from "../../hooks/useValueToProfileIdList";
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
-import FriendAvatar from "~/components/Avatar/FriendAvatar";
-import { MotionListItem } from "~/motion/components/MotionListItem";
-import { IProfile } from "~/interfaces/IProfile";
-import { useAppSelector } from "~/store";
-import { createSelector } from "@reduxjs/toolkit";
-import getImgSrc from "~/utils/getImgSrc";
+import { useStrings } from "../../texts";
+import { leadershipAnswerOptions } from "../test/LeadershipTestContent";
 
 function LeadershipChemistryContent() {
 
     const strings = useStrings().public.contents.chemistry;
-    const optionStrings = Object(useStrings().public.contents.test.test.leadership.options);
 
     const leadershipAnswerToProfileList = useValueToProfileIdList("leadership");
 
@@ -39,11 +38,11 @@ function LeadershipChemistryContent() {
             </m.div>
             <List>
                 {
-                    (Object.values(optionStrings) as { label: string, value: number }[]).map(({ label, value }) => (
+                    (leadershipAnswerOptions as { label: string, value: number }[]).map(({ label, value }) => (
                         Object.keys(leadershipAnswerToProfileList).includes(String(value)) &&
                         <MotionListItem key={label} {...FADEIN_FROMBOTTOM_VIEWPORT} >
                             <ListItemAvatar className="block--centered" sx={{ paddingRight: "16px" }}>
-                                <Avatar srcSet={`${getImgSrc("/test", `leadership_${value}`)} 64w`} alt={label} sx={{ width: "48px", height: "48px"}}/>
+                                <Avatar srcSet={`${getImgSrc("/test", `leadership_${value}`, {size : "medium"})} 64w`} alt={label} sx={{ width: "48px", height: "48px"}}/>
                             </ListItemAvatar>
                                 <div>
                                     <ListItemText

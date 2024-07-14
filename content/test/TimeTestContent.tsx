@@ -1,13 +1,13 @@
 /* React */
-import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 /* Externals */
-import { Check, Close, Error, ExpandMore, NavigateNext, Start } from "@mui/icons-material";
-import { Accordion, AccordionDetails, AccordionSummary, Box, ButtonBase, Container, createTheme, FormControlLabel, Grid, Paper, Radio, RadioGroup, Stack, Step, StepButton, StepButtonProps, StepContent, StepLabel, Stepper, ThemeProvider } from "@mui/material";
-import { MobileTimePicker, TimeClock } from "@mui/x-date-pickers";
+import { Check } from "@mui/icons-material";
+import { ButtonBase, Container, FormControlLabel, Grid, Paper, Radio, RadioGroup, Step, StepButton, StepButtonProps, StepContent, StepLabel, Stepper } from "@mui/material";
+import { MobileTimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import ImageIcon from "~/components/ImageIcon";
 import { useTestAnswer } from "~/reducers/testAnswerReducer";
-import PngIcon from "~/components/PngIcon";
 
 export const scheduleTestOptions = [
     {
@@ -53,18 +53,18 @@ export const nightPlanTestOptions = [
     },
 ]
 
-const amPalette = [
-    "rgb(37, 49, 109)",
-    "rgb(95, 111, 148)",
-    "rgb(151, 210, 236)",
-    "rgb(254, 245, 172)",
-]
-const pmPalette = [
-    "rgb(255, 218, 120)",
-    "rgb(255, 127, 62)",
-    "rgb(42, 98, 154)",
-    "rgb(0, 50, 133)",
-]
+// const amPalette = [
+//     "rgb(37, 49, 109)",
+//     "rgb(95, 111, 148)",
+//     "rgb(151, 210, 236)",
+//     "rgb(254, 245, 172)",
+// ]
+// const pmPalette = [
+//     "rgb(255, 218, 120)",
+//     "rgb(255, 127, 62)",
+//     "rgb(42, 98, 154)",
+//     "rgb(0, 50, 133)",
+// ]
 
 const CheckStepButton = ({ isChecked = false, isActive = false, children, ...props }: StepButtonProps & { isChecked?: boolean, isActive?: boolean }) => (
     <StepButton {...props}>
@@ -81,7 +81,8 @@ const TimeAnswerStepLabel = (({ testKey, index, summaryTitle, handleStep, label 
     const [timeAnswer, setTimeAnswer] = useTestAnswer("schedule", testKey)
     const [theOtherTimeAnswer] = useTestAnswer("schedule", testKey === "startTime" ? "endTime" : "startTime")
     const [timeDayJs, setTimeDayJs] = useState((timeAnswer !== undefined) ? dayjs('2024-06-05 00:00').set("hour", timeAnswer) : undefined)
-    const [theOtherTimeDayJs] = useState(dayjs('2024-06-05 00:00').set("hour", (theOtherTimeAnswer !== undefined) ? theOtherTimeAnswer : 20))
+    const theOtherTimeDayJs = (theOtherTimeAnswer !== undefined) ? dayjs('2024-06-05 00:00').set("hour",  theOtherTimeAnswer) : undefined
+    // const [theOtherTimeDayJs] = useState(dayjs('2024-06-05 00:00').set("hour", (theOtherTimeAnswer !== undefined) ? theOtherTimeAnswer : 20))
     const hour = timeDayJs?.get("hour");
     const isPm = hour > 11
 
@@ -107,8 +108,8 @@ const TimeAnswerStepLabel = (({ testKey, index, summaryTitle, handleStep, label 
             <StepContent>
                 <MobileTimePicker
                     value={timeDayJs}
-                    maxTime={(testKey === "start") && (theOtherTimeAnswer !== undefined) ? theOtherTimeDayJs.subtract(1, "hour") : undefined}
-                    minTime={(testKey === "end") && (theOtherTimeAnswer !== undefined) ? theOtherTimeDayJs.add(1, "hour") : undefined}
+                    maxTime={((testKey === "startTime") && (theOtherTimeAnswer !== undefined)) ? theOtherTimeDayJs.subtract(1, "hour") : undefined}
+                    minTime={((testKey === "endTime") && (theOtherTimeAnswer !== undefined)) ? theOtherTimeDayJs.add(1, "hour") : undefined}
                     onChange={(newValue) => setTimeDayJs(newValue)}
                     label={label}
                     views={['hours']}
@@ -130,9 +131,6 @@ function TimeTestContent() {
 
     const handleScheduleAnswerChange = (event: ChangeEvent<HTMLInputElement>) => {
         setScheduleAnswer(Number(event.target.value));
-    }
-    const handleNightPlanAnswerChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setNightPlanAnswer(Number(event.target.value));
     }
     return (
         <div className="content">
@@ -206,7 +204,7 @@ function TimeTestContent() {
                                                     <div>
                                                         <Check color="primary" sx={(nightPlanAnswer === value) ? {} : { visibility: "hidden" }}/>
                                                     </div>                                                    
-                                                    <PngIcon name={icon} size="large" />
+                                                    <ImageIcon name={icon} size="large" />
                                                     <p className="typography-note" style={(nightPlanAnswer === value) ? { fontWeight: 700 } : {}}>{label}</p>
                                                 </Container>
                                             </ButtonBase>

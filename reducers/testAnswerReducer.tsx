@@ -11,7 +11,7 @@ import { HASHTAGS, HEADERS_AXIOS, TEST_TYPE } from "../common/app-const";
 import { ActivityTag } from "../interfaces/enums/ActivityTag";
 import { ExpectationTag } from "../interfaces/enums/ExpectationTag";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
-import { IHashTagTestKey, INumericTestKey, ITestAnswer, ITestAnswerDTO, ITestKey, testAnswerToDTO } from "../interfaces/ITestAnswer";
+import { DTOToTestAnswer, IHashTagTestKey, INumericTestKey, ITestAnswer, ITestAnswerDTO, ITestKey, testAnswerToDTO } from "../interfaces/ITestAnswer";
 import { RootState, useAppDispatch, useAppSelector } from "../store";
 import { useUserId } from "./authReducer";
 import { CityTag } from "~/interfaces/enums/CityTag";
@@ -35,7 +35,7 @@ export interface ITestIndex {
     subKey?: string
 }
 
-export const _sampleTestAnswer: ITestAnswer = {
+export const sampleTestAnswer: ITestAnswer = {
     hashtag: {
         expectation: Object.values(ExpectationTag).slice(0, 4),
         // {
@@ -69,7 +69,7 @@ export const _sampleTestAnswer: ITestAnswer = {
     },
 };
 
-export const sampleTestAnswer: ITestAnswer = {
+export const _sampleTestAnswer: ITestAnswer = {
     hashtag: {
         // expectation: Object.values(ExpectationTag).slice(0, 1),
         // activity: Object.values(ActivityTag).slice(0, 1),
@@ -220,10 +220,10 @@ const testAnswerSlice = createSlice({
             console.log(`[asyncSetAnswer] rejected`);
             state.loadStatus = LoadStatus.FAIL;
         });
-        builder.addCase(asyncGetAnswer.fulfilled, (state, action: PayloadAction<{ testAnswer: ITestAnswerDTO}>) => {
+        builder.addCase(asyncGetAnswer.fulfilled, (state, action: PayloadAction<{ testAnswerDTO: ITestAnswerDTO}>) => {
             console.log(`[asyncGetAnswer] fulfilled\n\taction.payload=${JSON.stringify(action.payload)}`);
-            if( action.payload.testAnswer ){
-                state.data = action.payload.testAnswer
+            if( action.payload.testAnswerDTO ){
+                state.data = DTOToTestAnswer(action.payload.testAnswerDTO)
             }
             state.loadStatus = LoadStatus.SUCCESS;
         });

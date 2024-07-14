@@ -10,7 +10,7 @@ import { useAppSelector } from "~/store";
 import { WithProfileProps } from "../../hocs/withUserProfile";
 import FriendAvatar from "../Avatar/FriendAvatar";
 import { TripTagChip } from "../Chip/TagChip";
-import PngIcon from "../PngIcon";
+import ImageIcon from "../ImageIcon";
 import { Group, Snowboarding, Textsms } from "@mui/icons-material";
 
 const expectationToTripTagMap = {
@@ -110,7 +110,7 @@ function HashTagResultContent({ id, nickname, testResult }: HashTagResultContent
                                                 <Avatar>
                                                     <Textsms />
                                                 </Avatar>
-                                                {/* <PngIcon name="expectation" /> */}
+                                                {/* <ImageIcon name="expectation" /> */}
                                             </ListItemAvatar>
                                             <ListItemText
                                                 primary={

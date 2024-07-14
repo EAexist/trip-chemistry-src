@@ -1,43 +1,68 @@
-import { Avatar, Badge, Box, Container, Grow, IconButton, Paper, Slider, SliderProps, Stack, Zoom } from "@mui/material";
+import { Avatar, Badge, IconButton, Slider, SliderProps, Stack } from "@mui/material";
+import { m } from "framer-motion"
 
 /* App */
-import { Close, KeyboardArrowUp } from "@mui/icons-material";
+import { Close } from "@mui/icons-material";
+import { createSelector } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
 import FriendAvatar from "~/components/Avatar/FriendAvatar";
 import LabeledAvatar from "~/components/Avatar/LabeledAvatar";
-import Label from "~/components/Label";
-import { IProfile } from "~/interfaces/IProfile";
 import { IProfileId } from "~/reducers";
-import { useProfile } from "~/reducers/chemistryReducer";
+import { useAppSelector } from "~/store";
 import { IvalueToProfileIds } from "../../../hooks/useValueToProfileIdList";
+import { AnimatePresence } from "framer-motion";
+import { FADEIN } from "~/motion/props";
 
 interface GroupAnswerSliderValueLabelProps {
     profileIds: IProfileId[]
-    isActive: boolean,
-    onClick: () => void
 }
 
-function GroupAnswerSliderValueLabel({ profileIds, isActive, onClick }: GroupAnswerSliderValueLabelProps) {
+function GroupAnswerSliderValueLabel({ profileIds }: GroupAnswerSliderValueLabelProps) {
+
     const length = profileIds.length
-    const { nickname: label } = useProfile(profileIds[0]) as IProfile;
+
+    const [isExpanded, setIsExpanded] = useState(false)
+
+    const handleClick = () => {
+        setIsExpanded(true)
+    }
+
+    const nicknames = useAppSelector(
+        createSelector(
+            state => state.chemistry?.data.profiles,
+            (profiles) => profileIds.map(profileId =>
+                profiles[profileId].nickname
+            )
+        )
+    )
 
     return (
-        isActive
-            ?
-            <Label label={`${length}명`}>
-                {/* <IconButton onClick={onClick} sx={{ color: "primary.main", width: "40px", height: "40px", outline: "1px solid" }}> */}
-                <IconButton onClick={onClick} sx={{ width: "40px", height: "40px", backgroundColor: "gray.light" }}>
-                    <KeyboardArrowUp />
-                </IconButton>
-            </Label>
-            :
-            <Badge badgeContent={length} >
-                <Stack onClick={onClick} direction={"row-reverse"} spacing={-5} alignItems={"start"}>
-                    <Avatar variant="outlined"/>
-                    <LabeledAvatar label={`${label} ···`} labelSize="large" variant="outlined"/>
-                    <FriendAvatar id={profileIds[0]} renderLabel={false} variant="outlined" />
-                </Stack>
-            </Badge>
+        // <AnimatePresence mode={"wait"} initial={false}>
+        //     <m.div key={String(isExpanded)} {...{ ...FADEIN, exit: "hidden" }}>
+        //         {
+                    isExpanded
+                        ?
+                        <Stack direction={"column"}>
+                            <IconButton onClick={() => setIsExpanded(false)} sx={{ width: "24px", height: "24px" }}>
+                                <Close />
+                            </IconButton>
+                            {
+                                nicknames.map((nickname) => (
+                                    <p key={nickname} className="typography--profile-label">{nickname}</p>
+                                ))
+                            }
+                        </Stack>
+                        :
+                        <Stack onClick={handleClick} direction={"row-reverse"} spacing={-5} alignItems={"start"}>
+                            <Avatar variant="outlined" />
+                            <LabeledAvatar label={`${nicknames[0]} ···`} labelSize="large" variant="outlined" />
+                            <Badge badgeContent={`+${length}`} color="primary">
+                                <FriendAvatar showBadge={false} id={profileIds[0]} renderLabel={false} variant="outlined" />
+                            </Badge>
+                        </Stack>
+        //         }
+        //     </m.div>
+        // </AnimatePresence>
     )
 }
 
@@ -47,15 +72,15 @@ interface GroupAnswerSliderProps extends SliderProps {
 
 function GroupAnswerSlider({ answerToProfiles, className, ...sliderProps }: GroupAnswerSliderProps) {
 
-    const [activeValue, setActiveValue] = useState<number | false>(false)
+    // const [activeValue, setActiveValue] = useState<number | false>(false)
 
-    const handleAvatarGroupClick = (value: number | false) => () => {
-        setActiveValue(value)
-    }
+    // const handleAvatarGroupClick = (value: number | false) => () => {
+    //     setActiveValue(value)
+    // }
 
-    const handleCloseMemberList = () => {
-        setActiveValue(false)
-    }
+    // const handleCloseMemberList = () => {
+    //     setActiveValue(false)
+    // }
 
     useEffect(() => {
         console.log(`[GroupAnswerSlider]: answerToProfiles=${JSON.stringify(answerToProfiles)}}`);
@@ -63,26 +88,6 @@ function GroupAnswerSlider({ answerToProfiles, className, ...sliderProps }: Grou
 
     return (
         <div className={className}>
-            {
-                (!!activeValue) &&
-                <Zoom in={!!activeValue} mountOnEnter unmountOnExit>
-                    <Container className="gutter-sm column-padding-sm" sx={{ outline: "1px solid", borderRadius: "16px", outlineColor: "gray.dark" }}>
-                        <Stack display={"flex"} flexDirection={"row-reverse"} >
-                            <IconButton onClick={handleCloseMemberList}>
-                                <Close />
-                            </IconButton>
-                            <Stack sx={{ flexGrow: 1 }}>
-                                {
-                                    activeValue &&
-                                    answerToProfiles[activeValue].map((profileId) => (
-                                        <FriendAvatar key={profileId} id={profileId} />
-                                    ))
-                                }
-                            </Stack>
-                        </Stack>
-                    </Container>
-                </Zoom>
-            }
             <div style={{ padding: "8px 24px" }}>
                 <Slider
                     {...sliderProps}
@@ -93,9 +98,9 @@ function GroupAnswerSlider({ answerToProfiles, className, ...sliderProps }: Grou
                         Object.keys(answerToProfiles).includes(value.toString()) && (
                             answerToProfiles[value].length > 1
                                 ?
-                                <GroupAnswerSliderValueLabel profileIds={answerToProfiles[value]} isActive={value === activeValue} onClick={handleAvatarGroupClick((value === activeValue) ? false : value)} />
+                                <GroupAnswerSliderValueLabel profileIds={answerToProfiles[value]} />
                                 :
-                                <FriendAvatar id={answerToProfiles[value][0]} onClick={handleAvatarGroupClick(false)} />
+                                <FriendAvatar id={answerToProfiles[value][0]} showBadge={false}/>
                         )
                     )
                     }

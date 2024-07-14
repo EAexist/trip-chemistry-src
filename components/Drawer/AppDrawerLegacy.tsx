@@ -12,7 +12,7 @@ import { VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
 import { useHasAnsweredTest, useIsAuthorized, useUserProfile } from "../../reducers/authReducer";
 import { useStrings } from "../../texts";
 import UserAvatar from "../Avatar/UserAvatar";
-import PngIcon from "../PngIcon";
+import ImageIcon from "../ImageIcon";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import { MotionListItemButton } from "~/motion/components/MotionListItemButton";
 
@@ -117,7 +117,7 @@ function AppDrawer({ open, onDrawerItemClick }: AppDrawerProps) {
                                         >
                                             <ListItemAvatar>
                                                 <Avatar variant="rounded">
-                                                    <PngIcon name={icon} />
+                                                    <ImageIcon name={icon} />
                                                 </Avatar>
                                             </ListItemAvatar>
                                             <ListItemText

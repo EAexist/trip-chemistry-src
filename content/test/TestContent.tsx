@@ -27,10 +27,10 @@ import Fab from "~/components/Button/Fab";
 import ConfirmDrawer from "~/components/ConfirmDrawer";
 import DraggableDialog from "~/components/Paper/DraggableDialog";
 import { useAppDispatch, useAppSelector } from "~/store";
-import PngIcon from "../../components/PngIcon";
+import ImageIcon from "../../components/ImageIcon";
 import withReducer from "../../hocs/withReducer";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
-import { useGetProfile, useUserId } from "../../reducers/authReducer";
+import { asyncGetProfile, useGetProfile, useUserId } from "../../reducers/authReducer";
 import testAnswerReducer, { asyncGetAnswer, asyncSetAnswer, asyncSubmitAnswer, useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import RestaurantBudgetTestContent from "./RestaurantBudgetTestContent";
@@ -204,7 +204,7 @@ function TestContent() {
                     return (
                         (testKey === "hashtag")
                             ? answer.length >= TEST_TYPE.hashtag.selectedMinLength
-                            : (answer !== undefined) && (answer > 0)
+                            : (answer !== undefined)
                     )
                 }).every(v => v)
             ))
@@ -278,6 +278,7 @@ function TestContent() {
     const handleConfirmSubmit = async () => {
         try {
           const originalPromiseResult = await dispatch(asyncSubmitAnswer({ id, answer: data })).unwrap()
+          const PromiseResult = await dispatch(asyncGetProfile(userId)).unwrap()
           navigate('../result');          
           // handle result here
         } catch (rejectedValueOrSerializedError) {
@@ -390,7 +391,7 @@ function TestContent() {
                                     const isActive = (index === activeSectionIndex)
                                     return (
                                         <Grid key={index} item xs={6}>
-                                            <Button onClick={handleSectionButtonClick(index)} startIcon={<PngIcon name={Object.values(TEST_SECTIONS)[index]?.icon} />} variant={"contained"} color={isActive ? "gray" : "secondary"} sx={{ ...!isAnswered && { '& > *': { opacity: 0.5 } }, paddingLeft: '12px' }}>
+                                            <Button onClick={handleSectionButtonClick(index)} startIcon={<ImageIcon name={Object.values(TEST_SECTIONS)[index]?.icon} />} variant={"contained"} color={isActive ? "gray" : "secondary"} sx={{ ...!isAnswered && { '& > *': { opacity: 0.5 } }, paddingLeft: '12px' }}>
                                                 <p>{Object.values(TEST_SECTIONS)[index]?.label}</p>
                                             </Button>
                                         </Grid>

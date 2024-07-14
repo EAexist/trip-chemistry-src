@@ -56,7 +56,7 @@ function ChemistryListItem({ id }: ChemistryListItemProps) {
 
 
     return (
-        <MotionListItemButton onClick={handleClick} sx={{ display: "flex" }}>
+        <MotionListItemButton onClick={chemistry && handleClick} sx={{ display: "flex" }}>
             <ListItemAvatar>
                 <Avatar />
             </ListItemAvatar>
@@ -64,7 +64,7 @@ function ChemistryListItem({ id }: ChemistryListItemProps) {
                 <ListItemText
                     primary={
                         <Stack direction={'row'}>
-                            <h2 className="list-item-title">{chemistry ? chemistry.title : <Skeleton />}</h2>
+                            <h2 className="list-item-title">{chemistry ? chemistry.title : <Skeleton width={"96px"} />}</h2>
                             {
                                 chemistry?.isSample &&
                                 <Paper sx={{ backgroundColor: "gray.main", padding: "2px 8px", borderRadius: "8px" }}><p className="typography-note">sample</p></Paper>
@@ -74,15 +74,19 @@ function ChemistryListItem({ id }: ChemistryListItemProps) {
                     sx={{ margin: 0 }}
                 />
                 <Stack direction={'row'} className="typography-note" spacing={0.5}>
-                    <p>{chemistry ? `${chemistry?.profileIds.length}명` : <Skeleton />}</p>
+                    <p>{chemistry ? `${chemistry?.profileIds.length}명` : <Skeleton width={"16px"} />}</p>
                     <Divider orientation="vertical" variant="middle" flexItem />
                     {
-                        chemistry?.profileIds.map((id) => {
+                        chemistry
+                        ?
+                        chemistry.profileIds.map((id) => {
                             const { nickname, testResult } = chemistry.profiles[id]
                             return (
                                 <p key={id}>{nickname}</p>
                             )
                         })
+                        :
+                        <Skeleton width={"128px"} />
                     }
                 </Stack>
             </div>

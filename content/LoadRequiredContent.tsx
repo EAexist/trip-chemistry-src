@@ -1,8 +1,8 @@
 /* React */
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useRef, useState } from "react";
 
 /* Externals */
-import { CircularProgress, Container, Toolbar } from "@mui/material";
+import { CircularProgress, Container, Stack, Toolbar } from "@mui/material";
 import { m } from "framer-motion";
 
 /* App */
@@ -13,6 +13,8 @@ import getImgSrc from "../utils/getImgSrc";
 
 import LazyImage from "~/components/LazyImage";
 import Fab from "~/components/Button/Fab";
+import { Info } from "@mui/icons-material";
+import AnimatedIcon from "~/components/AnimatedIcon";
 
 // const NoticeBlock = loadable(() => import(/* webpackChunkName: "NoticeBlock" */ "../components/Block/NoticeBlock"));
 
@@ -42,9 +44,9 @@ function LoadRequiredContent({
     missText = "정보를 찾을 수 없어요. 잠시 후 다시 시도해주세요.",
     handleFailButtonText = "확인",
     handleMissButtonText = "확인",
-    handleSuccess = () => {},
-    handleFail = () => {},
-    handleMiss = () => {},
+    handleSuccess = () => { },
+    handleFail = () => { },
+    handleMiss = () => { },
     showHandleFailButton = true, /* false 일 경우 버튼 없이 FAIL을 즉시 처리. */
     isEnabled = true,
     showOnPending = false,
@@ -54,6 +56,10 @@ function LoadRequiredContent({
     const [delayedStatus, setDelayedStatus] = useState<LoadStatus>(status);
     const [isPending, setIsPending] = useState<boolean>(false);
     const minimumPendingTime = 500;
+    const serverBootIndicatingTime = 3000;
+    const [showServerBootingAlert, setShowServerBootingAlert] = useState(false)
+
+    const timerRef = useRef(null);
 
     const { body, buttonText, onClick } = {
         [LoadStatus.PENDING]: {
@@ -101,6 +107,9 @@ function LoadRequiredContent({
                     setTimeout(() => {
                         setIsPending(false);
                     }, minimumPendingTime);
+                    timerRef.current = setTimeout(() => {
+                        setShowServerBootingAlert(true)
+                    }, serverBootIndicatingTime);
                     break;
                 case LoadStatus.FAIL:
                     if (!isPending) {
@@ -123,6 +132,12 @@ function LoadRequiredContent({
         }
     }, [status, isPending, handleSuccess, setStatus, isEnabled, handleFail, showHandleFailButton])
 
+    useEffect(()=>{
+        if ( status !== LoadStatus.PENDING ){
+            clearTimeout(timerRef.current)
+        }
+    }, [ status === LoadStatus.PENDING ])
+
     return (
         (!isEnabled) || (delayedStatus === LoadStatus.REST) || (delayedStatus === LoadStatus.SUCCESS) || (showOnPending && (delayedStatus === LoadStatus.PENDING))
             ?
@@ -131,20 +146,38 @@ function LoadRequiredContent({
             <div className={`page flex fill-window`}>
                 <Toolbar />
                 <Container className='flex-grow block--centered content'>
+                    {
+                        (delayedStatus === LoadStatus.PENDING)
+                            ?
+                            (
+                                showServerBootingAlert
+                                    ?
+                                    <AnimatedIcon
+                                        name="sleep"   
+                                        width="96px"    
+                                        height="96px"                             
+                                    />
+                                    :
+                                    <CircularProgress />
+                            )
+                            :
+                            <LazyImage
+                                alt={delayedStatus}
+                                src={getImgSrc('/info', delayedStatus, { size: "xlarge" })}
+                                width={"256px"}
+                                height={"256px"}
+                                containerClassName="NoticeBlock__image"
+                            />
+                    }
+                    <p>
                         {
-                            (delayedStatus === LoadStatus.PENDING)
+                            showServerBootingAlert
                                 ?
-                                <CircularProgress />
+                                "서버가 잠에서 깨는 중이에요. 잠시만 기다려주세요.\n잠에서 깨는데 최대 1분 정도 걸려요."
                                 :
-                                <LazyImage
-                                    alt={delayedStatus}
-                                    src={getImgSrc('/info', delayedStatus, { size: "xlarge" })}
-                                    width={"256px"}
-                                    height={"256px"}
-                                    containerClassName="NoticeBlock__image"
-                                />
+                                body
                         }
-                        <p>{body}</p>
+                    </p>
                 </Container>
                 <div className="fab-placeholder" />
                 {

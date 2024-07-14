@@ -15,7 +15,7 @@ import GroupAnswerSlider from "./component/GroupAnswerSlider";
 
 import { Circle } from "@mui/icons-material";
 import { createSelector } from "@reduxjs/toolkit";
-import PngIcon from "~/components/PngIcon";
+import ImageIcon from "~/components/ImageIcon";
 import useTripMemberNicknames from "~/hooks/useTripMemberNicknames";
 import { IProfile } from "~/interfaces/IProfile";
 import { useUserProfile } from "~/reducers/authReducer";
@@ -74,7 +74,7 @@ function RestaurantChemistryContent() {
                                 <ListItemAvatar>
                                     {/* 1. */}
                                     <Avatar>
-                                        <PngIcon name={icon} />
+                                        <ImageIcon name={icon} />
                                     </Avatar>
                                     {/* <h3 className="section-title--sm">{`${index+1}`}</h3> */}
                                 </ListItemAvatar>

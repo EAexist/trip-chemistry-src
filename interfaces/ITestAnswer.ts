@@ -49,6 +49,11 @@ export const testAnswerToDTO = (testAnswer: ITestAnswer) => ({
     leadership: (testAnswer.leadership !== undefined) ? testAnswer.leadership : -1 
 })
 
+export const DTOToTestAnswer = (testAnswerDTO: ITestAnswerDTO) => ({
+    ...testAnswerDTO,
+    leadership: (testAnswerDTO.leadership > -1) ? testAnswerDTO.leadership : undefined
+})
+
 // extends Omit<ITestAnswer, 'hashtag'> {
 //     hashtag:{
 //         expectation: IExpectationTag[],

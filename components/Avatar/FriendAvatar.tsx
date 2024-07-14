@@ -7,9 +7,10 @@ import { useUserId } from "~/reducers/authReducer";
 
 interface FriendAvatarProps extends ProfileAvatarProps {
     id : IProfileId;
+    showBadge?: boolean;
 };
 
-function FriendAvatar({ id, ...props }: FriendAvatarProps) {
+function FriendAvatar({ id, showBadge = true, ...props }: FriendAvatarProps) {
 
     const { testResult, nickname } =  useProfile( id ) as IProfile;
     const characterId = ( testResult && testResult.characterId ) ? testResult.characterId : "user"
@@ -21,7 +22,7 @@ function FriendAvatar({ id, ...props }: FriendAvatarProps) {
     const userId = useUserId()
 
     return (
-        <Badge badgeContent={"Me"} color="primary" invisible={id !== userId}>
+        <Badge badgeContent={"Me"} color="primary" invisible={(!showBadge) || (id !== userId)}>
             <ProfileAvatar nickname={ nickname } {...props}/>
         </Badge>
     );

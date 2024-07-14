@@ -16,7 +16,7 @@ import { useStrings } from "~/texts";
 import { WithProfileProps } from "../../hocs/withUserProfile";
 import FriendAvatar from "../Avatar/FriendAvatar";
 import { TripTagChip } from "../Chip/TagChip";
-import PngIcon from "../PngIcon";
+import ImageIcon from "../ImageIcon";
 
 const expectationToTripTagMap = {
     HEAL: [TripTag.REST],
@@ -141,7 +141,7 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                                         {
                                             (sourceExpectationTags.length > 0) &&
                                             <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={2} >
-                                                <PngIcon name="expectation" />
+                                                <ImageIcon name="expectation" />
                                                 {
                                                     sourceExpectationTags.map((tag) =>
                                                         <p># {HASHTAGS.activity[tag].label}</p>
@@ -153,7 +153,7 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                                         {
                                             (sourceActivityTags.length > 0) &&
                                             <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={2} >
-                                                <PngIcon name="activity" />
+                                                <ImageIcon name="activity" />
                                                 {
                                                     sourceActivityTags.map((tag) =>
                                                         <p># {HASHTAGS.activity[tag].label}</p>
@@ -165,7 +165,7 @@ function TestResultBlock({ id, nickname, testResult }: TestResultBlockProps) {
                                         {
                                             isChemistryDefined &&
                                             <Stack>
-                                                <PngIcon name="raiseHand" />
+                                                <ImageIcon name="raiseHand" />
                                                 {
                                                     (friendsWithSelectedTag.length > 0) ?
                                                         friendsWithSelectedTag.map((id) =>

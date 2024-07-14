@@ -9,7 +9,7 @@ function Flag({ id, outlined = true, ...props }: FlagProps) {
 
     return (
         <img
-            src={getImgSrc('/flag-icons/flags/4x3', `${id}`, { format: FORMATSVG, size: "default" })}
+            src={getImgSrc('/flag-icons/flags/4x3', `${id}`, { format: FORMATSVG })}
             alt={id}
             width={"16px"}
             height={"12px"}
