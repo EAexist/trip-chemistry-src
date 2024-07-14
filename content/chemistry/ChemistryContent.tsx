@@ -28,6 +28,7 @@ import getImgSrc from "../../utils/getImgSrc";
 import LoginContent from "../login/LoginContent";
 import ChemistryDetailContent from "./ChemistryDetailContent";
 import ShareLinkDialog from "./ShareLinkDialog";
+import AnimatedIcon from "~/components/AnimatedIcon";
 
 const { Helmet } = ReactHelmetAsync
 
@@ -122,10 +123,10 @@ function ChemistryContent() {
         dispatch(asyncJoinChemistry({ userId, chemistryId }));
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log(`[ChemistryPage] scrollY=${window.scrollY}`)
     }, [])
-    
+
     return (
         /** MetaData
          *  Not Crawled.
@@ -244,13 +245,11 @@ function ChemistryContent() {
                                         /* 참여자를 한 명도 추가하지 않은 경우. */
                                         <Paper square className="block--centered content content--sparse">
                                             <Container className="column-padding">
-                                                <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="block--centered">
-                                                    <LazyImage
-                                                        alt={"invite"}
-                                                        src={getImgSrc('/info', "invite", { size: "xlarge" })}
-                                                        width={"256px"}
-                                                        height={"256px"}
-                                                        containerClassName="NoticeBlock__image"
+                                                <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="block--centered content">
+                                                    <AnimatedIcon
+                                                        name="letter"
+                                                        width="64px"
+                                                        height="64px"
                                                     />
                                                     <p>
                                                         {
