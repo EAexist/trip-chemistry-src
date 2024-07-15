@@ -171,9 +171,9 @@ function LoadRequiredContent({
                     }
                     <p>
                         {
-                            showServerBootingAlert
+                            (delayedStatus === LoadStatus.PENDING) && showServerBootingAlert
                                 ?
-                                "서버가 잠에서 깨는 중이에요. 잠시만 기다려주세요.\n잠에서 깨는데 최대 1분 정도 걸려요."
+                                "서버가 잠에서 깨는 중이에요. 잠시만 기다려주세요.\n최대 1분 정도 걸려요."
                                 :
                                 body
                         }

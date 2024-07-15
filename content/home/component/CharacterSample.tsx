@@ -33,12 +33,13 @@ function CharacterSample() {
                     modules={[Pagination, Autoplay, EffectFade]}
                     effect={'fade'}
                     pagination={{
+                        clickable: true,
                         el: '.swiper-pagination',
                     }}
                     // width={256}
                     // height={256}
                     autoplay={{
-                        delay: 2500,
+                        delay: 2000,
                     }}
                     loop={true}
                 >
