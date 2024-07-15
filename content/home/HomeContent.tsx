@@ -1,9 +1,9 @@
 /* React */
-import { ReactNode, useRef } from "react";
+import { ReactNode, useRef, useState } from "react";
 
 /* Externals */
 import { AppBar, Box, Container, Slide, Toolbar } from "@mui/material";
-import { m, useScroll, useSpring } from "framer-motion";
+import { m, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 
 import AppTitleButton from "~/components/Button/AppTitleButton";
 import MainMenuButton from "~/components/Button/MenuButton";
@@ -17,14 +17,14 @@ import TitleContent from "./component/TitleContent";
 const sections = [
     {
         "id": "conflict",
-        title: "여행가서 다투지 않도록",
-        "body": "서로의 여행 타입 미리 비교하고\n배려하며 시작하는 여행 계획",
+        title: "여행가서 다투지 않게",
+        "body": "서로 다른 여행 스타일을 비교하고\n배려하며 여행 계획 시작하기",
         element: <ConflictSample />
     },
     {
         "id": "character",
-        title: "나는 어떤 여행 타입일까?",
-        "body": "귀여운 캐릭터와 함께 알아보는 나의 여행 스타일",
+        title: "나의 여행 타입은?",
+        "body": "네 가지 캐릭터로 나의 여행 스타일 알아보기",
         element: <CharacterSample />
     },
     // {
@@ -40,12 +40,22 @@ function HomeContent() {
     const toolBarRef = useRef<HTMLDivElement>(null);
 
     const { scrollYProgress, scrollY } = useScroll();
+
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
         damping: 30,
         restDelta: 0.001
     });
 
+    const [ isScrollCompleted, setIsScrollCompleted ] = useState(false)
+    
+    useTransform(() => scrollYProgress.get() > 0.99).on("change", (latest) =>
+        setIsScrollCompleted(latest)
+    )
+
+    useMotionValueEvent(scrollYProgress, "change", (latest) => {
+        console.log(`[HomeContent] scrollYProgress=${latest} `)
+    })
     return (
         <div className="page fill-window">
             <AppBar>
@@ -58,7 +68,7 @@ function HomeContent() {
                     <MainMenuButton />
                 </Toolbar>
             </AppBar>
-            <TitleContent/>
+            <TitleContent />
             {
                 (sections as { id: string, title: string, body: string, element: ReactNode }[]).map(({ id, title, body, element }, index) => (
                     <HomePageItem key={id} title={title} body={body}>
@@ -69,7 +79,7 @@ function HomeContent() {
             <Container sx={{ zIndex: 1000, position: "fixed", bottom: "96px" }} className="gutter-2xl">
                 <Box sx={{ height: "8px", backgroundColor: "gray.main", borderRadius: "16px", overflow: "hidden" }}>
                     <m.div style={{ scaleX, transformOrigin: "left" }}>
-                        <Box sx={{ backgroundColor: "primary.main", height: "8px", borderRadius: "16px" }} />
+                        <Box sx={{ backgroundColor: isScrollCompleted ? "primary.main" : "primary.light", height: "8px", borderRadius: "16px" }} />
                     </m.div>
                 </Box>
             </Container>

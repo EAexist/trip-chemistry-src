@@ -43,8 +43,8 @@ function GroupAnswerSliderValueLabel({ profileIds }: GroupAnswerSliderValueLabel
                     isExpanded
                         ?
                         <Stack direction={"column"}>
-                            <IconButton onClick={() => setIsExpanded(false)} sx={{ width: "24px", height: "24px" }}>
-                                <Close />
+                            <IconButton onClick={() => setIsExpanded(false)} sx={{ width: "24px", height: "24px", backgroundColor: "gray.main" }}>
+                                <Close fontSize="small" />
                             </IconButton>
                             {
                                 nicknames.map((nickname) => (

@@ -80,7 +80,7 @@ function ScheduleChemistryContent() {
             </Dialog>
             <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="section-header">
                 <Stack justifyContent={"space-between"}>
-                    <h2 className="section-title">일정은 어떻게 짜면 좋을까?</h2>
+                    <h2 className="section-title">일정은 어떻게 짤까?</h2>
                     <IconButton onClick={() => setOpenHelpDialog(true)}>
                         <Help fontSize="small" />
                     </IconButton>
@@ -111,8 +111,8 @@ function ScheduleChemistryContent() {
                                 variants={VARIANTS_SLIDEUP}
                                 sx={{ opacity: 0.5 }}
                             >
-                                <ListItemAvatar className="block--centered" sx={{ width: "72px" }}>
-                                    <p>{nickname}</p>
+                                <ListItemAvatar className="block--centered typography-note--lg" sx={{ width: "72px" }} >
+                                    {nickname}
                                 </ListItemAvatar>
                                 <ListItemText primary={
                                     (startTime >= 0)

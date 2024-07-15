@@ -1,3 +1,4 @@
+import { Visibility } from "@mui/icons-material";
 import { createTheme } from "@mui/material";
 
 
@@ -86,7 +87,7 @@ const theme = createTheme({
             '\"Pretendard Variable\"',
             'Pretendard'
         ].join(','),
-        // fontSize: 14,
+        fontSize: 14,
     },
     components: {
         MuiAppBar: {
@@ -242,9 +243,18 @@ const theme = createTheme({
             }
         },
         MuiChip: {
+            // defaultProps: {
+            //     disableTouchRipple
+            // },
             styleOverrides: {
-                root: {
-                    padding: "2.5px"
+                root: ({ ownerState }) => ({
+                    padding: "2.5px",
+                    ":hover": {
+                        backgroundColor: ownerState.color === "default" ? "rgba(0, 0, 0, 0.08)" : defaultTheme.palette[ownerState.color].main
+                    }
+                }),
+                label: {
+                    fontSize: "14px"
                 }
             }
         },
@@ -289,6 +299,16 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: "12px"
+                }
+            }
+        },
+        MuiListItemText: {
+            styleOverrides: {
+                primary: {
+                    fontSize: "14px"
+                },
+                secondary: {
+                    fontSize: "12px"
                 }
             }
         },

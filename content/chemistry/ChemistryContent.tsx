@@ -246,20 +246,31 @@ function ChemistryContent() {
                                         <Paper square className="block--centered content content--sparse">
                                             <Container className="column-padding">
                                                 <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="block--centered content">
-                                                    <AnimatedIcon
-                                                        name="letter"
-                                                        width="64px"
-                                                        height="64px"
-                                                    />
-                                                    <p>
-                                                        {
-                                                            Object.keys(profiles).length < 2
-                                                                ?
-                                                                "여행을 함께할 친구를 초대하고\n케미스트리를 확인해보세요."
-                                                                :
-                                                                "두 명 이상이 테스트를 완료하면 결과를 확인할 수 있어요."
-                                                        }
-                                                    </p>
+                                                    {
+                                                        Object.keys(profiles).length < 2
+                                                            ?
+                                                            <>
+                                                                <AnimatedIcon
+                                                                    name="letter"
+                                                                    width="64px"
+                                                                    height="64px"
+                                                                />
+                                                                <p>
+                                                                    {"함께 여행할 친구를 초대하고\n여행 스타일을 비교해보세요."}
+                                                                </p>
+                                                            </>
+                                                            :
+                                                            <>
+                                                                <AnimatedIcon
+                                                                    name="friends"
+                                                                    width="64px"
+                                                                    height="64px"
+                                                                />
+                                                                <p>
+                                                                    {"두 명 이상이 테스트를 완료하면 결과를 확인할 수 있어요."}
+                                                                </p>
+                                                            </>
+                                                    }
                                                 </m.div>
                                             </Container>
                                             {

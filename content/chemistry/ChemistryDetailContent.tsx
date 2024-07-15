@@ -2,7 +2,7 @@
 import { SyntheticEvent, useState } from "react";
 
 /* Externals */
-import { Box, Chip, Container, Icon, Stack, Tab, Tabs } from "@mui/material";
+import { Box, Button, Chip, Container, Icon, Stack, Tab, Tabs, ToggleButton } from "@mui/material";
 import { AnimatePresence, m } from "framer-motion";
 
 /* App */
@@ -53,7 +53,7 @@ function ChemistryDetailContent() {
 
     return (
         <div className="fill-body">
-            <Container sx={{ position: "sticky", top: "48px", backgroundColor: "white", zIndex: 100 }}>
+            <Container sx={{ position: "sticky", top: "47px", backgroundColor: "white", zIndex: 100 }}>
                 <Tabs
                     value={section}
                     onChange={handleChange}
@@ -121,7 +121,7 @@ function ChemistryDetailContent() {
                                 {
                                     (activeSection === "tag")
                                     &&
-                                    <Container sx={{ outline: "1px solid", borderRadius: "16px", outlineColor: "gray.dark" }} className="column-padding">
+                                    <Container className="column-padding">
                                         <FriendHashTagResultContent id={activeProfileId} />
                                     </Container>
                                 }

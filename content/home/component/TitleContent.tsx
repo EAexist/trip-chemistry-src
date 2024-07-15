@@ -20,17 +20,14 @@ const TitleContent = () => {
     const [showBody, setShowBody] = useState(false)
     const [showScrollDown, setShowScrollDown] = useState(true)
 
-    const onShowBody = useTransform(() => scrollYProgress.get() >= 0.2).on("change", (latest) =>
+    useTransform(() => scrollYProgress.get() >= 0.2).on("change", (latest) =>
         setShowBody(latest)
     )
 
-    const onShowScrollDown = useTransform(() => scrollYProgress.get() <= 1).on("change", (latest) =>
+    useTransform(() => scrollYProgress.get() < 0.9).on("change", (latest) =>
         setShowScrollDown(latest)
     )
 
-    useMotionValueEvent(scrollYProgress, "change", (latest) => {
-        console.log(`[TitleContent] scrollYProgress=${latest} `)
-    })
     return (
         <section>
             <div ref={ref} style={{ position: "relative", height: "250vh" }}>
@@ -61,10 +58,6 @@ const TitleContent = () => {
                     </m.div>
                 }
             </div>
-            {/* </div> */}
-            {/* </div> */}
-            {/* <div className="fill-window" style={{ backgroundColor: "bisque" }}/> */}
-            {/* </div> */}
         </section>
     );
 }

@@ -1,18 +1,13 @@
 // https://codesandbox.io/s/framer-motion-parallax-i9gwuc?from-embed=&file=/src/App.tsx:214-345
 
-import { Container, Toolbar } from "@mui/material";
-import { m, MotionValue, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
-import { PropsWithChildren, ReactNode, useRef } from "react";
-import { FADEIN_FROMBOTTOM_VIEWPORT } from "~/motion/props";
-
-const useParallax = (value: MotionValue<number>, distance: number) => {
-    return useTransform(value, [0, 0.5], [distance, 0]);
-}
+import { Container } from "@mui/material";
+import { m, useScroll, useTransform } from "framer-motion";
+import { PropsWithChildren, ReactNode, useRef, useState } from "react";
+import { VARIANTS_FADEIN_FROMBOTTOM } from "~/motion/props";
 
 const HomePageItem = ({
     title,
     body,
-    content,
     children,
 }: PropsWithChildren<{
     title?: string,
@@ -20,30 +15,63 @@ const HomePageItem = ({
     content?: ReactNode
 }>) => {
     const ref = useRef(null);
+    const [headerHeight, setHeaderHeight] = useState(0)
+    const [childrenHeight, setChildrenHeight] = useState(0)
+    const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+    // const height = useTransform(scrollYProgress, [0, 0.2], [-headerHeight / 2, -headerHeight]);
+    const height = useTransform(scrollYProgress, [0, 0.2], [0, headerHeight]);
+    const childrenVisualHeight = useTransform(scrollYProgress, [0.3, 0.6], [0, childrenHeight]);
+    const childrenVisualY = useTransform(scrollYProgress, [0.3, 0.6], [400, 0]);
+
+    const { scrollYProgress: scrollYProgressOut } = useScroll({ target: ref, offset: ["end end", "end start"] });
+    const parallaxOut = useTransform(scrollYProgressOut, [0, 1], [0, 0]);
+    const fadeOut = useTransform(scrollYProgressOut, [0, 0.9], [1, 0]);
+
+    const [showBody, setShowBody] = useState(false)
+
+    useTransform(() => scrollYProgress.get() >= 0.2).on("change", (latest) =>
+        setShowBody(latest)
+    )
 
     return (
-        <section>
-            <div ref={ref} className="flex" style={{ height: "100vh" }}>
-                <Toolbar />
-                <Container className="content content--sparse" sx={{ display: "flex", flexDirection: "column", flexGrow: 1, justifyContent: "center" }}>
-                    <div className="block--centered" >
-                        {
-                            children
-                        }
-                    </div>
-                    {
-                        title &&
-                        <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} viewport={{ once: false }} custom={0.5} >
-                        {/* <m.div style={{ y }}> */}
-                            <div className="section-header">
-                                <h2 className="section-title">{title}</h2>
-                            </div>
-                            <p>{body}</p>
+        <section style={{ marginTop: "-50dvh" }}>
+            <m.div ref={ref} style={{ position: "relative", height: "250vh", y: parallaxOut, opacity: fadeOut }}>
+                {/* <div style={{ height: "100dvh", position: "sticky", top: 0 }} > */}
+                <Container sx={{ height: "100dvh", position: "sticky", top: 0 }} className="block--centered">
+                    <div
+                        className="section-header block--centered"
+                    >
+                        <h2 className="typography-app-title">{title}</h2>
+                        <m.div
+                            style={{ height, overflow: "hidden", marginTop: "16px" }}
+                            variants={VARIANTS_FADEIN_FROMBOTTOM}
+                            initial={"hidden"}
+                            animate={showBody ? "visible" : "hidden"}>
+                            <p
+                                ref={(ref) => {
+                                    if (ref) setHeaderHeight(ref.offsetHeight)
+                                }}
+                                // className="typography-note--lg"
+                            >
+                                {body}
+                            </p>
                         </m.div>
-                    }
+                    </div>
+                    <m.div
+                        className="block--centered"
+                        style={{ height: childrenVisualHeight, y: childrenVisualY, margin: "48px 0px" }}
+                    >
+                        <div
+                            ref={(ref) => {
+                                if (ref) setChildrenHeight(ref.offsetHeight)
+                            }}
+                        >
+                            {children}
+                        </div>
+                    </m.div>
                 </Container>
-                <div className="fab-placeholder fab-placeholder--no-margin" style={{ marginTop: "48px" }} />
-            </div>
+                {/* </div> */}
+            </m.div>
         </section>
     );
 }

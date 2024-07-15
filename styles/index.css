@@ -16,7 +16,7 @@
     --gutter-2xl: 48px;
 
     --fab-height: 88px;
-    
+
     --margin-x: 24px;
     --margin-x--small: 16px;
     --margin-x--xsmall: 8px;
@@ -49,21 +49,23 @@
     z-index: 0;
 }
 
-html, body, #root {
-    /* height: 100%;
-    width: 100%; */
+html,
+body,
+#root {
+    height: 100%;
+    width: 100%;
 }
 
-* {    
+* {
     font-weight: 400;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 150%;
     font-family: "Pretendard Variable", Pretendard, sans-serif;
     font-optical-sizing: auto;
-    margin: 0;    
+    margin: 0;
     padding: 0;
     word-break: keep-all;
-    letter-spacing: -.05em;    
+    letter-spacing: -.05em;
     /* Debug */
     /* outline: 1px solid red; */
 }
@@ -140,6 +142,7 @@ img {
 }
 
 .fill-window {
+
     &,
     &.MuiPaper-root {
         height: 100dvh;
@@ -159,31 +162,37 @@ img {
 .MuiContainer-root {
     &.no-gutter {
         padding-left: 0;
-        padding-right: 0;         
+        padding-right: 0;
     }
+
     &.gutter-xs {
         padding-left: var(--gutter-xs);
-        padding-right: var(--gutter-xs);         
+        padding-right: var(--gutter-xs);
     }
+
     &.gutter-sm {
         padding-left: var(--gutter-sm);
-        padding-right: var(--gutter-sm);         
+        padding-right: var(--gutter-sm);
     }
+
     &.gutter-xl {
         padding-left: var(--gutter-xl);
-        padding-right: var(--gutter-xl);         
+        padding-right: var(--gutter-xl);
     }
+
     &.gutter-2xl {
         padding-left: var(--gutter-2xl);
-        padding-right: var(--gutter-2xl);         
+        padding-right: var(--gutter-2xl);
     }
+
     &.column-padding {
         padding-top: var(--column-padding);
-        padding-bottom: var(--column-padding);       
+        padding-bottom: var(--column-padding);
     }
+
     &.column-padding-sm {
         padding-top: var(--column-padding-sm);
-        padding-bottom: var(--column-padding-sm);       
+        padding-bottom: var(--column-padding-sm);
     }
 }
 
@@ -206,11 +215,15 @@ img {
 }
 
 .block--centered {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+
+    &,
+    &.MuiContainer-root {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
 }
 
 .full {
@@ -219,6 +232,7 @@ img {
 }
 
 .content {
+
     &,
     &.MuiListItemButton-root,
     &.MuiStack-root,
@@ -226,25 +240,27 @@ img {
         /* margin-top: var(--gap); */
         display: flex;
         flex-direction: column;
-        gap: var(--gap);        
+        gap: var(--gap);
     }
 }
 
 .content--sparse {
+
     &,
     &.MuiListItemButton-root,
     &.MuiStack-root,
     &.MuiContainer-root {
-        gap: var(--gap-lg);        
+        gap: var(--gap-lg);
     }
 }
 
 .content--dense {
+
     &,
     &.MuiListItemButton-root,
     &.MuiStack-root,
-    &.MuiContainer-root  {
-        gap: var(--gap-sm);  
+    &.MuiContainer-root {
+        gap: var(--gap-sm);
     }
 }
 
@@ -272,6 +288,7 @@ img {
         color: rgb(98, 98, 98)
     }
 }
+
 .section-header--sm {
     margin-bottom: 12px;
 }
@@ -284,7 +301,7 @@ img {
 }
 
 .section-title--sm {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     line-height: 26px;
     color: #666;
@@ -320,6 +337,7 @@ img {
 }
 
 .typography-highlight {
+
     &,
     &>p,
     .MuiTextField-root>& {
@@ -327,8 +345,10 @@ img {
     }
 }
 
-.typography-article {
-    /* font-size: 17px; */
+.typography-note--lg {
+    &, & * {
+        font-size: 14px;
+    }
 }
 
 .typography-note,
@@ -366,6 +386,7 @@ img {
     &::before {
         opacity: 0;
     }
+
     &,
     &:first-of-type,
     &:last-of-type {
@@ -384,7 +405,7 @@ img {
 .MuiButton-root {
     & .MuiButtonBase-root {
         &:hover {
-            background-color: inherit;
+            /* background-color: inherit; */
         }
     }
 }
@@ -456,8 +477,9 @@ img {
 }
 
 .main-action-button {
+
     &.MuiButton-root,
-    &.MuiButtonBase-root{
+    &.MuiButtonBase-root {
         width: 100%;
     }
 }
@@ -507,8 +529,7 @@ img {
 }
 
 /* Logo */
-.Logo {
-}
+.Logo {}
 
 .Logo--medium {
     height: 32px;

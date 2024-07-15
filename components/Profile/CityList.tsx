@@ -1,6 +1,6 @@
 
 import { NavigateNext, Star } from "@mui/icons-material";
-import { ListItemAvatar, ListItemText, Paper, Stack } from "@mui/material";
+import { Box, ListItemAvatar, ListItemText, Paper, Stack } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { Fragment } from "react/jsx-runtime";
 import { CITIES, HASHTAGS } from "~/common/app-const";
@@ -60,17 +60,17 @@ function CityList({ cities, navigateState = {} }: CityListProps) {
                                 primary={
                                     <h2 className="list-item-title">{cityStrings[city].name}</h2>
                                 }
-                                secondary={
-                                    <p className="typography-note" style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                                        {
-                                            CITIES[city].cityTags.map((tag) =>
-                                                <Fragment key={tag}>#{HASHTAGS.city[tag].label}{"\xa0\xa0"}</Fragment>
-                                            )
-                                        }
-                                    </p>
-                                }
                                 sx={{ margin: 0 }}
                             />
+                            <Stack className="typography-note" style={{ overflow: "hidden" }} spacing={0.5}>
+                                {
+                                    CITIES[city].cityTags.slice(0,4).map((tag) =>
+                                        <Box sx={{ backgroundColor: "gray.main", padding: "0px 4px" }}>
+                                            <p className="typography-note" style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }} key={tag}># {HASHTAGS.city[tag].label}</p>
+                                        </Box>
+                                    )
+                                }
+                            </Stack>
                             {
                                 score &&
                                 <Stack spacing={0}>

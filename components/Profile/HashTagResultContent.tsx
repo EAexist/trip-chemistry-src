@@ -1,7 +1,7 @@
 
 import { Avatar, Box, Container, Divider, Icon, List, ListItem, ListItemAvatar, ListItemText, Stack, Zoom } from "@mui/material";
 import { createSelector } from "@reduxjs/toolkit";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { HASHTAGS, TRIP_TAGS } from "~/common/app-const";
 import { ActivityTag } from "~/interfaces/enums/ActivityTag";
 import { ExpectationTag } from "~/interfaces/enums/ExpectationTag";
@@ -11,7 +11,10 @@ import { WithProfileProps } from "../../hocs/withUserProfile";
 import FriendAvatar from "../Avatar/FriendAvatar";
 import { TripTagChip } from "../Chip/TagChip";
 import ImageIcon from "../ImageIcon";
-import { Group, Snowboarding, Textsms } from "@mui/icons-material";
+import { Group, Info, Snowboarding, Textsms } from "@mui/icons-material";
+
+import { AnimatePresence, m } from "framer-motion"
+import { FADEIN } from "~/motion/props";
 
 const expectationToTripTagMap = {
     HEAL: [TripTag.REST],
@@ -51,9 +54,11 @@ interface HashTagResultContentProps extends WithProfileProps { };
 function HashTagResultContent({ id, nickname, testResult }: HashTagResultContentProps) {
 
     const [selectedTag, setSelectedTag] = useState<number>();
+    const [delayedSelectedTag, setDelayedSelectedTag] = useState<number>();
 
     const handleTripTagClick = (tag: number) => () => {
-        setSelectedTag((selectedTag === tag) ? undefined : tag)
+        setDelayedSelectedTag(undefined)
+        setSelectedTag(tag)
     }
     const getHashTags = (toTripTagMap: { [k: string]: number[] }, tags: { [k: string]: number }) => Object.entries(toTripTagMap).filter(([k, v]) => v.includes(selectedTag)).map(([k, v]) => tags[k])
 
@@ -73,97 +78,105 @@ function HashTagResultContent({ id, nickname, testResult }: HashTagResultContent
         )
     )
 
+    useEffect(() => {
+        setDelayedSelectedTag(selectedTag)
+    }, [selectedTag])
+
     return (
         <div className="content">
+            <div>
+                {
+                    (delayedSelectedTag === undefined)
+                    &&
+                    <Stack className="typography-note--lg" justifyContent={"center"}>
+                        <Info sx={{ fontSize: "14px" }} />
+                        <p>태그를 터치해보세요</p>
+                    </Stack>
+                }
+                {
+                    <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={1} justifyContent={"center"} padding={"16px 0px"}>
+                        {
+                            testResult.tripTagList.map((tag) =>
+                                (delayedSelectedTag !== tag) &&
+                                <m.div layoutId={tag.toString()}>
+                                    <TripTagChip
+                                        key={tag}
+                                        tagId={tag}
+                                        // variant={(selectedTag === tag) ? "filled" : "outlined"}
+                                        variant={"outlined"}
+                                        // color={(selectedTag === tag) ? "primary" : "default"}
+                                        color={"primary"}
+                                        onClick={handleTripTagClick(tag)}
+                                    />
+                                </m.div>
+                            )
+                        }
+                        {
+                            (delayedSelectedTag !== undefined)
+                            &&
+                            <m.div layoutId={delayedSelectedTag?.toString()} style={{ marginTop: "16px", scale: 1.2 }}>
+                                <TripTagChip
+                                    tagId={delayedSelectedTag}
+                                    variant={"filled"}
+                                    color={"primary"}
+                                    onClick={() => setSelectedTag(undefined)}
+                                />
+                            </m.div>
+                        }
+                    </Stack>
+                }
+            </div>
             {
-                <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={1} justifyContent={"center"} padding={"16px 0px"}>
-                    {
-                        testResult.tripTagList.map((tag) =>
-                            // (selectedTag !== tag) &&
-                            <TripTagChip
-                                key={tag}
-                                tagId={tag}
-                                variant={(selectedTag === tag) ? "filled" : "outlined"}
-                                // color={(selectedTag === tag) ? "primary" : "default"}
-                                color={"primary"}
-                                onClick={handleTripTagClick(tag)}
-                            />
-                        )
-                    }
-                </Stack>
-            }
-            {
-                (selectedTag !== undefined)
+                (delayedSelectedTag !== undefined)
                 &&
-                <div>
+                <div className="typography-note--lg content">
                     {
-                        (Object.keys(TripTag)[selectedTag] === "DEFAULT")
+                        (Object.keys(TripTag)[delayedSelectedTag] === "DEFAULT")
                             ? <p>기본 태그</p>
                             :
                             <>
-                                <p>어떻게 얻었을까?</p>
-                                <List>
-                                    {
-                                        (sourceExpectationTags.length > 0) &&
-                                        <ListItem>
-                                            <ListItemAvatar>
-                                                <Avatar>
-                                                    <Textsms />
-                                                </Avatar>
-                                                {/* <ImageIcon name="expectation" /> */}
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary={
-                                                    sourceExpectationTags.map((tag) =>
-                                                        <Fragment key={tag}># {HASHTAGS.expectation[tag].label}{"\xa0\xa0\xa0"}</Fragment>
-                                                        // <ExpectationTagChip key={tag} tagId={tag} sx={{ backgroundColor: "transparent" }} />
-                                                    )
-                                                }
-                                                sx={{ '& .MuiTypography-root': { fontSize: "12px" } }}
-                                            />
-                                        </ListItem>
-                                    }
-                                    {
-                                        (sourceActivityTags.length > 0) &&
-                                        <ListItem>
-                                            <ListItemAvatar>
-                                                <Avatar>
-                                                    <Snowboarding />
-                                                </Avatar>
-                                            </ListItemAvatar>
-                                            <ListItemText
-                                                primary={
-                                                    sourceActivityTags.map((tag) =>
-                                                        <Fragment key={tag}># {HASHTAGS.activity[tag].label}{"\xa0\xa0\xa0"}</Fragment>
-                                                        // <ActivityTagChip key={tag} tagId={tag} sx={{ backgroundColor: "transparent" }} />
-                                                    )
-                                                }
-                                                sx={{ '& .MuiTypography-root': { fontSize: "12px" } }}
-                                            />
-                                        </ListItem>
-                                    }
-                                </List>
+                                {
+                                    (sourceExpectationTags.length > 0) &&
+                                    <div>
+                                        <h3 style={{ marginBottom: "8px" }}>여행 테마</h3>
+                                        <Stack>
+                                            {
+                                                sourceExpectationTags.map((tag) =>
+                                                    <Box sx={{ backgroundColor: "gray.main", padding: "0px 4px" }}>
+                                                        <p className="typography-note" key={tag}># {HASHTAGS.expectation[tag].label}</p>
+                                                    </Box>
+                                                )
+                                            }
+                                        </Stack>
+                                    </div>
+                                }
+                                {
+                                    (sourceActivityTags.length > 0) &&
+                                    <div>
+                                        <h3 style={{ marginBottom: "8px" }}>액티비티</h3>
+                                        <Stack>
+                                            {
+                                                sourceActivityTags.map((tag) =>
+                                                    <Box sx={{ backgroundColor: "gray.main", padding: "0px 4px" }}>
+                                                        <p className="typography-note" key={tag}># {HASHTAGS.activity[tag].label}</p>
+                                                    </Box>
+                                                )
+                                            }
+                                        </Stack>
+                                    </div>
+                                }
                                 {
                                     isChemistryDefined && (friendsWithSelectedTag.length > 0) &&
-                                    <>
-                                        <p>같은 태그의 친구</p>
-                                        <List>
-                                        <ListItem sx={{ alignItems: "start" }}>
-                                            <ListItemAvatar>
-                                                <Avatar>
-                                                    <Group />
-                                                </Avatar>
-                                            </ListItemAvatar>
-                                            <Stack>
-                                                {
-                                                    friendsWithSelectedTag.map((id) =>
-                                                        <FriendAvatar key={id} id={id} />
-                                                    )
-                                                }
-                                            </Stack>
-                                        </ListItem>
-                                        </List>
-                                    </>
+                                    <div>
+                                        <h3 style={{ marginBottom: "8px" }}>같은 태그의 친구</h3>
+                                        <Stack>
+                                            {
+                                                friendsWithSelectedTag.map((id) =>
+                                                    <FriendAvatar key={id} id={id} />
+                                                )
+                                            }
+                                        </Stack>
+                                    </div>
                                 }
                             </>
                     }

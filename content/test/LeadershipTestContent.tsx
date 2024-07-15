@@ -41,69 +41,66 @@ function LeadershipTestContent() {
 
     return (
         <div className="content">
-            <div className="modal__container flex-grow">
-                <Stack display={'flex'} width={"100%"} alignItems={"center"} height={(answer !== undefined) ? "256px" : "auto"}>
-                    {
-                        leadershipAnswerOptions.map(({ value, label, detail }) => {
+            <Stack display={'flex'} width={"100%"} alignItems={"center"} height={(answer !== undefined) ? "256px" : "auto"}>
+                {
+                    leadershipAnswerOptions.map(({ value, label, detail }) => {
 
-                            const isActive = value === answer
+                        const isActive = value === answer
 
-                            return (
-                                <m.div
-                                    layoutId={String(value)}
-                                    animate={{ flexShrink: isActive ? 0 : 1 }}
-                                    layout
-                                    transition={{
-                                        duration: 0.25
-                                    }}
-                                    style={{
-                                        flexBasis: "128px",
+                        return (
+                            <m.div
+                                layoutId={String(value)}
+                                animate={{ flexShrink: isActive ? 0 : 1 }}
+                                layout
+                                transition={{
+                                    duration: 0.25
+                                }}
+                                style={{
+                                    flexBasis: "144px",
+                                }}
+                            >
+                                <Card
+                                    key={value}
+                                    elevation={isActive ? 3 : 1}
+                                    sx={{
+                                        backgroundColor: isActive ? "white" : theme.palette.secondary.dark,
                                     }}
                                 >
-                                    <Card
-                                        key={value}
-                                        elevation={isActive ? 3 : 1}
-                                        sx={{
-                                            backgroundColor: isActive ? "white" : theme.palette.secondary.dark,
-                                        }}
-                                    >
-                                        <CardActionArea onClick={() => setAnswer(isActive ? undefined : value)} className="flex-end">
-                                            <CardContent className="content content--full block--centered">
-                                                {
-                                                    isActive && <Check color="primary" />
-                                                }
-                                                <h3 className={isActive ? "typography-highlight" : "typography-note"}>{label}</h3>
-                                                {/* {
+                                    <CardActionArea onClick={() => setAnswer(isActive ? undefined : value)} className="flex-end">
+                                        <CardContent className="content content--full block--centered">
+                                            {
+                                                isActive && <Check color="primary" />
+                                            }
+                                            <h3 className={isActive ? "typography-highlight" : "typography-note"}>{label}</h3>
+                                            {/* {
                                                     isActive &&
                                                     <Fade in={isActive} style={{ transitionDelay: isActive ? '500ms' : '0ms' }} >
                                                         <p>{detail}</p>
                                                     </Fade>
                                                 } */}
-                                            </CardContent>
-                                            <CardMedia
-                                                component="img"
-                                                alt={label}
-                                                height={"100%"}
-                                                image={getImgSrc("/test", `leadership_${value}`, { size: "medium" })}
-                                                srcSet={`${getImgSrc("/test", `leadership_${value}`, { size: "medium" })} 128w`}
-                                                sizes={'30vw'}
-                                            />
-                                        </CardActionArea>
-                                    </Card>
-                                </m.div>
-                            )
-                        })
-                    }
-                </Stack>
-                <AnimatePresence mode={"wait"} initial={false}>
-                    {(answer !== undefined) &&
-                        <m.p key={answer} {...{ ...FADEIN, exit: "hidden" }} style={{ textAlign: (answer === 1) ? "start" : (answer === 2) ? "center" : "end" }}>
-                            {leadershipAnswerOptions[answer - 1].detail}
-                        </m.p>
-                    }
-                </AnimatePresence>
-            </div>
-            <div />
+                                        </CardContent>
+                                        <CardMedia
+                                            component="img"
+                                            alt={label}
+                                            height={"100%"}
+                                            image={getImgSrc("/test", `leadership_${value}`, { size: "medium" })}
+                                            srcSet={`${getImgSrc("/test", `leadership_${value}`, { size: "medium" })} 128w`}
+                                            sizes={'30vw'}
+                                        />
+                                    </CardActionArea>
+                                </Card>
+                            </m.div>
+                        )
+                    })
+                }
+            </Stack>
+            <AnimatePresence mode={"wait"} initial={false}>
+                {(answer !== undefined) &&
+                    <m.p key={answer} {...{ ...FADEIN, exit: "hidden" }} style={{ textAlign: (answer === 1) ? "start" : (answer === 2) ? "center" : "end" }}>
+                        {leadershipAnswerOptions[answer - 1].detail}
+                    </m.p>
+                }
+            </AnimatePresence>
         </div >
     );
 }
