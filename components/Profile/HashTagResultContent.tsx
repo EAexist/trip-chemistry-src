@@ -1,5 +1,5 @@
 
-import { Avatar, Box, Container, Divider, Icon, List, ListItem, ListItemAvatar, ListItemText, Stack, Zoom } from "@mui/material";
+import { Avatar, Badge, Box, Container, Divider, Icon, List, ListItem, ListItemAvatar, ListItemText, Stack, Zoom } from "@mui/material";
 import { createSelector } from "@reduxjs/toolkit";
 import { Fragment, useEffect, useState } from "react";
 import { HASHTAGS, TRIP_TAGS } from "~/common/app-const";
@@ -78,6 +78,19 @@ function HashTagResultContent({ id, nickname, testResult }: HashTagResultContent
         )
     )
 
+    const tagToNumber = useAppSelector(
+        createSelector(
+            state => state.chemistry?.data.profileIds,
+            state => state.chemistry?.data.profiles,
+            (profileIds, profiles) =>
+                Object.values(TripTag).map(tag =>
+                    profileIds?.filter(profileId =>
+                        profiles[profileId].testResult?.tripTagList.includes(tag)
+                    ).length
+                )
+        )
+    )
+
     useEffect(() => {
         setDelayedSelectedTag(selectedTag)
     }, [selectedTag])
@@ -88,38 +101,42 @@ function HashTagResultContent({ id, nickname, testResult }: HashTagResultContent
                 {
                     (delayedSelectedTag === undefined)
                     &&
-                    <Stack className="typography-note--lg" justifyContent={"center"}>
+                    <Stack className="typography-note--lg" justifyContent={"center"} marginBottom={"16px"}>
                         <Info sx={{ fontSize: "14px" }} />
                         <p>태그를 터치해보세요</p>
                     </Stack>
                 }
                 {
-                    <Stack display={"flex"} useFlexGap flexWrap={"wrap"} rowGap={1} justifyContent={"center"} padding={"16px 0px"}>
+                    <Stack display={"flex"} useFlexGap flexWrap={"wrap"} gap={2} rowGap={2} justifyContent={"center"}>
                         {
-                            testResult.tripTagList.map((tag) =>
-                                (delayedSelectedTag !== tag) &&
-                                <m.div layoutId={tag.toString()}>
-                                    <TripTagChip
-                                        key={tag}
-                                        tagId={tag}
-                                        // variant={(selectedTag === tag) ? "filled" : "outlined"}
-                                        variant={"outlined"}
-                                        // color={(selectedTag === tag) ? "primary" : "default"}
-                                        color={"primary"}
-                                        onClick={handleTripTagClick(tag)}
-                                    />
-                                </m.div>
-                            )
+                            [...testResult.tripTagList].sort((a, b) => (tagToNumber[b] - tagToNumber[a]))
+                                .map((tag) =>
+                                    (delayedSelectedTag !== tag) &&
+                                    <m.div layoutId={tag.toString()}>
+                                        <Badge badgeContent={`+${tagToNumber[tag]-1}`} sx={{ '& .MuiBadge-badge': { color: "primary.main", fontWeight: 700 } }} invisible={tagToNumber[tag] < 2}>
+                                            <TripTagChip
+                                                key={tag}
+                                                tagId={tag}
+                                                // variant={(selectedTag === tag) ? "filled" : "outlined"}
+                                                variant={"outlined"}
+                                                // color={(selectedTag === tag) ? "primary" : "default"}
+                                                color={"primary"}
+                                                onClick={handleTripTagClick(tag)}
+                                            />
+                                        </Badge>
+                                    </m.div>
+                                )
                         }
                         {
                             (delayedSelectedTag !== undefined)
                             &&
-                            <m.div layoutId={delayedSelectedTag?.toString()} style={{ marginTop: "16px", scale: 1.2 }}>
+                            <m.div layoutId={delayedSelectedTag?.toString()} style={{ marginTop: "4px" }}>
                                 <TripTagChip
                                     tagId={delayedSelectedTag}
                                     variant={"filled"}
                                     color={"primary"}
                                     onClick={() => setSelectedTag(undefined)}
+                                    sx={{ padding: "1.2rem 16px", '& .MuiChip-label': { fontSize: "16px" } }}
                                 />
                             </m.div>
                         }

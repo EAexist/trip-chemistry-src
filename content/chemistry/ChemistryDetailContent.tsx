@@ -121,7 +121,7 @@ function ChemistryDetailContent() {
                                 {
                                     (activeSection === "tag")
                                     &&
-                                    <Container className="column-padding">
+                                    <Container className="column-padding-sm">
                                         <FriendHashTagResultContent id={activeProfileId} />
                                     </Container>
                                 }

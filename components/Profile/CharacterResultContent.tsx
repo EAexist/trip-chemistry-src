@@ -40,7 +40,7 @@ const activityToTripTagMap = {
 
 interface CharacterResultContentProps extends WithProfileProps { };
 
-function CharacterResultContent({ testResult }: CharacterResultContentProps) {
+function CharacterResultContent({ testResult, nickname }: CharacterResultContentProps) {
 
     const character = CHARACTERS[testResult?.characterId || "none"]
 
@@ -63,7 +63,9 @@ function CharacterResultContent({ testResult }: CharacterResultContentProps) {
             </Stack>
             {
                 character.body.split("\n").map((text) =>
-                    <p className="typography-article" key={text}>{text}</p>
+                    <p className="typography-article" key={text}>
+                        {`${nickname} 님은 ${character.name}. ${text}`}
+                    </p>
                 )
             }
         </div>

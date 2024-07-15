@@ -81,7 +81,7 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
                     <p className="typography-note" style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                         {
                             city.cityTags.map((tag) =>
-                                <Fragment key={tag}>#{HASHTAGS.city[tag].label}{"\xa0\xa0"}</Fragment>
+                                <Fragment key={tag}># {HASHTAGS.city[tag].label}{"\xa0\xa0"}</Fragment>
                             )
                         }
                     </p>
@@ -91,8 +91,8 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
                     title={cityId}
                     sx={{ height: "256px" }}
                 ></ImageCard>
-                <p className="section-title--sm" style={{ maxWidth: "90%" }}>{cityStrings.intro}</p>
-                <p>{cityStrings.body}</p>
+                <p className="section-title--sm typography-article" style={{ maxWidth: "90%" }}>{cityStrings.intro}</p>
+                <p className="typography-article">{cityStrings.body}</p>
                 <Stack justifyContent={"end"}>
                     <p className="typography-note">{commonStrings.reference}{commonStrings.linkType[city.linkType as keyof typeof commonStrings.linkType].name}</p>
                     <Logo id={city.linkType} />

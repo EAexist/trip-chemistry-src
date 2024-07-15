@@ -345,11 +345,16 @@ img {
     }
 }
 
+.typography-article {
+    line-height: 160%;
+}
+
 .typography-note--lg {
     &, & * {
         font-size: 14px;
     }
 }
+
 
 .typography-note,
 .typography-note.MuiButton-text.MuiButtonBase-root,

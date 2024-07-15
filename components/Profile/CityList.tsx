@@ -76,7 +76,7 @@ function CityList({ cities, navigateState = {} }: CityListProps) {
                                 <Stack spacing={0}>
                                     <p className="typography-note typography-note--small">예상 별점</p>
                                     <Star sx={{ marginLeft: "4px", color: "#faaf00", fontSize: "15px" }} />
-                                    <p className="typography-highlight">{Math.round(score * 10) / 10}</p>
+                                    <p className="typography-highlight typography-note--lg">{Math.round(score * 10) / 10}</p>
                                 </Stack>
                             }
                         </div>
