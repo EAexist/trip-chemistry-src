@@ -35,7 +35,7 @@ export interface ITestIndex {
     subKey?: string
 }
 
-export const sampleTestAnswer: ITestAnswer = {
+export const _sampleTestAnswer: ITestAnswer = {
     hashtag: {
         expectation: Object.values(ExpectationTag).slice(0, 4),
         // {
@@ -69,7 +69,7 @@ export const sampleTestAnswer: ITestAnswer = {
     },
 };
 
-export const _sampleTestAnswer: ITestAnswer = {
+export const sampleTestAnswer: ITestAnswer = {
     hashtag: {
         // expectation: Object.values(ExpectationTag).slice(0, 1),
         // activity: Object.values(ActivityTag).slice(0, 1),

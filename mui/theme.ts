@@ -349,7 +349,8 @@ const theme = createTheme({
                 },
                 label: {
                     display: "flex",
-                    justifyContent: "space-between"
+                    justifyContent: "space-between",
+                    fontSize: "12px"
                 }
             }
         },

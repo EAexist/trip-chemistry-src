@@ -199,8 +199,8 @@ function TimeTestContent() {
                                 nightPlanTestOptions.map(({ value, label, icon }) => (
                                     <Grid key={icon} item xs={4} sx={{ padding: "4px", display: "flex" }}>
                                         <Paper elevation={(nightPlanAnswer === value) ? 2: 0} sx={{ backgroundColor: (nightPlanAnswer === value) ? "white" : "gray.main" }}>
-                                            <ButtonBase onClick={() => setNightPlanAnswer(value)}>
-                                                <Container className="column-padding-sm gutter-xs" >
+                                            <ButtonBase onClick={() => setNightPlanAnswer((value === nightPlanAnswer) ? undefined : value)}>
+                                                <Container className="column-padding-sm gutter-xs">
                                                     <div>
                                                         <Check color="primary" sx={(nightPlanAnswer === value) ? {} : { visibility: "hidden" }}/>
                                                     </div>                                                    

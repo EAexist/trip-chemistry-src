@@ -43,11 +43,11 @@ function KakaoAuthRedirectPage() {
 
     useEffect(() => {
         dispatch(disableAutoLogin());
-    }, [dispatch])
+    }, [])
 
     return (
-        // <AuthLoadRequiredContent />
-        null
+        <AuthLoadRequiredContent />
+        // null
     );
 }
 export default KakaoAuthRedirectPage;

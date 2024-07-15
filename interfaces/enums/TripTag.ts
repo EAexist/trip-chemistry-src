@@ -1,6 +1,6 @@
 import { enumFromList } from "../../utils/utils";
 
-const TripTagList = [
+export const TripTagList = [
     "DEFAULT",
     "PHOTO",
     "EAT",

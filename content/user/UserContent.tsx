@@ -15,7 +15,7 @@ import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext
 import { IUserProfile } from "../../interfaces/IUserProfile";
 import { AuthProvider } from "../../interfaces/enums/AuthProvider";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
-import { asyncKakaoLogout, useUserProfile } from "../../reducers/authReducer";
+import { asyncKakaoLogout, useHasAnsweredTest, useUserProfile } from "../../reducers/authReducer";
 import { useAppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import { KakaoLoginHelp } from "~/components/KakaoLoginHelp";
@@ -41,7 +41,6 @@ function UserContent() {
         navigate('setNickname', { state: { navigateDirection: 'next' } });
     }
 
-
     /* ConfirmDrawer */
     const [openConfirmDrawer, setOpenConfirmDrawer] = useState(false);
 
@@ -61,6 +60,11 @@ function UserContent() {
         window.localStorage.setItem("kakaoAccessToken", "");
     }
 
+    const hasAnsweredTest = useHasAnsweredTest()
+
+    const handleStartTest = () => {
+        navigate('/test');
+    }
     return (
         <AuthLoadRequiredContent
             handleSuccess={handleLogoutSuccess}
@@ -73,35 +77,45 @@ function UserContent() {
                 </MainAppBar>
                 <Toolbar />
                 <Container className="flex-grow gutter-xl column-padding" sx={{ display: "flex", flexDirection: "column" }}>
-                    <div className='flex-grow content content--sparse block--centered'>
+                    <div className='flex-grow content block--centered'>
                         <div>
-                        <ButtonBase onClick={handleClickAvatar}>
-                            <UserAvatar sx={{ height: "128px", width: "128px" }} renderLabel={false} />
-                        </ButtonBase>
-                        <Toolbar>
-                            <IconButton
-                                edge="start"
-                                onClick={handleEdit}
-                                disabled
-                            >
-                                <Icon />
-                            </IconButton>
-                            <p className="section-title ">{nickname}</p>
-                            <IconButton
-                                edge="end"
-                                aria-label="edit"
-                                onClick={handleEdit}
-                            >
-                                <Edit />
-                            </IconButton>
-                        </Toolbar>
+                            <ButtonBase onClick={handleClickAvatar}>
+                                <UserAvatar sx={{ height: "128px", width: "128px" }} renderLabel={false} />
+                            </ButtonBase>
+                            <Toolbar>
+                                <IconButton
+                                    edge="start"
+                                    onClick={handleEdit}
+                                    disabled
+                                >
+                                    <Icon />
+                                </IconButton>
+                                <p className="section-title ">{nickname}</p>
+                                <IconButton
+                                    edge="end"
+                                    aria-label="edit"
+                                    onClick={handleEdit}
+                                >
+                                    <Edit />
+                                </IconButton>
+                            </Toolbar>
                         </div>
+                        {
+                            !hasAnsweredTest &&
+                            <Button
+                                onClick={handleStartTest}
+                                variant="contained"
+                                sx={{ width: "100%", height: '45px', borderRadius: "6px" }}
+                            >
+                                테스트 시작하기
+                            </Button>
+                        }
                         {
                             (AuthProvider[authProvider] === AuthProvider.GUEST)
                                 ?
                                 <KakaoLoginButton />
                                 :
-                                <Button onClick={handleLogout} color="gray" variant="contained" className="main-action-button">
+                                <Button onClick={handleLogout} color="gray" variant="contained" className="main-action-button" sx={{ height: '45px', borderRadius: "6px" }}>
                                     로그아웃
                                 </Button>
                         }

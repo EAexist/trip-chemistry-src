@@ -266,7 +266,8 @@ function TestContent() {
     const [openConfirmDrawer, setOpenConfirmDrawer] = useState(false);
 
     const handleCloseConfirmDrawer = () => {
-        setOpenConfirmDrawer(false);
+        setOpenConfirmDrawer(false)
+        setOpenSectionListModal(true)
     }
 
     // const handleConfirmSubmit = () => {

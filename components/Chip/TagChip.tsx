@@ -1,4 +1,5 @@
-import { Chip, ChipProps, Icon } from "@mui/material";
+import { Avatar, Chip, ChipProps, Icon, Stack } from "@mui/material";
+import { ReactNode } from "react";
 import { HASHTAGS, TRIP_TAGS } from "~/common/app-const";
 
 interface Tags {
@@ -11,22 +12,44 @@ interface Tags {
 interface TagChipProps extends ChipProps {
     tags: Tags
     tagId: number
+    endIcon?: ReactNode
 }
-const TagChip = ({ tags, tagId, ...props }: TagChipProps) => {
+const TagChip = ({ tags, tagId, endIcon, sx, ...props }: TagChipProps) => {
 
     const tripTag = tags[tagId]
 
     return (
         <Chip
             key={tagId}
-            icon={ tripTag.icon && <Icon>{tripTag.icon}</Icon> }
-            label={tripTag.label}
+            icon={tripTag.icon && <Icon>{tripTag.icon}</Icon>}
+            label={
+                endIcon
+                    ?
+                    <Stack sx={{ color: "inherit", overflow: "visible" }}>
+                        <p style={{ color: "inherit", fontSize: "14px" }}>{tripTag.label}</p>
+                        {endIcon}
+                    </Stack>
+                    :
+                    tripTag.label
+            }
+            sx={{
+                ...endIcon
+                    ?
+                    {
+                        '& .MuiChip-label': {
+                            paddingRight: 0,
+                            overflow: "visible",
+                        },
+                    }
+                    : {},
+                ...sx
+            }}
             {...props}
         />
     )
 }
 
-const TagChipWithTags = ( tags: Tags ) =>
+const TagChipWithTags = (tags: Tags) =>
     ({ ...props }: Omit<TagChipProps, "tags">) => {
 
         return (

@@ -135,6 +135,7 @@ function LoadRequiredContent({
     useEffect(()=>{
         if ( status !== LoadStatus.PENDING ){
             clearTimeout(timerRef.current)
+            setShowServerBootingAlert(false)
         }
     }, [ status === LoadStatus.PENDING ])
 
