@@ -11,6 +11,10 @@ import { useTestAnswer } from "~/reducers/testAnswerReducer";
 
 export const scheduleTestOptions = [
     {
+        value: 0,
+        label: "아무래도\n상관없어"
+    },
+    {
         value: 1,
         label: "아주\n널널하게"
     },
@@ -25,10 +29,6 @@ export const scheduleTestOptions = [
     {
         value: 4,
         label: "매우\n알차게"
-    },
-    {
-        value: 0,
-        label: "아무래도\n상관없어"
     },
 ]
 
@@ -141,7 +141,7 @@ function TimeTestContent() {
                     <CheckStepButton
                         onClick={handleStep(1)}
                         optional={
-                            (activeStep !== 1) && (scheduleAnswer !== undefined) && scheduleTestOptions[scheduleAnswer-1].label
+                            (activeStep !== 1) && (scheduleAnswer !== undefined) && scheduleTestOptions[scheduleAnswer].label
                         }
                         isChecked={scheduleAnswer !== undefined}
                         isActive={activeStep === 1}
