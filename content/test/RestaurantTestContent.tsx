@@ -145,7 +145,7 @@ function RestaurantTestContent() {
                                         <Chip
                                             key={label}
                                             label={label}
-                                            onClick={() => setAnswer(value)}
+                                            onClick={() => setAnswer((value === answer) ? undefined : value)}
                                             variant={(value === answer) ? "filled" : "outlined"}
                                             color={"primary"}
                                         />
