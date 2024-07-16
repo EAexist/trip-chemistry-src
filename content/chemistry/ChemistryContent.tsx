@@ -1,20 +1,20 @@
 /* React */
-import { useEffect, useRef, useState } from "react";
+import { SyntheticEvent, useEffect, useRef, useState } from "react";
 
 /* Externals */
 import { Add, Error, GroupAdd, NavigateBefore } from "@mui/icons-material";
-import { AppBar, Box, Button, Container, IconButton, List, ListItem, ListItemAvatar, ListItemText, Paper, Slide, Stack, Toolbar, useScrollTrigger } from "@mui/material";
+import { AppBar, Box, Button, Container, IconButton, List, ListItem, ListItemAvatar, ListItemText, Paper, Slide, Stack, Tab, Tabs, Toolbar, useScrollTrigger } from "@mui/material";
 import { m } from "framer-motion";
-import { useParams } from "~/router-module";
+import { useLocation, useParams } from "~/router-module";
 
 /* App */
 import * as ReactHelmetAsync from 'react-helmet-async';
+import AnimatedIcon from "~/components/AnimatedIcon";
 import AppTitleButton from "~/components/Button/AppTitleButton";
 import MainMenuButton from "~/components/Button/MenuButton";
 import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
 import StartTestFab from "~/components/Button/StartTestFab";
 import ConfirmDrawer from "~/components/ConfirmDrawer";
-import LazyImage from "~/components/LazyImage";
 import env from "~/env";
 import MotionPage, { motionProp_page_slideIn } from "~/motion/components/MotionPage";
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "~/motion/props";
@@ -24,11 +24,13 @@ import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext
 import { useHasAnsweredTest, useIsAuthorized, useUserId } from "../../reducers/authReducer";
 import { asyncJoinChemistry, useIsChemistryEnabled } from "../../reducers/chemistryReducer";
 import { useAppDispatch, useAppSelector } from "../../store";
-import getImgSrc from "../../utils/getImgSrc";
 import LoginContent from "../login/LoginContent";
-import ChemistryDetailContent from "./ChemistryDetailContent";
+import LeadershipChemistryContent from "./LeadershipChemistryContent";
+import RestaurantChemistryContent from "./RestaurantChemistryContent";
+import ScheduleChemistryContent from "./ScheduleChemistryContent";
 import ShareLinkDialog from "./ShareLinkDialog";
-import AnimatedIcon from "~/components/AnimatedIcon";
+import TripMemberResultContent from "./TripMemberResultContent";
+import HideOnScroll from "~/components/HideOnScroll";
 
 const { Helmet } = ReactHelmetAsync
 
@@ -127,6 +129,18 @@ function ChemistryContent() {
         console.log(`[ChemistryPage] scrollY=${window.scrollY}`)
     }, [])
 
+
+
+    /* Tabs */
+    /* CityDetailPage 에서 navigate 시 Restoration  */
+    const { state } = useLocation();
+
+    const [section, setSection] = useState<string>(state?.section || "home");
+
+    const handleSectionChange = (event: SyntheticEvent, newValue: string) => {
+        setSection(newValue);
+    };
+
     return (
         /** MetaData
          *  Not Crawled.
@@ -157,157 +171,197 @@ function ChemistryContent() {
                     :
                     (
                         (profileIds.length > 0) &&
-                        <Box key="main" className="page flex">
-                            <AppBar>
-                                <Toolbar ref={containerRef}>
-                                    {
-                                        isMember ?
-                                            <>
-                                                <NavigateBeforeButton onClick={handleClickNavigateBefore} />
-                                                <Box sx={{ flexGrow: 1 }}>
-                                                    <Slide direction="up" appear={false} in={hiddenTitleTrigger} container={containerRef.current}>
-                                                        <h2 >{title}</h2>
-                                                    </Slide>
-                                                </Box>
-                                            </>
-                                            :
-                                            <AppTitleButton />
-                                    }
-                                    <MainMenuButton />
-                                </Toolbar>
-                            </AppBar>
+                        <Box key="main" className="page">
+                            <HideOnScroll>
+                                <AppBar>
+                                    <Toolbar ref={containerRef}>
+                                        {
+                                            isMember ?
+                                                <>
+                                                    <NavigateBeforeButton onClick={handleClickNavigateBefore} />
+                                                    <Box sx={{ flexGrow: 1 }}>
+                                                        <Slide direction="up" appear={false} in={(section === "type") || (section === "chemistry")} container={containerRef.current}>
+                                                            <h2 >{title}</h2>
+                                                        </Slide>
+                                                    </Box>
+                                                </>
+                                                :
+                                                <AppTitleButton />
+                                        }
+                                        <MainMenuButton />
+                                    </Toolbar>
+                                </AppBar>
+                            </HideOnScroll>
+                            <HideOnScroll>
+                                <AppBar sx={{ top: "48px" }}>
+                                    <Container>
+                                        <Tabs
+                                            value={section}
+                                            onChange={handleSectionChange}
+                                            variant="fullWidth"
+                                            aria-label="restaurant chemistry section"
+                                        >
+                                            <Tab label="홈" value={"home"} />
+                                            <Tab label="여행 타입" value={"type"} />
+                                            <Tab label="함께 여행하기" value={"chemistry"} />
+                                        </Tabs>
+                                    </Container>
+                                </AppBar>
+                            </HideOnScroll>
                             <Toolbar />
-                            <div>
-                                <SectionPaper>
-                                    <div className="section-header">
-                                        <h2 className="section-title">{title}</h2>
-                                    </div>
-                                    <div className="content">
-                                        <List>
-                                            {
-                                                profileIds.map((id) => {
-                                                    const { testResult, nickname } = profiles[id]
-                                                    const hasAnswered = testResult !== null
-                                                    return (
-                                                        <ListItem
-                                                            key={id}
-                                                            className={`${!hasAnswered && 'disabled'}`}
-                                                            secondaryAction={
-                                                                !hasAnswered &&
-                                                                <Stack >
-                                                                    <Error sx={{ fontSize: 18 }} />
-                                                                    <p className='typography-note'>테스트 기다리는 중</p>
-                                                                </Stack>
-                                                            }
-                                                        >
-                                                            <ListItemAvatar>
-                                                                <FriendAvatar id={id} renderLabel={false} />
-                                                            </ListItemAvatar>
-                                                            <ListItemText primary={nickname} />
-                                                        </ListItem>
+                            <Toolbar />
+                            {
+                                (section === "home")
+                                &&
+                                <>
+                                    <Container className="column-padding">
+                                        <div className="section-header">
+                                            <h2 className="section-title">{title}</h2>
+                                        </div>
+                                        <div className="content">
+                                            <List>
+                                                {
+                                                    profileIds.map((id) => {
+                                                        const { testResult, nickname } = profiles[id]
+                                                        const hasAnswered = testResult !== null
+                                                        return (
+                                                            <ListItem
+                                                                key={id}
+                                                                className={`${!hasAnswered && 'disabled'}`}
+                                                                secondaryAction={
+                                                                    !hasAnswered &&
+                                                                    <Stack >
+                                                                        <Error sx={{ fontSize: 18 }} />
+                                                                        <p className='typography-note'>테스트 기다리는 중</p>
+                                                                    </Stack>
+                                                                }
+                                                            >
+                                                                <ListItemAvatar>
+                                                                    <FriendAvatar id={id} renderLabel={false} />
+                                                                </ListItemAvatar>
+                                                                <ListItemText primary={nickname} />
+                                                            </ListItem>
+                                                        )
+                                                    }
                                                     )
                                                 }
-                                                )
-                                            }
-                                            {
-                                                isMember
-                                                    ?
-                                                    <ListItem>
-                                                        <Button
-                                                            variant="outlined"
-                                                            className="main-action-button"
-                                                            onClick={handleStartShare}
-                                                            startIcon={<GroupAdd />}
-                                                        >
-                                                            친구 초대하기
-                                                        </Button>
-                                                    </ListItem>
-                                                    :
-                                                    <ListItem>
-                                                        <Button
-                                                            variant="outlined"
-                                                            className="main-action-button"
-                                                            onClick={handleJoinChemistry}
-                                                            startIcon={<Add />}
-                                                        >
-                                                            참여하기
-                                                        </Button>
-                                                    </ListItem>
-                                            }
-                                        </List>
-                                    </div>
-                                </SectionPaper>
-                                {
-                                    isChemistryEnabled
-                                        ?
-                                        <ChemistryDetailContent />
-                                        :
-                                        /* 참여자를 한 명도 추가하지 않은 경우. */
-                                        <Paper square className="block--centered content content--sparse">
-                                            <Container className="column-padding">
-                                                <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="block--centered content">
-                                                    {
-                                                        Object.keys(profiles).length < 2
-                                                            ?
-                                                            <>
-                                                                <AnimatedIcon
-                                                                    name="letter"
-                                                                    width="64px"
-                                                                    height="64px"
-                                                                />
-                                                                <p>
-                                                                    {"함께 여행할 친구를 초대하고\n여행 스타일을 비교해보세요."}
-                                                                </p>
-                                                            </>
-                                                            :
-                                                            <>
-                                                                <AnimatedIcon
-                                                                    name="friends"
-                                                                    width="64px"
-                                                                    height="64px"
-                                                                />
-                                                                <p>
-                                                                    {"두 명 이상이 테스트를 완료하면 결과를 확인할 수 있어요."}
-                                                                </p>
-                                                            </>
-                                                    }
-                                                </m.div>
-                                            </Container>
-                                            {
-                                                !hasAnsweredTest &&
-                                                <div className="fab-placeholder" style={{ backgroundColor: "white", visibility: "visible" }} />
-                                            }
-                                        </Paper>
-                                }
-                                {
-                                    isChemistryEnabled
-                                    && !hasAnsweredTest
-                                    && <div className="fab-placeholder" style={{ backgroundColor: "white", visibility: "visible" }} />
-                                }
-                                <ConfirmDrawer
-                                    open={openConfirmJoinDialog}
-                                    onOpen={() => setOpenConfirmJoinDialog(true)}
-                                    onClose={handleCloseConfirmJoinDialog}
-                                    onCancel={handleCloseConfirmJoinDialog}
-                                    onConfirm={handleConfirmJoin}
-                                    title={`여행에 참여할까요?`}
-                                    body={`${profiles[profileIds[0]].nickname}님의 ${title}`}
-                                    cancelButtonLabel={'취소'}
-                                />
-                                <ShareLinkDialog
-                                    title={"초대 링크 전송하기"}
-                                    link={link}
-                                    open={openShareDialog}
-                                    onClose={handleCloseShareDialog}
-                                />
-                                {
-                                    (isMember && !hasAnsweredTest)
-                                    &&
-                                    <StartTestFab />
-                                }
-                            </div>
-                            {/* <div style={{ position: "fixed", top: 0 }}>
-                            </div> */}
+                                                {
+                                                    isMember
+                                                        ?
+                                                        <ListItem>
+                                                            <Button
+                                                                variant="outlined"
+                                                                className="main-action-button"
+                                                                onClick={handleStartShare}
+                                                                startIcon={<GroupAdd />}
+                                                            >
+                                                                친구 초대하기
+                                                            </Button>
+                                                        </ListItem>
+                                                        :
+                                                        <ListItem>
+                                                            <Button
+                                                                variant="outlined"
+                                                                className="main-action-button"
+                                                                onClick={handleJoinChemistry}
+                                                                startIcon={<Add />}
+                                                            >
+                                                                참여하기
+                                                            </Button>
+                                                        </ListItem>
+                                                }
+                                            </List>
+                                        </div>
+                                    </Container>
+                                    <ConfirmDrawer
+                                        open={openConfirmJoinDialog}
+                                        onOpen={() => setOpenConfirmJoinDialog(true)}
+                                        onClose={handleCloseConfirmJoinDialog}
+                                        onCancel={handleCloseConfirmJoinDialog}
+                                        onConfirm={handleConfirmJoin}
+                                        title={`여행에 참여할까요?`}
+                                        body={`${profiles[profileIds[0]].nickname}님의 ${title}`}
+                                        cancelButtonLabel={'취소'}
+                                    />
+                                    <ShareLinkDialog
+                                        title={"초대 링크 전송하기"}
+                                        link={link}
+                                        open={openShareDialog}
+                                        onClose={handleCloseShareDialog}
+                                    />
+                                </>
+                            }
+                            {
+                                isChemistryEnabled && (section === "type")
+                                &&
+                                <TripMemberResultContent />
+                            }
+                            {
+                                isChemistryEnabled && (section === "chemistry")
+                                &&
+                                <Box className="content" sx={{ backgroundColor: "gray.main" }}>
+                                    <SectionPaper>
+                                        <LeadershipChemistryContent />
+                                    </SectionPaper>
+                                    <SectionPaper>
+                                        <ScheduleChemistryContent />
+                                    </SectionPaper>
+                                    <SectionPaper>
+                                        <RestaurantChemistryContent />
+                                    </SectionPaper>
+                                </Box>
+                            }
+                            {
+                                ((section === "type") || (section === "chemistry")) && !isChemistryEnabled
+                                &&
+                                <Container sx={{ marginTop: "96px" }}>
+                                    <m.div {...FADEIN_FROMBOTTOM_VIEWPORT} className="block--centered content">
+                                        {
+                                            ( Object.keys(profiles).length < 2 ) && isMember
+                                                ?
+                                                <>
+                                                    <AnimatedIcon
+                                                        name="letter"
+                                                        width="64px"
+                                                        height="64px"
+                                                    />
+                                                    <p>
+                                                        {"아직 아무도 없네요.\n함께 여행할 친구를 초대하고 결과를 확인해보세요."}
+                                                    </p>
+                                                    <Button
+                                                        variant="outlined"
+                                                        className="main-action-button"
+                                                        onClick={handleStartShare}
+                                                        startIcon={<GroupAdd />}
+                                                    >
+                                                        친구 초대하기
+                                                    </Button>
+                                                </>
+                                                :
+                                                <>
+                                                    <AnimatedIcon
+                                                        name="friends"
+                                                        width="64px"
+                                                        height="64px"
+                                                    />
+                                                    <p>
+                                                        {"두 명 이상의 멤버가 테스트를 완료해야\n결과를 확인할 수 있어요."}
+                                                    </p>
+                                                </>
+                                        }
+                                    </m.div>
+                                </Container>
+                            }
+                            {
+                                isChemistryEnabled
+                                && !hasAnsweredTest
+                                && <div className="fab-placeholder" style={{ backgroundColor: "white", visibility: "visible" }} />
+                            }
+                            {
+                                (isMember && !hasAnsweredTest)
+                                &&
+                                <StartTestFab />
+                            }
                         </Box>
                     )
             }

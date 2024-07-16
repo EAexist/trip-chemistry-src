@@ -11,7 +11,7 @@ interface LoginPageProps {
     title?: string;
 }
 
-function LoginPage({ title = "테스트를 시작해볼까요?" }: LoginPageProps) {
+function LoginPage({ title = "테스트를 시작해보세요" }: LoginPageProps) {
 
     return (
         <>

@@ -64,7 +64,7 @@ function CharacterResultContent({ testResult, nickname }: CharacterResultContent
             {
                 character.body.split("\n").map((text, index) =>
                     <p className="typography-article" key={text}>
-                        { index === 0 ? `${nickname} 님은 ${character.name}.` : ""}{text}
+                        { index === 0 ? `${nickname} 님은 ${character.name}.` : ""} {text}
                     </p>
                 )
             }

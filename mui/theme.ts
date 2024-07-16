@@ -98,9 +98,11 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     height: "48px",
-                    paddingLeft: "24px",
-                    paddingRight: "24px",
-                    overflow: "hidden"
+                    overflow: "hidden",
+                    '& .MuiToolbar-root' : {
+                        marginLeft: "24px",
+                        marginRight: "24px",
+                    }
                 }
             }
         },

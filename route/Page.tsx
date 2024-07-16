@@ -4,7 +4,7 @@ import AppDrawer from "~/components/Drawer/AppDrawer";
 import LazyDomAnimation from "~/motion/LazyDomAnimation";
 import { Outlet, useSearchParams } from "~/router-module";
 import { AuthLoadRequiredContent } from "../content/LoadRequiredContent";
-import { asyncGuestLogin, asyncKakaoLoginByAccessToken, disableAutoLogin, useAuthorize } from "../reducers/authReducer";
+import { asyncGuestLogin, asyncKakaoLoginByAccessToken, disableAutoLogin, useAuthorize, useIsAuthorized } from "../reducers/authReducer";
 import { useAppDispatch, useAppSelector } from "../store";
 
 interface DrawerContextProps {
@@ -63,10 +63,12 @@ function Page({ }) {
     /* Drawer */
     const [openDrawer, setOpenDrawer] = useState(false);
 
+    const isAuthorized = useIsAuthorized()
+
     return (
         <LazyDomAnimation>
             <AuthLoadRequiredContent
-                isEnabled={isAutoLoginEnabaled}
+                isEnabled={isAutoLoginEnabaled || (guestId && !isAuthorized)}
                 handleFail={handleFail}
                 handleSuccess={handleSuccess}
                 showHandleFailButton={false}
