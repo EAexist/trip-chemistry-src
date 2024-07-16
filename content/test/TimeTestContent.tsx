@@ -80,6 +80,7 @@ const TimeAnswerStepLabel = (({ testKey, index, summaryTitle, handleStep, label 
 
     const [timeAnswer, setTimeAnswer] = useTestAnswer("schedule", testKey)
     const [theOtherTimeAnswer] = useTestAnswer("schedule", testKey === "startTime" ? "endTime" : "startTime")
+    // const timeDayJs = (timeAnswer !== undefined) ? dayjs('2024-06-05 00:00').set("hour", timeAnswer) : undefined
     const [timeDayJs, setTimeDayJs] = useState((timeAnswer !== undefined) ? dayjs('2024-06-05 00:00').set("hour", timeAnswer) : undefined)
     const theOtherTimeDayJs = (theOtherTimeAnswer !== undefined) ? dayjs('2024-06-05 00:00').set("hour",  theOtherTimeAnswer) : undefined
     // const [theOtherTimeDayJs] = useState(dayjs('2024-06-05 00:00').set("hour", (theOtherTimeAnswer !== undefined) ? theOtherTimeAnswer : 20))
@@ -89,7 +90,7 @@ const TimeAnswerStepLabel = (({ testKey, index, summaryTitle, handleStep, label 
     useEffect(() => {
         if (timeDayJs)
             setTimeAnswer(timeDayJs.get("hour"))
-    }, [timeDayJs])
+    }, [ timeDayJs ])
 
     return (
         <Step key={0} index={index}>
@@ -110,7 +111,7 @@ const TimeAnswerStepLabel = (({ testKey, index, summaryTitle, handleStep, label 
                     value={timeDayJs}
                     maxTime={((testKey === "startTime") && (theOtherTimeAnswer !== undefined)) ? theOtherTimeDayJs.subtract(1, "hour") : undefined}
                     minTime={((testKey === "endTime") && (theOtherTimeAnswer !== undefined)) ? theOtherTimeDayJs.add(1, "hour") : undefined}
-                    onChange={(newValue) => setTimeDayJs(newValue)}
+                    onAccept={(newValue) => setTimeDayJs(newValue)}
                     label={label}
                     views={['hours']}
                 />
