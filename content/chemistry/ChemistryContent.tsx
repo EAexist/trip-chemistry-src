@@ -3,7 +3,7 @@ import { SyntheticEvent, useEffect, useRef, useState } from "react";
 
 /* Externals */
 import { Add, Error, GroupAdd, NavigateBefore } from "@mui/icons-material";
-import { AppBar, Box, Button, Container, IconButton, List, ListItem, ListItemAvatar, ListItemText, Paper, Slide, Stack, Tab, Tabs, Toolbar, useScrollTrigger } from "@mui/material";
+import { AppBar, Box, Button, Container, IconButton, List, ListItem, ListItemAvatar, ListItemText, Slide, Stack, Tab, Tabs, Toolbar, useScrollTrigger } from "@mui/material";
 import { m } from "framer-motion";
 import { useLocation, useParams } from "~/router-module";
 
@@ -15,6 +15,7 @@ import MainMenuButton from "~/components/Button/MenuButton";
 import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
 import StartTestFab from "~/components/Button/StartTestFab";
 import ConfirmDrawer from "~/components/ConfirmDrawer";
+import HideOnScroll from "~/components/HideOnScroll";
 import env from "~/env";
 import MotionPage, { motionProp_page_slideIn } from "~/motion/components/MotionPage";
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "~/motion/props";
@@ -30,7 +31,6 @@ import RestaurantChemistryContent from "./RestaurantChemistryContent";
 import ScheduleChemistryContent from "./ScheduleChemistryContent";
 import ShareLinkDialog from "./ShareLinkDialog";
 import TripMemberResultContent from "./TripMemberResultContent";
-import HideOnScroll from "~/components/HideOnScroll";
 
 const { Helmet } = ReactHelmetAsync
 
@@ -144,6 +144,11 @@ function ChemistryContent() {
     /* AppBar */
     const scrollTargetRef = useRef(null);
 
+    const trigger = useScrollTrigger({
+        disableHysteresis: true,
+        threshold: 0
+    });
+
     return (
         /** MetaData
          *  Not Crawled.
@@ -196,7 +201,7 @@ function ChemistryContent() {
                                 </AppBar>
                             </HideOnScroll>
                             <HideOnScroll targetRef={scrollTargetRef}>
-                                <AppBar sx={{ top: "48px" }}>
+                                <AppBar sx={{ top: "48px", ... trigger ? { borderBottom: "1px solid" } : {}, borderColor: "gray.dark" }}>
                                     <Container>
                                         <Tabs
                                             value={section}

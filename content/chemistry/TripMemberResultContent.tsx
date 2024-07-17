@@ -1,24 +1,22 @@
 /* React */
-import { SyntheticEvent, useState } from "react";
+import { useState } from "react";
 
 /* Externals */
-import { AppBar, Chip, Container, Icon, Stack } from "@mui/material";
+import { Chip, Container, Icon, Stack } from "@mui/material";
 import { AnimatePresence, m } from "framer-motion";
 
 /* App */
-import { Height, QuestionMark } from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
+import AnimatedIcon from "~/components/AnimatedIcon";
 import CharacterResultContent from "~/components/Profile/CharacterResultContent";
 import HashTagResultContent from "~/components/Profile/HashTagResultContent";
 import RecommendedCityList from "~/components/Profile/RecommendedCityList";
 import withFriendProfile from "~/hocs/withFriendProfile";
 import { IProfileId } from "~/interfaces/IProfile";
 import { useAppSelector } from "~/store";
-import { FADEIN, FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
+import { FADEIN } from "../../motion/props";
 import { useProfileIdList } from "../../reducers/chemistryReducer";
 import ProfileToggleButtonGroup from "./component/ProfileToggleButtonGroup";
-import ElevationScroll from "~/components/ElevationScroll";
-import AnimatedIcon from "~/components/AnimatedIcon";
 
 const FriendCharacterResultContent = withFriendProfile(CharacterResultContent);
 const FriendHashTagResultContent = withFriendProfile(HashTagResultContent);
@@ -45,8 +43,8 @@ function TripMemberResultContent() {
 
     return (
         <>
-            <ElevationScroll>
-                <AppBar sx={{ top: "96px", height: "fit-content" }}>
+            {/* <ElevationScroll> */}
+                {/* <AppBar sx={{ top: "96px", height: "fit-content" }}> */}
                     <Container className="column-padding-sm content content--dense" >
                         <ProfileToggleButtonGroup
                             activeProfileId={activeProfileId}
@@ -83,9 +81,9 @@ function TripMemberResultContent() {
                             }
                         </Stack>
                     </Container>
-                </AppBar>
-            </ElevationScroll>
-            <div style={{ height: "132px" }} />
+                {/* </AppBar> */}
+            {/* </ElevationScroll> */}
+            {/* <div style={{ height: "132px" }} /> */}
             <AnimatePresence mode={"wait"} initial={false}>
                 <m.div key={`${activeProfileId}-${activeSection}`} {...{ ...FADEIN, exit: "hidden" }}>
                     <Container>
