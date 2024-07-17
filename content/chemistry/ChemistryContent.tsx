@@ -141,6 +141,9 @@ function ChemistryContent() {
         setSection(newValue);
     };
 
+    /* AppBar */
+    const scrollTargetRef = useRef(null);
+
     return (
         /** MetaData
          *  Not Crawled.
@@ -171,8 +174,8 @@ function ChemistryContent() {
                     :
                     (
                         (profileIds.length > 0) &&
-                        <Box key="main" className="page">
-                            <HideOnScroll>
+                        <Box key="main" className="page" ref={scrollTargetRef}>
+                            <HideOnScroll targetRef={scrollTargetRef}>
                                 <AppBar>
                                     <Toolbar ref={containerRef}>
                                         {
@@ -192,7 +195,7 @@ function ChemistryContent() {
                                     </Toolbar>
                                 </AppBar>
                             </HideOnScroll>
-                            <HideOnScroll>
+                            <HideOnScroll targetRef={scrollTargetRef}>
                                 <AppBar sx={{ top: "48px" }}>
                                     <Container>
                                         <Tabs

@@ -1,12 +1,14 @@
 /* React */
-import { createRoutesFromElements, Navigate, Outlet, Route, ScrollRestoration } from 'react-router-dom';
-import { Provider } from 'react-redux';
 import loadable from '@loadable/component';
+import { Provider } from 'react-redux';
+import { createRoutesFromElements, Navigate, Outlet, Route, ScrollRestoration } from 'react-router-dom';
 
 /* App */
-import { CITIES, TEST } from './common/app-const';
+import { CITIES } from './common/app-const';
 import { store } from './store';
+// import HideOnScrollTest from './components/HideOnScrollTest';
 import Page from './route/Page';
+import HideOnScrollTest from './components/HideOnScrollTest';
 
 /* Mockup */
 // import ChemistryDetailMockupContent from './mockup/ChemistryDetailMockupContent';
@@ -98,7 +100,9 @@ const routes = createRoutesFromElements(
             </Route>
 
             {/* Debug */}
-            <Route key={'initializeNickname'} index path={'initializeNickname'} element={<InitializeNicknameContent />} />
+            <Route key={'initializeNickname'} index path={'initializeNickname'} element={
+                <HideOnScrollTest/>
+            } />
         </Route>
 
 
