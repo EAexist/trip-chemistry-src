@@ -105,7 +105,7 @@ function TripMemberResultContent() {
                                     {
                                         (activeSection === "city")
                                         &&
-                                        <FriendRecommendedCityList id={activeProfileId} navigateState={{ activeProfileId, activeSection }} />
+                                        <FriendRecommendedCityList id={activeProfileId} navigateState={{ activeProfileId }} />
                                     }
                                 </>
                                 :

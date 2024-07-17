@@ -43,7 +43,7 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
         console.log(`[CityDetailContent] handleNavigateBefore /${redirectPath ? redirectPath : 'home'}`)
         navigate(
             `${redirectPath ? redirectPath : '/home'}`,
-            { state: { activeProfileId: searchParams.get('activeProfileId'), activeSection: 'city', isRedirected: redirectPath ? true : undefined } },
+            { state: redirectPath ? { activeProfileId: searchParams.get('activeProfileId'), activeSection: 'city', section: "type", isRedirected: true} : {} },
             pathname.includes("test") ? "city" : undefined
         );
         // navigate('../..', {}, pathname.includes("test") ? "city" : undefined );
