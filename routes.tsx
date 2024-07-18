@@ -9,6 +9,8 @@ import { store } from './store';
 // import HideOnScrollTest from './components/HideOnScrollTest';
 import Page from './route/Page';
 import HideOnScrollTest from './components/HideOnScrollTest';
+import { Helmet } from 'react-helmet-async';
+import env from "~/env";
 
 /* Mockup */
 // import ChemistryDetailMockupContent from './mockup/ChemistryDetailMockupContent';
@@ -67,7 +69,14 @@ const routes = createRoutesFromElements(
         <Route key={'index'} element={<Outlet />} >
             <Route path="*" element={<Navigate to="home" />} />
             {cityDetailRoute}
-            <Route key={'home'} index path={'home'} element={<HomeContent />} />
+            <Route key={'home'} index path={'home'} element={
+                <>
+                    <Helmet>
+                        <link rel="canonical" href={`${env.REACT_APP_PUBLIC_URL}/home`} />
+                    </Helmet>
+                    <HomeContent />
+                </>
+            } />
             <Route key={'result'} path={'result/:profileId'} element={<PublicResultPage />} />
             <Route key={'chemistry'} path={'chemistry/:chemistryId'} element={<ChemistryRoute />} >
                 <Route path="*" element={<Navigate to=".." />} />
@@ -86,7 +95,7 @@ const routes = createRoutesFromElements(
                     <Route key={'setNickname'} path={'setNickname'} element={<EditNicknameContent />} />
                 </Route>
                 <Route key={'result'} path={'result'} element={<ResultPage />} />
-                
+
                 <Route key={'myChemistry'} path={'myChemistry'} element={<Outlet />} >
                     <Route key={'myChemistry'} index element={<ChemistryListContent />} />
                     <Route key={'new'} path={'new'} element={<CreateChemistryContent />} />
@@ -101,7 +110,7 @@ const routes = createRoutesFromElements(
 
             {/* Debug */}
             <Route key={'initializeNickname'} index path={'initializeNickname'} element={
-                <HideOnScrollTest/>
+                <HideOnScrollTest />
             } />
         </Route>
 
