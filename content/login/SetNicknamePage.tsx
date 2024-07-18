@@ -92,6 +92,7 @@ function SetNicknamePage({
                             <p>- 공백은 포함할 수 없어요.</p>
                         </div>
                     }
+                    label={"set username"}
                 />
             </Container>
             <IOSResponsiveFab

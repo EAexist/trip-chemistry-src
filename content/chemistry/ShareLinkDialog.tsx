@@ -156,6 +156,7 @@ function ShareLinkDialog({
                     }}
                     inputRef={linkInputRef}
                     sx={{ '& .MuiInputBase-root': { fontSize: "12px", fontWeight: 400 } }}
+                    aria-label={"link to share"}
                 />
                 <Button
                     onClick={handleCloseShareDialog}

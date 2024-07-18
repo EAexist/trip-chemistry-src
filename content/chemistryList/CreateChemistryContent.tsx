@@ -115,6 +115,7 @@ function CreateChemistryContent() {
                             helperText={helperText}
                             title={"여행 제목을 입력해주세요."}
                             autoFocus={true}
+                            label={"set trip's name"}
                         />
                     </Container>
                     <IOSResponsiveFab

@@ -14,7 +14,7 @@ interface TextFieldBlockProps {
     note?: ReactNode;
     autoFocus?: boolean;
     className?: string;
-
+    label: string;
 };
 
 const TextFieldBlock = forwardRef(({
@@ -25,7 +25,8 @@ const TextFieldBlock = forwardRef(({
     title,
     note,
     autoFocus,
-    className
+    className,
+    label
 }: TextFieldBlockProps, ref: ForwardedRef<HTMLInputElement>) => {
 
     /* Event Handlers */
@@ -56,6 +57,7 @@ const TextFieldBlock = forwardRef(({
                             setValue(event.target.value);
                         }
                     }}
+                    aria-label={label}
                     // placeholder={strings.searchFormPlaceholder}
                     InputProps={{
                         endAdornment: (
