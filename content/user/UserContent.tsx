@@ -79,21 +79,21 @@ function UserContent() {
                 <Container className="flex-grow gutter-xl column-padding" sx={{ display: "flex", flexDirection: "column" }}>
                     <div className='flex-grow content block--centered'>
                         <div>
-                            <ButtonBase onClick={handleClickAvatar}>
+                            {/* <ButtonBase onClick={handleClickAvatar}> */}
                                 <UserAvatar sx={{ height: "128px", width: "128px" }} renderLabel={false} />
-                            </ButtonBase>
+                            {/* </ButtonBase> */}
                             <Toolbar>
                                 <IconButton
                                     edge="start"
-                                    onClick={handleEdit}
+                                    aria-label="placeholder"
                                     disabled
                                 >
                                     <Icon />
                                 </IconButton>
-                                <p className="section-title ">{nickname}</p>
+                                <p className="section-title">{nickname}</p>
                                 <IconButton
                                     edge="end"
-                                    aria-label="edit"
+                                    aria-label="edit username"
                                     onClick={handleEdit}
                                 >
                                     <Edit />
