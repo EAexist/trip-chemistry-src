@@ -102,12 +102,12 @@ function RestaurantTestContent() {
                         answer: popularityAnswer,
                         setAnswer: setFameAnswer
                     },
-                ].map(({ label, body, answer, setAnswer }) => (
+                ].map(({ label, body, answer, setAnswer }, index ) => (
                     <Accordion key={label} expanded={expanded === label} onChange={handleChange(label)}>
                         <AccordionSummary
                             expandIcon={(expanded === label) && <ExpandMore />}
-                            aria-controls={`${label} answer panel`}
-                            id={`${label} answer panel header`}
+                            id={`panel${index}-header`}
+                            aria-controls={`panel${index}-content`}
                         >
                             <Stack direction="row" justifyContent="space-between" width="100%">
                                 <div>
