@@ -20,7 +20,7 @@ function TestInstruction({ testKey, isAnswered, className, showBackdrop = false 
         <div className={`${className} ${showBackdrop ? "backdrop" : ""}`}>
             <Stack>
                 <Help sx={{ fontSize: 18 }} />
-                <h4 className='typography-note'>{instruction}</h4>
+                <p className='typography-note'>{instruction}</p>
             </Stack>
         </div>
 

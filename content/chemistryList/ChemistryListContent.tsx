@@ -37,7 +37,9 @@ function ChemistryListContent() {
                 <MotionList variants={VARIANTS_STAGGER_CHILDREN}>
                     {
                         Object.values(chemistryIdList).map((id, index) => (
-                            <ChemistryListItem id={id} />
+                            <ListItem>
+                                <ChemistryListItem id={id} />
+                            </ListItem>
                         ))
                     }
                     <ListItem sx={{ marginTop: "16px" }}>

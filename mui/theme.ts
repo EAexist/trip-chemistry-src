@@ -316,7 +316,7 @@ const theme = createTheme({
         },
         MuiListItemButton: {
             defaultProps: {
-                disableGutters: true,
+                disableGutters: true
             },
             styleOverrides: {
                 root: {
