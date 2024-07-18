@@ -57,7 +57,7 @@ const TextFieldBlock = forwardRef(({
                             setValue(event.target.value);
                         }
                     }}
-                    aria-label={label}
+                    id={label}
                     // placeholder={strings.searchFormPlaceholder}
                     InputProps={{
                         endAdornment: (
@@ -73,6 +73,9 @@ const TextFieldBlock = forwardRef(({
                             </InputAdornment>
                         ),
                         sx: { '& .MuiInputBase-input' : { textAlign: "center" } },
+                    }}
+                    inputProps={{
+                        "aria-label": label
                     }}
                     /**
                      * iOS 브라우저에서 input autoFoucs 및 키보드 오픈
