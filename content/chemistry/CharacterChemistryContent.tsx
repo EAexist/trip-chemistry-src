@@ -6,12 +6,12 @@ import { QuestionMark } from "@mui/icons-material";
 import { AnimatePresence, m } from "framer-motion";
 
 /* App */
-import { IProfileId } from "~/interfaces/IProfile";
+import { IProfileId } from "../interfaces/IProfile";
 import { FADEIN, FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import { useProfileIdList } from "../../reducers/chemistryReducer";
-import TestResultBlock from "~/components/Profile/TestResultBlock";
-import withFriendProfile from "~/hocs/withFriendProfile";
-import { useAppSelector } from "~/store";
+import TestResultBlock from "../components/Profile/TestResultBlock";
+import withFriendProfile from "../hocs/withFriendProfile";
+import { useAppSelector } from "../store";
 import ProfileToggleButtonGroup from "./component/ProfileToggleButtonGroup";
 
 const FriendTestResultBlock = withFriendProfile(TestResultBlock);

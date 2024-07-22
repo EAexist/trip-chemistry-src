@@ -1,9 +1,9 @@
 import { Accordion, AccordionDetails, AccordionProps, AccordionSummary, Stack } from "@mui/material";
 
 import { ExpandMore, NavigateNext } from "@mui/icons-material";
-import { CITY_TYPES, ICityType, PREFERENCE_OPTIONS } from "~/common/app-const";
-import CityCarousel from "~/components/CityCarousel";
-import { useTestAnswer } from "~/reducers/testAnswerReducer";
+import { CITY_TYPES, ICityType, PREFERENCE_OPTIONS } from "../common/app-const";
+import CityCarousel from "../components/CityCarousel";
+import { useTestAnswer } from "../reducers/testAnswerReducer";
 import AnswerButtonGroup from "./component/AnswerButtonGroup";
 
 interface CityTestContentProps extends Omit<AccordionProps, "children"> {

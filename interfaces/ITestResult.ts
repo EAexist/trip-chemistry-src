@@ -1,4 +1,4 @@
-import { ICharacterId } from "~/common/app-const";
+import { ICharacterId } from "../common/app-const";
 import { ITripTag } from "./enums/TripTag";
 
 export interface ITestResult{

@@ -11,8 +11,8 @@ import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 /* App */
-import Flag from "~/components/Flag";
-import { useStrings } from "~/texts";
+import Flag from "../components/Flag";
+import { useStrings } from "../texts";
 import { CITIES, CITY_TYPES, ICityType, NATION, TEST } from "../common/app-const";
 import ImageCard from "../components/Card/ImageCard";
 import useNavigateWithGuestContext from "../hooks/useNavigateWithGuestContext";

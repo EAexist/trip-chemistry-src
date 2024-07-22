@@ -10,7 +10,7 @@ import 'swiper/css/autoplay';
 import 'swiper/css/pagination';
 
 /* App */
-import CityCarousel from "~/components/CityCarousel";
+import CityCarousel from "../components/CityCarousel";
 import { CITY_TYPES, TEST } from "../../common/app-const";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import CityChemistryAccordion from "./component/CityChemistryAccordion";

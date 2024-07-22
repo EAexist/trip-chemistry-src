@@ -95,7 +95,6 @@ const routes = createRoutesFromElements(
                     <Route key={'setNickname'} path={'setNickname'} element={<EditNicknameContent />} />
                 </Route>
                 <Route key={'result'} path={'result'} element={<ResultPage />} />
-
                 <Route key={'myChemistry'} path={'myChemistry'} element={<Outlet />} >
                     <Route key={'myChemistry'} index element={<ChemistryListContent />} />
                     <Route key={'new'} path={'new'} element={<CreateChemistryContent />} />

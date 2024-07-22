@@ -10,8 +10,8 @@ import useSetNickname from "../../hooks/useSetNickname";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { useUserProfile } from "../../reducers/authReducer";
 
-import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
-import { useAppSelector } from "~/store";
+import NavigateBeforeButton from "../../components/Button/NavigateBeforeButton";
+import { useAppSelector } from "../../store";
 import TextFieldBlock from "../../components/Block/TextFieldBlock";
 import IOSResponsiveFab from "./IOSResponsiveFab";
 

@@ -5,7 +5,7 @@ import { Dispatch } from "react";
 import { Stack } from "@mui/material";
 
 /* App */
-import { useProfileIdList } from "~/reducers/chemistryReducer";
+import { useProfileIdList } from "../reducers/chemistryReducer";
 import FriendAvatar from "../../../components/Avatar/FriendAvatar";
 import ToggleButton from "../../../components/Button/ToggleButton";
 

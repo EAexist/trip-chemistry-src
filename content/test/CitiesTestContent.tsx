@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/pagination';
 
-import { CITY_TYPES, ICityType } from "~/common/app-const";
+import { CITY_TYPES, ICityType } from "../common/app-const";
 import CityTestContent from "./CityTestContent";
 
 interface CitiesTestContentProps {

@@ -1,8 +1,8 @@
 import { SliderProps } from "@mui/material";
-import { ExpectationTag } from "~/interfaces/enums/ExpectationTag";
+import { ExpectationTag } from "../interfaces/enums/ExpectationTag";
 import { TripTag } from "../interfaces/enums/TripTag";
-import { ActivityTag } from "~/interfaces/enums/ActivityTag";
-import { CityTag } from "~/interfaces/enums/CityTag";
+import { ActivityTag } from "../interfaces/enums/ActivityTag";
+import { CityTag } from "../interfaces/enums/CityTag";
 
 export const USER = {
     maxNicknameLength: 5,

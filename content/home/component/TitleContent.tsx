@@ -1,13 +1,11 @@
 // https://codesandbox.io/s/framer-motion-parallax-i9gwuc?from-embed=&file=/src/App.tsx:214-345
 
-import { ExpandMore } from "@mui/icons-material";
-import { m, MotionValue, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
-import { VARIANTS_FADEIN_FROMBOTTOM } from "~/motion/props";
 
-const useParallax = (value: MotionValue<number>, distance: number) => {
-    return useTransform(value, [0.5, 1], [0, distance]);
-}
+import { ExpandMore } from "@mui/icons-material";
+import { m, useScroll, useTransform } from "framer-motion";
+
+import { VARIANTS_FADEIN_FROMBOTTOM } from "../../../motion/props";
 
 const TitleContent = () => {
     const ref = useRef(null);

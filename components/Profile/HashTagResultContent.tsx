@@ -1,20 +1,19 @@
+import { useEffect, useState } from "react";
 
-import { Avatar, AvatarGroup, Badge, Box, Container, Divider, Icon, List, ListItem, ListItemAvatar, ListItemText, Stack, Zoom } from "@mui/material";
+import { Avatar, Box, Stack } from "@mui/material";
 import { createSelector } from "@reduxjs/toolkit";
-import { Fragment, useEffect, useState } from "react";
-import { HASHTAGS, TRIP_TAGS } from "~/common/app-const";
-import { ActivityTag } from "~/interfaces/enums/ActivityTag";
-import { ExpectationTag } from "~/interfaces/enums/ExpectationTag";
-import { TripTag, TripTagList } from "~/interfaces/enums/TripTag";
-import { useAppSelector } from "~/store";
+
+import { HASHTAGS } from "../../common/app-const";
 import { WithProfileProps } from "../../hocs/withUserProfile";
+import { ActivityTag } from "../../interfaces/enums/ActivityTag";
+import { ExpectationTag } from "../../interfaces/enums/ExpectationTag";
+import { TripTag } from "../../interfaces/enums/TripTag";
+import { useAppSelector } from "../../store";
 import FriendAvatar from "../Avatar/FriendAvatar";
 import { TripTagChip } from "../Chip/TagChip";
-import ImageIcon from "../ImageIcon";
-import { Group, Info, Snowboarding, Textsms } from "@mui/icons-material";
 
-import { AnimatePresence, m } from "framer-motion"
-import { FADEIN } from "~/motion/props";
+import { AnimatePresence, m } from "framer-motion";
+import { FADEIN } from "../../motion/props";
 
 const expectationToTripTagMap = {
     HEAL: [TripTag.REST],

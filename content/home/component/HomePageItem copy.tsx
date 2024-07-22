@@ -3,7 +3,7 @@
 import { Container, Toolbar } from "@mui/material";
 import { m, MotionValue, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { PropsWithChildren, ReactNode, useRef } from "react";
-import { FADEIN_FROMBOTTOM_VIEWPORT } from "~/motion/props";
+import { FADEIN_FROMBOTTOM_VIEWPORT } from "../motion/props";
 
 const useParallax = (value: MotionValue<number>, distance: number) => {
     return useTransform(value, [0, 0.5], [distance, 0]);

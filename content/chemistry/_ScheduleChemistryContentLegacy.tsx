@@ -8,7 +8,7 @@ import { List, ListItemAvatar, ListItemText, Stack, useTheme } from "@mui/materi
 /* App */
 import { useStrings } from "../../texts";
 
-import { MotionListItem } from "~/motion/components/MotionListItem";
+import { MotionListItem } from "../motion/components/MotionListItem";
 import FriendAvatar from "../../components/Avatar/FriendAvatar";
 import useValueToProfileIdList from "../../hooks/useValueToProfileIdList";
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";

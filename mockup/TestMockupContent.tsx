@@ -22,8 +22,8 @@
 // import Flag from "../components/Flag";
 
 // /* GoogleMap */
-// import InfoWindowContext from "~/components/GoogleMap/common/InfoWindowContext";
-// import GoogleMapMarker from "~/components/GoogleMap/ui/GoogleMapMarker";
+// import InfoWindowContext from "../components/GoogleMap/common/InfoWindowContext";
+// import GoogleMapMarker from "../components/GoogleMap/ui/GoogleMapMarker";
 // import GoogleMapContext from "../components/GoogleMap/common/GoogleMapContext";
 // import { OPTIONS_TEST_SCHEDULE } from "../components/GoogleMap/common/options";
 // import GoogleMap from "../components/GoogleMap/ui/GoogleMap";

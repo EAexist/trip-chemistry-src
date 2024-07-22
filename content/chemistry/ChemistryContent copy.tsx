@@ -9,15 +9,15 @@ import { useParams } from "~/router-module";
 
 /* App */
 import * as ReactHelmetAsync from 'react-helmet-async';
-import AppTitleButton from "~/components/Button/AppTitleButton";
-import MainMenuButton from "~/components/Button/MenuButton";
-import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
-import StartTestFab from "~/components/Button/StartTestFab";
-import ConfirmDrawer from "~/components/ConfirmDrawer";
-import LazyImage from "~/components/LazyImage";
+import AppTitleButton from "../components/Button/AppTitleButton";
+import MainMenuButton from "../components/Button/MenuButton";
+import NavigateBeforeButton from "../components/Button/NavigateBeforeButton";
+import StartTestFab from "../components/Button/StartTestFab";
+import ConfirmDrawer from "../components/ConfirmDrawer";
+import LazyImage from "../components/LazyImage";
 import env from "~/env";
-import MotionPage, { motionProp_page_slideIn } from "~/motion/components/MotionPage";
-import { FADEIN_FROMBOTTOM_VIEWPORT } from "~/motion/props";
+import MotionPage, { motionProp_page_slideIn } from "../motion/components/MotionPage";
+import { FADEIN_FROMBOTTOM_VIEWPORT } from "../motion/props";
 import FriendAvatar from "../../components/Avatar/FriendAvatar";
 import SectionPaper from "../../components/Paper/SectionPaper";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
@@ -28,7 +28,7 @@ import getImgSrc from "../../utils/getImgSrc";
 import LoginContent from "../login/LoginContent";
 import ChemistryDetailContent from "./ChemistryDetailContent";
 import ShareLinkDialog from "./ShareLinkDialog";
-import AnimatedIcon from "~/components/AnimatedIcon";
+import AnimatedIcon from "../components/AnimatedIcon";
 
 const { Helmet } = ReactHelmetAsync
 

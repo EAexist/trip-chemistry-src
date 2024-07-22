@@ -9,7 +9,7 @@ import 'swiper/css/effect-coverflow'; /* Food Carousel */
 
 /* App */
 import { SyntheticEvent, useState } from "react";
-import { useTestAnswer } from "~/reducers/testAnswerReducer";
+import { useTestAnswer } from "../reducers/testAnswerReducer";
 import AnswerSlider from "./component/AnswerSlider";
 
 /* Strings */

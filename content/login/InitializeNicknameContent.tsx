@@ -5,7 +5,7 @@ import { useState } from "react";
 
 
 /* App */
-import ConfirmDrawer from "~/components/ConfirmDrawer";
+import ConfirmDrawer from "../../components/ConfirmDrawer";
 import { Navigate, useLocation, useNavigate } from "~/router-module";
 import { IUserProfile } from "../../interfaces/IUserProfile";
 import { authorize, setIsInitialized, useUserProfile } from "../../reducers/authReducer";

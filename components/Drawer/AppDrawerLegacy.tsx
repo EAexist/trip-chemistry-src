@@ -14,7 +14,7 @@ import { useStrings } from "../../texts";
 import UserAvatar from "../Avatar/UserAvatar";
 import ImageIcon from "../ImageIcon";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
-import { MotionListItemButton } from "~/motion/components/MotionListItemButton";
+import { MotionListItemButton } from "../motion/components/MotionListItemButton";
 
 interface AppDrawerProps {
     open: boolean

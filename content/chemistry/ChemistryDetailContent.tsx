@@ -8,12 +8,12 @@ import { AnimatePresence, m } from "framer-motion";
 /* App */
 import { QuestionMark } from "@mui/icons-material";
 import { useLocation } from "react-router-dom";
-import CharacterResultContent from "~/components/Profile/CharacterResultContent";
-import HashTagResultContent from "~/components/Profile/HashTagResultContent";
-import RecommendedCityList from "~/components/Profile/RecommendedCityList";
-import withFriendProfile from "~/hocs/withFriendProfile";
-import { IProfileId } from "~/interfaces/IProfile";
-import { useAppSelector } from "~/store";
+import CharacterResultContent from "../components/Profile/CharacterResultContent";
+import HashTagResultContent from "../components/Profile/HashTagResultContent";
+import RecommendedCityList from "../components/Profile/RecommendedCityList";
+import withFriendProfile from "../hocs/withFriendProfile";
+import { IProfileId } from "../interfaces/IProfile";
+import { useAppSelector } from "../store";
 import SectionPaper from "../../components/Paper/SectionPaper";
 import { FADEIN, FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import { useProfileIdList } from "../../reducers/chemistryReducer";

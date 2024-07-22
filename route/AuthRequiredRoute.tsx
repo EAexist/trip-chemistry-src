@@ -3,7 +3,7 @@ import { Outlet, useLocation } from "~/router-module";
 
 /* Externals */
 import { useEffect, useState } from "react";
-import LoginPage from "~/content/login/LoginPage";
+import LoginPage from "../content/login/LoginPage";
 import { useIsAuthorized } from "../reducers/authReducer";
 
 function AuthRequiredRoute(){

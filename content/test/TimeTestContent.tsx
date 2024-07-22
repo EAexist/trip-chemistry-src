@@ -6,8 +6,9 @@ import { Check } from "@mui/icons-material";
 import { ButtonBase, Container, FormControlLabel, Grid, Paper, Radio, RadioGroup, Step, StepButton, StepButtonProps, StepContent, StepLabel, Stepper } from "@mui/material";
 import { MobileTimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
-import ImageIcon from "~/components/ImageIcon";
-import { useTestAnswer } from "~/reducers/testAnswerReducer";
+
+import ImageIcon from "../../components/ImageIcon";
+import { useTestAnswer } from "../../reducers/testAnswerReducer";
 
 export const scheduleTestOptions = [
     {

@@ -6,7 +6,7 @@ import { m } from "framer-motion";
 
 /* App */
 import { Avatar, Chip, List, ListItem, ListItemAvatar, ListItemText, Stack } from "@mui/material";
-import { useAppSelector } from "~/store";
+import { useAppSelector } from "../../store";
 import useValueToProfileIdList from "../../hooks/useValueToProfileIdList";
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import { specialRestaurantBudgetSliderProps } from "../test/RestaurantBudgetTestContent";
@@ -15,10 +15,10 @@ import GroupAnswerSlider from "./component/GroupAnswerSlider";
 
 import { Circle } from "@mui/icons-material";
 import { createSelector } from "@reduxjs/toolkit";
-import ImageIcon from "~/components/ImageIcon";
-import useTripMemberNicknames from "~/hooks/useTripMemberNicknames";
-import { IProfile } from "~/interfaces/IProfile";
-import { useUserProfile } from "~/reducers/authReducer";
+import ImageIcon from "../../components/ImageIcon";
+import useTripMemberNicknames from "../../hooks/useTripMemberNicknames";
+import { IProfile } from "../../interfaces/IProfile";
+import { useUserProfile } from "../../reducers/authReducer";
 import { criteriaAnswerOptions, restaurantCriterias } from "../test/RestaurantTestContent";
 
 function RestaurantChemistryContent() {

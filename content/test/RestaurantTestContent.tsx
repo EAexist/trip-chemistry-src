@@ -6,7 +6,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Chip, Stack } from "@mui
 /* App */
 import { ExpandMore, NavigateNext } from "@mui/icons-material";
 import { SyntheticEvent, useState } from "react";
-import { useTestAnswer } from "~/reducers/testAnswerReducer";
+import { useTestAnswer } from "../../reducers/testAnswerReducer";
 
 export const restaurantCriterias =
 {

@@ -1,10 +1,9 @@
 
-import { CITIES } from "~/common/app-const";
-import { WithProfileProps } from "~/hocs/withUserProfile";
+import { CITIES } from "../../common/app-const";
+import { WithProfileProps } from "../../hocs/withUserProfile";
 import CityList, { CityListProps } from "./CityList";
 
-interface RecommendedCityListProps extends WithProfileProps, Omit<CityListProps, "cities"> {
-};
+interface RecommendedCityListProps extends WithProfileProps, Omit<CityListProps, "cities"> {}
 
 function RecommendedCityList({ testAnswer, ...props }: RecommendedCityListProps) {
 

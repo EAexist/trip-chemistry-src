@@ -2,7 +2,7 @@
 */
 
 import { styled, Switch } from "@mui/material";
-import getImgSrc from "~/utils/getImgSrc";
+import getImgSrc from "../utils/getImgSrc";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,

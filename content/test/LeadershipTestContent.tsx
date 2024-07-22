@@ -8,8 +8,8 @@ import { AnimatePresence, m } from "framer-motion";
 
 /* GoogleMap */
 import { Check } from "@mui/icons-material";
-import { FADEIN } from "~/motion/props";
-import { useTestAnswer } from "~/reducers/testAnswerReducer";
+import { FADEIN } from "../../motion/props";
+import { useTestAnswer } from "../../reducers/testAnswerReducer";
 import getImgSrc from "../../utils/getImgSrc";
 
 export const leadershipAnswerOptions = [

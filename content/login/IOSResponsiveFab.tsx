@@ -6,7 +6,6 @@ import { Button, ButtonProps, Container } from "@mui/material";
 import { m, useMotionValueEvent, useScroll } from "framer-motion";
 
 /* App */
-import { MotionButton, MotionButtonProps } from "~/motion/components/MotionButton";
 
 interface IOSResponsiveFabProps extends ButtonProps { };
 
@@ -18,8 +17,8 @@ function IOSResponsiveFab({
      * iOS Safari, Chrome 키보드 오픈 시 메인 액션 버튼을 VisualViewport 하단으로 이동. 위로 밀린 컨텐츠를 VisualViewport 내로 되돌림.
      * https://velog.io/@gene028/ios-keyboard
     */
-    const [scrollYAtkeyboardOpen, setScrollYAtkeyboardOpen] = useState(window.scrollY)
-    const [currentVisualViewportHeight, setcurrentVisualViewportHeight] = useState<number>(window.innerHeight)
+    const [scrollYAtkeyboardOpen, setScrollYAtkeyboardOpen] = useState(0)
+    const [currentVisualViewportHeight, setcurrentVisualViewportHeight] = useState<number>(0)
     const [isIOSKeyboardOpened, setIsIOSKeyboardOpened] = useState(false)
     const body = document.querySelector('body') as HTMLElement;
 

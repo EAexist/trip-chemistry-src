@@ -1,19 +1,19 @@
-
 import { AppBar, Avatar, Container, Divider, ListItemAvatar, ListItemButton, ListItemText, Stack, SwipeableDrawer, SwipeableDrawerProps, Toolbar } from "@mui/material";
 import { m } from "framer-motion";
+
 import { useLocation } from "~/router-module";
 
-import { MotionListItemButton } from "~/motion/components/MotionListItemButton";
 import { PAGES } from "../../common/app-const";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import { MotionList } from "../../motion/components/MotionList";
 import { MotionListSubheader } from "../../motion/components/MotionListSubheader";
-import { VARIANTS_SLIDEUP, VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
+import { VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
 import { useIsAuthorized, useUserProfile } from "../../reducers/authReducer";
 import { useStrings } from "../../texts";
 import UserAvatar from "../Avatar/UserAvatar";
 import NavigateBeforeButton from "../Button/NavigateBeforeButton";
 import ImageIcon from "../ImageIcon";
+import { MotionListItemButton } from "../../motion/components/MotionListItemButton";
 
 interface AppDrawerProps extends SwipeableDrawerProps {
     onDrawerItemClick: () => void

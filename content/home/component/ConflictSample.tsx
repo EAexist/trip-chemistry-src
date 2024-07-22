@@ -1,9 +1,9 @@
-import { Alert, Container, Paper, Slider, Stack, Zoom } from "@mui/material";
-import { m, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
-import { Fragment, useRef, useState } from "react";
-import ProfileAvatar from "~/components/Avatar/ProfileAvatar";
-import { dailyRestaurantSliderProps } from "~/content/test/DailyRestaurantTestContent";
-import { VARIANTS_FADEIN_FROMBOTTOM } from "~/motion/props";
+import { useRef } from "react";
+import { Alert, Container, Slider, Stack } from "@mui/material";
+import { m, useScroll } from "framer-motion";
+import ProfileAvatar from "../../../components/Avatar/ProfileAvatar";
+import { dailyRestaurantSliderProps } from "../../../content/test/DailyRestaurantTestContent";
+import { VARIANTS_FADEIN_FROMBOTTOM } from "../../../motion/props";
 
 function ConflictSample() {
 
@@ -11,6 +11,7 @@ function ConflictSample() {
         8000:
             [
                 {
+                    
                     characterId: "racoon",
                     nickname: "민지"
                 },
@@ -65,7 +66,7 @@ function ConflictSample() {
                         <Stack spacing={-0.5}>
                             {
                                 answerToProfiles[value].map(({ characterId, nickname }) =>
-                                    <ProfileAvatar avatarId={characterId} nickname={nickname} sx={(nickname===lowDailyBudgetMemberNicknames[0]) ? { backgroundColor: "rgb(229, 246, 253)", outline: "2px solid", outlineColor: "info.main", zIndex: 2 } : {}} />
+                                    <ProfileAvatar key={nickname} avatarId={characterId} nickname={nickname} sx={(nickname===lowDailyBudgetMemberNicknames[0]) ? { backgroundColor: "rgb(229, 246, 253)", outline: "2px solid", outlineColor: "info.main", zIndex: 2 } : {}} />
                                 )
                             }
                         </Stack>

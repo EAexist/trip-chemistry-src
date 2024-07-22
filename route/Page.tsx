@@ -1,7 +1,7 @@
 import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
 
-import AppDrawer from "~/components/Drawer/AppDrawer";
-import LazyDomAnimation from "~/motion/LazyDomAnimation";
+import AppDrawer from "../components/Drawer/AppDrawer";
+import LazyDomAnimation from "../motion/LazyDomAnimation";
 import { Outlet, useSearchParams } from "~/router-module";
 import { AuthLoadRequiredContent } from "../content/LoadRequiredContent";
 import { asyncGuestLogin, asyncKakaoLoginByAccessToken, disableAutoLogin, useAuthorize, useIsAuthorized } from "../reducers/authReducer";

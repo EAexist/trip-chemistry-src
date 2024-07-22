@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowDropDown } from "@mui/icons-material";
 import { Button, Container, Grid, Stack, Toolbar } from "@mui/material";
 
-
 /* Swiper */
 import 'swiper/css';
 import { HashNavigation } from 'swiper/modules';
@@ -21,17 +20,17 @@ import TimeTestContent from "./TimeTestContent";
 
 import { createSelector } from "@reduxjs/toolkit";
 import { SwiperOptions } from "swiper/types";
-import { TEST_TYPE } from "~/common/app-const";
-import MainAppBar from "~/components/AppBar/MainAppBar";
-import Fab from "~/components/Button/Fab";
-import ConfirmDrawer from "~/components/ConfirmDrawer";
-import DraggableDialog from "~/components/Paper/DraggableDialog";
-import { useAppDispatch, useAppSelector } from "~/store";
+import { TEST_TYPE } from "../../common/app-const";
+import MainAppBar from "../../components/AppBar/MainAppBar";
+import Fab from "../../components/Button/Fab";
+import ConfirmDrawer from "../../components/ConfirmDrawer";
 import ImageIcon from "../../components/ImageIcon";
+import DraggableDialog from "../../components/Paper/DraggableDialog";
 import withReducer from "../../hocs/withReducer";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import { asyncGetProfile, useGetProfile, useUserId } from "../../reducers/authReducer";
-import testAnswerReducer, { asyncGetAnswer, asyncSetAnswer, asyncSubmitAnswer, useSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
+import testAnswerReducer, { asyncGetAnswer, asyncSetAnswer, asyncSubmitAnswer, useTestAnswerStatus } from "../../reducers/testAnswerReducer";
+import { useAppDispatch, useAppSelector } from "../../store";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import RestaurantBudgetTestContent from "./RestaurantBudgetTestContent";
 

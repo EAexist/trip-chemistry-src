@@ -6,10 +6,10 @@ import { m } from "framer-motion";
 
 /* App */
 import { createSelector } from "@reduxjs/toolkit";
-import { IProfile } from "~/interfaces/IProfile";
-import { MotionListItem } from "~/motion/components/MotionListItem";
-import { useAppSelector } from "~/store";
-import getImgSrc from "~/utils/getImgSrc";
+import { IProfile } from "../../interfaces/IProfile";
+import { MotionListItem } from "../../motion/components/MotionListItem";
+import { useAppSelector } from "../../store";
+import getImgSrc from "../../utils/getImgSrc";
 import useValueToProfileIdList from "../../hooks/useValueToProfileIdList";
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import { useStrings } from "../../texts";

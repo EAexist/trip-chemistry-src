@@ -14,8 +14,8 @@ import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
 import { DTOToTestAnswer, IHashTagTestKey, INumericTestKey, ITestAnswer, ITestAnswerDTO, ITestKey, testAnswerToDTO } from "../interfaces/ITestAnswer";
 import { RootState, useAppDispatch, useAppSelector } from "../store";
 import { useUserId } from "./authReducer";
-import { CityTag } from "~/interfaces/enums/CityTag";
-import { IProfileId } from "~/interfaces/IProfile";
+import { CityTag } from "../interfaces/enums/CityTag";
+import { IProfileId } from "../interfaces/IProfile";
 
 type ITestAnswerState = IWithLoadStatus<ITestAnswer>
 

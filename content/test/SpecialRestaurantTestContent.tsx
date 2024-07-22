@@ -6,7 +6,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Chip, SliderProps, Stack
 /* App */
 import { Edit, ExpandMore, NavigateNext } from "@mui/icons-material";
 import { SyntheticEvent, useState } from "react";
-import { useTestAnswer } from "~/reducers/testAnswerReducer";
+import { useTestAnswer } from "../reducers/testAnswerReducer";
 import { priceText } from "../../utils/priceText";
 import AnswerSlider from "./component/AnswerSlider";
 

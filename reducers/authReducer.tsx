@@ -10,7 +10,7 @@ import { IProfileId } from "../interfaces/IProfile";
 import { IUserProfile, defaultUserProfile } from "../interfaces/IUserProfile";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
 import { useAppDispatch, useAppSelector } from "../store";
-import { defaultTestResult } from "~/interfaces/ITestResult";
+import { defaultTestResult } from "../interfaces/ITestResult";
 
 /* Interface */
 

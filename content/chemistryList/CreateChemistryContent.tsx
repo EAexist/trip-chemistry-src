@@ -5,9 +5,9 @@ import { useCallback, useState } from "react";
 import { AppBar, Container, Toolbar } from "@mui/material";
 
 /* App */
-import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
-import RoutedMotionPage from "~/motion/components/RoutedMotionPage";
-import { useAppDispatch, useAppSelector } from "~/store";
+import NavigateBeforeButton from "../../components/Button/NavigateBeforeButton";
+import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
+import { useAppDispatch, useAppSelector } from "../../store";
 import TextFieldBlock from "../../components/Block/TextFieldBlock";
 import withReducer from "../../hocs/withReducer";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";

@@ -6,11 +6,11 @@ import { m } from "framer-motion";
 /* App */
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 
-import SectionPaper from "~/components/Paper/SectionPaper";
-import CharacterResultContent from "~/components/Profile/CharacterResultContent";
-import HashTagResultContent from "~/components/Profile/HashTagResultContent";
-import RecommendedCityList from "~/components/Profile/RecommendedCityList";
-import { WithProfileProps } from "~/hocs/withUserProfile";
+import SectionPaper from "../../components/Paper/SectionPaper";
+import CharacterResultContent from "../../components/Profile/CharacterResultContent";
+import HashTagResultContent from "../../components/Profile/HashTagResultContent";
+import RecommendedCityList from "../../components/Profile/RecommendedCityList";
+import { WithProfileProps } from "../../hocs/withUserProfile";
 import { useLocation } from "react-router-dom";
 
 interface ResultContentProps extends WithProfileProps {

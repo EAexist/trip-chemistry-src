@@ -11,10 +11,10 @@ import { LoadStatus } from "../interfaces/enums/LoadStatus";
 import getImgSrc from "../utils/getImgSrc";
 // import loadable from "@loadable/component";
 
-import LazyImage from "~/components/LazyImage";
-import Fab from "~/components/Button/Fab";
+import LazyImage from "../components/LazyImage";
+import Fab from "../components/Button/Fab";
 import { Info } from "@mui/icons-material";
-import AnimatedIcon from "~/components/AnimatedIcon";
+import AnimatedIcon from "../components/AnimatedIcon";
 
 // const NoticeBlock = loadable(() => import(/* webpackChunkName: "NoticeBlock" */ "../components/Block/NoticeBlock"));
 

@@ -2,7 +2,7 @@ import { NavigateNext } from "@mui/icons-material";
 import { Alert, ButtonBase } from "@mui/material";
 import { TEST_TYPE } from "../../../common/app-const";
 import { useScrollToCheckpoint } from "../../../components/Step/StepCheckpointContext";
-import { useAppSelector } from "~/store";
+import { useAppSelector } from "../store";
 
 interface UnAnsweredTestAlertButtonProps{
 

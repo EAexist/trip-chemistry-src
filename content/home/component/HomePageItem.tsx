@@ -3,7 +3,7 @@
 import { Container } from "@mui/material";
 import { m, useScroll, useTransform } from "framer-motion";
 import { PropsWithChildren, ReactNode, useRef, useState } from "react";
-import { VARIANTS_FADEIN_FROMBOTTOM } from "~/motion/props";
+import { VARIANTS_FADEIN_FROMBOTTOM } from "../../../motion/props";
 
 const HomePageItem = ({
     title,

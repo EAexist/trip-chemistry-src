@@ -3,7 +3,7 @@ import { IProfile, IProfileId } from "../../interfaces/IProfile";
 import { useProfile } from "../../reducers/chemistryReducer";
 import ProfileAvatar, { ProfileAvatarProps } from "./ProfileAvatar";
 import { Badge } from "@mui/material";
-import { useUserId } from "~/reducers/authReducer";
+import { useUserId } from "../../reducers/authReducer";
 
 interface FriendAvatarProps extends ProfileAvatarProps {
     id : IProfileId;

@@ -7,13 +7,13 @@ import { AnimatePresence, m } from "framer-motion";
 
 /* App */
 import { useLocation } from "react-router-dom";
-import AnimatedIcon from "~/components/AnimatedIcon";
-import CharacterResultContent from "~/components/Profile/CharacterResultContent";
-import HashTagResultContent from "~/components/Profile/HashTagResultContent";
-import RecommendedCityList from "~/components/Profile/RecommendedCityList";
-import withFriendProfile from "~/hocs/withFriendProfile";
-import { IProfileId } from "~/interfaces/IProfile";
-import { useAppSelector } from "~/store";
+import AnimatedIcon from "../../components/AnimatedIcon";
+import CharacterResultContent from "../../components/Profile/CharacterResultContent";
+import HashTagResultContent from "../../components/Profile/HashTagResultContent";
+import RecommendedCityList from "../../components/Profile/RecommendedCityList";
+import withFriendProfile from "../../hocs/withFriendProfile";
+import { IProfileId } from "../../interfaces/IProfile";
+import { useAppSelector } from "../../store";
 import { FADEIN } from "../../motion/props";
 import { useProfileIdList } from "../../reducers/chemistryReducer";
 import ProfileToggleButtonGroup from "./component/ProfileToggleButtonGroup";

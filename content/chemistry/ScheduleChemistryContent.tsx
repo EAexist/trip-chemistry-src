@@ -1,19 +1,19 @@
 /* React */
+import { useState } from "react";
 
 /* Externals */
 import { Box, Button, Container, Dialog, Icon, IconButton, List, ListItem, ListItemAvatar, ListItemText, Stack } from "@mui/material";
+import { Circle, Help } from "@mui/icons-material";
+import { createSelector } from "@reduxjs/toolkit";
 import { m } from "framer-motion";
 
 /* App */
-import { Circle, Help } from "@mui/icons-material";
-import { createSelector } from "@reduxjs/toolkit";
-import { useState } from "react";
-import useTripMemberNicknames from "~/hooks/useTripMemberNicknames";
-import { IProfile } from "~/interfaces/IProfile";
-import { MotionList } from "~/motion/components/MotionList";
-import { MotionListItem } from "~/motion/components/MotionListItem";
-import { useUserProfile } from "~/reducers/authReducer";
-import { useAppSelector } from "~/store";
+import useTripMemberNicknames from "../../hooks/useTripMemberNicknames";
+import { IProfile } from "../../interfaces/IProfile";
+import { MotionList } from "../../motion/components/MotionList";
+import { MotionListItem } from "../../motion/components/MotionListItem";
+import { useUserProfile } from "../../reducers/authReducer";
+import { useAppSelector } from "../../store";
 import { FADEIN_FROMBOTTOM_VIEWPORT, VARIANTS_SLIDEUP, VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
 import { nightPlanTestOptions, scheduleTestOptions } from "../test/TimeTestContent";
 

@@ -1,4 +1,4 @@
-import { ICityType } from "~/common/app-const";
+import { ICityType } from "../common/app-const";
 import { IActivityTag } from "./enums/ActivityTag";
 import { ICityTag } from "./enums/CityTag";
 import { IExpectationTag } from "./enums/ExpectationTag";

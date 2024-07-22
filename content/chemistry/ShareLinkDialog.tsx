@@ -6,8 +6,8 @@ import { Close, ContentCopy } from "@mui/icons-material";
 import { Alert, Avatar, Button, ButtonBase, Container, Grid, Icon, IconButton, InputAdornment, Modal, Stack, TextField } from "@mui/material";
 
 /* App */
-import DraggableDialog from "~/components/Paper/DraggableDialog";
-import ImageIcon from "~/components/ImageIcon";
+import DraggableDialog from "../../components/Paper/DraggableDialog";
+import ImageIcon from "../../components/ImageIcon";
 
 interface ShareLinkDialogProps {
     title: string

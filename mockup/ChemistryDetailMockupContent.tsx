@@ -24,9 +24,9 @@
 // 
 // import CityChemistryContent from "../content/chemistry/CityChemistryContent";
 // import ChemistrySlider from "../content/chemistry/component/ChemistrySlider";
-// import { MotionListItemButton } from "~/motion/components/MotionListItemButton";
-// import { MotionListItem } from "~/motion/components/MotionListItem";
-// import { MotionList } from "~/motion/components/MotionList";
+// import { MotionListItemButton } from "../motion/components/MotionListItemButton";
+// import { MotionListItem } from "../motion/components/MotionListItem";
+// import { MotionList } from "../motion/components/MotionList";
 
 // function ChemistryDetailMockupContent() {
 

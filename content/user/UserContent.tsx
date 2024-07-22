@@ -1,16 +1,16 @@
 /* React */
 
 /* Externals */
-import { Edit, Help } from "@mui/icons-material";
-import { Button, ButtonBase, Container, Icon, IconButton, Stack, Toolbar } from "@mui/material";
-import { m } from "framer-motion"
+import { Edit } from "@mui/icons-material";
+import { Button, Container, Icon, IconButton, Toolbar } from "@mui/material";
+import { m } from "framer-motion";
 
 /* App */
 import { useState } from "react";
-import MainAppBar from "~/components/AppBar/MainAppBar";
-import ConfirmDrawer from "~/components/ConfirmDrawer";
+import MainAppBar from "../../components/AppBar/MainAppBar";
 import UserAvatar from "../../components/Avatar/UserAvatar";
 import KakaoLoginButton from "../../components/Button/KakaoLoginButton";
+import ConfirmDrawer from "../../components/ConfirmDrawer";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import { IUserProfile } from "../../interfaces/IUserProfile";
 import { AuthProvider } from "../../interfaces/enums/AuthProvider";
@@ -18,8 +18,8 @@ import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { asyncKakaoLogout, useHasAnsweredTest, useUserProfile } from "../../reducers/authReducer";
 import { useAppDispatch } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
-import { KakaoLoginHelp } from "~/components/KakaoLoginHelp";
-import { FADEIN_VIEWPORT } from "~/motion/props";
+import { KakaoLoginHelp } from "../../components/KakaoLoginHelp";
+import { FADEIN_VIEWPORT } from "../../motion/props";
 
 function UserContent() {
 

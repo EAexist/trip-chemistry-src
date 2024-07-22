@@ -2,11 +2,10 @@ import { NavigateNext } from "@mui/icons-material";
 import { Avatar, Divider, ListItemAvatar, ListItemText, Paper, Skeleton, Stack } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { MotionListItemButton } from "~/motion/components/MotionListItemButton";
 import { HEADERS_AXIOS } from "../../../common/app-const";
 import useNavigateWithGuestContext from "../../../hooks/useNavigateWithGuestContext";
-import { IChemistry, defaultChemistry } from "../../../interfaces/IChemistry";
-
+import { IChemistry } from "../../../interfaces/IChemistry";
+import { MotionListItemButton } from "../../../motion/components/MotionListItemButton";
 
 interface ChemistryListItemProps {
     id: String

@@ -5,7 +5,7 @@ import { ArrowRight } from "@mui/icons-material";
 import { AppBar, Container, Divider, Fade, Stack, Toolbar, useScrollTrigger } from "@mui/material";
 
 /* App */
-import { CITIES, CITY_TYPES, HASHTAGS, NATION } from "../../common/app-const";
+import { CITIES, HASHTAGS, NATION } from "../../common/app-const";
 import ImageCard from "../../components/Card/ImageCard";
 import Flag from "../../components/Flag";
 import Logo from "../../components/Logo";
@@ -15,10 +15,10 @@ import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { useStrings } from "../../texts";
 import getImgSrc from "../../utils/getImgSrc";
 
-import Fab from "~/components/Button/Fab";
-import NavigateBeforeButton from "~/components/Button/NavigateBeforeButton";
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import { Fragment } from "react/jsx-runtime";
+import Fab from "../../components/Button/Fab";
+import NavigateBeforeButton from "../../components/Button/NavigateBeforeButton";
 
 interface CityDetailContentProps {
     cityId: string;

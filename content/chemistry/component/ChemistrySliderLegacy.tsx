@@ -2,12 +2,12 @@ import { Slider as MuiSlider, SliderOwnProps, Stack } from "@mui/material";
 
 import { m } from "framer-motion";
 import { forwardRef, Ref } from "react";
-import { FADEIN_FROMBOTTOM_VIEWPORT, VARIANTS_FADEIN_FROMBOTTOM, VARIANTS_STAGGER_CHILDREN } from "~/motion/props";
+import { FADEIN_FROMBOTTOM_VIEWPORT, VARIANTS_FADEIN_FROMBOTTOM, VARIANTS_STAGGER_CHILDREN } from "../motion/props";
 import FriendAvatar from "../../../components/Avatar/FriendAvatar";
 import useProfileIdListByAnswer from "../../../hooks/useProfileIdListByAnswer";
 import useValueToProfileIdList from "../../../hooks/useValueToProfileIdList";
 import { ITestKey } from "../../../interfaces/ITestAnswer";
-import { ITestIndex } from "~/reducers/testAnswerReducer";
+import { ITestIndex } from "../reducers/testAnswerReducer";
 
 interface ChemistrySliderProps extends SliderOwnProps, ITestIndex {
 };

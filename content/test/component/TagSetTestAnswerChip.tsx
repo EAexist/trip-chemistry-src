@@ -3,9 +3,9 @@ import { useEffect } from "react";
 
 import { Chip, Zoom } from "@mui/material";
 
-import { HASHTAGS } from "~/common/app-const";
-import { IHashTagTestKey } from "~/interfaces/ITestAnswer";
-import { useAppDispatch } from "~/store";
+import { HASHTAGS } from "../../../common/app-const";
+import { IHashTagTestKey } from "../../../interfaces/ITestAnswer";
+import { useAppDispatch } from "../../../store";
 import { addHashTagAnswer, deleteHashTagAnswer, useTagSetAnswer } from "../../../reducers/testAnswerReducer";
 
 interface TagSetTestAnswerChipProps {

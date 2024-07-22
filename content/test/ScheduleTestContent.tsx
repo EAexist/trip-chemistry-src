@@ -6,16 +6,16 @@ import { Close, NavigateNext } from "@mui/icons-material";
 import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Container, FormControlLabel, Grow, IconButton, Radio, RadioGroup } from "@mui/material";
 
 /* App */
-import { useTestAnswer } from "~/reducers/testAnswerReducer";
+import { useTestAnswer } from "../reducers/testAnswerReducer";
 import Logo from "../../components/Logo";
 import getImgSrc, { FORMATSVG } from "../../utils/getImgSrc";
 
 /* GoogleMap */
 import { APIProvider, ControlPosition, Map, MapCameraChangedEvent, MapCameraProps, MapControl } from '@vis.gl/react-google-maps';
-import SelectedPlaceContext from "~/components/GoogleMap/common/SelectedPlaceContext";
-import GoogleMapMarker from "~/components/GoogleMap/ui/GoogleMapMarker";
-import GoogleMapPanner from "~/components/GoogleMap/ui/GoogleMapPanner";
-import GoogleMapPolyline from "~/components/GoogleMap/ui/GoogleMapPolyline";
+import SelectedPlaceContext from "../components/GoogleMap/common/SelectedPlaceContext";
+import GoogleMapMarker from "../components/GoogleMap/ui/GoogleMapMarker";
+import GoogleMapPanner from "../components/GoogleMap/ui/GoogleMapPanner";
+import GoogleMapPolyline from "../components/GoogleMap/ui/GoogleMapPolyline";
 import env from "~/env";
 import { OPTIONS_TEST_SCHEDULE } from "../../components/GoogleMap/common/options";
 

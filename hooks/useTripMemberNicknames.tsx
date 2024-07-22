@@ -1,5 +1,5 @@
 
-import { defaultChemistry } from "~/interfaces/IChemistry";
+import { defaultChemistry } from "../interfaces/IChemistry";
 import { useAppSelector } from "../store";
 import { createSelector } from "@reduxjs/toolkit";
 

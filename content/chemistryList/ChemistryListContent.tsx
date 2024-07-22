@@ -4,9 +4,9 @@ import { Button, Container, ListItem, Toolbar } from "@mui/material";
 import { m } from 'framer-motion';
 
 /* App */
-import MainAppBar from "~/components/AppBar/MainAppBar";
-import { MotionList } from "~/motion/components/MotionList";
-import { useAppSelector } from "~/store";
+import MainAppBar from "../../components/AppBar/MainAppBar";
+import { MotionList } from "../../motion/components/MotionList";
+import { useAppSelector } from "../../store";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { FADEIN_VIEWPORT, VARIANTS_STAGGER_CHILDREN } from "../../motion/props";

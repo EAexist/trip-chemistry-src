@@ -3,9 +3,9 @@
 /* Externals */
 
 /* App */
-import MainAppBar from "~/components/AppBar/MainAppBar";
+import MainAppBar from "../../components/AppBar/MainAppBar";
 import LoginContent from "./LoginContent";
-import AppTitleButton from "~/components/Button/AppTitleButton";
+import AppTitleButton from "../../components/Button/AppTitleButton";
 
 interface LoginPageProps {
     title?: string;

@@ -1,17 +1,14 @@
 import { Avatar, Badge, IconButton, Slider, SliderProps, Stack } from "@mui/material";
-import { m } from "framer-motion"
 
 /* App */
 import { Close } from "@mui/icons-material";
 import { createSelector } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
-import FriendAvatar from "~/components/Avatar/FriendAvatar";
-import LabeledAvatar from "~/components/Avatar/LabeledAvatar";
-import { IProfileId } from "~/reducers";
-import { useAppSelector } from "~/store";
 import { IvalueToProfileIds } from "../../../hooks/useValueToProfileIdList";
-import { AnimatePresence } from "framer-motion";
-import { FADEIN } from "~/motion/props";
+import FriendAvatar from "../../../components/Avatar/FriendAvatar";
+import LabeledAvatar from "../../../components/Avatar/LabeledAvatar";
+import { IProfileId } from "../../../reducers";
+import { useAppSelector } from "../../../store";
 
 interface GroupAnswerSliderValueLabelProps {
     profileIds: IProfileId[]

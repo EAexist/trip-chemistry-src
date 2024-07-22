@@ -8,10 +8,10 @@ import { Fragment, useCallback, useEffect, useState } from "react";
 /* GoogleMap */
 import { FormControlLabel, Paper, Radio, RadioGroup } from "@mui/material";
 import { APIProvider, Map, MapCameraChangedEvent, MapCameraProps } from "@vis.gl/react-google-maps";
-import GoogleMapMarker from "~/components/GoogleMap/ui/GoogleMapMarker";
-import GoogleMapPanner from "~/components/GoogleMap/ui/GoogleMapPanner";
-import GoogleMapPolyline from "~/components/GoogleMap/ui/GoogleMapPolyline";
-import { airportPlace, googleMapOptions, places, scheduleTestOptions } from "~/content/test/ScheduleTestContent";
+import GoogleMapMarker from "../components/GoogleMap/ui/GoogleMapMarker";
+import GoogleMapPanner from "../components/GoogleMap/ui/GoogleMapPanner";
+import GoogleMapPolyline from "../components/GoogleMap/ui/GoogleMapPolyline";
+import { airportPlace, googleMapOptions, places, scheduleTestOptions } from "../content/test/ScheduleTestContent";
 import env from "~/env";
 import { OPTIONS_TEST_SCHEDULE } from "../../../components/GoogleMap/common/options";
 

@@ -1,21 +1,18 @@
 /* React */
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 /* Externals */
-import { useParams } from "react-router-dom";
-import axios from "axios";
 import { Toolbar } from "@mui/material";
+import { useParams } from "react-router-dom";
 
-import { HEADERS_AXIOS } from "~/common/app-const";
-import MainAppBar from "~/components/AppBar/MainAppBar";
-import AppTitleButton from "~/components/Button/AppTitleButton";
-import StartTestFab from "~/components/Button/StartTestFab";
-import { defaultProfile, IProfile } from "~/interfaces/IProfile";
-import { LoadStatus } from "~/reducers";
+import MainAppBar from "../../components/AppBar/MainAppBar";
+import AppTitleButton from "../../components/Button/AppTitleButton";
+import StartTestFab from "../../components/Button/StartTestFab";
 import LoadRequiredContent from "../LoadRequiredContent";
+import { LoadStatus } from "../../reducers";
+import { asyncGetPublicProfile, useResultLoadStatus } from "../../reducers/resultReducer";
+import { useAppDispatch, useAppSelector } from "../../store";
 import ResultContent from "./ResultContent";
-import { useAppDispatch, useAppSelector } from "~/store";
-import { asyncGetPublicProfile, useResultLoadStatus } from "~/reducers/resultReducer";
 
 function PublicResultPage() {
 

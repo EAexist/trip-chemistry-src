@@ -1,7 +1,7 @@
 import { ComponentType } from "react";
 
 import { useTestAnswer } from "../reducers/testAnswerReducer";
-import { INumericTestKey } from "~/interfaces/ITestAnswer";
+import { INumericTestKey } from "../interfaces/ITestAnswer";
 // import { BudgetResponse, SubTestKey, TestAnswer, ITestKey } from "../interface/interfaces";
 
 interface WithTestAnswerProps{

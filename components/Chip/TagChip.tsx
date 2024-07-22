@@ -1,6 +1,6 @@
-import { Avatar, Chip, ChipProps, Icon, Stack } from "@mui/material";
 import { ReactNode } from "react";
-import { HASHTAGS, TRIP_TAGS } from "~/common/app-const";
+import { Chip, ChipProps, Icon, Stack } from "@mui/material";
+import { HASHTAGS, TRIP_TAGS } from "../../common/app-const";
 
 interface Tags {
     [k: number]: {
@@ -66,6 +66,6 @@ const ActivityTagChip = TagChipWithTags(HASHTAGS.activity)
 const CityTagChip = TagChipWithTags(HASHTAGS.city)
 
 export default TagChip
-export { ActivityTagChip, ExpectationTagChip, TripTagChip, CityTagChip };
+export { ActivityTagChip, CityTagChip, ExpectationTagChip, TripTagChip };
 export type { TagChipProps };
 

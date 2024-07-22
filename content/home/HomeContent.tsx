@@ -1,18 +1,17 @@
 /* React */
-import { ReactNode, useRef, useState } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 
 /* Externals */
 import { AppBar, Box, Container, Slide, Toolbar } from "@mui/material";
 import { m, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 
-import AppTitleButton from "~/components/Button/AppTitleButton";
-import MainMenuButton from "~/components/Button/MenuButton";
-import StartTestFab from "~/components/Button/StartTestFab";
+import AppTitleButton from "../../components/Button/AppTitleButton";
+import MainMenuButton from "../../components/Button/MenuButton";
+import StartTestFab from "../../components/Button/StartTestFab";
 import CharacterSample from "./component/CharacterSample";
 import ConflictSample from "./component/ConflictSample";
 import HomePageItem from "./component/HomePageItem";
 import TitleContent from "./component/TitleContent";
-
 
 const sections = [
     {
@@ -56,11 +55,20 @@ function HomeContent() {
     useMotionValueEvent(scrollYProgress, "change", (latest) => {
         console.log(`[HomeContent] scrollYProgress=${latest} `)
     })
+
+    const [ innerHeight, setInnerHeight ] = useState(0)
+    useEffect(()=>{
+        const handleResize = ()=>setInnerHeight(window.innerHeight)
+        handleResize()
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, [])
+    
     return (
         <div className="page fill-window">
             <AppBar>
                 <Toolbar ref={toolBarRef}>
-                    <Slide direction="up" in={scrollY.get() > window.innerHeight} container={toolBarRef.current}>
+                    <Slide direction="up" in={scrollY.get() > innerHeight} container={toolBarRef.current}>
                         <div>
                             <AppTitleButton />
                         </div>

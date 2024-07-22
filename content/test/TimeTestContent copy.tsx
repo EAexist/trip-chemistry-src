@@ -6,7 +6,7 @@ import { Error, ExpandMore, NavigateNext } from "@mui/icons-material";
 import { Accordion, AccordionDetails, AccordionSummary, Box, createTheme, Stack, ThemeProvider } from "@mui/material";
 import { TimeClock } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
-import { useTestAnswer } from "~/reducers/testAnswerReducer";
+import { useTestAnswer } from "../reducers/testAnswerReducer";
 
 function TimeTestContent() {
 

@@ -9,9 +9,9 @@ import 'swiper/css/pagination';
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { CHARACTERS } from "~/common/app-const";
-import PaginationBullets from "~/swiper/components/PaginationBullets";
-import getImgSrc from "~/utils/getImgSrc";
+import { CHARACTERS } from "../../../common/app-const";
+import PaginationBullets from "../../../swiper/components/PaginationBullets";
+import getImgSrc from "../../../utils/getImgSrc";
 
 const useParallax = (value: MotionValue<number>, distance: number) => {
     return useTransform(value, [0, 0.5], [0.5, 1]);

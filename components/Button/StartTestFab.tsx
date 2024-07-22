@@ -1,4 +1,4 @@
-import useNavigateWithGuestContext from "~/hooks/useNavigateWithGuestContext";
+import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import Fab, { FabProps } from "./Fab";
 
 interface StartTestFabProps extends FabProps {

@@ -6,7 +6,7 @@ import { AnimatePresence, m } from "framer-motion";
 
 /* App */
 import { Grid, List, ListItem, ListItemAvatar, ListItemText, Stack, Tab, Tabs } from "@mui/material";
-import { useAppSelector } from "~/store";
+import { useAppSelector } from "../store";
 import useValueToProfileIdList from "../../hooks/useValueToProfileIdList";
 import { FADEIN, FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import { dailyRestaurantSliderProps } from "../test/DailyRestaurantTestContent";
@@ -14,8 +14,8 @@ import GroupAnswerSlider from "./component/GroupAnswerSlider";
 
 
 import { Restaurant } from "@mui/icons-material";
-import useTripMemberNicknames from "~/hooks/useTripMemberNicknames";
-import { IProfile } from "~/interfaces/IProfile";
+import useTripMemberNicknames from "../hooks/useTripMemberNicknames";
+import { IProfile } from "../interfaces/IProfile";
 import { createSelector } from "@reduxjs/toolkit";
 
 function RestaurantChemistryContent() {
