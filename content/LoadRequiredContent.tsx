@@ -2,8 +2,7 @@
 import { PropsWithChildren, useEffect, useRef, useState } from "react";
 
 /* Externals */
-import { CircularProgress, Container, Stack, Toolbar } from "@mui/material";
-import { m } from "framer-motion";
+import { Container, Toolbar } from "@mui/material";
 
 /* App */
 import withAuthLoadStatus, { WithLoadStatusProps } from "../hocs/withAuthLoadStatus";
@@ -11,10 +10,9 @@ import { LoadStatus } from "../interfaces/enums/LoadStatus";
 import getImgSrc from "../utils/getImgSrc";
 // import loadable from "@loadable/component";
 
-import LazyImage from "../components/LazyImage";
-import Fab from "../components/Button/Fab";
-import { Info } from "@mui/icons-material";
 import AnimatedIcon from "../components/AnimatedIcon";
+import Fab from "../components/Button/Fab";
+import LazyImage from "../components/LazyImage";
 
 // const NoticeBlock = loadable(() => import(/* webpackChunkName: "NoticeBlock" */ "../components/Block/NoticeBlock"));
 
@@ -159,7 +157,11 @@ function LoadRequiredContent({
                                         height="96px"                             
                                     />
                                     :
-                                    <CircularProgress />
+                                    <AnimatedIcon
+                                        name="soon"   
+                                        width="96px"    
+                                        height="96px"                             
+                                    />
                             )
                             :
                             <LazyImage
