@@ -9,7 +9,6 @@ import { useLocation } from "~/router-module";
 import { KAKAO_AUTH_URL_BASE } from "../../common/auth";
 import getImgSrc from "../../utils/getImgSrc";
 import env from "~/env";
-// import env from "~/env";
 
 function KakaoLoginButton({ sx, ...props }: Omit<ButtonBaseProps, "href">) {
 
