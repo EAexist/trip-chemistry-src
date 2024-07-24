@@ -6,9 +6,9 @@ import { m } from "framer-motion";
 
 /* App */
 import { Avatar, Chip, List, ListItem, ListItemAvatar, ListItemText, Stack } from "@mui/material";
-import { useAppSelector } from "../../store";
 import useValueToProfileIdList from "../../hooks/useValueToProfileIdList";
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
+import { useAppSelector } from "../../store";
 import { specialRestaurantBudgetSliderProps } from "../test/RestaurantBudgetTestContent";
 import GroupAnswerSlider from "./component/GroupAnswerSlider";
 
@@ -16,7 +16,6 @@ import GroupAnswerSlider from "./component/GroupAnswerSlider";
 import { Circle } from "@mui/icons-material";
 import { createSelector } from "@reduxjs/toolkit";
 import ImageIcon from "../../components/ImageIcon";
-import useTripMemberNicknames from "../../hooks/useTripMemberNicknames";
 import { IProfile } from "../../interfaces/IProfile";
 import { useUserProfile } from "../../reducers/authReducer";
 import { criteriaAnswerOptions, restaurantCriterias } from "../test/RestaurantTestContent";
@@ -25,8 +24,8 @@ function RestaurantChemistryContent() {
 
     const { id, nickname } = useUserProfile()
 
-    const lowDailyBudgetMemberNicknames = useTripMemberNicknames("lowDailyRestaurantBudget")
-    const highDailyBudgetMemberNicknames = useTripMemberNicknames("highDailyRestaurantBudget")
+    const lowDailyBudgetMemberIds = useAppSelector(( state ) => state.chemistry?.data.memberLists.lowDailyRestaurantBudget)
+    const highDailyBudgetMemberIds = useAppSelector(( state ) => state.chemistry?.data.memberLists.highDailyRestaurantBudget)
 
     /* Reducers */
     const specialBudgetAnswerToProfiles = useValueToProfileIdList('restaurant', 'specialBudget');
@@ -53,7 +52,6 @@ function RestaurantChemistryContent() {
 
     useEffect(() => {
         console.log(`[RestaurantChemistryContent] specialBudgetAnswerToProfiles=${JSON.stringify(specialBudgetAnswerToProfiles)}`)
-
     }, [specialBudgetAnswerToProfiles]);
 
     return (
@@ -123,13 +121,13 @@ function RestaurantChemistryContent() {
                     <GroupAnswerSlider answerToProfiles={specialBudgetAnswerToProfiles} {...specialRestaurantBudgetSliderProps} />
                     <div className="content">
                         {
-                            (highDailyBudgetMemberNicknames.includes(id)) &&
+                            (highDailyBudgetMemberIds.includes(id)) &&
                             <p className="typography-article">
                                 {`${nickname} 님,친구들은 더 적은 최대 예산을 생각하고 있어요. 친구들이 부담을 갖지 않도록 생각한 것보다 합리적인 가격대의 식당을 함께 찾아보세요.`}
                             </p>
                         }
                         {
-                            (lowDailyBudgetMemberNicknames.includes(id)) &&
+                            (lowDailyBudgetMemberIds.includes(id)) &&
                             <p className="typography-article">
                                 {`${nickname} 님, 친구들은 더 많은 최대 예산를 생각하고 있어요. 친구들이 가보고 싶어하는 식당에 대해 이야기를 잘 들어보고, 예산을 조정해 함께해보세요.`}
                             </p>
