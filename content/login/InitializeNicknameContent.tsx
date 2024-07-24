@@ -77,7 +77,7 @@ function InitializeNicknameContent() {
                     isConfirmDefault={false}
                 />
             </AuthLoadRequiredContent>
-            : <Navigate to={'/home'} />
+            : <Navigate to={'/'} />
     );
 }
 export default InitializeNicknameContent;

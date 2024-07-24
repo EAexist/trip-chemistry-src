@@ -3,7 +3,7 @@ import { useCallback } from "react";
 
 /* Externals */
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "../common/axios";
 import { StatusCodes } from "http-status-codes";
 
 /* App */
@@ -17,7 +17,7 @@ import { useUserId } from "./authReducer";
 import { CityTag } from "../interfaces/enums/CityTag";
 import { IProfileId } from "../interfaces/IProfile";
 
-type ITestAnswerState = IWithLoadStatus<ITestAnswer>
+type ITestAnswerState = IWithLoadStatus<ITestAnswer> & { isInitialized : Boolean }
 
 interface ISetNumericAnswerPayload {
     key: string;
@@ -90,7 +90,8 @@ export const sampleTestAnswer: ITestAnswer = {
 const initialState: ITestAnswerState = {
     data: sampleTestAnswer,
     // data: defaultTestAnswer,
-    loadStatus: LoadStatus.REST
+    loadStatus: LoadStatus.REST,
+    isInitialized: false
 };
 
 export const asyncSubmitAnswer = createAsyncThunk("testAnswer/submitAnswer",
@@ -224,6 +225,7 @@ const testAnswerSlice = createSlice({
             console.log(`[asyncGetAnswer] fulfilled\n\taction.payload=${JSON.stringify(action.payload)}`);
             if( action.payload.testAnswerDTO ){
                 state.data = DTOToTestAnswer(action.payload.testAnswerDTO)
+                state.isInitialized = true
             }
             state.loadStatus = LoadStatus.SUCCESS;
         });

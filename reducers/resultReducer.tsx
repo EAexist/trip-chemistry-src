@@ -2,7 +2,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useCallback } from "react";
 
-import axios from "axios";
+import axios from "../common/axios";
 
 /*** Trip Chemistry ***/
 import { HEADERS_AXIOS } from "../common/app-const";

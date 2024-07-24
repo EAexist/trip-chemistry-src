@@ -67,12 +67,12 @@ function Page({ }) {
 
     return (
         <LazyDomAnimation>
-            <AuthLoadRequiredContent
-                isEnabled={isAutoLoginEnabaled || (guestId && !isAuthorized)}
+            {/* <AuthLoadRequiredContent
+                isEnabled={isAutoLoginEnabaled || ((guestId !== undefined) && !isAuthorized)}
                 handleFail={handleFail}
                 handleSuccess={handleSuccess}
                 showHandleFailButton={false}
-            >
+            > */}
                 <DrawerContext.Provider value={{ openDrawer, setOpenDrawer }}>
                     <AppDrawer
                         open={openDrawer}
@@ -82,7 +82,7 @@ function Page({ }) {
                     />
                     <Outlet />
                 </DrawerContext.Provider>
-            </AuthLoadRequiredContent>
+            {/* </AuthLoadRequiredContent> */}
         </LazyDomAnimation>
     );
 }

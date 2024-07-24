@@ -4,7 +4,7 @@
 // /* Externals */
 // import { useAppDispatch, useSelector } from "react-redux";
 // import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-// import axios from "axios";
+// import axios from "../common/axios";
 // import qs from "qs";
 
 // /*** Trip Chemistry ***/

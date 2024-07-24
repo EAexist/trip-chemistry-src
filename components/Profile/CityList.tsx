@@ -36,7 +36,7 @@ function CityList({ cities, navigateState = {} }: CityListProps) {
     const handleClickCityListItem = (city: string) => () => {
         navigate({
             pathname: `/city/${city}`,
-            search: `?redirectPath=${pathname}&${Object.entries(navigateState).map(([k, v]) => `${k}=${v}`).join('&')}`
+            search: `?${[`redirectPath=${pathname}`, ...Object.entries(navigateState).map(([k, v]) => `${k}=${v}`)].join('&')}`
         },
             { state: { navigateDirection: 'next', ...navigateState } });
     }

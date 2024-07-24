@@ -3,7 +3,7 @@
 
 // import { useAppDispatch, useSelector } from "react-redux";
 // import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-// import axios from "axios";
+// import axios from "../common/axios";
 
 // /*** Trip Chemistry ***/
 // /* Component */

@@ -274,7 +274,7 @@ function TestContent() {
     // }
 
     const id = useUserId()
-    const { data } = useAppSelector((state) => state.testAnswer);
+    const data = useAppSelector((state) => state.testAnswer.data);
     const handleConfirmSubmit = async () => {
         try {
           const originalPromiseResult = await dispatch(asyncSubmitAnswer({ id, answer: data })).unwrap()
@@ -294,10 +294,12 @@ function TestContent() {
     /* Fetch Test Answers */
     const userId = useUserId()
     const dispatch = useAppDispatch()
+    const isTestAnswerInitialized = useAppSelector((state)=> state.testAnswer?.isInitialized)
+
     useEffect(() => {
         if (userId)
-            dispatch(asyncGetAnswer(userId))
-    }, [userId])
+            dispatch( asyncGetAnswer(userId) )
+    }, [ userId ])
 
 
     const handleNextButtonClick = () => {
@@ -320,9 +322,9 @@ function TestContent() {
     }
     
     useEffect(()=>{
-        if ( userId )
+        if ( userId && isTestAnswerInitialized )
             dispatch( asyncSetAnswer(userId) )
-    }, [ userId, activeSectionIndex ])
+    }, [ userId, activeSectionIndex, isTestAnswerInitialized ])
     
     return (
         <LoadRequiredContent {...{

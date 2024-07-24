@@ -4,7 +4,7 @@ import { useCallback } from "react";
 /* Externals */
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "../common/axios";
 import { shallowEqual, useDispatch } from "react-redux";
 
 /*** Chemistry Chemistry ***/

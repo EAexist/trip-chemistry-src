@@ -2,7 +2,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useCallback } from "react";
 
-import axios from "axios";
 
 /*** Trip Chemistry ***/
 import { HEADERS_AXIOS } from "../common/app-const";
@@ -11,6 +10,8 @@ import { IUserProfile, defaultUserProfile } from "../interfaces/IUserProfile";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
 import { useAppDispatch, useAppSelector } from "../store";
 import { defaultTestResult } from "../interfaces/ITestResult";
+import axios from "../common/axios";
+import env from "~/env";
 
 /* Interface */
 
@@ -32,12 +33,13 @@ interface ILoginResultDTO {
 /* Async Thunks */
 const asyncGuestSignIn = createAsyncThunk("authSlice/asyncGuestSignIn",
     async (_, thunkAPI) => {
-        console.log(`[asyncGuestSignIn] POST /auth/guest/signIn`);
+        console.log(`[asyncGuestSignIn] POST ${env.REACT_APP_API_URL}/auth/guest/signIn`);
         try {
             const response = await axios.post(`/auth/guest/signIn`,
                 {
                     method: "POST",
                     headers: HEADERS_AXIOS,
+                    // baseURL: env.REACT_APP_API_URL
                 });
             return response.data;
         }

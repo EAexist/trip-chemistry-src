@@ -1,7 +1,7 @@
 import { configureStore, EnhancedStore, StoreEnhancer, ThunkDispatch, Tuple, UnknownAction } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 
-import env from "~/env";
+// import env from "~/env";
 import authReducer, { IAuthState } from "../reducers/authReducer";
 import { IChemistryState } from "../reducers/chemistryReducer";
 import { ITestAnswerState } from "../reducers/testAnswerReducer";
@@ -31,7 +31,8 @@ export const store: EnhancedStore<{
     // middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     //     serializableCheck: false,
     // }),
-    devTools: env.NODE_ENV !== 'production',
+    // devTools: env.NODE_ENV !== 'production',
+    devTools: true,
 });
 
 export const defaultReudcer = {

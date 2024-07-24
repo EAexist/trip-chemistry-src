@@ -36,8 +36,8 @@ function ChemistryListContent() {
             <Container>
                 <MotionList variants={VARIANTS_STAGGER_CHILDREN}>
                     {
-                        Object.values(chemistryIdList).map((id, index) => (
-                            <ListItem>
+                        Object.values(chemistryIdList).map(( id, index ) => (
+                            <ListItem key={id}>
                                 <ChemistryListItem id={id} />
                             </ListItem>
                         ))

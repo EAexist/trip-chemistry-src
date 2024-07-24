@@ -35,7 +35,7 @@ export const leadershipAnswerOptions = [
     },
 ]
 
-function LeadershipTestContent() {
+const LeadershipTestContent = () => {
 
     /* Reducers */
     const [answer, setAnswer] = useTestAnswer("leadership");
@@ -52,6 +52,7 @@ function LeadershipTestContent() {
 
                         return (
                             <m.div
+                                key={value}
                                 layoutId={String(value)}
                                 animate={{ flexShrink: isActive ? 0 : 1 }}
                                 layout

@@ -18,7 +18,7 @@ function IOSResponsiveFab({
      * https://velog.io/@gene028/ios-keyboard
     */
     const [scrollYAtkeyboardOpen, setScrollYAtkeyboardOpen] = useState(0)
-    const [currentVisualViewportHeight, setcurrentVisualViewportHeight] = useState<number>(0)
+    const [currentVisualViewportHeight, setcurrentVisualViewportHeight] = useState<number>(window.innerHeight)
     const [isIOSKeyboardOpened, setIsIOSKeyboardOpened] = useState(false)
     const body = document.querySelector('body') as HTMLElement;
 
@@ -30,16 +30,6 @@ function IOSResponsiveFab({
                 setIsIOSKeyboardOpened(currentVisualViewportHeight < window.innerHeight)
                 window.scrollTo({ top: 1, left: 0, behavior: "instant" })
                 setScrollYAtkeyboardOpen(window.scrollY)
-                // if (currentVisualViewportHeight < window.innerHeight) {
-                //     body.style.backgroundColor = "chocolate"
-                //     body.style.height = window.visualViewport?.height.toString()
-                //     console.log(`[body.style.height] ${body.style.height}`)
-                // }
-                // else {
-                //     body.style.backgroundColor = "transparent"
-                //     body.style.height = window.visualViewport?.height.toString()
-                //     console.log(`[body.style.height] ${body.style.height}`)
-                // }
             }
         }
         if (window.visualViewport) {

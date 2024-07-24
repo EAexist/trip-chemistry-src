@@ -18,7 +18,7 @@ const useNavigateWithGuestContext = () => {
         }
         else{
             console.log(`useNavigateWithGuestContext to=${JSON.stringify(to)}`)
-            navigate({ pathname: to.pathname, search: `?${to.search ? `${to.search.split('?')[1]}&` : ''}${guestId ? `guestId=${guestId}` : ''}`, hash: to.hash }, options)
+            navigate({ pathname: to.pathname, search: `${to.search && guestId ? '?' : ''}${to.search ? `${to.search.split('?')[1]}` : ''}${to.search && guestId ? '?' : ''}${guestId ? `guestId=${guestId}` : ''}`, hash: to.hash }, options)
         }
     }, [ guestId ])
 }

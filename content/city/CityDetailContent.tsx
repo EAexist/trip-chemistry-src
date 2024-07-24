@@ -40,9 +40,9 @@ function CityDetailContent({ cityId }: CityDetailContentProps) {
 
     /* Event Handlers */
     const handleNavigateBefore = () => {
-        console.log(`[CityDetailContent] handleNavigateBefore /${redirectPath ? redirectPath : 'home'}`)
+        console.log(`[CityDetailContent] handleNavigateBefore /${redirectPath ? redirectPath : ''}`)
         navigate(
-            `${redirectPath ? redirectPath : '/home'}`,
+            `${redirectPath ? redirectPath : '/'}`,
             { state: redirectPath ? { activeProfileId: searchParams.get('activeProfileId'), activeSection: 'city', section: "type", isRedirected: true} : {} },
             pathname.includes("test") ? "city" : undefined
         );

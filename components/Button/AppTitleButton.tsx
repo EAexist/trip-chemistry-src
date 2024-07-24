@@ -12,7 +12,7 @@ const AppTitleButton = (( props: AppTitleButtonProps) => {
     const title = useStrings().public.common.title
 
     const handleClick = () => {
-        navigate('/home');
+        navigate('/');
     }
 
     return (

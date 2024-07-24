@@ -52,9 +52,9 @@ function HomeContent() {
         setIsScrollCompleted(latest)
     )
 
-    useMotionValueEvent(scrollYProgress, "change", (latest) => {
-        console.log(`[HomeContent] scrollYProgress=${latest} `)
-    })
+    // useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    //     console.log(`[HomeContent] scrollYProgress=${latest} `)
+    // })
 
     const [ innerHeight, setInnerHeight ] = useState(0)
     useEffect(()=>{
