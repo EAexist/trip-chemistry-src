@@ -50,7 +50,7 @@ const activityToTripTagMap = {
 
 interface HashTagResultContentProps extends WithProfileProps { };
 
-function HashTagResultContent({ id, nickname, testResult }: HashTagResultContentProps) {
+function HashTagResultContent({ id, testResult }: HashTagResultContentProps) {
 
     const [selectedTag, setSelectedTag] = useState<number>();
     const [delayedSelectedTag, setDelayedSelectedTag] = useState<number>();
@@ -118,7 +118,7 @@ function HashTagResultContent({ id, nickname, testResult }: HashTagResultContent
                             [...testResult.tripTagList].sort((a, b) => (tagToNumber[b] - tagToNumber[a]))
                                 .map((tag) =>
                                     (delayedSelectedTag !== tag) &&
-                                    <m.div layoutId={tag.toString()}>
+                                    <m.div layoutId={`${id}-${tag.toString()}`} key={tag}>
                                         <TripTagChip
                                             key={tag}
                                             tagId={tag}
@@ -205,7 +205,7 @@ function HashTagResultContent({ id, nickname, testResult }: HashTagResultContent
                                             <Stack>
                                                 {
                                                     sourceExpectationTags.map((tag) =>
-                                                        <Box sx={{ backgroundColor: "gray.main", padding: "0px 4px" }}>
+                                                        <Box key={tag} sx={{ backgroundColor: "gray.main", padding: "0px 4px" }}>
                                                             <p className="typography-note" key={tag}># {HASHTAGS.expectation[tag].label}</p>
                                                         </Box>
                                                     )
@@ -220,7 +220,7 @@ function HashTagResultContent({ id, nickname, testResult }: HashTagResultContent
                                             <Stack>
                                                 {
                                                     sourceActivityTags.map((tag) =>
-                                                        <Box sx={{ backgroundColor: "gray.main", padding: "0px 4px" }}>
+                                                        <Box key={tag} sx={{ backgroundColor: "gray.main", padding: "0px 4px" }}>
                                                             <p className="typography-note" key={tag}># {HASHTAGS.activity[tag].label}</p>
                                                         </Box>
                                                     )

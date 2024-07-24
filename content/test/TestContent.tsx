@@ -394,7 +394,7 @@ function TestContent() {
                                     return (
                                         <Grid key={index} item xs={6}>
                                             <Button onClick={handleSectionButtonClick(index)} startIcon={<ImageIcon name={Object.values(TEST_SECTIONS)[index]?.icon} />} variant={"contained"} color={isActive ? "gray" : "secondary"} sx={{ ...!isAnswered && { '& > *': { opacity: 0.5 } }, paddingLeft: '12px', fontWeight: 400 }}>
-                                                {Object.values(TEST_SECTIONS)[index]?.label}
+                                                <p>{Object.values(TEST_SECTIONS)[index]?.label}</p>
                                             </Button>
                                         </Grid>
 

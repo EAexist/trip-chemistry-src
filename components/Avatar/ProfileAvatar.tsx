@@ -19,7 +19,7 @@ function ProfileAvatar({ avatarId, nickname, ...props }: ProfileAvatarProps) {
         <LabeledAvatar
             label={ nickname }
             alt={ imageId }
-            src={ getImgSrc('/character', imageId, { size : "small" }) }
+            src={ imageId ? getImgSrc('/character', imageId, { size : "small" }) : undefined }
             { ...props as LabeledAvatarProps }
         />
     );

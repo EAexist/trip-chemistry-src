@@ -8,7 +8,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import { m } from "framer-motion";
 
 /* App */
-import useTripMemberNicknames from "../../hooks/useTripMemberNicknames";
+import useTripMemberIds from "../../hooks/useTripMemberNicknames";
 import { IProfile } from "../../interfaces/IProfile";
 import { MotionList } from "../../motion/components/MotionList";
 import { MotionListItem } from "../../motion/components/MotionListItem";
@@ -36,8 +36,8 @@ function ScheduleChemistryContent() {
 
     const minStartTIme = Math.min(...scheduleAnswersSorted.map(({ startTime }) => startTime >= 0 ? startTime : 24))
 
-    const relaxingMemberNicknames = useTripMemberNicknames("relaxing")
-    const busyMemberNicknames = useTripMemberNicknames("busy")
+    const relaxingMemberIds = useAppSelector((state)=>state.chemistry.data.memberLists.relaxing)
+    const busyMemberIds = useAppSelector((state)=>state.chemistry.data.memberLists.busy)
 
 
     /* Dialog */
@@ -52,7 +52,7 @@ function ScheduleChemistryContent() {
                         <Stack direction={"row"} alignItems={"start"}>
                             {
                                 scheduleTestOptions.map(({ value, label }) =>
-                                    <Stack direction={"column"} textAlign={"center"} sx={{ width: "48px" }} >
+                                    <Stack key={value} direction={"column"} textAlign={"center"} sx={{ width: "48px" }} >
                                         <Circle sx={{ color: (value > 0) ? "primary.main" : "gray.dark", opacity: (value > 0) ? 0.25 * value : 1, fontSize: "12px" }} />
                                         <p className="typography-note">{label}</p>
                                     </Stack>
@@ -64,8 +64,8 @@ function ScheduleChemistryContent() {
                         <h3>밤에는 뭘 할까</h3>
                         <List disablePadding>
                             {
-                                nightPlanTestOptions.map(({ label, materialIcon }) =>
-                                    <ListItem>
+                                nightPlanTestOptions.map(({ label, materialIcon }, index) =>
+                                    <ListItem key={index}>
                                         <ListItemAvatar>
                                             <Icon className="color-gray">{materialIcon}</Icon>
                                         </ListItemAvatar>
@@ -102,6 +102,7 @@ function ScheduleChemistryContent() {
                     initial={"hidden"}
                     whileInView={"visible"}
                     variants={VARIANTS_STAGGER_CHILDREN}
+                    viewport={{ once: true }}
                 >
                     {
                         scheduleAnswersSorted.map(({ nickname, startTime, endTime, schedule, nightPlan }) =>
@@ -153,14 +154,14 @@ function ScheduleChemistryContent() {
                 </Stack> */}
             </div>
             {
-                (relaxingMemberNicknames.includes(id)) &&
+                (relaxingMemberIds.includes(id)) &&
                 <m.p className="typography-article" {...FADEIN_FROMBOTTOM_VIEWPORT}>
                     {`${nickname} 님, `}
                     친구들은 숙소 밖에서 더 많은 시간을 보내고 싶어해요. 친구들을 따라 여행지 곳곳을 돌아다니는 데에 시간을 더 투자해보세요.
                 </m.p>
             }
             {
-                (busyMemberNicknames.includes(id)) &&
+                (busyMemberIds.includes(id)) &&
                 <m.p className="typography-article" {...FADEIN_FROMBOTTOM_VIEWPORT}>
                     {`${nickname} 님, `}
                     친구들은 숙소에서 쉬는 시간을 더 갖고 싶어해요. 계획을 짤 때 친구들이 지치지 않도록 신경 써 주세요. 이른 아침 또는 늦은 밤의 일정은 친구들과 따로 다니며 즐기는 것도 고려해보세요.

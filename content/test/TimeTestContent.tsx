@@ -83,7 +83,7 @@ const TimeAnswerStepLabel = (({ testKey, index, summaryTitle, handleStep, label 
     const [theOtherTimeAnswer] = useTestAnswer("schedule", testKey === "startTime" ? "endTime" : "startTime")
     // const timeDayJs = (timeAnswer !== undefined) ? dayjs('2024-06-05 00:00').set("hour", timeAnswer) : undefined
     const [timeDayJs, setTimeDayJs] = useState((timeAnswer !== undefined) ? dayjs('2024-06-05 00:00').set("hour", timeAnswer) : undefined)
-    const theOtherTimeDayJs = (theOtherTimeAnswer !== undefined) ? dayjs('2024-06-05 00:00').set("hour",  theOtherTimeAnswer) : undefined
+    const theOtherTimeDayJs = (theOtherTimeAnswer !== undefined) ? dayjs('2024-06-05 00:00').set("hour", theOtherTimeAnswer) : undefined
     // const [theOtherTimeDayJs] = useState(dayjs('2024-06-05 00:00').set("hour", (theOtherTimeAnswer !== undefined) ? theOtherTimeAnswer : 20))
     const hour = timeDayJs?.get("hour");
     const isPm = hour > 11
@@ -91,7 +91,7 @@ const TimeAnswerStepLabel = (({ testKey, index, summaryTitle, handleStep, label 
     useEffect(() => {
         if (timeDayJs)
             setTimeAnswer(timeDayJs.get("hour"))
-    }, [ timeDayJs ])
+    }, [timeDayJs])
 
     return (
         <Step key={0} index={index}>
@@ -126,7 +126,7 @@ function TimeTestContent() {
     /* States */
     const [activeStep, setActiveStep] = useState(0);
     const handleStep = (step: number) => () => {
-        setActiveStep((activeStep === step) ? -2: step);
+        setActiveStep((activeStep === step) ? -2 : step);
     };
     const [scheduleAnswer, setScheduleAnswer] = useTestAnswer("schedule", "schedule");
     const [nightPlanAnswer, setNightPlanAnswer] = useTestAnswer("schedule", "nightPlan");
@@ -143,7 +143,9 @@ function TimeTestContent() {
                     <CheckStepButton
                         onClick={handleStep(1)}
                         optional={
-                            (activeStep !== 1) && (scheduleAnswer !== undefined) && scheduleTestOptions[scheduleAnswer].label
+                            <p><b>{
+                                (activeStep !== 1) && (scheduleAnswer !== undefined) && scheduleTestOptions[scheduleAnswer].label
+                            }</b></p>
                         }
                         isChecked={scheduleAnswer !== undefined}
                         isActive={activeStep === 1}
@@ -200,12 +202,12 @@ function TimeTestContent() {
                             {
                                 nightPlanTestOptions.map(({ value, label, icon }) => (
                                     <Grid key={icon} item xs={4} sx={{ padding: "4px", display: "flex" }}>
-                                        <Paper elevation={(nightPlanAnswer === value) ? 2: 0} sx={{ backgroundColor: (nightPlanAnswer === value) ? "white" : "gray.main" }}>
+                                        <Paper elevation={(nightPlanAnswer === value) ? 2 : 0} sx={{ backgroundColor: (nightPlanAnswer === value) ? "white" : "gray.main" }}>
                                             <ButtonBase onClick={() => setNightPlanAnswer((value === nightPlanAnswer) ? undefined : value)}>
                                                 <Container className="column-padding-sm gutter-xs">
                                                     <div>
-                                                        <Check color="primary" sx={(nightPlanAnswer === value) ? {} : { visibility: "hidden" }}/>
-                                                    </div>                                                    
+                                                        <Check color="primary" sx={(nightPlanAnswer === value) ? {} : { visibility: "hidden" }} />
+                                                    </div>
                                                     <ImageIcon name={icon} size="large" />
                                                     <p className="typography-note" style={(nightPlanAnswer === value) ? { fontWeight: 700 } : {}}>{label}</p>
                                                 </Container>

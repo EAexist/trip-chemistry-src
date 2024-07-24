@@ -70,7 +70,7 @@ function RestaurantChemistryContent() {
                     <List>
                     {
                         restaurantAnswerList.map(({ label, body, icon, answers }, index) =>
-                            <ListItem>
+                            <ListItem key={index}>
                                 <ListItemAvatar>
                                     {/* 1. */}
                                     <Avatar>
@@ -87,6 +87,7 @@ function RestaurantChemistryContent() {
                                         {
                                             answers.map(({ nickname, answer }) =>
                                                 <Chip
+                                                    key={nickname}
                                                     size="small"
                                                     label={nickname}
                                                     color="primary"
@@ -109,7 +110,7 @@ function RestaurantChemistryContent() {
                         {
                             Object.values(criteriaAnswerOptions).sort((v1, v2) => v2.value - v1.value).map(({ value, label }) => (
                                 (value > 0) &&
-                                <Stack>
+                                <Stack key={value}>
                                     <Circle sx={{ color: "primary.main", opacity: 0.5 * value, fontSize: "12px"  }} />
                                     <p className="typography-note">{label}</p>
                                 </Stack>

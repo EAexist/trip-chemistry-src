@@ -118,8 +118,8 @@ export const FADEIN_VIEWPORT: MotionProps = {
     whileInView: "visible",
     variants: VARIANTS_FADEIN,
     viewport: {
-        // once: true
-        once: false,
+        once: true
+        // once: false,
     }
 };
 

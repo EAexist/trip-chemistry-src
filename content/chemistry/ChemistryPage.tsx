@@ -32,7 +32,7 @@ import ShareLinkDialog from "./ShareLinkDialog";
 import TripMemberResultContent from "./TripMemberResultContent";
 
 
-function ChemistryContent() {
+function ChemistryPage() {
 
     /* AppBar */
     const containerRef = useRef<HTMLDivElement>(null);
@@ -371,79 +371,4 @@ function ChemistryContent() {
         </>
     );
 }
-export default ChemistryContent;
-
-/* Deprecated */
-// <m.div className="flex">
-// {
-//     isMember
-//         ?
-//         (
-//             <Button
-//                 onClick={handleStartShare}
-//                 startIcon={<GroupAdd />}
-//                 variant="outlined"
-//                 className="block--with-padding"
-//             >
-//                 친구 초대하기
-//             </Button>
-//             /* [Deprecated] 친구 초대 방법 선택 > 링크 공유로 통합 */
-//             // <m.div>
-//             //     {
-//             //         isInviteOptionsOpen
-//             //             ?
-//             //             <m.div {...FADEIN_VIEWPORT} key={String(isInviteOptionsOpen)}>
-//             //                 <Grid container columnSpacing={2}>
-//             //                     {
-//             //                         [
-//             //                             {
-//             //                                 onClick: handleStartShare,
-//             //                                 icon: 'share',
-//             //                                 label: '링크 공유'
-//             //                             },
-//             //                             {
-//             //                                 onClick: handleStartSearch,
-//             //                                 icon: 'person_search',
-//             //                                 label: '로그인 계정 검색'
-//             //                             },
-//             //                         ].map(({ onClick, icon, label }) => (
-//             //                             <Grid item xs={6} display={"flex"} flexDirection={'column'}>
-//             //                                 <Button
-//             //                                     onClick={onClick}
-//             //                                     startIcon={<Icon>{icon}</Icon>}
-//             //                                     variant="outlined"
-//             //                                     className="block--with-padding"
-//             //                                 >
-//             //                                     {label}
-//             //                                 </Button>
-//             //                             </Grid>
-
-//             //                         ))
-//             //                     }
-//             //                 </Grid>
-//             //             </m.div>
-//             //             :
-//             //             <m.div className="flex">
-//             //                 <Button
-//             //                     onClick={() => setIsInviteOptionsOpen(true)}
-//             //                     startIcon={<GroupAdd />}
-//             //                     variant="outlined"
-//             //                     className="block--with-padding"
-//             //                 >
-//             //                     친구 초대하기
-//             //                 </Button>
-//             //             </m.div>
-//             //     }
-//             // </m.div>
-//         )
-//         :
-//         <Button
-//             onClick={handleJoinChemistry}
-//             startIcon={<AirplaneTicket />}
-//             variant="outlined"
-//             className="block--with-padding"
-//         >
-//             참여하기
-//         </Button>
-// }
-// </m.div>
+export default ChemistryPage;

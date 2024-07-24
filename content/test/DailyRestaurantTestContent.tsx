@@ -18,7 +18,7 @@ export const dailyRestaurantSliderProps: SliderProps = {
     step,
     min,
     max,
-    getAriaLabel: (index: number) => "daily restaurant budget",
+    getAriaLabel: () => "daily restaurant budget",
     marks: [
         {
             value: 4000,

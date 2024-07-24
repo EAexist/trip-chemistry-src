@@ -45,8 +45,8 @@ function ResultContent({ ...props }: ResultContentProps) {
                                     <RecommendedCityList {...props} />
                                 </m.div>
                         },
-                    ].map(({ title, element }) => (
-                        <SectionPaper>
+                    ].map(({ title, element }, index) => (
+                        <SectionPaper key={index}>
                             <m.div className="content" {...FADEIN_FROMBOTTOM_VIEWPORT} initial={animate ? "hidden" : "visible"}>
                                 <h2 className="section-title--sm">{title}</h2>
                                 {element}

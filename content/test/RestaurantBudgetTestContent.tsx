@@ -14,7 +14,7 @@ export const specialRestaurantBudgetSliderProps: SliderProps = {
     step: 20000,
     min: 20000,
     max: 120000,
-    "aria-label": "special restaurant budget",
+    getAriaLabel: () => "maximum budget for special restaurant",
     marks: [
         {
             value: 20000,

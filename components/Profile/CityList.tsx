@@ -64,8 +64,8 @@ function CityList({ cities, navigateState = {} }: CityListProps) {
                             />
                             <Stack className="typography-note" style={{ overflow: "hidden" }} spacing={0.5}>
                                 {
-                                    CITIES[city].cityTags.slice(0,4).map((tag) =>
-                                        <Box sx={{ backgroundColor: "gray.main", padding: "0px 4px" }}>
+                                    CITIES[city].cityTags.slice(0, 4).map((tag) =>
+                                        <Box key={tag} sx={{ backgroundColor: "gray.main", padding: "0px 4px" }}>
                                             <p className="typography-note" style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }} key={tag}># {HASHTAGS.city[tag].label}</p>
                                         </Box>
                                     )

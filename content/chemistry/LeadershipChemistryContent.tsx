@@ -38,7 +38,7 @@ function LeadershipChemistryContent() {
             </m.div>
             <List>
                 {
-                    (leadershipAnswerOptions as { label: string, value: number }[]).map(({ label, value }) => (
+                    (leadershipAnswerOptions as { label: string, value: number, title: string }[]).map(({ label, value, title }) => (
                         Object.keys(leadershipAnswerToProfileList).includes(String(value)) &&
                         <MotionListItem key={label} {...FADEIN_FROMBOTTOM_VIEWPORT} >
                             <ListItemAvatar className="block--centered" sx={{ paddingRight: "16px" }}>
@@ -46,12 +46,13 @@ function LeadershipChemistryContent() {
                             </ListItemAvatar>
                                 <div>
                                     <ListItemText
-                                        primary={<h3>{label}</h3>}
+                                        primary={<h3>{title}</h3>}
                                     />
                                     <Stack>
                                         {
                                             (Object.keys(leadershipAnswerToProfileList).includes(String(value)) ? leadershipAnswerToProfileList[value] : []).map((id) => (
                                                 <Chip
+                                                    key={id}
                                                     label={nicknames[id]}
                                                     icon={<Avatar sx={{ height: "28px", width: '28px', outlineWidth: 0 }}/>}
                                                     sx={{ 

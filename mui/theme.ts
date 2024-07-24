@@ -99,7 +99,7 @@ const theme = createTheme({
                 root: {
                     height: "48px",
                     overflow: "hidden",
-                    '& .MuiToolbar-root' : {
+                    '& .MuiToolbar-root': {
                         marginLeft: "24px",
                         marginRight: "24px",
                     }
@@ -166,7 +166,7 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     fontSize: "16px",
-                    fontWeight: 500 
+                    fontWeight: 500
                 }
             }
         },
@@ -177,7 +177,7 @@ const theme = createTheme({
                         backgroundColor: defaultTheme.palette.warning.light
                     }),
                     textTransform: "none",
-                }),                
+                }),
             }
         },
         MuiButton: {
@@ -201,7 +201,10 @@ const theme = createTheme({
             },
             styleOverrides: {
                 root: {
-                    fontSize: "14px"
+                    fontSize: "14px",
+                    '& > p': {
+                        fontSize: "14px"
+                    }
                 },
                 contained: {
                     paddingTop: "0.8rem",
@@ -353,7 +356,10 @@ const theme = createTheme({
                     display: "flex",
                     justifyContent: "space-between",
                     fontSize: "12px"
-                }
+                },
+                // labelContainer: {
+                //     fontWeight: 700
+                // }
             }
         },
         MuiTabs: {

@@ -80,7 +80,7 @@ function UserContent() {
                     <div className='flex-grow content block--centered'>
                         <div>
                             {/* <ButtonBase onClick={handleClickAvatar}> */}
-                                <UserAvatar sx={{ height: "128px", width: "128px" }} renderLabel={false} />
+                            <UserAvatar sx={{ height: "128px", width: "128px" }} renderLabel={false} />
                             {/* </ButtonBase> */}
                             <Toolbar>
                                 <IconButton
@@ -123,7 +123,9 @@ function UserContent() {
                     {
                         (AuthProvider[authProvider] === AuthProvider.GUEST)
                         &&
-                        <KakaoLoginHelp />
+                        <div style={{ marginTop: "64px" }}>
+                            <KakaoLoginHelp />
+                        </div>
                     }
                 </Container>
                 <ConfirmDrawer
@@ -138,7 +140,7 @@ function UserContent() {
                     isConfirmDefault={false}
                 />
             </RoutedMotionPage>
-        </AuthLoadRequiredContent>
+        </AuthLoadRequiredContent >
     );
 }
 export default UserContent;

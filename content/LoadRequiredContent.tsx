@@ -7,14 +7,10 @@ import { Container, Toolbar } from "@mui/material";
 /* App */
 import withAuthLoadStatus, { WithLoadStatusProps } from "../hocs/withAuthLoadStatus";
 import { LoadStatus } from "../interfaces/enums/LoadStatus";
-import getImgSrc from "../utils/getImgSrc";
-// import loadable from "@loadable/component";
 
 import AnimatedIcon from "../components/AnimatedIcon";
 import Fab from "../components/Button/Fab";
-import LazyImage from "../components/LazyImage";
 
-// const NoticeBlock = loadable(() => import(/* webpackChunkName: "NoticeBlock" */ "../components/Block/NoticeBlock"));
 
 interface LoadRequiredContentProps extends WithLoadStatusProps {
     handleSuccess?: () => void;
@@ -158,18 +154,16 @@ function LoadRequiredContent({
                                     />
                                     :
                                     <AnimatedIcon
-                                        name="soon"   
+                                        name="work-in-progress"   
                                         width="96px"    
                                         height="96px"                             
                                     />
                             )
                             :
-                            <LazyImage
-                                alt={delayedStatus}
-                                src={getImgSrc('/info', delayedStatus, { size: "xlarge" })}
-                                width={"256px"}
-                                height={"256px"}
-                                containerClassName="NoticeBlock__image"
+                            <AnimatedIcon
+                                name="warning"   
+                                width="96px"    
+                                height="96px"                             
                             />
                     }
                     <p>

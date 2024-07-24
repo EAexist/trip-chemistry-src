@@ -31,14 +31,14 @@ const RoutedMotionPage = ({ children, direction, ...motionPageProps }: PropsWith
     }, [ direction, pageDirection ])
 
     return (
-        (pageDirection !== undefined ) &&
-        <MotionPage animate={"visible"} custom={pageDirection} initial={(pageDirection === null ) ? false : "hidden"} {...motionProp_page_slideIn} {...motionPageProps}>
-        {/* <MotionPage animate={"open"} custom={"left"} {...motionProp_page_slideIn} {...motionPageProps}> */}
-            {children}
-        </MotionPage>
+        // (pageDirection !== undefined ) &&
+        // <MotionPage animate={"visible"} custom={pageDirection} initial={(pageDirection === null ) ? false : "hidden"} {...motionProp_page_slideIn} {...motionPageProps}>
+        //     {children}
+        // </MotionPage>
         // <MotionPage direction={pageDirection} on={on} {...motionPageProps}>
         //     {children}
         // </MotionPage>
+        children
     )
 }
 
