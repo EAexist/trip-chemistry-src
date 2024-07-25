@@ -3,7 +3,7 @@ import { createContext, Dispatch, SetStateAction, useEffect, useState } from "re
 import AppDrawer from "../components/Drawer/AppDrawer";
 import LazyDomAnimation from "../motion/LazyDomAnimation";
 import { Outlet, useSearchParams } from "~/router-module";
-import { AuthLoadRequiredContent } from "../content/LoadRequiredContent";
+import { AuthLoadRequiredContent } from "./LoadRequiredContent";
 import { asyncGuestLogin, asyncKakaoLoginByAccessToken, disableAutoLogin, useAuthorize, useIsAuthorized } from "../reducers/authReducer";
 import { useAppDispatch, useAppSelector } from "../store";
 
@@ -67,12 +67,13 @@ function Page({ }) {
 
     return (
         <LazyDomAnimation>
-            {/* <AuthLoadRequiredContent
+            <AuthLoadRequiredContent
                 isEnabled={isAutoLoginEnabaled || ((guestId !== undefined) && !isAuthorized)}
                 handleFail={handleFail}
                 handleSuccess={handleSuccess}
                 showHandleFailButton={false}
-            > */}
+                showOnPending={true}
+            >
                 <DrawerContext.Provider value={{ openDrawer, setOpenDrawer }}>
                     <AppDrawer
                         open={openDrawer}
@@ -82,7 +83,7 @@ function Page({ }) {
                     />
                     <Outlet />
                 </DrawerContext.Provider>
-            {/* </AuthLoadRequiredContent> */}
+            </AuthLoadRequiredContent>
         </LazyDomAnimation>
     );
 }

@@ -2,7 +2,7 @@
 import { PropsWithChildren, useEffect, useRef, useState } from "react";
 
 /* Externals */
-import { Container, Toolbar } from "@mui/material";
+import { CircularProgress, Container, Toolbar } from "@mui/material";
 
 /* App */
 import withAuthLoadStatus, { WithLoadStatusProps } from "../hocs/withAuthLoadStatus";
@@ -32,7 +32,6 @@ function LoadRequiredContent({
     status = LoadStatus.REST,
     setStatus,
     children,
-    successText = "",
     pendingText = "잠시만 기다려주세요.",
     failText = "서버에 연결할 수 없어요. 잠시 후 다시 시도해주세요.",
     missText = "정보를 찾을 수 없어요. 잠시 후 다시 시도해주세요.",
@@ -153,11 +152,7 @@ function LoadRequiredContent({
                                         height="96px"                             
                                     />
                                     :
-                                    <AnimatedIcon
-                                        name="work-in-progress"   
-                                        width="96px"    
-                                        height="96px"                             
-                                    />
+                                    <CircularProgress/>
                             )
                             :
                             <AnimatedIcon

@@ -9,6 +9,7 @@ import { useLocation, useParams } from "~/router-module";
 
 /* App */
 import env from "~/env";
+import { IChemistry } from "~/src/interfaces/IChemistry";
 import AnimatedIcon from "../../components/AnimatedIcon";
 import FriendAvatar from "../../components/Avatar/FriendAvatar";
 import AppTitleButton from "../../components/Button/AppTitleButton";
@@ -23,7 +24,7 @@ import MotionPage, { motionProp_page_slideIn } from "../../motion/components/Mot
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import { useHasAnsweredTest, useIsAuthorized, useUserId } from "../../reducers/authReducer";
 import { asyncJoinChemistry, useIsChemistryEnabled } from "../../reducers/chemistryReducer";
-import { useAppDispatch, useAppSelector } from "../../store";
+import { useAppDispatch } from "../../store";
 import LoginContent from "../login/LoginContent";
 import LeadershipChemistryContent from "./LeadershipChemistryContent";
 import RestaurantChemistryContent from "./RestaurantChemistryContent";
@@ -31,8 +32,7 @@ import ScheduleChemistryContent from "./ScheduleChemistryContent";
 import ShareLinkDialog from "./ShareLinkDialog";
 import TripMemberResultContent from "./TripMemberResultContent";
 
-
-function ChemistryContent() {
+const ChemistryContent = ( data : IChemistry ) => {
 
     /* AppBar */
     const containerRef = useRef<HTMLDivElement>(null);
@@ -44,20 +44,18 @@ function ChemistryContent() {
     /* Hooks */
     const navigate = useNavigateWithGuestContext();
     const dispatch = useAppDispatch();
-    const params = useParams();
-    const chemistryId = params.chemistryId ? params.chemistryId : "";
-
-    /* Induced */
-    const link = `${env.REACT_APP_PUBLIC_URL}/chemistry/${chemistryId}`;
 
     /* Reducers */
-    const { title, profiles, profileIds } = useAppSelector((state) => state.chemistry.data);
-    const isChemistryEnabled = useIsChemistryEnabled();
+    // const { title, profiles, profileIds } = useAppSelector((state) => state.chemistry.data);
+    const { title, profiles, profileIds } = data;
+    // const isChemistryEnabled = useIsChemistryEnabled();
+    const isChemistryEnabled = profileIds.length > 1;
     const userId = useUserId();
     const isAuthorized = useIsAuthorized();
     const hasAnsweredTest = useHasAnsweredTest();
 
     /* Induced */
+    const link = `${env.REACT_APP_PUBLIC_URL}/chemistry/${data.id}`;
     const isMember = (profileIds.length > 0) && profileIds.includes(userId);
 
     /* States */
@@ -148,10 +146,6 @@ function ChemistryContent() {
     });
 
     return (
-        /** MetaData
-         *  Not Crawled.
-         *  Open Graph Protocol Metadata for SNS(Kakaotalk, Instagram) Share.
-         */
         <>
             {
                 (!isAuthorized && showLoginContent)
@@ -372,78 +366,3 @@ function ChemistryContent() {
     );
 }
 export default ChemistryContent;
-
-/* Deprecated */
-// <m.div className="flex">
-// {
-//     isMember
-//         ?
-//         (
-//             <Button
-//                 onClick={handleStartShare}
-//                 startIcon={<GroupAdd />}
-//                 variant="outlined"
-//                 className="block--with-padding"
-//             >
-//                 친구 초대하기
-//             </Button>
-//             /* [Deprecated] 친구 초대 방법 선택 > 링크 공유로 통합 */
-//             // <m.div>
-//             //     {
-//             //         isInviteOptionsOpen
-//             //             ?
-//             //             <m.div {...FADEIN_VIEWPORT} key={String(isInviteOptionsOpen)}>
-//             //                 <Grid container columnSpacing={2}>
-//             //                     {
-//             //                         [
-//             //                             {
-//             //                                 onClick: handleStartShare,
-//             //                                 icon: 'share',
-//             //                                 label: '링크 공유'
-//             //                             },
-//             //                             {
-//             //                                 onClick: handleStartSearch,
-//             //                                 icon: 'person_search',
-//             //                                 label: '로그인 계정 검색'
-//             //                             },
-//             //                         ].map(({ onClick, icon, label }) => (
-//             //                             <Grid item xs={6} display={"flex"} flexDirection={'column'}>
-//             //                                 <Button
-//             //                                     onClick={onClick}
-//             //                                     startIcon={<Icon>{icon}</Icon>}
-//             //                                     variant="outlined"
-//             //                                     className="block--with-padding"
-//             //                                 >
-//             //                                     {label}
-//             //                                 </Button>
-//             //                             </Grid>
-
-//             //                         ))
-//             //                     }
-//             //                 </Grid>
-//             //             </m.div>
-//             //             :
-//             //             <m.div className="flex">
-//             //                 <Button
-//             //                     onClick={() => setIsInviteOptionsOpen(true)}
-//             //                     startIcon={<GroupAdd />}
-//             //                     variant="outlined"
-//             //                     className="block--with-padding"
-//             //                 >
-//             //                     친구 초대하기
-//             //                 </Button>
-//             //             </m.div>
-//             //     }
-//             // </m.div>
-//         )
-//         :
-//         <Button
-//             onClick={handleJoinChemistry}
-//             startIcon={<AirplaneTicket />}
-//             variant="outlined"
-//             className="block--with-padding"
-//         >
-//             참여하기
-//         </Button>
-// }
-// </m.div>

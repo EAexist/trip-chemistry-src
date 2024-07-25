@@ -96,6 +96,9 @@ const chemistrySlice = createSlice({
         setChemistryLoadStatus: (state, action: PayloadAction<LoadStatus>) => {
             state.loadStatus = action.payload;
         },
+        setChemistry: (state, action: PayloadAction<IChemistry>) => {
+            state.data = action.payload;
+        },
         clearChemistry: (state) => {
             state.data = defaultChemistry;
         },
@@ -235,7 +238,7 @@ const useProfileIdList = (answeredProfileOnly: boolean = true) => {
 
 export default chemistrySlice.reducer;
 export type { IChemistryState }
-export const { clearChemistry } = chemistrySlice.actions;
+export const { clearChemistry, setChemistry } = chemistrySlice.actions;
 export { asyncGetChemistry, useChemistryLoadStatus, useCityChemistry, useIsChemistryEnabled, useProfile, useProfileIdList, useTestAnswerObject };
 
 /* Deprecated */
