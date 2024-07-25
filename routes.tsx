@@ -57,7 +57,7 @@ const routes = createRoutesFromElements(
             <Route key={'home'} index element={
                 <>
                     <Helmet>
-                        <link rel="canonical" href={`${env.REACT_APP_PUBLIC_URL}/home`} />
+                        <link rel="canonical" href={`${env.REACT_APP_PUBLIC_URL}`} />
                     </Helmet>
                     <HomeContent />
                 </>

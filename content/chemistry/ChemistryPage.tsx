@@ -27,7 +27,7 @@ const ChemistryPage = () => {
         getProfile();
     }
     const handleFail = () => {
-        navigate('/home');
+        navigate('/');
     }
 
     /* 케미스트리 데이터 불러오기 */
