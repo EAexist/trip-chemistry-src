@@ -6,24 +6,20 @@ import { createRoutesFromElements, Navigate, Outlet, Route, ScrollRestoration } 
 /* App */
 import { CITIES } from './common/app-const';
 import { store } from './store';
-// import HideOnScrollTest from './components/HideOnScrollTest';
-import Page from './route/Page';
+import Page from './content/Page';
 import HideOnScrollTest from './components/HideOnScrollTest';
 import { Helmet } from 'react-helmet-async';
 import env from "~/env";
-
-/* Mockup */
-// import ChemistryDetailMockupContent from './mockup/ChemistryDetailMockupContent';
+import LoginPage from './content/login/LoginPage';
 
 /* Loadable Components */
 
 /* Intermediate Routes */
-const AuthRequiredRoute = loadable(() => import(/* webpackChunkName: "AuthRequiredRoute" */ './route/AuthRequiredRoute'));
-const ChemistryRoute = loadable(() => import(/* webpackChunkName: "ChemistryRoute" */ './route/ChemistryRoute'));
+const AuthRequiredRoute = loadable(() => import(/* webpackChunkName: "AuthRequiredRoute" */ './content/AuthRequiredRoute'));
+const ChemistryPage = loadable(() => import(/* webpackChunkName: "ChemistryPage" */ './content/chemistry/ChemistryPage'));
 
 /* Public Contents */
 const HomeContent = loadable(() => import(/* webpackChunkName: "HomeContent" */ './content/home/HomeContent'));
-const ChemistryContent = loadable(() => import( /* webpackChunkName: "ChemistryContent" */'./content/chemistry/ChemistryContent'));
 
 /* Auth-requiring Contents */
 const CityDetailContent = loadable(() => import( /* webpackChunkName: "CityDetailContent" */'./content/city/CityDetailContent'));
@@ -44,15 +40,6 @@ const CreateChemistryContent = loadable(() => import( /* webpackChunkName: "Crea
 // const AuthRecommendedPage = loadable(() => import(/* webpackChunkName: "AuthRecommendedPage" */ './route/AuthRecommendedPage'));
 // const TestRequiredRoute = loadable(() => import( /* webpackChunkName: "TestRequiredRoute" */'./route/TestRequiredRoute'));
 
-const cityDetailRoute =
-    <Route key={'city'} path={'city'} element={<Outlet />}>
-        {
-            Object.keys(CITIES).map((cityId) => (
-                <Route key={cityId} path={cityId} element={<CityDetailContent cityId={cityId} />} />
-            ))
-        }
-    </Route>
-
 const routes = createRoutesFromElements(
     <Route path={'*'} element={
         <Provider store={store}>
@@ -67,9 +54,8 @@ const routes = createRoutesFromElements(
             <Page />
         </Provider>} >
         <Route key={'index'} element={<Outlet />} >
-            <Route path="*" element={<Navigate to="home" />} />
-            {cityDetailRoute}
-            <Route key={'home'} index path={'home'} element={
+            <Route path="*" element={<Navigate to="/" />} />
+            <Route key={'home'} index element={
                 <>
                     <Helmet>
                         <link rel="canonical" href={`${env.REACT_APP_PUBLIC_URL}/home`} />
@@ -78,13 +64,12 @@ const routes = createRoutesFromElements(
                 </>
             } />
             <Route key={'result'} path={'result/:profileId'} element={<PublicResultPage />} />
-            <Route key={'chemistry'} path={'chemistry/:chemistryId'} element={<ChemistryRoute />} >
-                <Route path="*" element={<Navigate to=".." />} />
-                <Route key={'index'} path={""} element={<ChemistryContent />} >
-                </Route>
-                {/** @TODO 닉네임을 통한 사용자 검색 및 친구 초대 */}
-                {/* <Route key={'searchAndInviteFriend'} path={'searchAndInviteFriend'} element={<SearchAndInviteFriendContent />} /> */}
-            </Route>
+            <Route key={'chemistry'} path={'chemistry/:chemistryId'} element={
+                <ChemistryPage />
+            } />
+            {/* <Route key={'login'} path={'login'} element={<LoginPage />} /> */}
+            {/** @TODO 닉네임을 통한 사용자 검색 및 친구 초대 */}
+            {/* <Route key={'searchAndInviteFriend'} path={'searchAndInviteFriend'} element={<SearchAndInviteFriendContent />} /> */}
             {/* [SEO, Authorization] Routes are excluded in robots.txt. URL Accesses are redirected to login page. */}
             <Route key={'authRequired'} element={<AuthRequiredRoute />}>
                 <Route key={'test'} path={'test'} element={<Outlet />} >
@@ -102,7 +87,7 @@ const routes = createRoutesFromElements(
             </Route>
             {/* [SEO, Authorization] Routes are protected from access-by-URL. Can only be accessed by useNavigate Hook (/initializeNickname) or redirection from Kakao Auth API Page (/kakaoAuthRedirect). Routes are excluded in robots.txt. URL Accesses are redirected to login page. */}
             <Route key={'login'} path={'login'} element={<Outlet />} >
-                <Route key={'index'} index element={<LoginContent />} />
+                <Route key={'index'} index element={<LoginPage />} />
                 <Route key={'initializeNickname'} path={'initializeNickname'} element={<InitializeNicknameContent />} />
                 <Route key={'redirectURI'} path={'kakaoAuthRedirect'} element={<KakaoAuthRedirectPage />} />
             </Route>

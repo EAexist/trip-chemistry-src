@@ -48,6 +48,8 @@ const ChemistryPage = () => {
         console.log(`[ChemistryRoute] chemistryLoadStatus=${chemistryLoadStatus}`);
     }, [chemistryLoadStatus, dispatch, setChemistryLoadStatus]);
 
+    const chemistry = useAppSelector((state)=>state.chemistry.data)
+
     return (
         <LoadRequiredContent
             status={chemistryLoadStatus}
@@ -55,7 +57,7 @@ const ChemistryPage = () => {
             handleSuccess={handleChemistrySuccess}
             handleFail={handleFail}
         >
-            <ChemistryContent />
+            <ChemistryContent {...chemistry} />
         </LoadRequiredContent>
     )
 }

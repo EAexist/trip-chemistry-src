@@ -9,7 +9,7 @@ import { useLocation, useNavigate } from "~/router-module";
 import { KAKAO_AUTH_URL_BASE } from "../../common/auth";
 import KakaoLoginButton from "../../components/Button/KakaoLoginButton";
 import { KakaoLoginHelp } from "../../components/KakaoLoginHelp";
-import { asyncGuestSignIn, authorize } from "../../reducers/authReducer";
+import { asyncGuestSignIn, authorize, useUserId } from "../../reducers/authReducer";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { AuthLoadRequiredContent } from "../LoadRequiredContent";
 
@@ -24,20 +24,24 @@ function LoginContent({ title = "테스트를 시작해보세요" }: LoginConten
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const { pathname } = useLocation();
+    const userId = useUserId();
 
     const [url, setUrl] = useState<string>(KAKAO_AUTH_URL_BASE);
 
     /* Reducers */
     const doRequireInitialization = useAppSelector((state) => state.auth.data.doRequireInitialization);
 
+    const { state } = useLocation();
+
     const handleAuthSuccess = () => {
 
         /* If user has logined before, fetch the profile. Else, InitializeNicknameContent (/initializeNickname) handles the process. */
         if (!doRequireInitialization) {
             dispatch(authorize());
+            navigate(`/user?guestId=${userId}`);
         }
         else {
-            navigate('/login/initializeNickname', { state: { loginRedirectPath: pathname, navigateDirection: "next" } });
+            navigate(`/login/initializeNickname${(userId !== undefined) ? `?guestId=${userId}` : ``}`, { state: { loginRedirectPath: pathname, navigateDirection: "next" } });
         }
     }
 

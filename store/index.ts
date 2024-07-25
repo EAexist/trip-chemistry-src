@@ -5,6 +5,7 @@ import authReducer, { IAuthState } from "../reducers/authReducer";
 import chemistryReducer, { IChemistryState } from "../reducers/chemistryReducer";
 import { ITestAnswerState } from "../reducers/testAnswerReducer";
 import { IResultState } from "~/reducers/resultReducer";
+import env from "~/env";
 
 export const store: EnhancedStore<{
     auth: IAuthState;
@@ -23,8 +24,13 @@ export const store: EnhancedStore<{
 }>, StoreEnhancer]>> = configureStore({
     reducer: {
         auth: authReducer,
-        chemistry: chemistryReducer,
-        // profileSearch: profileSearchReducer,
+        ...
+        env.FRAMEWORK === "cra" ?
+        {}
+        :
+        {
+            chemistry: chemistryReducer
+        } 
     },
     // middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     //     serializableCheck: false,

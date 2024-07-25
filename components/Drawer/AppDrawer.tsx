@@ -1,7 +1,7 @@
-import { AppBar, Avatar, Container, Divider, ListItemAvatar, ListItemButton, ListItemText, Stack, SwipeableDrawer, SwipeableDrawerProps, Toolbar } from "@mui/material";
+import { Alert, AppBar, Avatar, Container, Divider, ListItemAvatar, ListItemButton, ListItemText, Stack, SwipeableDrawer, SwipeableDrawerProps, Toolbar } from "@mui/material";
 import { m } from "framer-motion";
 
-import { useLocation } from "~/router-module";
+import { useLocation, useNavigate, useSearchParams } from "~/router-module";
 
 import { PAGES } from "../../common/app-const";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
@@ -14,6 +14,8 @@ import UserAvatar from "../Avatar/UserAvatar";
 import NavigateBeforeButton from "../Button/NavigateBeforeButton";
 import ImageIcon from "../ImageIcon";
 import { MotionListItemButton } from "../../motion/components/MotionListItemButton";
+import { MotionListItem } from "~/motion/components/MotionListItem";
+import { Help, Info } from "@mui/icons-material";
 
 interface AppDrawerProps extends SwipeableDrawerProps {
     onDrawerItemClick: () => void
@@ -36,6 +38,11 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
         navigate(path);
     };
 
+    const navigateRaw = useNavigate();
+    const [searchParams] = useSearchParams();
+    const guestId = searchParams.get('guestId');
+
+
     return (
         <SwipeableDrawer
             anchor={"right"}
@@ -45,89 +52,109 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
             {
                 // props.open &&
                 true &&
-            <m.div
-                initial={"hidden"}
-                animate={ props.open ? "visible" : "hidden" }
-                className="page fill-window"
-            >
-                <AppBar>
-                    <Toolbar>
-                        <NavigateBeforeButton onClick={props.onClose} />
-                    </Toolbar>
-                </AppBar>
-                <Toolbar />
-                <Container>
-                    <MotionList
-                        custom={0.5} /* delayChildren */
-                        variants={VARIANTS_STAGGER_CHILDREN}
-                        disablePadding
-                    >
-                        <ListItemButton
-                            key={"home"}
-                            onClick={() => handleDrawerItemClick('/')}
-                            sx={{ paddingTop: 0 }}
-                            disableGutters={false}
+                <m.div
+                    initial={"hidden"}
+                    animate={props.open ? "visible" : "hidden"}
+                    className="page fill-window"
+                >
+                    <AppBar>
+                        <Toolbar>
+                            <NavigateBeforeButton onClick={props.onClose} />
+                        </Toolbar>
+                    </AppBar>
+                    <Toolbar />
+                    <Container>
+                        <MotionList
+                            custom={0.5} /* delayChildren */
+                            variants={VARIANTS_STAGGER_CHILDREN}
+                            disablePadding
                         >
-                            <ListItemText
-                                primary={
-                                    <Stack spacing={2} alignItems={"end"}>
-                                        <ImageIcon name={"app"} size="large" />
-                                        <p className="section-title">여행 타입 테스트</p>
-                                    </Stack>
-                                }
-                            />
-                        </ListItemButton>
-                        <Divider variant="middle" />
-                        <MotionListSubheader sx={{ margin: 0 }}>{`내 정보`}</MotionListSubheader>
-                        <MotionListItemButton
-                            key={"profile"}
-                            onClick={() => handleDrawerItemClick('user')}
-                            selected={pathname.includes('user')}
-                            disableGutters={false}
-                        >
-                            <ListItemAvatar>{
-                                isAuthorized
-                                    ?
-                                    <UserAvatar renderLabel={false} variant="rounded" />
-                                    : <Avatar variant="rounded" />
-                            }
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={
+                            <ListItemButton
+                                key={"home"}
+                                onClick={() => handleDrawerItemClick('/')}
+                                sx={{ paddingTop: 0 }}
+                                disableGutters={false}
+                            >
+                                <ListItemText
+                                    primary={
+                                        <Stack spacing={2} alignItems={"end"}>
+                                            <ImageIcon name={"app"} size="large" />
+                                            <p className="section-title">여행 타입 테스트</p>
+                                        </Stack>
+                                    }
+                                />
+                            </ListItemButton>
+                            <Divider variant="middle" />
+                            <MotionListSubheader sx={{ margin: 0 }}>{`내 정보`}</MotionListSubheader>
+                            <MotionListItemButton
+                                key={"profile"}
+                                onClick={() => handleDrawerItemClick((guestId === null) ? 'login' : 'user')}
+                                selected={pathname.includes('user')}
+                                disableGutters={false}
+                            >
+                                <ListItemAvatar>{
                                     isAuthorized
                                         ?
-                                        user.nickname
-                                        : "로그인하기"
+                                        <UserAvatar renderLabel={false} variant="rounded" />
+                                        : <Avatar variant="rounded" />
                                 }
-                            />
-                        </MotionListItemButton>
-                        <MotionListSubheader sx={{ margin: 0 }}>{`내 여행`}</MotionListSubheader>
-                        {
-                            Object.entries(PAGES).map(([content, { path, icon }]) =>
-                                <MotionListItemButton
-                                    key={content}
-                                    onClick={() => handleDrawerItemClick(path)}
-                                    selected={pathname.includes(path)}
-                                    disableGutters={false}
-
-                                >
-                                    <ListItemAvatar>
-                                        <Avatar variant="rounded">
-                                            <ImageIcon name={icon} />
-                                        </Avatar>
-                                    </ListItemAvatar>
-                                    <ListItemText
-                                        primary={
-                                            strings.public.contents[content as keyof typeof strings.public.contents].label
-                                        }
-                                        sx={pathname.includes(path) ? { '& .MuiListItemText-primary' : {fontWeight: 700 } } : {}}
-                                    />
-                                </MotionListItemButton>
-                            )
-                        }
-                    </MotionList>
-                </Container>
-            </m.div>
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary={
+                                        (guestId === null) 
+                                        ?
+                                        "로그인"
+                                        :
+                                        isAuthorized
+                                            ?
+                                            user.nickname
+                                            : "불러오는 중"
+                                    }
+                                />
+                            </MotionListItemButton>
+                            <MotionListSubheader sx={{ margin: 0 }}>{`내 여행`}</MotionListSubheader>
+                            {
+                                (guestId === null) &&
+                                <MotionListSubheader sx={{ margin: 0 }}>
+                                    <Container className="column-padding no-gutter">
+                                        <Stack>
+                                            <Help sx={{ fontSize: 18 }} />
+                                            <p className='typography-note'>{'로그인 후 이용할 수 있어요'}</p>
+                                        </Stack>
+                                    </Container>
+                                </MotionListSubheader>
+                            }
+                            {
+                                Object.entries(PAGES).map(([content, { path, icon }]) =>
+                                    <MotionListItemButton
+                                        key={content}
+                                        onClick={() => handleDrawerItemClick(path)}
+                                        selected={pathname.includes(path)}
+                                        disableGutters={false}
+                                        disabled={guestId === null}
+                                        sx={(guestId === null) ? {
+                                            '& > *': {
+                                                opacity: 0.4
+                                            }
+                                        } : {}}
+                                    >
+                                        <ListItemAvatar>
+                                            <Avatar variant="rounded">
+                                                <ImageIcon name={icon} />
+                                            </Avatar>
+                                        </ListItemAvatar>
+                                        <ListItemText
+                                            primary={
+                                                strings.public.contents[content as keyof typeof strings.public.contents].label
+                                            }
+                                            sx={pathname.includes(path) ? { '& .MuiListItemText-primary': { fontWeight: 700 } } : {}}
+                                        />
+                                    </MotionListItemButton>
+                                )
+                            }
+                        </MotionList>
+                    </Container>
+                </m.div>
             }
         </SwipeableDrawer>
     );

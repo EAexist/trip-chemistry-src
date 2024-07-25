@@ -32,7 +32,7 @@ function InitializeNicknameContent() {
     }
 
     const handleCancelLogin = () => {
-        navigate(`${((state !== null) && state.loginRedirectPath) ? state.loginRedirectPath : ""}`, { state: { navigateDirection: 'prev' } });
+        navigate(`/login`, { state: { navigateDirection: 'prev' } });
     }
 
     const handleContinueLogin = () => {
@@ -43,12 +43,7 @@ function InitializeNicknameContent() {
         // dispatch(asyncGetSampleProfiles());
         dispatch(setIsInitialized());
         dispatch(authorize());
-        navigate(`${((state !== null) && state.loginRedirectPath)
-            ? state.loginRedirectPath
-            : "/"}${(authProvider === 'GUEST')
-                ? `?guestId=${userId}`
-                : ''
-            }`);
+        navigate(`/user?guestId=${userId}`);
     }
 
     return (
@@ -67,7 +62,7 @@ function InitializeNicknameContent() {
                 />
                 <ConfirmDrawer
                     open={openConfirmDrawer}
-                    onOpen={()=>setOpenConfirmDrawer(true)}
+                    onOpen={() => setOpenConfirmDrawer(true)}
                     onClose={handleCancelLogin}
                     onCancel={handleContinueLogin}
                     onConfirm={handleCancelLogin}

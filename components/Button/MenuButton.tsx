@@ -1,17 +1,30 @@
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 
 import { Menu } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
 import { DrawerContext } from "../../content/Page";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function MainMenuButton() {
 
     const { setOpenDrawer } = useContext(DrawerContext);
+    // const navigate = useNavigate();
+    // const [searchParams] = useSearchParams();
+    // const guestId = searchParams.get('guestId');
 
     const handleClick = () => {
         setOpenDrawer(true);
-    };
+    }
+    // const handleClick = useCallback(
+    //     (guestId !== null)
+    //         ?
+    //         () => {
+    //             setOpenDrawer(true);
+    //         }
+    //         :
+    //         () => navigate('/login')
+    // , [ guestId ])
 
     return (
         <IconButton
