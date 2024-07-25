@@ -2,7 +2,7 @@ import { createContext, Dispatch, SetStateAction, useEffect, useState } from "re
 
 import AppDrawer from "../components/Drawer/AppDrawer";
 import LazyDomAnimation from "../motion/LazyDomAnimation";
-import { Outlet, useSearchParams } from "~/router-module";
+import { Outlet, useNavigate, useSearchParams } from "~/router-module";
 import { AuthLoadRequiredContent } from "./LoadRequiredContent";
 import { asyncGuestLogin, asyncKakaoLoginByAccessToken, disableAutoLogin, useAuthorize, useIsAuthorized } from "../reducers/authReducer";
 import { useAppDispatch, useAppSelector } from "../store";
@@ -21,6 +21,7 @@ function Page({ }) {
     const [searchParams] = useSearchParams();
     const guestId = searchParams.get('guestId');
     const isAutoLoginEnabaled = useAppSelector((state) => state.auth.data.isAutoLoginEnabled);
+    const navigate = useNavigate();
 
     /* States */
 
@@ -33,6 +34,13 @@ function Page({ }) {
     const handleFail = () => {
         window.localStorage.setItem("kakaoAccessToken", "");
         dispatch(disableAutoLogin());
+    }
+    const handleGuestLoginSuccess = () => {
+        authorize();
+    }
+
+    const handleGuestLoginFail = () => {
+        navigate('/')
     }
 
     /* Effects */
@@ -51,14 +59,16 @@ function Page({ }) {
             }
         }
     }, [isAutoLoginEnabaled, dispatch]);
+    
+    const doRequireInitialization = useAppSelector((state) => state.auth.data.doRequireInitialization);
 
     /* Guest 접속 주소일 경우 주소의 id를 이용해 게스트로 로그인. */
     useEffect(() => {
-        if (guestId) {
+        if (!isAutoLoginEnabaled && !doRequireInitialization && ( guestId !== undefined )) {
             console.log(`[Page] useEffect guestId=${guestId}`);
             dispatch(asyncGuestLogin(guestId));
         }
-    }, [guestId, dispatch])
+    }, [isAutoLoginEnabaled, doRequireInitialization, guestId, dispatch])
 
     /* Drawer */
     const [openDrawer, setOpenDrawer] = useState(false);
@@ -68,9 +78,16 @@ function Page({ }) {
     return (
         <LazyDomAnimation>
             <AuthLoadRequiredContent
-                isEnabled={isAutoLoginEnabaled || ((guestId !== undefined) && !isAuthorized)}
+                isEnabled={isAutoLoginEnabaled}
                 handleFail={handleFail}
                 handleSuccess={handleSuccess}
+                showHandleFailButton={false}
+                showOnPending={true}
+            >
+            <AuthLoadRequiredContent
+                isEnabled={(!isAutoLoginEnabaled) && (!isAuthorized)}
+                handleFail={handleGuestLoginFail}
+                handleSuccess={handleGuestLoginSuccess}
                 showHandleFailButton={false}
                 showOnPending={true}
             >
@@ -83,6 +100,7 @@ function Page({ }) {
                     />
                     <Outlet />
                 </DrawerContext.Provider>
+                </AuthLoadRequiredContent>
             </AuthLoadRequiredContent>
         </LazyDomAnimation>
     );

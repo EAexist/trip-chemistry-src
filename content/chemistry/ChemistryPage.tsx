@@ -1,14 +1,14 @@
-import { Outlet, useParams } from "~/router-module";
-import chemistryReducer, { asyncGetChemistry, useChemistryLoadStatus } from "../../reducers/chemistryReducer";
-import withReducer from "../../hocs/withReducer";
-import LoadRequiredContent from "../../content/LoadRequiredContent";
 import { useEffect } from "react";
+import { useParams } from "~/router-module";
+import LoadRequiredContent from "../../content/LoadRequiredContent";
+import withReducer from "../../hocs/withReducer";
+import chemistryReducer, { asyncGetChemistry, useChemistryLoadStatus } from "../../reducers/chemistryReducer";
 
-import { useAppDispatch, useAppSelector } from "../../store";
-import { LoadStatus } from "../../reducers";
-import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
-import { useGetProfile } from "../../reducers/authReducer";
 import ChemistryContent from "../../content/chemistry/ChemistryContent";
+import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
+import { LoadStatus } from "../../reducers";
+import { useGetProfile } from "../../reducers/authReducer";
+import { useAppDispatch, useAppSelector } from "../../store";
 
 const ChemistryPage = () => {
 
@@ -48,6 +48,8 @@ const ChemistryPage = () => {
         console.log(`[ChemistryRoute] chemistryLoadStatus=${chemistryLoadStatus}`);
     }, [chemistryLoadStatus, dispatch, setChemistryLoadStatus]);
 
+    const chemistry = useAppSelector((state)=>state.chemistry.data)
+
     return (
         <LoadRequiredContent
             status={chemistryLoadStatus}
@@ -55,7 +57,7 @@ const ChemistryPage = () => {
             handleSuccess={handleChemistrySuccess}
             handleFail={handleFail}
         >
-            <ChemistryContent />
+            <ChemistryContent {...chemistry} />
         </LoadRequiredContent>
     )
 }

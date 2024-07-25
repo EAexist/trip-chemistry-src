@@ -2,13 +2,14 @@
 import { useEffect } from "react";
 
 /* Externals */
-import { useParams } from "react-router-dom";
+import { useParams } from "~/router-module";
 
 import { LoadStatus } from "../../reducers";
-import { asyncGetPublicProfile, useResultLoadStatus } from "../../reducers/resultReducer";
+import resultReducer, { asyncGetPublicProfile, useResultLoadStatus } from "../../reducers/resultReducer";
 import { useAppDispatch, useAppSelector } from "../../store";
 import LoadRequiredContent from "../LoadRequiredContent";
 import ResultContent from "./ResultContent";
+import withReducer from "~/hocs/withReducer";
 
 function PublicResultPage() {
 
@@ -17,10 +18,6 @@ function PublicResultPage() {
     const profileId = params.profileId ? params.profileId : "";
 
     const profile = useAppSelector((state) => state.result.data)
-
-    useEffect(() => {
-        console.log("scrollY", window.scrollY)
-    }, [])
 
     const dispatch = useAppDispatch()
     const [resultLoadStatus, setResultLoadStatus] = useResultLoadStatus();
@@ -44,4 +41,4 @@ function PublicResultPage() {
         </LoadRequiredContent>
     );
 }
-export default PublicResultPage;
+export default withReducer(PublicResultPage)({ result: resultReducer });

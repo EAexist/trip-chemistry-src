@@ -7,7 +7,7 @@ import { m } from "framer-motion";
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 
 import { Toolbar } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "~/router-module";
 import SectionPaper from "../../components/Paper/SectionPaper";
 import CharacterResultContent from "../../components/Profile/CharacterResultContent";
 import HashTagResultContent from "../../components/Profile/HashTagResultContent";

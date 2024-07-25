@@ -10,6 +10,7 @@ import { LoadStatus } from "../interfaces/enums/LoadStatus";
 
 import AnimatedIcon from "../components/AnimatedIcon";
 import Fab from "../components/Button/Fab";
+import APIFetchFallbackPage from "~/components/APIFetchFallbackPage";
 
 
 interface LoadRequiredContentProps extends WithLoadStatusProps {
@@ -138,7 +139,8 @@ function LoadRequiredContent({
             children
             :
             <div className={`page flex fill-window`}>
-                <Toolbar />
+                <APIFetchFallbackPage/>
+                {/* <Toolbar />
                 <Container className='flex-grow block--centered content'>
                     {
                         (delayedStatus === LoadStatus.PENDING)
@@ -170,8 +172,7 @@ function LoadRequiredContent({
                                 body
                         }
                     </p>
-                </Container>
-                <div className="fab-placeholder" />
+                </Container> */}
                 {
                     onClick && buttonText &&
                     <Fab

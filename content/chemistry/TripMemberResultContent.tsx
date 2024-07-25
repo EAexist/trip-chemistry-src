@@ -6,7 +6,7 @@ import { Chip, Container, Icon, Stack } from "@mui/material";
 import { AnimatePresence, m } from "framer-motion";
 
 /* App */
-import { useLocation } from "react-router-dom";
+import { useLocation } from "~/router-module";
 import AnimatedIcon from "../../components/AnimatedIcon";
 import CharacterResultContent from "../../components/Profile/CharacterResultContent";
 import HashTagResultContent from "../../components/Profile/HashTagResultContent";

@@ -4,8 +4,7 @@ declare global {
     }
 }
 
-const env = (typeof window === 'undefined') ? process.env : window.ENV
-// const env =  process.env
-// const env =  window.ENV
+// const env = (typeof window === 'undefined') ? process.env : window.ENV
+const env =  process.env
 
 export default env

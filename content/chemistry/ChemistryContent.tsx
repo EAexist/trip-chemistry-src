@@ -9,7 +9,7 @@ import { useLocation, useParams } from "~/router-module";
 
 /* App */
 import env from "~/env";
-import { IChemistry } from "~/src/interfaces/IChemistry";
+import { IChemistry } from "../../interfaces/IChemistry";
 import AnimatedIcon from "../../components/AnimatedIcon";
 import FriendAvatar from "../../components/Avatar/FriendAvatar";
 import AppTitleButton from "../../components/Button/AppTitleButton";
@@ -118,7 +118,7 @@ const ChemistryContent = ( data : IChemistry ) => {
 
     const handleConfirmJoin = () => {
         setOpenConfirmJoinDialog(false);
-        dispatch(asyncJoinChemistry({ userId, chemistryId }));
+        dispatch(asyncJoinChemistry({ userId, chemistryId : data.id }));
     }
 
     useEffect(() => {

@@ -122,9 +122,7 @@ function HashTagResultContent({ id, testResult }: HashTagResultContentProps) {
                                         <TripTagChip
                                             key={tag}
                                             tagId={tag}
-                                            // variant={(selectedTag === tag) ? "filled" : "outlined"}
                                             variant={"outlined"}
-                                            // color={(selectedTag === tag) ? "primary" : "default"}
                                             color={"primary"}
                                             onClick={handleTripTagClick(tag)}
                                             endIcon={
@@ -157,7 +155,7 @@ function HashTagResultContent({ id, testResult }: HashTagResultContentProps) {
                         {
                             (delayedSelectedTag !== undefined)
                             &&
-                            <m.div layoutId={delayedSelectedTag?.toString()} style={{ paddingTop: "8px", paddingLeft: "8px", paddingRight: "8px", scale: 1.1 }}>
+                            <m.div layoutId={`${id}-${delayedSelectedTag?.toString()}`} style={{ paddingTop: "8px", paddingLeft: "8px", paddingRight: "8px", scale: 1.1 }}>
                                 <TripTagChip
                                     tagId={delayedSelectedTag}
                                     variant={"filled"}

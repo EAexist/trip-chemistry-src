@@ -15,7 +15,7 @@ import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { useStrings } from "../../texts";
 import getImgSrc from "../../utils/getImgSrc";
 
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "~/router-module";
 import { Fragment } from "react/jsx-runtime";
 import Fab from "../../components/Button/Fab";
 import NavigateBeforeButton from "../../components/Button/NavigateBeforeButton";
