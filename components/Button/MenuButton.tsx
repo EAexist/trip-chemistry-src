@@ -4,7 +4,7 @@ import { Menu } from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 
 import { DrawerContext } from "../../content/Page";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "~/router-module";
 
 function MainMenuButton() {
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import authReducer, { IAuthState } from "../reducers/authReducer";
 import chemistryReducer, { IChemistryState } from "../reducers/chemistryReducer";
 import { ITestAnswerState } from "../reducers/testAnswerReducer";
-import { IResultState } from "~/reducers/resultReducer";
+import { IResultState } from "../reducers/resultReducer";
 import env from "~/env";
 
 export const store: EnhancedStore<{

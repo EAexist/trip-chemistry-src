@@ -25,7 +25,6 @@ const HomeContent = loadable(() => import(/* webpackChunkName: "HomeContent" */ 
 const CityDetailContent = loadable(() => import( /* webpackChunkName: "CityDetailContent" */'./content/city/CityDetailContent'));
 
 const TestContent = loadable(() => import(/* webpackChunkName: "TestContent" */ './content/test/TestContent'));
-const LoginContent = loadable(() => import( /* webpackChunkName: "LoginContent" */'./content/login/LoginContent'));
 const InitializeNicknameContent = loadable(() => import( /* webpackChunkName: "InitializeNicknameContent" */'./content/login/InitializeNicknameContent'));
 const KakaoAuthRedirectPage = loadable(() => import( /* webpackChunkName: "KakaoAuthRedirectPage" */'./content/login/KakaoAuthRedirectPage'));
 const UserContent = loadable(() => import( /* webpackChunkName: "UserContent" */'./content/user/UserContent'));
@@ -67,7 +66,13 @@ const routes = createRoutesFromElements(
             <Route key={'chemistry'} path={'chemistry/:chemistryId'} element={
                 <ChemistryPage />
             } />
-            {/* <Route key={'login'} path={'login'} element={<LoginPage />} /> */}
+            <Route key={'city'} path={'city'} element={<Outlet />}>
+                {
+                    Object.keys(CITIES).map((cityId) => (
+                        <Route key={cityId} path={cityId} element={<CityDetailContent cityId={cityId} />} />
+                    ))
+                }
+            </Route>
             {/** @TODO 닉네임을 통한 사용자 검색 및 친구 초대 */}
             {/* <Route key={'searchAndInviteFriend'} path={'searchAndInviteFriend'} element={<SearchAndInviteFriendContent />} /> */}
             {/* [SEO, Authorization] Routes are excluded in robots.txt. URL Accesses are redirected to login page. */}
