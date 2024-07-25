@@ -4,17 +4,18 @@ import { useDispatch, useSelector } from "react-redux";
 import authReducer, { IAuthState } from "../reducers/authReducer";
 import chemistryReducer, { IChemistryState } from "../reducers/chemistryReducer";
 import { ITestAnswerState } from "../reducers/testAnswerReducer";
+import { IResultState } from "~/reducers/resultReducer";
 
 export const store: EnhancedStore<{
     auth: IAuthState;
-    // result?: IResultState;  
+    result?: IResultState;  
     testAnswer?: ITestAnswerState;
     chemistry?: IChemistryState;
     // profileSearch?: IProfileSearchState;
 }, UnknownAction, Tuple<[StoreEnhancer<{
     dispatch: ThunkDispatch<{
         auth: IAuthState;
-        // result?: IResultState;  
+        result?: IResultState;  
         testAnswer?: ITestAnswerState;
         chemistry?: IChemistryState;
         // profileSearch?: IProfileSearchState;
