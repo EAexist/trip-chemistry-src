@@ -2,10 +2,8 @@
 import { Outlet, useLocation } from "~/router-module";
 
 /* Externals */
-import { useEffect, useState } from "react";
-import LoginPage from "./login/LoginPage";
+import APIFetchFallbackPage from "../components/APIFetchFallbackPage";
 import { useIsAuthorized } from "../reducers/authReducer";
-import APIFetchFallbackPage from "~/components/APIFetchFallbackPage";
 
 function AuthRequiredRoute(){
 
