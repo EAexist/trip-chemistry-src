@@ -64,7 +64,7 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
                     >
                         <ListItemButton
                             key={"home"}
-                            onClick={() => handleDrawerItemClick('home')}
+                            onClick={() => handleDrawerItemClick('/')}
                             sx={{ paddingTop: 0 }}
                             disableGutters={false}
                         >

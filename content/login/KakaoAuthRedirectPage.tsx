@@ -36,7 +36,7 @@ function KakaoAuthRedirectPage() {
                 닉네임 초기화 없이 바로 리다이렉트 */
             navigate(`${loginRedirectPath
                     ? loginRedirectPath
-                    : "home"}`);
+                    : "/"}`);
             setAuthLoadStatus(LoadStatus.REST);
         }
     }, [authLoadStatus, authorize, setAuthLoadStatus, userProfile]);

@@ -45,7 +45,7 @@ function InitializeNicknameContent() {
         dispatch(authorize());
         navigate(`${((state !== null) && state.loginRedirectPath)
             ? state.loginRedirectPath
-            : "home"}${(authProvider === 'GUEST')
+            : "/"}${(authProvider === 'GUEST')
                 ? `?guestId=${userId}`
                 : ''
             }`);
