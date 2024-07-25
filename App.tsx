@@ -14,6 +14,9 @@ import './common/axios'
 import './styles/index.css'
 import env from './env'
 
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from '@vercel/speed-insights/react';
+
 export default function App() {
 
     /*  React Router - Routers - Picking A Router. Remix Software, Inc.
@@ -40,6 +43,8 @@ export default function App() {
                     localeText={koKR.components.MuiLocalizationProvider.defaultProps.localeText}
                 >
                     <RouterProvider router={router} />
+                    <Analytics/>
+                    <SpeedInsights/>
                 </LocalizationProvider>
             </ThemeProvider>
         </HelmetProvider>
