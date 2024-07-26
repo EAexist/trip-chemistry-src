@@ -64,7 +64,7 @@ function Page({ }) {
 
     /* Guest 접속 주소일 경우 주소의 id를 이용해 게스트로 로그인. */
     useEffect(() => {
-        if (!isAutoLoginEnabaled && !doRequireInitialization && ( guestId !== undefined )) {
+        if (!isAutoLoginEnabaled && !doRequireInitialization && ( guestId !== null )) {
             console.log(`[Page] useEffect guestId=${guestId}`);
             dispatch(asyncGuestLogin(guestId));
         }
