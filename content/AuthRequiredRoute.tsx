@@ -2,8 +2,10 @@
 import { Navigate, Outlet, useSearchParams } from "~/router-module";
 
 /* Externals */
-import APIFetchFallbackPage from "~/components/APIFetchFallbackPage";
+import { useEffect, useState } from "react";
+import LoginPage from "./login/LoginPage";
 import { useIsAuthorized } from "../reducers/authReducer";
+import APIFetchFallbackPage from "../components/APIFetchFallbackPage";
 
 function AuthRequiredRoute(){
 

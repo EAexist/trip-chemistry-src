@@ -10,7 +10,7 @@ import { LoadStatus } from "../interfaces/enums/LoadStatus";
 
 import AnimatedIcon from "../components/AnimatedIcon";
 import Fab from "../components/Button/Fab";
-import APIFetchFallbackPage from "~/components/APIFetchFallbackPage";
+import APIFetchFallbackPage from "../components/APIFetchFallbackPage";
 
 
 interface LoadRequiredContentProps extends WithLoadStatusProps {
