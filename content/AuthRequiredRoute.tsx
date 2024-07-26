@@ -1,11 +1,9 @@
 /* React */
-import { Outlet, useLocation } from "~/router-module";
+import { Navigate, Outlet, useSearchParams } from "~/router-module";
 
 /* Externals */
-import { useEffect, useState } from "react";
-import LoginPage from "./login/LoginPage";
-import { useIsAuthorized } from "../reducers/authReducer";
 import APIFetchFallbackPage from "~/components/APIFetchFallbackPage";
+import { useIsAuthorized } from "../reducers/authReducer";
 
 function AuthRequiredRoute(){
 
@@ -13,7 +11,9 @@ function AuthRequiredRoute(){
     // const [ title, setTitle ] = useState<string>();
 
     /* Hooks */
-    const { pathname }  = useLocation();
+
+    const [searchParams] = useSearchParams();
+    const guestId = searchParams.get('guestId');
 
     const isAuthorized = useIsAuthorized();
     
@@ -36,6 +36,10 @@ function AuthRequiredRoute(){
     // }, [ pathname ])
 
     return (
+        (guestId === null)
+        ?
+        <Navigate to="/login" />
+        :
         isAuthorized
         ?
         <Outlet />
