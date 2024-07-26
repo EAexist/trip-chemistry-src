@@ -58,7 +58,6 @@ function ResultPage() {
                 hasAnsweredTest
                     ?
                     <>
-                        <Toolbar />
                         <UserResultContent/>
                         <div className="fab-placeholder fab-placeholder--no-margin"/>
                         <Fab
