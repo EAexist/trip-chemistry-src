@@ -5,7 +5,7 @@ import authReducer, { IAuthState } from "../reducers/authReducer";
 import chemistryReducer, { IChemistryState } from "../reducers/chemistryReducer";
 import { ITestAnswerState } from "../reducers/testAnswerReducer";
 import env from "~/env";
-import { IResultState } from "~/reducers/resultReducer";
+import { IResultState } from "../reducers/resultReducer";
 
 export const store: EnhancedStore<{
     auth: IAuthState;
