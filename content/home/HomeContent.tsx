@@ -3,13 +3,15 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 
 /* Externals */
 import { AppBar, Box, Container, Slide, Toolbar } from "@mui/material";
-import { m, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
+import { m, useScroll, useSpring, useTransform } from "framer-motion";
 
 import AppTitleButton from "../../components/Button/AppTitleButton";
 import MainMenuButton from "../../components/Button/MenuButton";
 import StartTestFab from "../../components/Button/StartTestFab";
 import HomePageItem from "./component/HomePageItem";
 import TitleContent from "./component/TitleContent";
+
+import loadable from '@loadable/component';
 
 // import CharacterSample from "./component/CharacterSample";
 // import ConflictSample from "./component/ConflictSample";
