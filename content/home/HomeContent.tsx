@@ -8,10 +8,13 @@ import { m, useMotionValueEvent, useScroll, useSpring, useTransform } from "fram
 import AppTitleButton from "../../components/Button/AppTitleButton";
 import MainMenuButton from "../../components/Button/MenuButton";
 import StartTestFab from "../../components/Button/StartTestFab";
-import CharacterSample from "./component/CharacterSample";
-import ConflictSample from "./component/ConflictSample";
 import HomePageItem from "./component/HomePageItem";
 import TitleContent from "./component/TitleContent";
+
+// import CharacterSample from "./component/CharacterSample";
+// import ConflictSample from "./component/ConflictSample";
+const CharacterSample = loadable(() => import(/* webpackChunkName: "CharacterSample" */ './component/CharacterSample'));
+const ConflictSample = loadable(() => import(/* webpackChunkName: "ConflictSample" */ './component/ConflictSample'));
 
 const sections = [
     {
