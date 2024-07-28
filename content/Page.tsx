@@ -1,11 +1,15 @@
 import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
-
-import AppDrawer from "../components/Drawer/AppDrawer";
 import LazyDomAnimation from "../motion/LazyDomAnimation";
 import { Outlet, useNavigate, useSearchParams } from "~/router-module";
+
 import { AuthLoadRequiredContent } from "./LoadRequiredContent";
 import { asyncGuestLogin, asyncKakaoLoginByAccessToken, disableAutoLogin, useAuthorize, useIsAuthorized } from "../reducers/authReducer";
 import { useAppDispatch, useAppSelector } from "../store";
+import loadable from "@loadable/component";
+
+// import AppDrawer from "../components/Drawer/AppDrawer";
+const AppDrawer = loadable(() => import(/* webpackChunkName: "AppDrawer" */ '../components/Drawer/AppDrawer'));
+// const LazyDomAnimation = loadable(() => import(/* webpackChunkName: "AppDrawer" */ '../motion/LazyDomAnimation'));
 
 interface DrawerContextProps {
     openDrawer: boolean,
