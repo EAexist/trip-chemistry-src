@@ -221,10 +221,10 @@ const testAnswerSlice = createSlice({
             console.log(`[asyncSetAnswer] rejected`);
             state.loadStatus = LoadStatus.FAIL;
         });
-        builder.addCase(asyncGetAnswer.fulfilled, (state, action: PayloadAction<{ testAnswerDTO: ITestAnswerDTO}>) => {
+        builder.addCase(asyncGetAnswer.fulfilled, (state, action: PayloadAction<{ testAnswer: ITestAnswerDTO}>) => {
             console.log(`[asyncGetAnswer] fulfilled\n\taction.payload=${JSON.stringify(action.payload)}`);
-            if( action.payload.testAnswerDTO ){
-                state.data = DTOToTestAnswer(action.payload.testAnswerDTO)
+            if( action.payload.testAnswer ){
+                state.data = DTOToTestAnswer(action.payload.testAnswer)
                 state.isInitialized = true
             }
             state.loadStatus = LoadStatus.SUCCESS;

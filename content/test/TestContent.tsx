@@ -239,7 +239,7 @@ function TestContent() {
     }, [setSpeed])
 
     useEffect(() => {
-        swiperRef.current.swiper.slideTo(activeSectionIndex)
+        swiperRef.current?.swiper.slideTo(activeSectionIndex)
     }, [swiperRef, activeSectionIndex])
 
     /* Section Dialog */
@@ -273,11 +273,12 @@ function TestContent() {
     //     submitAnswer();
     // }
 
-    const id = useUserId()
-    const data = useAppSelector((state) => state.testAnswer.data);
+    const userId = useUserId()
+    const data = useAppSelector((state) => state.testAnswer?.data);
     const handleConfirmSubmit = async () => {
+        if(data)
         try {
-          const originalPromiseResult = await dispatch(asyncSubmitAnswer({ id, answer: data })).unwrap()
+          const originalPromiseResult = await dispatch(asyncSubmitAnswer({ id: userId, answer: data })).unwrap()
           const PromiseResult = await dispatch(asyncGetProfile(userId)).unwrap()
           navigate('../result');          
           // handle result here
@@ -292,7 +293,6 @@ function TestContent() {
     }
 
     /* Fetch Test Answers */
-    const userId = useUserId()
     const dispatch = useAppDispatch()
     const isTestAnswerInitialized = useAppSelector((state)=> state.testAnswer?.isInitialized)
 
