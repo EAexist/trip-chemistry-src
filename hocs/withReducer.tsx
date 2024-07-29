@@ -3,22 +3,22 @@ import { combineReducers, Reducer } from "@reduxjs/toolkit";
 import { defaultReudcer, store } from "../store";
 
 const withReducer = <T extends {}>(WrappedComponent: ComponentType<T>) =>
-    ( asyncReducer: { [key: string]: Reducer } ) =>
+    (asyncReducer: { [key: string]: Reducer }) =>
         (props: T) => {
 
-            const [ isReducerInjected, setIsReducerInjected ] = useState( store.getState()[Object.keys(asyncReducer)[0]] !== undefined);
+            const [isReducerInjected, setIsReducerInjected] = useState(store.getState()[Object.keys(asyncReducer)[0]] !== undefined);
 
             /* Side Effects */
             useEffect(() => {
-                if ( !isReducerInjected ){
-                    const newRootReducer = combineReducers({                    
+                if (!isReducerInjected) {
+                    const newRootReducer = combineReducers({
                         ...defaultReudcer,
                         ...asyncReducer
                     })
                     store.replaceReducer(newRootReducer)
                     setIsReducerInjected(true)
                 }
-            }, [ isReducerInjected ])
+            }, [isReducerInjected])
 
             return (
                 isReducerInjected &&
