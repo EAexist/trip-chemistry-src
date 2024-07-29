@@ -1,6 +1,6 @@
 
 import { Box, Container, Modal, ModalProps, Paper, PaperProps, Slide } from "@mui/material";
-import { HTMLMotionProps, motion } from "framer-motion";
+import { HTMLMotionProps, m } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 const closingDragThreshold = 32;
@@ -25,7 +25,7 @@ const DraggableDialog = ({ isDraggable, open, onClose, sx, children, className, 
             <Slide direction="up" in={open} mountOnEnter unmountOnExit>
                 <div className="floating--bottom">
                     <Container className="gutter-sm column-padding-sm column-padding">
-                        <motion.div
+                        <m.div
                             ref={ref}
                             drag={isDraggable}
                             dragSnapToOrigin
@@ -68,7 +68,7 @@ const DraggableDialog = ({ isDraggable, open, onClose, sx, children, className, 
                                     {children}
                                 </Container>
                             </Paper>
-                        </motion.div>
+                        </m.div>
                     </Container>
                 </div>
             </Slide>

@@ -1,6 +1,6 @@
 import { PropsWithChildren, useEffect, useState } from "react";
 import { useLocation } from "~/router-module";
-import MotionPage, { MotionPageProps, motionProp_page_slideIn } from "./MotionPage";
+import { MotionPageProps } from "./MotionPage";
 
 interface RoutedMotionPageProps extends MotionPageProps {};
 

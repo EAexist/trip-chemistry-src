@@ -12,14 +12,12 @@ export const store: EnhancedStore<{
     result?: IResultState;  
     testAnswer?: ITestAnswerState;
     chemistry?: IChemistryState;
-    // profileSearch?: IProfileSearchState;
 }, UnknownAction, Tuple<[StoreEnhancer<{
     dispatch: ThunkDispatch<{
         auth: IAuthState;
         result?: IResultState;  
         testAnswer?: ITestAnswerState;
         chemistry?: IChemistryState;
-        // profileSearch?: IProfileSearchState;
     }, undefined, UnknownAction>;
 }>, StoreEnhancer]>> = configureStore({
     reducer: {
