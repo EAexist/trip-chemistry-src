@@ -3,10 +3,6 @@
 /* Externals */
 import { SliderProps } from "@mui/material";
 
-/* Swiper */
-import 'swiper/css';
-import 'swiper/css/effect-coverflow'; /* Food Carousel */
-
 /* App */
 import AnswerSlider from "./component/AnswerSlider";
 
