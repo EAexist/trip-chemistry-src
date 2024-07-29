@@ -11,12 +11,12 @@ import StartTestFab from "../../components/Button/StartTestFab";
 import HomePageItem from "./component/HomePageItem";
 import TitleContent from "./component/TitleContent";
 
-// import loadable from '@loadable/component';
+import loadable from '@loadable/component';
 
-import CharacterSample from "./component/CharacterSample";
-import ConflictSample from "./component/ConflictSample";
-// const CharacterSample = loadable(() => import(/* webpackChunkName: "CharacterSample" */ './component/CharacterSample'));
-// const ConflictSample = loadable(() => import(/* webpackChunkName: "ConflictSample" */ './component/ConflictSample'));
+// import CharacterSample from "./component/CharacterSample";
+// import ConflictSample from "./component/ConflictSample";
+const CharacterSample = loadable(() => import(/* webpackChunkName: "CharacterSample" */ './component/CharacterSample'));
+const ConflictSample = loadable(() => import(/* webpackChunkName: "ConflictSample" */ './component/ConflictSample'));
 
 const sections = [
     {
