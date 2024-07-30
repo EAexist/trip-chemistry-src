@@ -14,7 +14,7 @@ import { MotionListItem } from "../../motion/components/MotionListItem";
 import { FADEIN_FROMBOTTOM_VIEWPORT, VARIANTS_SLIDEUP, VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
 import { useUserProfile } from "../../reducers/authReducer";
 import { useAppSelector } from "../../store";
-import { nightPlanTestOptions, scheduleTestOptions } from "../test/TimeTestContent";
+import { nightPlanTestOptions, scheduleTestOptions } from "~/src/constants/options";
 
 function ScheduleChemistryContent() {
 

@@ -17,8 +17,8 @@ import { createSelector } from "@reduxjs/toolkit";
 import ImageIcon from "../../components/ImageIcon";
 import { IProfile } from "../../interfaces/IProfile";
 import { useUserProfile } from "../../reducers/authReducer";
-import { criteriaAnswerOptions, restaurantCriterias } from "../test/RestaurantTestContent";
 import { specialRestaurantBudgetSliderProps } from "../../constants/specialRestaurantBudgetSliderProps";
+import { criteriaAnswerOptions, restaurantCriterias } from "~/src/constants/options";
 
 function RestaurantChemistryContent() {
 

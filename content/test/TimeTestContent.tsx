@@ -9,50 +9,8 @@ import dayjs from "dayjs";
 
 import ImageIcon from "../../components/ImageIcon";
 import { useTestAnswer } from "../../reducers/testAnswerReducer";
+import { scheduleTestOptions, nightPlanTestOptions } from "../../constants/options";
 
-export const scheduleTestOptions = [
-    {
-        value: 0,
-        label: "아무래도\n상관없어"
-    },
-    {
-        value: 1,
-        label: "아주\n널널하게"
-    },
-    {
-        value: 2,
-        label: "널널하게"
-    },
-    {
-        value: 3,
-        label: "알차게"
-    },
-    {
-        value: 4,
-        label: "매우\n알차게"
-    },
-]
-
-export const nightPlanTestOptions = [
-    {
-        value: 0,
-        label: "숙소에서 푹 쉬기",
-        icon: "rest",
-        materialIcon: "hotel"
-    },
-    {
-        value: 1,
-        label: "야식이나 술 먹으러 나가기",
-        icon: "bar",
-        materialIcon: "tapas"
-    },
-    {
-        value: 2,
-        label: "밤에도 새로운 곳 돌아다니기",
-        icon: "travel",
-        materialIcon: "tour"
-    },
-]
 
 // const amPalette = [
 //     "rgb(37, 49, 109)",
