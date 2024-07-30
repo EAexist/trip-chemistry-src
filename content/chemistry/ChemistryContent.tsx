@@ -26,11 +26,13 @@ import { useHasAnsweredTest, useIsAuthorized, useUserId } from "../../reducers/a
 import { asyncJoinChemistry, useIsChemistryEnabled } from "../../reducers/chemistryReducer";
 import { useAppDispatch } from "../../store";
 import LoginContent from "../login/LoginContent";
-import LeadershipChemistryContent from "./LeadershipChemistryContent";
-import RestaurantChemistryContent from "./RestaurantChemistryContent";
-import ScheduleChemistryContent from "./ScheduleChemistryContent";
 import ShareLinkDialog from "./ShareLinkDialog";
-import TripMemberResultContent from "./TripMemberResultContent";
+import loadable from "@loadable/component";
+
+const TripMemberResultContent = loadable(() => import(/* webpackChunkName: "TripMemberResultContent" */ './TripMemberResultContent'));
+const LeadershipChemistryContent = loadable(() => import(/* webpackChunkName: "LeadershipChemistryContent" */ './LeadershipChemistryContent'));
+const RestaurantChemistryContent = loadable(() => import(/* webpackChunkName: "RestaurantChemistryContent" */ './RestaurantChemistryContent'));
+const ScheduleChemistryContent = loadable(() => import(/* webpackChunkName: "ScheduleChemistryContent" */ './ScheduleChemistryContent'));
 
 const ChemistryContent = ( data : IChemistry ) => {
 
