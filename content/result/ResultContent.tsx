@@ -58,7 +58,7 @@ function ResultContent({ ...props }: ResultContentProps) {
                             },
                         ].map(({ title, element }, index) => (
                             <SectionPaper key={index}>
-                                <m.div className="content" {...FADEIN_FROMBOTTOM_VIEWPORT} initial={animate ? "hidden" : "visible"}>
+                                <m.div className="content" {...FADEIN_FROMBOTTOM_VIEWPORT} initial={animate && (index > 0) ? "hidden" : "visible"}>
                                     <h2 className="section-title--sm">{title}</h2>
                                     {element}
                                 </m.div>

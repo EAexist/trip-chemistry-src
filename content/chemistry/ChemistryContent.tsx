@@ -38,10 +38,6 @@ const ChemistryContent = ( data : IChemistry ) => {
 
     /* AppBar */
     const containerRef = useRef<HTMLDivElement>(null);
-    // const hiddenTitleTrigger = useScrollTrigger({
-    //     disableHysteresis: true,
-    //     threshold: 56,
-    // });
 
     /* Hooks */
     const navigate = useNavigateWithGuestContext();
