@@ -1,12 +1,40 @@
 import { useRef } from "react";
-import { Alert, Container, Slider, Stack } from "@mui/material";
+import { Alert, Container, Slider, SliderProps, Stack } from "@mui/material";
 import { m, useScroll } from "framer-motion";
 import ProfileAvatar from "../../../components/Avatar/ProfileAvatar";
-import { dailyRestaurantSliderProps } from "../../../content/test/DailyRestaurantTestContent";
 import { VARIANTS_FADEIN_FROMBOTTOM } from "../../../motion/props";
 
 function ConflictSample() {
-
+    const sliderProps: SliderProps = {
+        step : 4000,
+        min : 4000,
+        max : 24000,
+        getAriaLabel: () => "daily restaurant budget",
+        marks: [
+            {
+                value: 4000,
+                label: 4000
+            },
+            {
+                value: 8000,
+            },
+            {
+                value: 12000,
+                label: 12000
+            },
+            {
+                value: 16000,
+            },
+            {
+                value: 20000,
+                label: 20000
+            },
+            {
+                value: 24000,
+            },
+        ]
+    };
+    
     const answerToProfiles = {
         8000:
             [
@@ -57,7 +85,7 @@ function ConflictSample() {
             </Container>
             <Container className="gutter-2xl block--centered content" ref={ref}>
                 <Slider
-                    {...dailyRestaurantSliderProps}
+                    {...sliderProps}
                     size="small"
                     valueLabelDisplay="on"
                     valueLabelFormat={(value, index) => (

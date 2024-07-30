@@ -6,7 +6,7 @@ import { Button, Container, Divider, Toolbar } from "@mui/material";
 import { useLocation, useNavigate } from "~/router-module";
 
 /* App */
-import { KAKAO_AUTH_URL_BASE } from "../../common/auth";
+import { KAKAO_AUTH_URL_BASE } from "../../constants/auth";
 import KakaoLoginButton from "../../components/Button/KakaoLoginButton";
 import { KakaoLoginHelp } from "../../components/KakaoLoginHelp";
 import { asyncGuestSignIn, authorize, useUserId } from "../../reducers/authReducer";

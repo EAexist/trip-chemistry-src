@@ -3,7 +3,6 @@ import { NavigateNext } from "@mui/icons-material";
 import { Container, Divider, Icon, ListItemAvatar, Paper, Stack } from "@mui/material";
 import { createSelector } from "@reduxjs/toolkit";
 import { useState } from "react";
-import { CHARACTERS, HASHTAGS, TRIP_TAGS } from "../../common/app-const";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import { ActivityTag } from "../../interfaces/enums/ActivityTag";
 import { ExpectationTag } from "../../interfaces/enums/ExpectationTag";
@@ -17,6 +16,8 @@ import { WithProfileProps } from "../../hocs/withUserProfile";
 import FriendAvatar from "../Avatar/FriendAvatar";
 import { TripTagChip } from "../Chip/TagChip";
 import ImageIcon from "../ImageIcon";
+import { CHARACTERS } from "../../constants/characters";
+import { HASHTAGS, TRIP_TAGS } from "../../constants/tags";
 
 const expectationToTripTagMap = {
     HEAL: [TripTag.REST],

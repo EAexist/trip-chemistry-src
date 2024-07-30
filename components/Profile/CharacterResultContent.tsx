@@ -1,9 +1,9 @@
 
 import { Stack } from "@mui/material";
-import { CHARACTERS } from "../../common/app-const";
 import { TripTag } from "../../interfaces/enums/TripTag";
 import getImgSrc from "../../utils/getImgSrc";
 import { WithProfileProps } from "../../hocs/withUserProfile";
+import { CHARACTERS } from "../../constants/characters";
 
 const expectationToTripTagMap = {
     HEAL: [TripTag.REST],

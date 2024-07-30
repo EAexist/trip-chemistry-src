@@ -3,19 +3,20 @@ import { useCallback } from "react";
 
 /* Externals */
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "../common/axios";
 import { StatusCodes } from "http-status-codes";
+import axios from "../axios";
 
 /* App */
-import { HASHTAGS, HEADERS_AXIOS, TEST_TYPE } from "../common/app-const";
+import { HEADERS_AXIOS } from "../constants/app-const";
 import { ActivityTag } from "../interfaces/enums/ActivityTag";
+import { CityTag } from "../interfaces/enums/CityTag";
 import { ExpectationTag } from "../interfaces/enums/ExpectationTag";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
+import { IProfileId } from "../interfaces/IProfile";
 import { DTOToTestAnswer, IHashTagTestKey, INumericTestKey, ITestAnswer, ITestAnswerDTO, ITestKey, testAnswerToDTO } from "../interfaces/ITestAnswer";
 import { RootState, useAppDispatch, useAppSelector } from "../store";
 import { useUserId } from "./authReducer";
-import { CityTag } from "../interfaces/enums/CityTag";
-import { IProfileId } from "../interfaces/IProfile";
+import { HASHTAGS } from "../constants/tags";
 
 type ITestAnswerState = IWithLoadStatus<ITestAnswer> & { isInitialized : Boolean }
 
@@ -282,7 +283,7 @@ const useIsTestAnswered = (tests: ITestIndex[]) => {
                 console.log("Hello", testKey, subKey, answer);
                 return (
                     (testKey === "hashtag")
-                        ? answer.length >= TEST_TYPE.hashtag.selectedMinLength
+                        ? answer.length >= MIN_SELECTED_HASHTAG_NUMBER
                         : answer !== undefined
                 )
             }).every(v => v))
@@ -316,7 +317,7 @@ const useSubmitAnswer = () => {
 }
 
 export default testAnswerSlice.reducer;
-export { useSubmitAnswer, useTestAnswerStatus, useTestAnswer, useTagSetAnswer, useIsTestAnswered };
+export { useIsTestAnswered, useSubmitAnswer, useTagSetAnswer, useTestAnswer, useTestAnswerStatus };
 export type { ITestAnswer, ITestAnswerState };
 export const { addHashTagAnswer, deleteHashTagAnswer } = testAnswerSlice.actions;
 
@@ -329,7 +330,7 @@ export const { addHashTagAnswer, deleteHashTagAnswer } = testAnswerSlice.actions
 //                     ?
 //                     Object.values(answer).map(value =>
 //                         (key === "hashtag")
-//                             ? (value as { selected: string[] }).selected.length >= TEST_TYPE.hashtag.selectedMinLength
+//                             ? (value as { selected: string[] }).selected.length >= MIN_SELECTED_HASHTAG_NUMBER
 //                             : value !== undefined
 //                     ).every(v => v)
 

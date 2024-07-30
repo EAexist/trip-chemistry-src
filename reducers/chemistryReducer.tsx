@@ -4,12 +4,12 @@ import { useCallback } from "react";
 /* Externals */
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "../common/axios";
+import axios from "../axios";
 import { shallowEqual, useDispatch } from "react-redux";
 
 /*** Chemistry Chemistry ***/
 import { useAppDispatch, useAppSelector } from "../store";
-import { HEADERS_AXIOS } from "../common/app-const";
+import { HEADERS_AXIOS } from "../constants/app-const";
 import { IChemistry, IChemistryDTO, defaultChemistry } from "../interfaces/IChemistry";
 import { IProfile, IProfileId, defaultProfile } from "../interfaces/IProfile";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";

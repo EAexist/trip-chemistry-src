@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { AppBar, Container, Toolbar } from "@mui/material";
 
 /* App */
-import { USER } from "../../common/app-const";
+import { USER } from "../../constants/app-const";
 import useSetNickname from "../../hooks/useSetNickname";
 import RoutedMotionPage from "../../motion/components/RoutedMotionPage";
 import { useUserProfile } from "../../reducers/authReducer";

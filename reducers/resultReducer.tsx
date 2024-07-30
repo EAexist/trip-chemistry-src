@@ -2,10 +2,10 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useCallback } from "react";
 
-import axios from "../common/axios";
+import axios from "../axios";
 
 /*** Trip Chemistry ***/
-import { HEADERS_AXIOS } from "../common/app-const";
+import { HEADERS_AXIOS } from "../constants/app-const";
 import { IProfile, IProfileId, defaultProfile } from "../interfaces/IProfile";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
 import { useAppDispatch, useAppSelector } from "../store";

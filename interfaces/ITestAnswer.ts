@@ -1,4 +1,4 @@
-import { ICityType } from "../common/app-const";
+// import { ICityType } from "../common/app-const";
 import { IActivityTag } from "./enums/ActivityTag";
 import { ICityTag } from "./enums/CityTag";
 import { IExpectationTag } from "./enums/ExpectationTag";
@@ -39,7 +39,7 @@ export interface ITestAnswer {
         uniqueness?: number
         popularity?: number
     }
-    city?: Record<ICityType, ( undefined | number )>
+    // city?: Record<ICityType, ( undefined | number )>
 };
 
 export interface ITestAnswerDTO extends ITestAnswer {}
@@ -51,7 +51,7 @@ export const testAnswerToDTO = (testAnswer: ITestAnswer) => ({
 
 export const DTOToTestAnswer = (testAnswerDTO: ITestAnswerDTO) => ({
     ...testAnswerDTO,
-    leadership: (testAnswerDTO.leadership > -1) ? testAnswerDTO.leadership : undefined
+    leadership: (testAnswerDTO && testAnswerDTO.leadership && (testAnswerDTO.leadership > -1)) ? testAnswerDTO.leadership : undefined
 })
 
 // extends Omit<ITestAnswer, 'hashtag'> {

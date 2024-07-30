@@ -1,5 +1,5 @@
 
-import { CITIES } from "../../common/app-const";
+import { CITIES } from "../../constants/cities";
 import { WithProfileProps } from "../../hocs/withUserProfile";
 import CityList, { CityListProps } from "./CityList";
 

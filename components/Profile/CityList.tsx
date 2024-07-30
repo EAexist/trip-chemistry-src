@@ -3,13 +3,14 @@ import { NavigateNext, Star } from "@mui/icons-material";
 import { Box, ListItemAvatar, ListItemText, Paper, Stack } from "@mui/material";
 import { useLocation } from "~/router-module";
 
-import { CITIES, HASHTAGS } from "../../common/app-const";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import { MotionList } from "../../motion/components/MotionList";
 import { MotionListItemButton } from "../../motion/components/MotionListItemButton";
 import { VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
 import { useStrings } from "../../texts";
 import getImgSrc from "../../utils/getImgSrc";
+import { CITIES } from "../../constants/cities";
+import { HASHTAGS } from "../../constants/tags";
 
 export interface CityListProps {
     cities: {

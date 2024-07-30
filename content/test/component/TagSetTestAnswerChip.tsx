@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import { Chip, Zoom } from "@mui/material";
 
-import { HASHTAGS } from "../../../common/app-const";
+import { HASHTAGS } from "../../../constants/tags";
 import { IHashTagTestKey } from "../../../interfaces/ITestAnswer";
 import { useAppDispatch } from "../../../store";
 import { addHashTagAnswer, deleteHashTagAnswer, useTagSetAnswer } from "../../../reducers/testAnswerReducer";

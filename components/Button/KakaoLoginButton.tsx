@@ -6,7 +6,7 @@ import { ButtonBase, ButtonBaseProps } from "@mui/material";
 import { useLocation } from "~/router-module";
 
 /* App */
-import { KAKAO_AUTH_URL_BASE } from "../../common/auth";
+import { KAKAO_AUTH_URL_BASE } from "../../constants/auth";
 import getImgSrc from "../../utils/getImgSrc";
 import env from "~/env";
 

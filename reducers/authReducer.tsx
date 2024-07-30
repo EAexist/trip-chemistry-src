@@ -4,14 +4,13 @@ import { useCallback } from "react";
 
 
 /*** Trip Chemistry ***/
-import { HEADERS_AXIOS } from "../common/app-const";
+import env from "~/env";
+import axios from "../axios";
+import { HEADERS_AXIOS } from "../constants/app-const";
 import { IProfileId } from "../interfaces/IProfile";
 import { IUserProfile, defaultUserProfile } from "../interfaces/IUserProfile";
 import { IWithLoadStatus, LoadStatus } from "../interfaces/enums/LoadStatus";
 import { useAppDispatch, useAppSelector } from "../store";
-import { defaultTestResult } from "../interfaces/ITestResult";
-import axios from "../common/axios";
-import env from "~/env";
 
 /* Interface */
 

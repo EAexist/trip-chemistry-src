@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Chip, ChipProps, Icon, Stack } from "@mui/material";
-import { HASHTAGS, TRIP_TAGS } from "../../common/app-const";
+import { HASHTAGS, TRIP_TAGS } from "../../constants/tags";
 
 interface Tags {
     [k: number]: {

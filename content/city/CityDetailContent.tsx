@@ -5,7 +5,7 @@ import { ArrowRight } from "@mui/icons-material";
 import { AppBar, Container, Divider, Fade, Stack, Toolbar, useScrollTrigger } from "@mui/material";
 
 /* App */
-import { CITIES, HASHTAGS, NATION } from "../../common/app-const";
+import { NATION } from "../../constants/app-const";
 import ImageCard from "../../components/Card/ImageCard";
 import Flag from "../../components/Flag";
 import Logo from "../../components/Logo";
@@ -19,6 +19,8 @@ import { useLocation, useSearchParams } from "~/router-module";
 import { Fragment } from "react/jsx-runtime";
 import Fab from "../../components/Button/Fab";
 import NavigateBeforeButton from "../../components/Button/NavigateBeforeButton";
+import { CITIES } from "../../constants/cities";
+import { HASHTAGS } from "../../constants/tags";
 
 interface CityDetailContentProps {
     cityId: string;

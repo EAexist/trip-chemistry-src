@@ -9,7 +9,6 @@ import { Avatar, Chip, List, ListItem, ListItemAvatar, ListItemText, Stack } fro
 import useValueToProfileIdList from "../../hooks/useValueToProfileIdList";
 import { FADEIN_FROMBOTTOM_VIEWPORT } from "../../motion/props";
 import { useAppSelector } from "../../store";
-import { specialRestaurantBudgetSliderProps } from "../test/RestaurantBudgetTestContent";
 import GroupAnswerSlider from "./component/GroupAnswerSlider";
 
 
@@ -19,6 +18,7 @@ import ImageIcon from "../../components/ImageIcon";
 import { IProfile } from "../../interfaces/IProfile";
 import { useUserProfile } from "../../reducers/authReducer";
 import { criteriaAnswerOptions, restaurantCriterias } from "../test/RestaurantTestContent";
+import { specialRestaurantBudgetSliderProps } from "../../constants/specialRestaurantBudgetSliderProps";
 
 function RestaurantChemistryContent() {
 
@@ -121,13 +121,13 @@ function RestaurantChemistryContent() {
                     <GroupAnswerSlider answerToProfiles={specialBudgetAnswerToProfiles} {...specialRestaurantBudgetSliderProps} />
                     <div className="content">
                         {
-                            (highDailyBudgetMemberIds.includes(id)) &&
+                            (highDailyBudgetMemberIds?.includes(id)) &&
                             <p className="typography-article">
                                 {`${nickname} 님,친구들은 더 적은 최대 예산을 생각하고 있어요. 친구들이 부담을 갖지 않도록 생각한 것보다 합리적인 가격대의 식당을 함께 찾아보세요.`}
                             </p>
                         }
                         {
-                            (lowDailyBudgetMemberIds.includes(id)) &&
+                            (lowDailyBudgetMemberIds?.includes(id)) &&
                             <p className="typography-article">
                                 {`${nickname} 님, 친구들은 더 많은 최대 예산를 생각하고 있어요. 친구들이 가보고 싶어하는 식당에 대해 이야기를 잘 들어보고, 예산을 조정해 함께해보세요.`}
                             </p>

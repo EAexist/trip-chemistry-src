@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { CHARACTERS } from "../../../common/app-const";
+import { CHARACTERS } from "../../../constants/characters";
 import PaginationBullets from "../../../swiper/components/PaginationBullets";
 import getImgSrc from "../../../utils/getImgSrc";
 

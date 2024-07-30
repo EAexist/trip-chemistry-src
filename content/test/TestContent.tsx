@@ -10,8 +10,6 @@ import 'swiper/css';
 import { HashNavigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
-/* App */
-
 /* Contents */
 import HashTagTestContent from "./HashTagTestContent";
 import LeadershipTestContent from "./LeadershipTestContent";
@@ -20,7 +18,7 @@ import TimeTestContent from "./TimeTestContent";
 
 import { createSelector } from "@reduxjs/toolkit";
 import { SwiperOptions } from "swiper/types";
-import { TEST_TYPE } from "../../common/app-const";
+import { MIN_SELECTED_HASHTAG_NUMBER } from "../../constants/test";
 import MainAppBar from "../../components/AppBar/MainAppBar";
 import Fab from "../../components/Button/Fab";
 import ConfirmDrawer from "../../components/ConfirmDrawer";
@@ -34,7 +32,7 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import LoadRequiredContent, { AuthLoadRequiredContent } from "../LoadRequiredContent";
 import RestaurantBudgetTestContent from "./RestaurantBudgetTestContent";
 
-export const TEST_SECTIONS = {
+const TEST_SECTIONS = {
     expectation:
     {
         type: "hashtag",
@@ -202,7 +200,7 @@ function TestContent() {
                     const answer = subKey ? testAnswer[testKey][subKey] : testAnswer[testKey]
                     return (
                         (testKey === "hashtag")
-                            ? answer.length >= TEST_TYPE.hashtag.selectedMinLength
+                            ? answer.length >= MIN_SELECTED_HASHTAG_NUMBER
                             : (answer !== undefined)
                     )
                 }).every(v => v)

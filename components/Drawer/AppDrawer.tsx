@@ -1,11 +1,13 @@
-import { Alert, AppBar, Avatar, Container, Divider, ListItemAvatar, ListItemButton, ListItemText, Stack, SwipeableDrawer, SwipeableDrawerProps, Toolbar } from "@mui/material";
+import { AppBar, Avatar, Container, Divider, ListItemAvatar, ListItemButton, ListItemText, Stack, SwipeableDrawer, SwipeableDrawerProps, Toolbar } from "@mui/material";
 import { m } from "framer-motion";
 
 import { useLocation, useNavigate, useSearchParams } from "~/router-module";
 
-import { PAGES } from "../../common/app-const";
+import { Help } from "@mui/icons-material";
+import { PAGES } from "../../constants/app-const";
 import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext";
 import { MotionList } from "../../motion/components/MotionList";
+import { MotionListItemButton } from "../../motion/components/MotionListItemButton";
 import { MotionListSubheader } from "../../motion/components/MotionListSubheader";
 import { VARIANTS_STAGGER_CHILDREN } from "../../motion/props";
 import { useIsAuthorized, useUserProfile } from "../../reducers/authReducer";
@@ -13,9 +15,6 @@ import { useStrings } from "../../texts";
 import UserAvatar from "../Avatar/UserAvatar";
 import NavigateBeforeButton from "../Button/NavigateBeforeButton";
 import ImageIcon from "../ImageIcon";
-import { MotionListItemButton } from "../../motion/components/MotionListItemButton";
-import { MotionListItem } from "~/motion/components/MotionListItem";
-import { Help, Info } from "@mui/icons-material";
 
 interface AppDrawerProps extends SwipeableDrawerProps {
     onDrawerItemClick: () => void

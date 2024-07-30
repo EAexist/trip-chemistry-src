@@ -1,0 +1,1 @@
+export const MIN_SELECTED_HASHTAG_NUMBER = 2

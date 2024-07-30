@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Avatar, Box, Stack } from "@mui/material";
 import { createSelector } from "@reduxjs/toolkit";
 
-import { HASHTAGS } from "../../common/app-const";
+import { HASHTAGS } from "../../constants/tags";
 import { WithProfileProps } from "../../hocs/withUserProfile";
 import { ActivityTag } from "../../interfaces/enums/ActivityTag";
 import { ExpectationTag } from "../../interfaces/enums/ExpectationTag";
