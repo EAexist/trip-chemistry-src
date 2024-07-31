@@ -1,4 +1,4 @@
-import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
+import { createContext, Dispatch, lazy, SetStateAction, Suspense, useEffect, useState } from "react";
 import LazyDomAnimation from "../motion/LazyDomAnimation";
 import { Outlet, useNavigate, useSearchParams } from "~/router-module";
 
@@ -8,7 +8,8 @@ import { useAppDispatch, useAppSelector } from "../store";
 import loadable from "@loadable/component";
 
 // import AppDrawer from "../components/Drawer/AppDrawer";
-const AppDrawer = loadable(() => import(/* webpackChunkName: "AppDrawer" */ '../components/Drawer/AppDrawer'));
+const AppDrawer = lazy(() => import('../components/Drawer/AppDrawer'))
+// const AppDrawer = loadable(() => import(/* webpackChunkName: "AppDrawer" */ '../components/Drawer/AppDrawer'));
 // const LazyDomAnimation = loadable(() => import(/* webpackChunkName: "AppDrawer" */ '../motion/LazyDomAnimation'));
 
 interface DrawerContextProps {
@@ -53,7 +54,7 @@ function Page({ }) {
     useEffect(() => {
         if (isAutoLoginEnabaled) {
             const kakaoAccessToken = window.localStorage.getItem("kakaoAccessToken");
-            console.log(`[Page] useEffect\n\tkakaoAccessToken=${kakaoAccessToken}`);
+            // console.log(`[Page] useEffect\n\tkakaoAccessToken=${kakaoAccessToken}`);
 
             if (kakaoAccessToken) {
                 dispatch(asyncKakaoLoginByAccessToken({ accessToken: kakaoAccessToken }));
@@ -63,16 +64,16 @@ function Page({ }) {
             }
         }
     }, [isAutoLoginEnabaled, dispatch]);
-    
+
     const doRequireInitialization = useAppSelector((state) => state.auth.data.doRequireInitialization);
 
     /* Guest 접속 주소일 경우 주소의 id를 이용해 게스트로 로그인. */
     useEffect(() => {
-        if (!isAutoLoginEnabaled && !doRequireInitialization && ( guestId !== null )) {
+        if (!isAutoLoginEnabaled && !doRequireInitialization && (guestId !== null)) {
             console.log(`[Page] useEffect guestId=${guestId}`);
             dispatch(asyncGuestLogin(guestId));
         }
-    }, [isAutoLoginEnabaled, doRequireInitialization, guestId, dispatch])
+    }, [isAutoLoginEnabaled, doRequireInitialization, guestId ])
 
     /* Drawer */
     const [openDrawer, setOpenDrawer] = useState(false);
@@ -88,22 +89,24 @@ function Page({ }) {
                 showHandleFailButton={false}
                 showOnPending={true}
             >
-            <AuthLoadRequiredContent
-                isEnabled={(!isAutoLoginEnabaled) && (!isAuthorized)}
-                handleFail={handleGuestLoginFail}
-                handleSuccess={handleGuestLoginSuccess}
-                showHandleFailButton={false}
-                showOnPending={true}
-            >
-                <DrawerContext.Provider value={{ openDrawer, setOpenDrawer }}>
-                    <AppDrawer
-                        open={openDrawer}
-                        onOpen={() => setOpenDrawer(true)}
-                        onClose={() => setOpenDrawer(false)}
-                        onDrawerItemClick={() => setOpenDrawer(false)}
-                    />
-                    <Outlet />
-                </DrawerContext.Provider>
+                <AuthLoadRequiredContent
+                    isEnabled={(!isAutoLoginEnabaled) && (!isAuthorized)}
+                    handleFail={handleGuestLoginFail}
+                    handleSuccess={handleGuestLoginSuccess}
+                    showHandleFailButton={false}
+                    showOnPending={true}
+                >
+                    <DrawerContext.Provider value={{ openDrawer, setOpenDrawer }}>
+                        {/* <Suspense> */}
+                            <AppDrawer
+                                open={openDrawer}
+                                onOpen={() => setOpenDrawer(true)}
+                                onClose={() => setOpenDrawer(false)}
+                                onDrawerItemClick={() => setOpenDrawer(false)}
+                            />
+                        {/* </Suspense> */}
+                        <Outlet />
+                    </DrawerContext.Provider>
                 </AuthLoadRequiredContent>
             </AuthLoadRequiredContent>
         </LazyDomAnimation>

@@ -17,6 +17,7 @@ import { DTOToTestAnswer, IHashTagTestKey, INumericTestKey, ITestAnswer, ITestAn
 import { RootState, useAppDispatch, useAppSelector } from "../store";
 import { useUserId } from "./authReducer";
 import { HASHTAGS } from "../constants/tags";
+import { MIN_SELECTED_HASHTAG_NUMBER } from "../constants/test";
 
 type ITestAnswerState = IWithLoadStatus<ITestAnswer> & { isInitialized : Boolean }
 
