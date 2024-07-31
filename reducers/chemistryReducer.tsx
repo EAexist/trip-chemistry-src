@@ -24,7 +24,7 @@ type IChemistryState = IWithLoadStatus<IChemistry>;
 
 const initialState: IChemistryState = {
     data: defaultChemistry,
-    loadStatus: LoadStatus.REST,
+    loadStatus: LoadStatus.PENDING,
 };
 
 export const asyncCreateChemistry = createAsyncThunk("chemistry/asyncCreateChemistry",

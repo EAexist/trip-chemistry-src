@@ -16,7 +16,7 @@ const ChemistryPage = () => {
     const navigate = useNavigateWithGuestContext();
     const dispatch = useAppDispatch();
     const params = useParams();
-    const chemistryId = params.chemistryId ? params.chemistryId : "";
+    const chemistryId = params.chemistryId;
 
     /* Reducers */
     const [chemistryLoadStatus, setChemistryLoadStatus] = useChemistryLoadStatus();
@@ -33,7 +33,6 @@ const ChemistryPage = () => {
     /* 케미스트리 데이터 불러오기 */
     const id = useAppSelector((state) => state.chemistry.data.id)
     useEffect(() => {
-        console.log(`[ChemistryRoute] chemistryId=${chemistryId}`);
         if (chemistryId && ( chemistryId !== id )) {
             dispatch(asyncGetChemistry(chemistryId));
         }
@@ -45,7 +44,6 @@ const ChemistryPage = () => {
             /* @TODO Animate */
             setChemistryLoadStatus(LoadStatus.REST);
         }
-        console.log(`[ChemistryRoute] chemistryLoadStatus=${chemistryLoadStatus}`);
     }, [chemistryLoadStatus, dispatch, setChemistryLoadStatus]);
 
     const chemistry = useAppSelector((state)=>state.chemistry.data)
