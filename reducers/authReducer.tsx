@@ -234,12 +234,12 @@ const authSlice = createSlice({
         });
 
         /* asyncGuestLogin */
-        builder.addCase(asyncGuestLogin.fulfilled, (state, action: PayloadAction<IUserProfile>) => {
+        builder.addCase(asyncGuestLogin.fulfilled, (state, action: PayloadAction<ILoginResultDTO>) => {
             console.log(`[asyncGuestLogin] fulfilled\n\tpayload=${JSON.stringify(action.payload)}`);
             state.data = {
                 ...state.data,
-                doRequireInitialization: false,
-                profile: action.payload,
+                doRequireInitialization: action.payload.doRequireInitialization,
+                profile: action.payload.profile,
             };
             state.loadStatus = LoadStatus.SUCCESS;
         });
@@ -310,6 +310,7 @@ const authSlice = createSlice({
         builder.addCase(asyncSetNickname.fulfilled, (state, action: PayloadAction<IUserProfile>) => {
             console.log(`[asyncSetNickname] fulfilled\n\tpayload=${JSON.stringify(action.payload)}`);
             state.data.profile = action.payload;
+            state.data.doRequireInitialization = false;
             state.loadStatus = LoadStatus.SUCCESS;
         });
         builder.addCase(asyncSetNickname.pending, (state, action) => {

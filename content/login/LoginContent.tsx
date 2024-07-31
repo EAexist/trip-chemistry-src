@@ -41,7 +41,7 @@ function LoginContent({ title = "테스트를 시작해보세요" }: LoginConten
             navigate(`/user?guestId=${userId}`);
         }
         else {
-            navigate(`/login/initializeNickname${(userId !== undefined) ? `?guestId=${userId}` : ``}`, { state: { loginRedirectPath: pathname, navigateDirection: "next" } });
+            navigate(`/login/initializeNickname${(userId !== undefined) ? `?guestId=${userId}` : ``}`, { state: { isAccessValid: true, navigateDirection: "next" } });
         }
     }
 
@@ -71,7 +71,8 @@ function LoginContent({ title = "테스트를 시작해보세요" }: LoginConten
     return (
         <AuthLoadRequiredContent {...{
             handleSuccess: handleAuthSuccess,
-            handleFail: () => { }
+            handleFail: () => {},
+            showOnSuccess: false
         }}>
             <div className="fill-window">
                 <Toolbar />

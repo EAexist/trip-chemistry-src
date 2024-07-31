@@ -27,6 +27,7 @@ interface LoadRequiredContentProps extends WithLoadStatusProps {
     isEnabled?: boolean
     doWait?: boolean
     showOnPending?: boolean
+    showOnSuccess?: boolean
 };
 
 function LoadRequiredContent({
@@ -44,6 +45,7 @@ function LoadRequiredContent({
     showHandleFailButton = true, /* false 일 경우 버튼 없이 FAIL을 즉시 처리. */
     isEnabled = true,
     showOnPending = false,
+    showOnSuccess = true,
 }: PropsWithChildren<LoadRequiredContentProps>) {
 
     /* States */
@@ -134,7 +136,7 @@ function LoadRequiredContent({
     }, [ status === LoadStatus.PENDING ])
 
     return (
-        (!isEnabled) || (delayedStatus === LoadStatus.REST) || (delayedStatus === LoadStatus.SUCCESS) || (showOnPending && (delayedStatus === LoadStatus.PENDING))
+        (!isEnabled) || (delayedStatus === LoadStatus.REST) || (showOnSuccess && (delayedStatus === LoadStatus.SUCCESS)) || (showOnPending && (delayedStatus === LoadStatus.PENDING))
             ?
             children
             :

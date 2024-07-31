@@ -52,8 +52,8 @@ function SetNicknamePage({
         `${value.length}/${USER.maxNicknameLength}`
     ), [USER.maxNicknameLength]);
 
-    const [scrollYAtkeyboardOpen, setScrollYAtkeyboardOpen] = useState(window.scrollY)
-    const [currentVisualViewportHeight, setcurrentVisualViewportHeight] = useState<number>(window.innerHeight)
+    const [scrollYAtkeyboardOpen, setScrollYAtkeyboardOpen] = useState(0)
+    const [currentVisualViewportHeight, setcurrentVisualViewportHeight] = useState<number>(0)
     const [isIOSKeyboardOpened, setIsIOSKeyboardOpened] = useState(false)
 
     useEffect(() => {
@@ -66,6 +66,7 @@ function SetNicknamePage({
                 setScrollYAtkeyboardOpen(window.scrollY)
             }
         }
+        handleVisualViewPortResize()
         if (window.visualViewport) {
             window.visualViewport.onresize = handleVisualViewPortResize;
         }
