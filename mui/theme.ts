@@ -340,6 +340,11 @@ const theme = createTheme({
                 },
             ],
         },
+        MuiSkeleton: {
+            defaultProps: {
+                animation: "wave"
+            }
+        },
         MuiStack: {
             defaultProps: {
                 direction: 'row',
