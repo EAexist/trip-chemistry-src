@@ -1,44 +1,45 @@
 /* React */
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 /* Externals */
 import { useParams } from "~/router-module";
 
-import { LoadStatus } from "../../reducers";
-import resultReducer, { asyncGetPublicProfile, useResultLoadStatus } from "../../reducers/resultReducer";
-import { useAppDispatch, useAppSelector } from "../../store";
-import LoadRequiredContent from "../LoadRequiredContent";
+import { HEADERS_AXIOS } from "~/src/constants/app-const";
+import { IProfile } from "~/src/interfaces/IProfile";
+import axios from "../../axios";
 import ResultContent from "./ResultContent";
-import withReducer from "~/hocs/withReducer";
+import ResultContentFallback from "./ResultContentFallback";
 
 function PublicResultPage() {
 
     /* State */
     const params = useParams();
     const profileId = params.profileId ? params.profileId : "";
-
-    const profile = useAppSelector((state) => state.result.data)
-
-    const dispatch = useAppDispatch()
-    const [resultLoadStatus, setResultLoadStatus] = useResultLoadStatus();
-
-    useEffect(() => {
-        if (profileId && (profileId !== profile.id)) {
-            dispatch(asyncGetPublicProfile(profileId));
-        }
-    }, [profileId])
-
-    useEffect(() => {
-        if (resultLoadStatus === LoadStatus.SUCCESS) {
-            setResultLoadStatus(LoadStatus.REST);
-        }
-    }, [resultLoadStatus]);
-
+    
+ 	const [profile, setProfile] = useState<IProfile>();
+  
+     useEffect(() => {
+         const fetchProfile = async () => {
+             const res = await axios.get( "/profile",
+                {
+                    method: "GET",
+                    headers: HEADERS_AXIOS,
+                    params: {
+                        id: profileId
+                    },
+                },
+            )
+            setProfile(res.data);
+         }
+         fetchProfile();
+     }, []);
 
     return (
-        <LoadRequiredContent status={resultLoadStatus} setStatus={setResultLoadStatus}>
-            <ResultContent {...profile} />
-        </LoadRequiredContent>
+        profile
+        ?
+        <ResultContent {...profile} />
+        :
+        <ResultContentFallback/>
     );
 }
-export default withReducer(PublicResultPage)({ result: resultReducer });
+export default PublicResultPage
