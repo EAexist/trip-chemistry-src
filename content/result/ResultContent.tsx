@@ -31,7 +31,6 @@ function ResultContent({ ...props }: ResultContentProps) {
         <div className="page fill-window">
             <MainAppBar >
                 <AppTitleButton />
-                {/* <m.h1 {...FADEIN_VIEWPORT} className="section-title">{strings.sections.character.title}</m.h1> */}
             </MainAppBar>
             <Toolbar />
             <Box sx={{ backgroundColor: "gray.main" }}>
