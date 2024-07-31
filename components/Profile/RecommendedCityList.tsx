@@ -31,7 +31,7 @@ function RecommendedCityList({ testAnswer, ...props }: RecommendedCityListProps)
     const recommendedCities = Object.fromEntries(
             Object.entries(CITIES)
                 .map(([id, { cityTags, activityTags }]) => {
-                    console.log(`[RecommendedCityList] cityTags=${cityTags} city=${JSON.stringify(testAnswer.hashtag.city)} `)
+                    // console.log(`[RecommendedCityList] cityTags=${cityTags} city=${JSON.stringify(testAnswer.hashtag.city)} `)
                     const score = 2.5 + 0.5 * (testAnswer.hashtag.city.filter(x => cityTags.includes(x)).length + testAnswer.hashtag.activity.filter(x => activityTags.includes(x)).length)
                     return (
                         [id,
