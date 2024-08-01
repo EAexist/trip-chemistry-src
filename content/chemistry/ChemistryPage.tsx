@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "~/router-module";
 import LoadRequiredContent from "../../content/LoadRequiredContent";
 import withReducer from "../../hocs/withReducer";
@@ -9,6 +9,7 @@ import useNavigateWithGuestContext from "../../hooks/useNavigateWithGuestContext
 import { LoadStatus } from "../../reducers";
 import { useGetProfile } from "../../reducers/authReducer";
 import { useAppDispatch, useAppSelector } from "../../store";
+import ErrorBoundaryPage from "../ErrorBoundaryPage";
 
 const ChemistryPage = () => {
 
@@ -25,9 +26,6 @@ const ChemistryPage = () => {
     /* Event Handlers */
     const handleChemistrySuccess = () => {
         getProfile();
-    }
-    const handleFail = () => {
-        navigate('/');
     }
 
     /* 케미스트리 데이터 불러오기 */
@@ -53,12 +51,10 @@ const ChemistryPage = () => {
             status={chemistryLoadStatus}
             setStatus={setChemistryLoadStatus}
             handleSuccess={handleChemistrySuccess}
-            handleFail={handleFail}
         >
             <ChemistryContent {...chemistry} />
         </LoadRequiredContent>
     )
 }
-
 
 export default withReducer(ChemistryPage)({ chemistry: chemistryReducer });

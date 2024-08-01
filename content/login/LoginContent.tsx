@@ -71,7 +71,6 @@ function LoginContent({ title = "테스트를 시작해보세요" }: LoginConten
     return (
         <AuthLoadRequiredContent {...{
             handleSuccess: handleAuthSuccess,
-            handleFail: () => {},
             showOnSuccess: false
         }}>
             <div className="fill-window">

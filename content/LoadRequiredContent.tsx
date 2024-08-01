@@ -2,15 +2,14 @@
 import { PropsWithChildren, useEffect, useRef, useState } from "react";
 
 /* Externals */
-import { CircularProgress, Container, Toolbar } from "@mui/material";
 
 /* App */
 import withAuthLoadStatus, { WithLoadStatusProps } from "../hocs/withAuthLoadStatus";
 import { LoadStatus } from "../interfaces/enums/LoadStatus";
 
-import AnimatedIcon from "../components/AnimatedIcon";
-import Fab from "../components/Button/Fab";
 import APIFetchFallbackPage from "../components/APIFetchFallbackPage";
+import Fab from "../components/Button/Fab";
+import ErrorBoundaryPage from "./ErrorBoundaryPage";
 
 
 interface LoadRequiredContentProps extends WithLoadStatusProps {
@@ -40,9 +39,9 @@ function LoadRequiredContent({
     handleFailButtonText = "확인",
     handleMissButtonText = "확인",
     handleSuccess = () => { },
-    handleFail = () => { },
+    handleFail,
     handleMiss = () => { },
-    showHandleFailButton = true, /* false 일 경우 버튼 없이 FAIL을 즉시 처리. */
+    showHandleFailButton = false, /* false 일 경우 버튼 없이 FAIL을 즉시 처리. */
     isEnabled = true,
     showOnPending = false,
     showOnSuccess = true,
@@ -66,7 +65,7 @@ function LoadRequiredContent({
             buttonText: handleFailButtonText,
             onClick:
                 () => {
-                    handleFail();
+                    if(handleFail) handleFail();
                     setStatus(LoadStatus.REST);
                 }
         },
@@ -111,7 +110,7 @@ function LoadRequiredContent({
                     if (!isPending) {
                         setDelayedStatus(LoadStatus.FAIL);
                         /* 버튼 없이 FAIL을 바로 처리할 경우 */
-                        if (!showHandleFailButton) {
+                        if (handleFail) {
                             handleFail();
                             setStatus(LoadStatus.REST);
                         }
@@ -136,45 +135,16 @@ function LoadRequiredContent({
     }, [ status === LoadStatus.PENDING ])
 
     return (
-        (!isEnabled) || (delayedStatus === LoadStatus.REST) || (showOnSuccess && (delayedStatus === LoadStatus.SUCCESS)) || (showOnPending && (delayedStatus === LoadStatus.PENDING))
+        (!isEnabled) || (delayedStatus === LoadStatus.REST) || (showOnSuccess && (delayedStatus === LoadStatus.SUCCESS)) || (showOnPending && (delayedStatus === LoadStatus.PENDING)) || (handleFail && (delayedStatus === LoadStatus.FAIL))
             ?
             children
             :
+            (delayedStatus === LoadStatus.FAIL) 
+            ?
+            <ErrorBoundaryPage message="페이지를 찾을 수 없어요" icon="404" />
+            :
             <div className={`page flex fill-window`}>
                 <APIFetchFallbackPage/>
-                {/* <Toolbar />
-                <Container className='flex-grow block--centered content'>
-                    {
-                        (delayedStatus === LoadStatus.PENDING)
-                            ?
-                            (
-                                showServerBootingAlert
-                                    ?
-                                    <AnimatedIcon
-                                        name="sleep"   
-                                        width="96px"    
-                                        height="96px"                             
-                                    />
-                                    :
-                                    <CircularProgress/>
-                            )
-                            :
-                            <AnimatedIcon
-                                name="warning"   
-                                width="96px"    
-                                height="96px"                             
-                            />
-                    }
-                    <p>
-                        {
-                            (delayedStatus === LoadStatus.PENDING) && showServerBootingAlert
-                                ?
-                                "서버가 잠에서 깨는 중이에요. 잠시만 기다려주세요.\n최대 1분 정도 걸려요."
-                                :
-                                body
-                        }
-                    </p>
-                </Container> */}
                 {
                     onClick && buttonText &&
                     <Fab

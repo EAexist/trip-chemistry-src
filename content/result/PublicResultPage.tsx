@@ -2,13 +2,14 @@
 import { useEffect, useState } from "react";
 
 /* Externals */
-import { useParams } from "~/router-module";
+import { json, useParams } from "~/router-module";
 
 import { HEADERS_AXIOS } from "~/src/constants/app-const";
 import { IProfile } from "~/src/interfaces/IProfile";
 import axios from "../../axios";
 import ResultContent from "./ResultContent";
 import ResultContentFallback from "./ResultContentFallback";
+import ErrorBoundaryPage from "../ErrorBoundaryPage";
 
 function PublicResultPage() {
 
@@ -17,6 +18,7 @@ function PublicResultPage() {
     const profileId = params.profileId ? params.profileId : "";
     
  	const [profile, setProfile] = useState<IProfile>();
+    const [errorResponse, setErrorResponse] = useState()
   
      useEffect(() => {
          const fetchProfile = async () => {
@@ -29,12 +31,23 @@ function PublicResultPage() {
                     },
                 },
             )
-            setProfile(res.data);
+            .then((res)=>{
+                setProfile(res.data);
+            })
+            .catch(( error )=>{
+                if( error.response ) {
+                    setErrorResponse(error.response)
+                }
+            })
          }
          fetchProfile();
      }, []);
 
     return (
+        errorResponse
+        ?
+        <ErrorBoundaryPage/>
+        :
         profile
         ?
         <ResultContent {...profile} />
