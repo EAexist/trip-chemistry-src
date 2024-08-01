@@ -53,7 +53,7 @@ const ChemistryContent = ( data : IChemistry ) => {
     const hasAnsweredTest = useHasAnsweredTest();
 
     /* Induced */
-    const link = `${env.REACT_APP_PUBLIC_URL}/chemistry/${data.id}`;
+    const link = `${env.PUBLIC_URL}/chemistry/${data.id}`;
     const isMember = (profileIds.length > 0) && profileIds.includes(userId);
 
     /* States */

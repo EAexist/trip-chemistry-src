@@ -32,13 +32,13 @@ interface ILoginResultDTO {
 /* Async Thunks */
 const asyncGuestSignIn = createAsyncThunk("authSlice/asyncGuestSignIn",
     async (_, thunkAPI) => {
-        console.log(`[asyncGuestSignIn] POST ${env.REACT_APP_API_URL}/auth/guest/signIn`);
+        console.log(`[asyncGuestSignIn] POST ${env.API_URL}/auth/guest/signIn`);
         try {
             const response = await axios.post(`/auth/guest/signIn`,
                 {
                     method: "POST",
                     headers: HEADERS_AXIOS,
-                    // baseURL: env.REACT_APP_API_URL
+                    // baseURL: env.API_URL
                 });
             return response.data;
         }

@@ -42,7 +42,7 @@ function ResultPage() {
 
     /* 공유 Dialog */
     const profileId = useUserId()
-    const link = `${env.REACT_APP_PUBLIC_URL}/result/${profileId}`;
+    const link = `${env.PUBLIC_URL}/result/${profileId}`;
 
     const [openShareDialog, setOpenShareDialog] = useState(false);
     const handleStartShare = () => {
