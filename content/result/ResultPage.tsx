@@ -50,7 +50,7 @@ function ResultPage() {
     }
 
     return (
-        <div className="page fill-window">
+        <>
             <MainAppBar >
                 <m.h1 {...FADEIN_VIEWPORT} className="section-title">{strings.sections.character.title}</m.h1>
             </MainAppBar>
@@ -58,8 +58,8 @@ function ResultPage() {
                 hasAnsweredTest
                     ?
                     <>
-                        <UserResultContent/>
-                        <div className="fab-placeholder fab-placeholder--no-margin"/>
+                        <UserResultContent />
+                        <div className="fab-placeholder fab-placeholder--no-margin" />
                         <Fab
                             onClick={handleChemistryButtonClick}
                             startButton={
@@ -81,9 +81,9 @@ function ResultPage() {
                     <div className="flex fill-window">
                         <Container className='flex-grow block--centered content'>
                             <AnimatedIcon
-                                name="groundhog-day"   
-                                width="96px"    
-                                height="96px"                             
+                                name="groundhog-day"
+                                width="96px"
+                                height="96px"
                             />
                             <p>{`${nickname} 님은 어떤 여행 타입일까요?\n테스트를 완료하고 결과를 확인해보세요.`}</p>
                         </Container>
@@ -91,7 +91,7 @@ function ResultPage() {
                         <StartTestFab />
                     </div>
             }
-        </div>
+        </>
     );
 }
 export default ResultPage;

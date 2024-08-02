@@ -26,7 +26,7 @@ function ChemistryListContent() {
     }
 
     return (
-        <RoutedMotionPage className="page fill-window">
+        <RoutedMotionPage>
             <MainAppBar>
                 <m.h2 {...FADEIN_VIEWPORT} className="section-title">
                     내 여행 목록

@@ -51,8 +51,8 @@ function HomeContent() {
         restDelta: 0.001
     });
 
-    const [ isScrollCompleted, setIsScrollCompleted ] = useState(false)
-    
+    const [isScrollCompleted, setIsScrollCompleted] = useState(false)
+
     useTransform(() => scrollYProgress.get() > 0.99).on("change", (latest) =>
         setIsScrollCompleted(latest)
     )
@@ -61,16 +61,16 @@ function HomeContent() {
     //     console.log(`[HomeContent] scrollYProgress=${latest} `)
     // })
 
-    const [ innerHeight, setInnerHeight ] = useState(0)
-    useEffect(()=>{
-        const handleResize = ()=>setInnerHeight(window.innerHeight)
+    const [innerHeight, setInnerHeight] = useState(0)
+    useEffect(() => {
+        const handleResize = () => setInnerHeight(window.innerHeight)
         handleResize()
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, [])
-    
+
     return (
-        <div className="page fill-window">
+        <>
             <AppBar>
                 <Toolbar ref={toolBarRef}>
                     <Slide direction="up" in={scrollY.get() > innerHeight} container={toolBarRef.current}>
@@ -89,7 +89,7 @@ function HomeContent() {
                     </HomePageItem>
                 ))
             }
-            <Container sx={{ zIndex: 1000, position: "fixed", bottom: "96px" }} className="gutter-2xl">
+            <Container sx={{ zIndex: 1000, bottom: "96px" }} className="gutter-2xl floating--bottom">
                 <Box sx={{ height: "8px", backgroundColor: "gray.main", borderRadius: "16px", overflow: "hidden" }}>
                     <m.div style={{ scaleX, transformOrigin: "left" }}>
                         <Box sx={{ backgroundColor: isScrollCompleted ? "primary.main" : "primary.light", height: "8px", borderRadius: "16px" }} />
@@ -97,7 +97,7 @@ function HomeContent() {
                 </Box>
             </Container>
             <StartTestFab />
-        </div>
+        </>
     );
 }
 export default HomeContent;

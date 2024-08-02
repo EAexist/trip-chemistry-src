@@ -28,7 +28,7 @@ function ResultContent({ ...props }: ResultContentProps) {
     const animate = !(state?.isRedirected)
 
     return (
-        <div className="page fill-window">
+        <>
             <MainAppBar >
                 <AppTitleButton />
             </MainAppBar>
@@ -68,7 +68,7 @@ function ResultContent({ ...props }: ResultContentProps) {
             </Box>
             <div className="fab-placeholder fab-placeholder--no-margin" />
             <StartTestFab label="내 여행 타입 알아보기" />
-        </div >
+        </>
     );
 }
 export default ResultContent;

@@ -98,7 +98,7 @@ const theme = createTheme({
             styleOverrides: {
                 root: ({ theme }) =>({
                     [theme.breakpoints.up('sm')]: {
-                        width: '600px'
+                        maxWidth: '600px'
                     },
                     minWidth: '320px',
                     height: "48px",
@@ -278,11 +278,25 @@ const theme = createTheme({
         },
         MuiDrawer: {
             styleOverrides: {
-                paper: ({ ownerState }) => ({
+                paper: ({ ownerState, theme }) => ({
                     ...(ownerState.anchor === 'bottom' && {
                         borderTopRightRadius: "16px",
                         borderTopLeftRadius: "16px",
                     }),
+                    [theme.breakpoints.up('sm')]: {
+                        maxWidth: '600px',
+                        margin: 'auto'
+                    },
+                }),
+            }
+        },
+        MuiBackdrop: {
+            styleOverrides: {
+                root: ({ theme }) => ({
+                    [theme.breakpoints.up('sm')]: {
+                        maxWidth: '600px',
+                        margin: 'auto'
+                    },
                 }),
             }
         },

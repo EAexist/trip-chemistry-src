@@ -90,7 +90,7 @@ function IOSResponsiveFab({
 
 
     return (
-        <m.div animate={{ top: currentVisualViewportHeight + scrollYAtkeyboardOpen }} style={{ position: "fixed", width: "100%", top: currentVisualViewportHeight, y: scrollY }} >
+        <m.div animate={{ top: currentVisualViewportHeight + scrollYAtkeyboardOpen }} style={{ overflow: "visible", top: currentVisualViewportHeight, y: scrollY }} className="floating--bottom" >
             <Container className={isIOSKeyboardOpened ? "no-gutter" : "column-padding"} sx={{ transform: "translateY(-100%)" }}>
                 <Button
                     {...props}
