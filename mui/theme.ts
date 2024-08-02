@@ -108,7 +108,6 @@ const theme = createTheme({
                         marginRight: "24px",
                     },
                     right: 'auto',
-                    // margin: 'auto'
                 })
             }
         },
@@ -282,6 +281,8 @@ const theme = createTheme({
                     ...(ownerState.anchor === 'bottom' && {
                         borderTopRightRadius: "16px",
                         borderTopLeftRadius: "16px",
+                        // borderBottomRightRadius: "0px",
+                        // borderBottomLeftRadius: "0px",
                     }),
                     [theme.breakpoints.up('sm')]: {
                         maxWidth: '600px',

@@ -1,4 +1,4 @@
-import { createContext, Dispatch, lazy, SetStateAction, Suspense, useEffect, useState } from "react";
+import { createContext, Dispatch, lazy, SetStateAction, Suspense, useEffect, useRef, useState } from "react";
 import LazyDomAnimation from "../motion/LazyDomAnimation";
 import { Outlet, useNavigate, useSearchParams } from "~/router-module";
 
@@ -80,6 +80,7 @@ function Page({ }) {
 
     const isAuthorized = useIsAuthorized()
 
+    const containerRef = useRef<HTMLDivElement>(null);
     return (
         <LazyDomAnimation>
             <AuthLoadRequiredContent
@@ -97,13 +98,17 @@ function Page({ }) {
                     showOnPending={true}
                 >
                     <DrawerContext.Provider value={{ openDrawer, setOpenDrawer }}>
-                        <AppDrawer
-                            open={openDrawer}
-                            onOpen={() => setOpenDrawer(true)}
-                            onClose={() => setOpenDrawer(false)}
-                            onDrawerItemClick={() => setOpenDrawer(false)}
-                        />
-                        <div className="wrapper">
+                        <div className="wrapper" ref={containerRef}>
+                            <AppDrawer
+                                open={openDrawer}
+                                onOpen={() => setOpenDrawer(true)}
+                                onClose={() => setOpenDrawer(false)}
+                                onDrawerItemClick={() => setOpenDrawer(false)}
+                                container={containerRef.current}
+                                // SlideProps={{
+                                //     container: containerRef.current
+                                // }}
+                            />
                             <Outlet />
                         </div>
                     </DrawerContext.Provider>

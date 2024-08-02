@@ -18,7 +18,7 @@ function IOSResponsiveFab({
      * https://velog.io/@gene028/ios-keyboard
     */
     const [scrollYAtkeyboardOpen, setScrollYAtkeyboardOpen] = useState(0)
-    const [currentVisualViewportHeight, setcurrentVisualViewportHeight] = useState<number>(0)
+    const [currentVisualViewportHeight, setcurrentVisualViewportHeight] = useState<number>(2000)
     const [isIOSKeyboardOpened, setIsIOSKeyboardOpened] = useState(false)
 
     useEffect(() => {
