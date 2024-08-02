@@ -33,8 +33,7 @@ export const store: EnhancedStore<{
     // middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     //     serializableCheck: false,
     // }),
-    // devTools: env.NODE_ENV !== 'production',
-    devTools: true,
+    devTools: env.NODE_ENV !== 'production',
 });
 
 export const defaultReudcer = {
