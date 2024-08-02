@@ -96,14 +96,20 @@ const theme = createTheme({
                 color: 'secondary'
             },
             styleOverrides: {
-                root: {
+                root: ({ theme }) =>({
+                    [theme.breakpoints.up('sm')]: {
+                        width: '600px'
+                    },
+                    minWidth: '320px',
                     height: "48px",
                     overflow: "hidden",
                     '& .MuiToolbar-root': {
                         marginLeft: "24px",
                         marginRight: "24px",
-                    }
-                }
+                    },
+                    right: 'auto',
+                    // margin: 'auto'
+                })
             }
         },
         MuiAccordion: {

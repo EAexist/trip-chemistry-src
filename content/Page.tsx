@@ -8,8 +8,8 @@ import { useAppDispatch, useAppSelector } from "../store";
 import loadable from "@loadable/component";
 
 // import AppDrawer from "../components/Drawer/AppDrawer";
-const AppDrawer = lazy(() => import('../components/Drawer/AppDrawer'))
-// const AppDrawer = loadable(() => import(/* webpackChunkName: "AppDrawer" */ '../components/Drawer/AppDrawer'));
+// const AppDrawer = lazy(() => import('../components/Drawer/AppDrawer'))
+const AppDrawer = loadable(() => import(/* webpackChunkName: "AppDrawer" */ '../components/Drawer/AppDrawer'));
 // const LazyDomAnimation = loadable(() => import(/* webpackChunkName: "AppDrawer" */ '../motion/LazyDomAnimation'));
 
 interface DrawerContextProps {
@@ -73,7 +73,7 @@ function Page({ }) {
             console.log(`[Page] useEffect guestId=${guestId}`);
             dispatch(asyncGuestLogin(guestId));
         }
-    }, [isAutoLoginEnabaled, doRequireInitialization, guestId ])
+    }, [isAutoLoginEnabaled, doRequireInitialization, guestId])
 
     /* Drawer */
     const [openDrawer, setOpenDrawer] = useState(false);
@@ -97,15 +97,15 @@ function Page({ }) {
                     showOnPending={true}
                 >
                     <DrawerContext.Provider value={{ openDrawer, setOpenDrawer }}>
-                        {/* <Suspense> */}
-                            <AppDrawer
-                                open={openDrawer}
-                                onOpen={() => setOpenDrawer(true)}
-                                onClose={() => setOpenDrawer(false)}
-                                onDrawerItemClick={() => setOpenDrawer(false)}
-                            />
-                        {/* </Suspense> */}
-                        <Outlet />
+                        <AppDrawer
+                            open={openDrawer}
+                            onOpen={() => setOpenDrawer(true)}
+                            onClose={() => setOpenDrawer(false)}
+                            onDrawerItemClick={() => setOpenDrawer(false)}
+                        />
+                        <div className="wrapper">
+                            <Outlet />
+                        </div>
                     </DrawerContext.Provider>
                 </AuthLoadRequiredContent>
             </AuthLoadRequiredContent>

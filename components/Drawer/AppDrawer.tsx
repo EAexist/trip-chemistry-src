@@ -47,14 +47,16 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
             anchor={"right"}
             {...props}
             keepMounted={false}
+            PaperProps={{
+                sx: {
+                    width: "100%"
+                }
+            }}
         >
             {
-                // props.open &&
-                true &&
                 <m.div
                     initial={"hidden"}
                     animate={props.open ? "visible" : "hidden"}
-                    className="page fill-window"
                 >
                     <AppBar>
                         <Toolbar>
