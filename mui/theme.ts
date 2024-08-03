@@ -295,6 +295,7 @@ const theme = createTheme({
                     [theme.breakpoints.up('sm')]: {
                         maxWidth: '600px',
                         margin: 'auto',
+                        // overflow: "hidden"
                     },
                 }),
             }
