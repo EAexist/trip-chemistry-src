@@ -26,6 +26,7 @@ function Page({ }) {
     const [searchParams] = useSearchParams();
     const guestId = searchParams.get('guestId');
     const isAutoLoginEnabaled = useAppSelector((state) => state.auth.data.isAutoLoginEnabled);
+    const isAuthorized = useIsAuthorized();
     const navigate = useNavigate();
 
     /* States */
@@ -69,16 +70,14 @@ function Page({ }) {
 
     /* Guest 접속 주소일 경우 주소의 id를 이용해 게스트로 로그인. */
     useEffect(() => {
-        if (!isAutoLoginEnabaled && !doRequireInitialization && (guestId !== null)) {
+        if (!isAutoLoginEnabaled && !doRequireInitialization && (guestId !== null) && !isAuthorized) {
             console.log(`[Page] useEffect guestId=${guestId}`);
             dispatch(asyncGuestLogin(guestId));
         }
-    }, [isAutoLoginEnabaled, doRequireInitialization, guestId])
+    }, [isAutoLoginEnabaled, doRequireInitialization, guestId, isAuthorized])
 
     /* Drawer */
     const [openDrawer, setOpenDrawer] = useState(false);
-
-    const isAuthorized = useIsAuthorized()
 
     const containerRef = useRef<HTMLDivElement>(null);
     return (

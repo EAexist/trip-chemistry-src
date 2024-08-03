@@ -34,9 +34,7 @@ function KakaoAuthRedirectPage() {
             authorize();
             /* [ 게스트 -> 카카오 계정으로 전환한 경우 ]
                 닉네임 초기화 없이 바로 리다이렉트 */
-            navigate(`${loginRedirectPath
-                    ? loginRedirectPath
-                    : "/"}`);
+            navigate(`/user?guestId=${userProfile.id}`);
             setAuthLoadStatus(LoadStatus.REST);
         }
     }, [authLoadStatus, authorize, setAuthLoadStatus, userProfile]);
