@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 
 /* Externals */
 import { AppBar, Box, Container, Slide, Toolbar } from "@mui/material";
-import { m, useScroll, useSpring, useTransform } from "framer-motion";
+import { m, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 
 import AppTitleButton from "../../components/Button/AppTitleButton";
 import MainMenuButton from "../../components/Button/MenuButton";
@@ -52,16 +52,17 @@ function HomeContent() {
     });
 
     const [isScrollCompleted, setIsScrollCompleted] = useState(false)
+    const [showAppBarTitle, setShowAppBarTitle] = useState(false)
+    const [innerHeight, setInnerHeight] = useState(0)
 
     useTransform(() => scrollYProgress.get() > 0.99).on("change", (latest) =>
         setIsScrollCompleted(latest)
     )
 
-    // useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    //     console.log(`[HomeContent] scrollYProgress=${latest} `)
-    // })
+    useTransform(() => scrollY.get() > 2*innerHeight).on("change", (latest) =>
+        setShowAppBarTitle(latest)
+    )
 
-    const [innerHeight, setInnerHeight] = useState(0)
     useEffect(() => {
         const handleResize = () => setInnerHeight(window.innerHeight)
         handleResize()
@@ -70,10 +71,10 @@ function HomeContent() {
     }, [])
 
     return (
-        <>
+        <div className="page" style={{ minHeight: "640px" }}>
             <AppBar>
                 <Toolbar ref={toolBarRef}>
-                    <Slide direction="up" in={scrollY.get() > innerHeight} container={toolBarRef.current}>
+                    <Slide direction="up" in={showAppBarTitle} container={toolBarRef.current}>
                         <div>
                             <AppTitleButton />
                         </div>
@@ -97,7 +98,7 @@ function HomeContent() {
                 </Box>
             </Container>
             <StartTestFab />
-        </>
+        </div>
     );
 }
 export default HomeContent;
