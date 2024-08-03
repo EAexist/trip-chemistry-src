@@ -1,7 +1,7 @@
 import { AppBar, Avatar, Container, Divider, ListItemAvatar, ListItemButton, ListItemText, Stack, SwipeableDrawer, SwipeableDrawerProps, Toolbar } from "@mui/material";
 import { m } from "framer-motion";
 
-import { useLocation, useNavigate, useSearchParams } from "~/router-module";
+import { useLocation, useSearchParams } from "~/router-module";
 
 import { Help } from "@mui/icons-material";
 import { PAGES } from "../../constants/app-const";
@@ -37,7 +37,6 @@ function AppDrawer({ onDrawerItemClick, ...props }: AppDrawerProps) {
         navigate(path);
     };
 
-    const navigateRaw = useNavigate();
     const [searchParams] = useSearchParams();
     const guestId = searchParams.get('guestId');
 

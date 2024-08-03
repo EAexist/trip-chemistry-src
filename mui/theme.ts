@@ -1,5 +1,6 @@
 import { Visibility } from "@mui/icons-material";
 import { createTheme } from "@mui/material";
+import zIndex from "@mui/material/styles/zIndex";
 
 
 declare module '@mui/material/Button' {
@@ -284,9 +285,16 @@ const theme = createTheme({
                         // borderBottomRightRadius: "0px",
                         // borderBottomLeftRadius: "0px",
                     }),
+                    ...(((ownerState.anchor === 'right') || (ownerState.anchor === 'left')) && {
+                        [theme.breakpoints.up('sm')]: {
+                            position: "static"
+                        },
+                    }),
+                    }),
+                root: ({ ownerState, theme }) => ({
                     [theme.breakpoints.up('sm')]: {
                         maxWidth: '600px',
-                        margin: 'auto'
+                        margin: 'auto',
                     },
                 }),
             }
