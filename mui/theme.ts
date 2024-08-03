@@ -285,17 +285,34 @@ const theme = createTheme({
                         // borderBottomRightRadius: "0px",
                         // borderBottomLeftRadius: "0px",
                     }),
-                    ...(((ownerState.anchor === 'right') || (ownerState.anchor === 'left')) && {
+                    ...(((ownerState.anchor === 'right') || (ownerState.anchor === 'left')) ? {
                         [theme.breakpoints.up('sm')]: {
                             position: "static"
                         },
-                    }),
+                    }
+                : {
+                    [theme.breakpoints.up('sm')]: {
+                        maxWidth: '600px',
+                        margin: 'auto',
+                    },
+                }
+                ),
                     }),
                 root: ({ ownerState, theme }) => ({
                     [theme.breakpoints.up('sm')]: {
                         maxWidth: '600px',
                         margin: 'auto',
                         // overflow: "hidden"
+                    },
+                }),
+            }
+        },
+        MuiModal: {
+            styleOverrides: {
+                root: ({ ownerState, theme }) => ({
+                    [theme.breakpoints.up('sm')]: {
+                        maxWidth: '600px',
+                        margin: 'auto',
                     },
                 }),
             }
