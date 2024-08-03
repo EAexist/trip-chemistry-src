@@ -6,22 +6,8 @@ import { IExpectationTag } from "./enums/ExpectationTag";
 export interface ITestAnswer {
     hashtag: {
         expectation: IExpectationTag[],
-        // {
-        //     selected: IExpectationTag[]
-        //     unSelected: IExpectationTag[]
-        // },
-        activity: 
-        IActivityTag[],
-        // {
-        //     selected: IActivityTag[]
-        //     unSelected: IActivityTag[]
-        // },
-        city: 
-        ICityTag[],
-        // {
-        //     selected: ICityTag[]
-        //     unSelected: ICityTag[]
-        // }
+        activity: IActivityTag[],
+        city: ICityTag[],
     }
     leadership?: number
     schedule: {
