@@ -254,6 +254,26 @@ const theme = createTheme({
                 }),
             }
         },
+        MuiModal: {
+            styleOverrides: {
+                root: ({ ownerState, theme }) => ({
+                    [theme.breakpoints.up('sm')]: {
+                        maxWidth: '600px',
+                        margin: 'auto',
+                    },
+                }),
+            }
+        },
+        MuiBackdrop: {
+            styleOverrides: {
+                root: ({ theme }) => ({
+                    [theme.breakpoints.up('sm')]: {
+                        maxWidth: '600px',
+                        margin: 'auto'
+                    },
+                }),
+            }
+        },
         MuiFormControlLabel: {
             styleOverrides: {
                 root: {
