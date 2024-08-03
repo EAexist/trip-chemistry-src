@@ -46,8 +46,8 @@ function KakaoAuthRedirectPage() {
     }, [dispatch])
 
     return (
-        // <AuthLoadRequiredContent />
-        null
+        <AuthLoadRequiredContent />
+        // null
     );
 }
 export default KakaoAuthRedirectPage;

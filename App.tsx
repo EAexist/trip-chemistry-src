@@ -20,6 +20,7 @@ export default function App() {
     let router = createBrowserRouter(routes);
 
     return (
+        <div className="wrapper">
         <HelmetProvider>
             <Helmet>
                 <title>{"여행 타입 테스트"}</title>
@@ -42,5 +43,6 @@ export default function App() {
                 </LocalizationProvider>
             </ThemeProvider>
         </HelmetProvider>
+        </div>
     )
 };

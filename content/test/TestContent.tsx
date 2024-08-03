@@ -282,7 +282,7 @@ function TestContent() {
                 handleSuccess: handleLoadSuccess,
                 isEnabled: isAnswerSubmitted,
             }}>
-                <div className="page fill-window flex">
+                <div className="page flex">
                     <MainAppBar />
                     <Toolbar />
                     <Container>

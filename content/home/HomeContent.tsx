@@ -65,7 +65,7 @@ function HomeContent() {
     };
 
     return (
-        <div className="page fill-window">
+        <div className="page">
             <AppBar>
                 <Toolbar ref={containerRef}>
                     <Slide direction="up" in={page > 0} container={containerRef.current}>

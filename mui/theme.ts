@@ -90,12 +90,17 @@ const theme = createTheme({
                 color: 'secondary'
             },
             styleOverrides: {
-                root: {
+                root: ({ theme }) => ({
+                    [theme.breakpoints.up('sm')]: {
+                        maxWidth: '600px'
+                    },
+                    right: 'auto',
+                    minWidth: '320px',
                     height: "48px",
                     paddingLeft: "24px",
                     paddingRight: "24px",
                     overflow: "hidden"
-                }
+                })
             }
         },
         MuiAccordion: {
@@ -118,7 +123,7 @@ const theme = createTheme({
                     paddingRight: "24px",
                     alignItems: "center"
                 },
-                action:{
+                action: {
                     padding: 0
                 }
             }
@@ -229,12 +234,24 @@ const theme = createTheme({
         },
         MuiDrawer: {
             styleOverrides: {
-                    paper: ({ ownerState }) => ({
-                        ...(ownerState.anchor === 'bottom' && {
-                            borderTopRightRadius: "16px",
-                            borderTopLeftRadius: "16px",
-                        }),
-                    }),          
+                paper: ({ ownerState }) => ({
+                    ...(ownerState.anchor === 'bottom' && {
+                        borderTopRightRadius: "16px",
+                        borderTopLeftRadius: "16px",
+                    }),
+                    ...(((ownerState.anchor === 'right') || (ownerState.anchor === 'left')) && {
+                        [theme.breakpoints.up('sm')]: {
+                            position: "static"
+                        },
+                    }),
+                }),
+                root: ({ ownerState, theme }) => ({
+                    [theme.breakpoints.up('sm')]: {
+                        maxWidth: '600px',
+                        margin: 'auto',
+                        // overflow: "hidden"
+                    },
+                }),
             }
         },
         MuiFormControlLabel: {
